@@ -64,5 +64,24 @@ namespace Meow.Test.Extension.Helper
         {
             AssertHelper.Throws<ArgumentNullException>(() => { input.ToEnum<SampleEnum>(); }, "member");
         }
+
+        /// <summary>
+        /// 测试获取枚举值
+        /// </summary>
+        [Fact]
+        public void TestValue()
+        {
+            Assert.Equal(2, SampleEnum.B.Value());
+            Assert.Equal("2", SampleEnum.B.Value<string>());
+        }
+
+        /// <summary>
+        /// 测试获取枚举描述
+        /// </summary>
+        [Fact]
+        public void TestDescription()
+        {
+            Assert.Equal("B2", SampleEnum.B.Description());
+        }
     }
 }
