@@ -11,7 +11,6 @@ namespace Meow.Test.Helper
     /// </summary>
     public class CommonTest
     {
-
         /// <summary>
         /// 通用泛型转换
         /// </summary>

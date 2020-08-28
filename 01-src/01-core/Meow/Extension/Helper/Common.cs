@@ -22,5 +22,15 @@
         {
             return input?.ToString().Trim() ?? string.Empty;
         }
+
+        /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
+        /// <param name="input">输入值</param>
+        public static T To<T>(this object input)
+        {
+            return Meow.Helper.Common.To<T>(input);
+        }
     }
 }
