@@ -41,6 +41,8 @@ namespace Meow.Extensions.Helpers
         /// <param name="list">集合</param>
         public static List<T> ToNotNull<T>(this IEnumerable<T?> list) where T : struct
         {
+            if (list == null)
+                return new List<T>();
             return list
                   .Where(t => t != null)
                   .Select(t => t.SafeValue())
@@ -54,72 +56,9 @@ namespace Meow.Extensions.Helpers
         /// <param name="list">集合</param>
         public static List<T?> ToOrNull<T>(this IEnumerable<T> list) where T : struct
         {
+            if (list == null)
+                return new List<T?>();
             return list.Select(item => (T?)item).ToList();
-        }
-
-        /// <summary>
-        /// 添加不为空数据
-        /// </summary>
-        /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
-        /// <param name="data">添加数据</param>
-        public static List<T> AddNoNull<T>(this IEnumerable<T> list, T data)
-        {
-            if (list == null)
-                return new List<T>();
-            var source = list.ToList();
-            if (data.IsNull())
-                return source;
-            source.Add(data);
-            return source;
-        }
-
-        /// <summary>
-        /// 添加不为空数据
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="data">添加数据</param>
-        public static List<string> AddNoEmpty(this IEnumerable<string> list, string data)
-        {
-            if (list == null)
-                return new List<string>();
-            var source = list.ToList();
-            if (data.IsEmpty())
-                return source;
-            source.Add(data);
-            return source;
-        }
-
-        /// <summary>
-        /// 添加不为空数据
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="data">添加数据</param>
-        public static List<Guid> AddNoEmpty(this IEnumerable<Guid> list, Guid data)
-        {
-            if (list == null)
-                return new List<Guid>();
-            var source = list.ToList();
-            if (data.IsEmpty())
-                return source;
-            source.Add(data);
-            return source;
-        }
-
-        /// <summary>
-        /// 添加不为空数据
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="data">添加数据</param>
-        public static List<Guid?> AddNoEmpty(this IEnumerable<Guid?> list, Guid? data)
-        {
-            if (list == null)
-                return new List<Guid?>();
-            var source = list.ToList();
-            if (data.IsEmpty())
-                return source;
-            source.Add(data);
-            return source;
         }
 
         /// <summary>
@@ -165,6 +104,25 @@ namespace Meow.Extensions.Helpers
             return list == null
                  ? new List<Guid?>()
                  : list.Where(t => !t.IsEmpty()).ToList();
+        }
+
+        /// <summary>
+        /// 过滤重复值
+        /// </summary>
+        /// <typeparam name="TSource">源数据类型</typeparam>
+        /// <typeparam name="TKey">标识类型</typeparam>
+        /// <param name="source">源数据</param>
+        /// <param name="keySelector">委托方法</param>
+        public static IEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> knownKeys = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (knownKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
         }
     }
 }

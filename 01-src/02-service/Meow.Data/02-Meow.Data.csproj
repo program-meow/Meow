@@ -2,26 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Meow</AssemblyName>
-    <RootNamespace>Meow</RootNamespace>
+    <AssemblyName>Meow.Data</AssemblyName>
+    <RootNamespace>Meow.Data</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\output\release\Meow.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <OutputPath>..\..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\release\Meow.Data.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\..\..\output\release\Meow.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <OutputPath>..\..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\release\Meow.Data.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Extensions\Extensions.String.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
 
 </Project>

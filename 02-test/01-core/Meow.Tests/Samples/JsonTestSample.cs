@@ -1,20 +1,47 @@
 ﻿namespace Meow.Tests.Samples
 {
+    /// <summary>
+    /// A
+    /// </summary>
     public class A
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// B
+        /// </summary>
         public B B { get; set; }
     }
 
+    /// <summary>
+    /// B
+    /// </summary>
     public class B
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// C
+        /// </summary>
         public C C { get; set; }
     }
 
+    /// <summary>
+    /// C
+    /// </summary>
     public class C
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// A
+        /// </summary>
         public A A { get; set; }
     }
 

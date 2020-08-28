@@ -2,26 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Meow</AssemblyName>
-    <RootNamespace>Meow</RootNamespace>
+    <AssemblyName>Meow.Domain</AssemblyName>
+    <RootNamespace>Meow.Domain</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\output\release\Meow.xml</DocumentationFile>
     <OutputPath>..\..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\release\Meow.Domain.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\..\..\output\release\Meow.xml</DocumentationFile>
     <OutputPath>..\..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\release\Meow.Domain.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\Extensions.String.cs" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
   </ItemGroup>
 
 </Project>

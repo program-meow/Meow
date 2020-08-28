@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using Meow.Helpers;
 using Meow.Tests.Samples;
@@ -53,7 +52,7 @@ namespace Meow.Tests.Helpers
             result.Append("\"isShow\":true");
             result.Append("}");
             var actualData = JsonTestSample.Create();
-            actualData.Date = DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
+            actualData.Date = System.DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
             Assert.Equal(result.ToString(), Json.ToJson(actualData));
         }
 
@@ -74,7 +73,7 @@ namespace Meow.Tests.Helpers
             result.Append("}");
 
             var actualData = JsonTestSample.Create();
-            actualData.Date = DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
+            actualData.Date = System.DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
             Assert.Equal(result.ToString(), Json.ToJson(actualData, "'"));
         }
 

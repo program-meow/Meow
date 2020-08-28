@@ -31,5 +31,17 @@ namespace Meow.Tests.Helpers
             Assert.Equal("83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A".ToLower(), Meow.Helpers.String.Join(list));
             Assert.Equal("'83B0233C-A24F-49FD-8083-1337209EBC9A','EAB523C6-2FE7-47BE-89D5-C6D440C3033A'".ToLower(), Meow.Helpers.String.Join(list, "'"));
         }
+
+        /// <summary>
+        /// 泛型集合转换
+        /// </summary>
+        [Fact]
+        public void TestToList()
+        {
+            Assert.Empty(Meow.Helpers.String.ToList<string>(null));
+            Assert.Single(Meow.Helpers.String.ToList<string>("1"));
+            Assert.Equal(2, Meow.Helpers.String.ToList<string>("1,2").Count);
+            Assert.Equal(2, Meow.Helpers.String.ToList<int>("1,2")[1]);
+        }
     }
 }

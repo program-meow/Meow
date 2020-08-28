@@ -1,5 +1,6 @@
 /.vs
-/01-src/01-core/Meow/bin
+/output
 /01-src/01-core/Meow/obj
-/02-test/01-core/Meow.Tests/bin
+/01-src/02-service/Meow.Data/obj
+/01-src/02-service/Meow.Domain/obj
 /02-test/01-core/Meow.Tests/obj
