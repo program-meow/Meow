@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Meow.Extensions.Helpers;
-using Meow.Extensions.Validates;
+using Meow.Extension.Helper;
+using Meow.Extension.Validate;
 
 namespace Meow.Mathematics
 {

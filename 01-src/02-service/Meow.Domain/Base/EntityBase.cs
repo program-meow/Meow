@@ -1,7 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Meow.Domain.Base.Interface;
-using Meow.Extensions.Helpers;
+using Meow.Extension.Helper;
+using Meow.Helper;
+using Guid = System.Guid;
 
 namespace Meow.Domain.Base
 {
@@ -66,7 +67,7 @@ namespace Meow.Domain.Base
         /// </summary>
         protected virtual TKey CreateId()
         {
-            return Meow.Helpers.Common.To<TKey>(Guid.NewGuid());
+            return Common.To<TKey>(Guid.NewGuid());
         }
     }
 }

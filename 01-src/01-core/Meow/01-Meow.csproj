@@ -17,11 +17,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\Extensions.String.cs" />
+    <Compile Remove="Extension\Extensions.String.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
