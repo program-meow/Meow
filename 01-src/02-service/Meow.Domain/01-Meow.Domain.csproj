@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Meow.Application\01-Meow.Application.csproj" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
   </ItemGroup>
 
 </Project>

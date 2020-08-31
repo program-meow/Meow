@@ -31,8 +31,4 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Meow.Parameter\00-Meow.Parameter.csproj" />
-  </ItemGroup>
-
 </Project>

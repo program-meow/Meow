@@ -1,13 +1,9 @@
 /.vs
 /output
 
-/01-src/01-core/Meow.Parameter/bin
-/01-src/01-core/Meow.Parameter/obj
 /01-src/01-core/Meow/bin
 /01-src/01-core/Meow/obj
 
-/01-src/02-service/Meow.Application/bin
-/01-src/02-service/Meow.Application/obj
 /01-src/02-service/Meow.Domain/bin
 /01-src/02-service/Meow.Domain/obj
 /01-src/02-service/Meow.Data/bin
