@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Biz.Enum
+namespace Meow.Parameter.Enum
 {
     /// <summary>
     /// 性别

@@ -2,22 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Meow.Biz</AssemblyName>
-    <RootNamespace>Meow.Biz</RootNamespace>
+    <AssemblyName>Meow.Parameter</AssemblyName>
+    <RootNamespace>Meow.Parameter</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\..\output\release\Meow.Biz.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\output\release\Meow.Parameter.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\..\output\release\Meow.Biz.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\output\release\Meow.Parameter.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 </Project>

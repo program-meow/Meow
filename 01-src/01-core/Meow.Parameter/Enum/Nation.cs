@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Biz
+namespace Meow.Parameter.Enum
 {
     /// <summary>
     /// 民族

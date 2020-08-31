@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Meow.Parameter
+namespace Meow.Parameter.Common
 {
     /// <summary>
     /// 列表项
@@ -14,15 +14,11 @@ namespace Meow.Parameter
         /// <param name="text">文本</param>
         /// <param name="value">值</param>
         /// <param name="sortId">排序号</param>
-        /// <param name="group">组</param>
-        /// <param name="disabled">禁用</param>
-        public Item(string text, object value, int? sortId = null, string group = null, bool? disabled = null)
+        public Item(string text, object value, int? sortId = null)
         {
             Text = text;
             Value = value;
             SortId = sortId;
-            Group = group;
-            Disabled = disabled;
         }
 
         /// <summary>
@@ -42,18 +38,6 @@ namespace Meow.Parameter
         /// </summary>
         [JsonProperty("sortId", NullValueHandling = NullValueHandling.Ignore)]
         public int? SortId { get; }
-
-        /// <summary>
-        /// 组
-        /// </summary>
-        [JsonProperty("group", NullValueHandling = NullValueHandling.Ignore)]
-        public string Group { get; }
-
-        /// <summary>
-        /// 禁用
-        /// </summary>
-        [JsonProperty("disabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Disabled { get; }
 
         /// <summary>
         /// 比较

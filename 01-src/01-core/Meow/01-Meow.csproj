@@ -21,8 +21,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="2.1.0" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="2.1.0" />
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Meow.Parameter\00-Meow.Parameter.csproj" />
   </ItemGroup>
 
 </Project>
