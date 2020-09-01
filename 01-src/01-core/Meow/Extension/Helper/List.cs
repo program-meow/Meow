@@ -13,57 +13,57 @@ namespace Meow.Extension.Helper
         /// 添加不为空数据
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="data">添加数据</param>
-        public static void AddNoNull<T>(this List<T> list, T data)
+        public static void AddNoNull<T>(this List<T> value, T data)
         {
-            if (list == null)
+            if (value == null)
                 return;
             if (data.IsNull())
                 return;
-            list.Add(data);
+            value.Add(data);
         }
 
         /// <summary>
         /// 添加不为空数据
         /// </summary>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="data">添加数据</param>
-        public static void AddNoEmpty(this List<string> list, string data)
+        public static void AddNoEmpty(this List<string> value, string data)
         {
-            if (list == null)
+            if (value == null)
                 return;
             if (data.IsEmpty())
                 return;
-            list.Add(data);
+            value.Add(data);
         }
 
         /// <summary>
         /// 添加不为空数据
         /// </summary>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="data">添加数据</param>
-        public static void AddNoEmpty(this List<Guid> list, Guid data)
+        public static void AddNoEmpty(this List<Guid> value, Guid data)
         {
-            if (list == null)
+            if (value == null)
                 return;
             if (data.IsEmpty())
                 return;
-            list.Add(data);
+            value.Add(data);
         }
 
         /// <summary>
         /// 添加不为空数据
         /// </summary>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="data">添加数据</param>
-        public static void AddNoEmpty(this List<Guid?> list, Guid? data)
+        public static void AddNoEmpty(this List<Guid?> value, Guid? data)
         {
-            if (list == null)
+            if (value == null)
                 return;
             if (data.IsEmpty())
                 return;
-            list.Add(data);
+            value.Add(data);
         }
     }
 }

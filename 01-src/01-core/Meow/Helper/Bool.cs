@@ -10,30 +10,30 @@ namespace Meow.Helper
         /// <summary>
         /// 转换为布尔值
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static bool ToBool(object input)
+        /// <param name="value">值</param>
+        public static bool ToBool(object value)
         {
-            return ToBoolOrNull(input) ?? false;
+            return ToBoolOrNull(value) ?? false;
         }
 
         /// <summary>
         /// 转换为可空布尔值
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static bool? ToBoolOrNull(object input)
+        /// <param name="value">值</param>
+        public static bool? ToBoolOrNull(object value)
         {
-            var value = GetBool(input);
-            if (value != null)
-                return value.Value;
-            return bool.TryParse(input.SafeString(), out var result) ? (bool?)result : null;
+            var @bool = GetBool(value);
+            if (@bool != null)
+                return @bool.Value;
+            return bool.TryParse(value.SafeString(), out var result) ? (bool?)result : null;
         }
 
         /// <summary>
         /// 获取布尔值
         /// </summary>
-        private static bool? GetBool(object input)
+        private static bool? GetBool(object value)
         {
-            switch (input.SafeString().ToLower())
+            switch (value.SafeString().ToLower())
             {
                 case "0":
                     return false;

@@ -10,22 +10,20 @@ namespace Meow.Extension.Helper
         /// <summary>
         /// 将Json字符串转换为对象
         /// </summary>
-        /// <param name="json">Json字符串</param>
-        public static T ToObject<T>(this string json)
+        /// <param name="value">值</param>
+        public static T ToObject<T>(this string value)
         {
-            var result = Json.ToObject<T>(json);
-            return result;
+            return Json.ToObject<T>(value);
         }
 
         /// <summary>
         /// 将对象转换为Json字符串
         /// </summary>
-        /// <param name="target">目标对象</param>
+        /// <param name="value">值</param>
         /// <param name="quotes">引号，默认不填为双引号，范例：单引号 "'"</param>
-        public static string ToJson(this object target, string quotes = "")
+        public static string ToJson(this object value, string quotes = "")
         {
-            var result = Json.ToJson(target, quotes);
-            return result;
+            return Json.ToJson(value, quotes);
         }
     }
 }

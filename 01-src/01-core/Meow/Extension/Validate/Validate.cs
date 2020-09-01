@@ -10,11 +10,11 @@ namespace Meow.Extension.Validate
         /// <summary>
         /// 检测对象是否为null,为null则抛出<see cref="ArgumentNullException"/>异常
         /// </summary>
-        /// <param name="obj">对象</param>
+        /// <param name="value">值</param>
         /// <param name="parameterName">参数名</param>
-        public static void CheckNull(this object obj, string parameterName)
+        public static void CheckNull(this object value, string parameterName)
         {
-            if (obj.IsNull())
+            if (value.IsNull())
                 throw new ArgumentNullException(parameterName);
         }
     }

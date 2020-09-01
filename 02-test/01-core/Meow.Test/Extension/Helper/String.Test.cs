@@ -1,6 +1,7 @@
+using Meow.Extension.Helper;
 using Xunit;
 
-namespace Meow.Test.Helper
+namespace Meow.Test.Extension.Helper
 {
     /// <summary>
     /// ²âÊÔ×Ö·û´®²Ù×÷
@@ -13,10 +14,11 @@ namespace Meow.Test.Helper
         [Fact]
         public void TestToList()
         {
-            Assert.Empty(Meow.Helper.String.ToList<string>(null));
-            Assert.Single(Meow.Helper.String.ToList<string>("1"));
-            Assert.Equal(2, Meow.Helper.String.ToList<string>("1,2").Count);
-            Assert.Equal(2, Meow.Helper.String.ToList<int>("1,2")[1]);
+            string value = null;
+            Assert.Empty(value.ToList<string>());
+            Assert.Single("1".ToList<string>());
+            Assert.Equal(2, "1,2".ToList<string>().Count);
+            Assert.Equal(2, "1,2".ToList<int>()[1]);
         }
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace Meow.Test.Helper
         [InlineData(" Œ", "y")]
         public void TestPinYin(string input, string result)
         {
-            Assert.Equal(result, Meow.Helper.String.PinYin(input));
+            Assert.Equal(result, input.PinYin());
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace Meow.Test.Helper
         [InlineData("Abc", "abc")]
         public void TestFirstLowerCase(string value, string result)
         {
-            Assert.Equal(result, Meow.Helper.String.FirstLowerCase(value));
+            Assert.Equal(result, value.FirstLowerCase());
         }
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace Meow.Test.Helper
         [InlineData("abC", "AbC")]
         public void TestFirstUpperCase(string value, string result)
         {
-            Assert.Equal(result, Meow.Helper.String.FirstUpperCase(value));
+            Assert.Equal(result, value.FirstUpperCase());
         }
 
         /// <summary>
@@ -81,10 +83,10 @@ namespace Meow.Test.Helper
         [InlineData("NetCore", "Core", "Net")]
         public void TestRemoveEnd(string value, string removeValue, string result)
         {
-            Assert.Equal(result, Meow.Helper.String.RemoveEnd(value, removeValue));
+            Assert.Equal(result, value.RemoveEnd(removeValue));
         }
 
-        /// <summary>s
+        /// <summary>
         /// ·Ö¸ô´Ê×é
         /// </summary>
         [Theory]
@@ -97,7 +99,7 @@ namespace Meow.Test.Helper
         [InlineData("NetCore", "net-core")]
         public void TestSplitWordGroup(string value, string result)
         {
-            Assert.Equal(result, Meow.Helper.String.SplitWordGroup(value));
+            Assert.Equal(result, value.SplitWordGroup());
         }
     }
 }

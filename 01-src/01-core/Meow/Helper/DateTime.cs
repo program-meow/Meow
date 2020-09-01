@@ -10,19 +10,19 @@ namespace Meow.Helper
         /// <summary>
         /// 转换为日期
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static System.DateTime ToDate(object input)
+        /// <param name="value">值</param>
+        public static System.DateTime ToDate(object value)
         {
-            return ToDateOrNull(input) ?? System.DateTime.MinValue;
+            return ToDateOrNull(value) ?? System.DateTime.MinValue;
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static System.DateTime? ToDateOrNull(object input)
+        /// <param name="value">值</param>
+        public static System.DateTime? ToDateOrNull(object value)
         {
-            return System.DateTime.TryParse(input.SafeString(), out var result) ? (System.DateTime?)result : null;
+            return System.DateTime.TryParse(value.SafeString(), out var result) ? (System.DateTime?)result : null;
         }
     }
 }

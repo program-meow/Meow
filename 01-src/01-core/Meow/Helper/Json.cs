@@ -11,24 +11,24 @@ namespace Meow.Helper
         /// <summary>
         /// 将Json字符串转换为对象
         /// </summary>
-        /// <param name="json">Json字符串</param>
-        public static T ToObject<T>(string json)
+        /// <param name="value">值</param>
+        public static T ToObject<T>(string value)
         {
-            if (json.IsEmpty())
+            if (value.IsEmpty())
                 return default(T);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         /// <summary>
         /// 将对象转换为Json字符串
         /// </summary>
-        /// <param name="target">目标对象</param>
+        /// <param name="value">值</param>
         /// <param name="quotes">引号，默认不填为双引号，范例：单引号 "'"</param>
-        public static string ToJson(object target, string quotes = "")
+        public static string ToJson(object value, string quotes = "")
         {
-            if (target.IsNull())
+            if (value.IsNull())
                 return string.Empty;
-            var result = JsonConvert.SerializeObject(target);
+            var result = JsonConvert.SerializeObject(value);
             if (!quotes.IsEmpty())
                 result = result.Replace("\"", quotes);
             return result;

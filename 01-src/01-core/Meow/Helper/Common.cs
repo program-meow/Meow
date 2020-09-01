@@ -29,26 +29,26 @@ namespace Meow.Helper
         /// 通用泛型转换
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
-        /// <param name="input">输入值</param>
-        public static T To<T>(object input)
+        /// <param name="value">值</param>
+        public static T To<T>(object value)
         {
-            if (input == null)
+            if (value == null)
                 return default(T);
-            if (input is string && string.IsNullOrWhiteSpace(input.ToString()))
+            if (value is string && string.IsNullOrWhiteSpace(value.ToString()))
                 return default(T);
             var type = GetType<T>();
             var typeName = type.Name.ToLower();
             try
             {
                 if (typeName == "string")
-                    return (T)(object)input.ToString();
+                    return (T)(object)value.ToString();
                 if (typeName == "guid")
-                    return (T)(object)new System.Guid(input.ToString());
+                    return (T)(object)new System.Guid(value.ToString());
                 if (type.IsEnum)
-                    return Enum.Parse<T>(input);
-                if (input is IConvertible)
-                    return (T)System.Convert.ChangeType(input, type);
-                return (T)input;
+                    return Enum.Parse<T>(value);
+                if (value is IConvertible)
+                    return (T)System.Convert.ChangeType(value, type);
+                return (T)value;
             }
             catch
             {

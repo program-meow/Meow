@@ -11,21 +11,21 @@ namespace Meow.Helper
         /// <summary>
         /// 转换为64位浮点型,并按指定小数位舍入
         /// </summary>
-        /// <param name="input">输入值</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static double ToDouble(object input, int? digits = null)
+        public static double ToDouble(object value, int? digits = null)
         {
-            return ToDoubleOrNull(input, digits) ?? 0;
+            return ToDoubleOrNull(value, digits) ?? 0;
         }
 
         /// <summary>
         /// 转换为64位可空浮点型,并按指定小数位舍入
         /// </summary>
-        /// <param name="input">输入值</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static double? ToDoubleOrNull(object input, int? digits = null)
+        public static double? ToDoubleOrNull(object value, int? digits = null)
         {
-            var success = double.TryParse(input.SafeString(), out var result);
+            var success = double.TryParse(value.SafeString(), out var result);
             if (!success)
                 return null;
             if (digits == null)

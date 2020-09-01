@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Meow.Extension.Helper;
-using Meow.Parameter.Common;
+using Meow.Parameter.Object;
 
 namespace Meow.Helper
 {

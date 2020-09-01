@@ -14,171 +14,170 @@ namespace Meow.Extension.Helper
         /// <summary>
         /// 转换为bool
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static bool ToBool(this object obj)
+        /// <param name="value">值</param>
+        public static bool ToBool(this object value)
         {
-            return Meow.Helper.Bool.ToBool(obj);
+            return Meow.Helper.Bool.ToBool(value);
         }
 
         /// <summary>
         /// 转换为可空bool
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static bool? ToBoolOrNull(this object obj)
+        /// <param name="value">值</param>
+        public static bool? ToBoolOrNull(this object value)
         {
-            return Meow.Helper.Bool.ToBoolOrNull(obj);
+            return Meow.Helper.Bool.ToBoolOrNull(value);
         }
 
         /// <summary>
         /// 转换为int
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static int ToInt(this object obj)
+        /// <param name="value">值</param>
+        public static int ToInt(this object value)
         {
-            return Meow.Helper.Init.ToInt(obj);
+            return Meow.Helper.Init.ToInt(value);
         }
 
         /// <summary>
         /// 转换为可空int
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static int? ToIntOrNull(this object obj)
+        /// <param name="value">值</param>
+        public static int? ToIntOrNull(this object value)
         {
-            return Meow.Helper.Init.ToIntOrNull(obj);
+            return Meow.Helper.Init.ToIntOrNull(value);
         }
-
 
         /// <summary>
         /// 转换为long
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static long ToLong(this object obj)
+        /// <param name="value">值</param>
+        public static long ToLong(this object value)
         {
-            return Meow.Helper.Long.ToLong(obj);
+            return Meow.Helper.Long.ToLong(value);
         }
 
         /// <summary>
         /// 转换为可空long
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static long? ToLongOrNull(this object obj)
+        /// <param name="value">值</param>
+        public static long? ToLongOrNull(this object value)
         {
-            return Meow.Helper.Long.ToLongOrNull(obj);
+            return Meow.Helper.Long.ToLongOrNull(value);
         }
 
         /// <summary>
         /// 转换为double
         /// </summary>
-        /// <param name="obj">数据</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static double ToDouble(this object obj, int? digits = null)
+        public static double ToDouble(this object value, int? digits = null)
         {
-            return Meow.Helper.Double.ToDouble(obj, digits);
+            return Meow.Helper.Double.ToDouble(value, digits);
         }
 
         /// <summary>
         /// 转换为可空double
         /// </summary>
-        /// <param name="obj">数据</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static double? ToDoubleOrNull(this object obj, int? digits = null)
+        public static double? ToDoubleOrNull(this object value, int? digits = null)
         {
-            return Meow.Helper.Double.ToDoubleOrNull(obj, digits);
+            return Meow.Helper.Double.ToDoubleOrNull(value, digits);
         }
 
         /// <summary>
         /// 转换为decimal
         /// </summary>
-        /// <param name="obj">数据</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static decimal ToDecimal(this object obj, int? digits = null)
+        public static decimal ToDecimal(this object value, int? digits = null)
         {
-            return Meow.Helper.Decimal.ToDecimal(obj, digits);
+            return Meow.Helper.Decimal.ToDecimal(value, digits);
         }
 
         /// <summary>
         /// 转换为可空decimal
         /// </summary>
-        /// <param name="obj">数据</param>
+        /// <param name="value">值</param>
         /// <param name="digits">小数位数</param>
-        public static decimal? ToDecimalOrNull(this object obj, int? digits = null)
+        public static decimal? ToDecimalOrNull(this object value, int? digits = null)
         {
-            return Meow.Helper.Decimal.ToDecimalOrNull(obj, digits);
+            return Meow.Helper.Decimal.ToDecimalOrNull(value, digits);
         }
 
         /// <summary>
         /// 转换为日期
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static DateTime ToDate(this object obj)
+        /// <param name="value">值</param>
+        public static DateTime ToDate(this object value)
         {
-            return Meow.Helper.DateTime.ToDate(obj);
+            return Meow.Helper.DateTime.ToDate(value);
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static DateTime? ToDateOrNull(this object obj)
+        /// <param name="value">值</param>
+        public static DateTime? ToDateOrNull(this object value)
         {
-            return Meow.Helper.DateTime.ToDateOrNull(obj);
+            return Meow.Helper.DateTime.ToDateOrNull(value);
         }
 
         /// <summary>
         /// 转换为Guid
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static Guid ToGuid(this object obj)
+        /// <param name="value">值</param>
+        public static Guid ToGuid(this object value)
         {
-            return Meow.Helper.Guid.ToGuid(obj);
+            return Meow.Helper.Guid.ToGuid(value);
         }
 
         /// <summary>
         /// 转换为可空Guid
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static Guid? ToGuidOrNull(this object obj)
+        /// <param name="value">值</param>
+        public static Guid? ToGuidOrNull(this object value)
         {
-            return Meow.Helper.Guid.ToGuidOrNull(obj);
+            return Meow.Helper.Guid.ToGuidOrNull(value);
         }
 
         /// <summary>
         /// 转换为Guid集合
         /// </summary>
-        /// <param name="obj">数据,范例: "83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
-        public static List<Guid> ToGuidList(this string obj)
+        /// <param name="value">值,范例: "83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
+        public static List<Guid> ToGuidList(this string value)
         {
-            return Meow.Helper.Guid.ToGuidList(obj);
+            return Meow.Helper.Guid.ToGuidList(value);
         }
 
         /// <summary>
         /// 转换为Guid集合
         /// </summary>
-        /// <param name="obj">字符串集合</param>
-        public static List<Guid> ToGuidList(this IList<object> obj)
+        /// <param name="value">值</param>
+        public static List<Guid> ToGuidList(this IList<object> value)
         {
-            if (obj == null)
+            if (value == null)
                 return new List<Guid>();
-            return obj.Select(t => t.ToGuid()).ToList();
+            return value.Select(t => t.ToGuid()).ToList();
         }
 
         /// <summary>
         /// 转换为字节数组
         /// </summary>
-        /// <param name="obj">数据</param>
-        public static byte[] ToBytes(this string obj)
+        /// <param name="value">值</param>
+        public static byte[] ToBytes(this string value)
         {
-            return Meow.Helper.Byte.ToBytes(obj);
+            return Meow.Helper.Byte.ToBytes(value);
         }
 
         /// <summary>
         /// 转换为字节数组
         /// </summary>
-        /// <param name="obj">数据</param>
+        /// <param name="value">值</param>
         /// <param name="encoding">字符编码</param>
-        public static byte[] ToBytes(this string obj, Encoding encoding)
+        public static byte[] ToBytes(this string value, Encoding encoding)
         {
-            return Meow.Helper.Byte.ToBytes(obj, encoding);
+            return Meow.Helper.Byte.ToBytes(value, encoding);
         }
     }
 }

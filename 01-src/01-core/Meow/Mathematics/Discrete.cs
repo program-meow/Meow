@@ -14,11 +14,11 @@ namespace Meow.Mathematics
         /// 求数组中n个元素的组合
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
+        /// <param name="value">值</param>
         /// <param name="n">元素个数</param>
-        public static List<List<T>> Combination<T>(IEnumerable<T> list, int n)
+        public static List<List<T>> Combination<T>(IEnumerable<T> value, int n)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             var result = new List<List<T>>();
             if (data.IsEmpty() || n < 1 || data.Length < n)
                 return result;
@@ -31,13 +31,13 @@ namespace Meow.Mathematics
         /// 求数组中n个元素的组合,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="n">元素个数</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> CombinationJoin<T>(IEnumerable<T> list, int n, string quotes = "", string separator = ",")
+        public static List<string> CombinationJoin<T>(IEnumerable<T> value, int n, string quotes = "", string separator = ",")
         {
-            var permutations = Combination(list, n);
+            var permutations = Combination(value, n);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }
@@ -46,10 +46,10 @@ namespace Meow.Mathematics
         /// 求数组中所有元素的组合
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
-        public static List<List<T>> Combination<T>(IEnumerable<T> list)
+        /// <param name="value">值</param>
+        public static List<List<T>> Combination<T>(IEnumerable<T> value)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             if (data.IsEmpty())
                 return new List<List<T>>();
             var result = new List<List<T>>();
@@ -65,12 +65,12 @@ namespace Meow.Mathematics
         /// 求数组中所有元素的组合,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> CombinationJoin<T>(IEnumerable<T> list, string quotes = "", string separator = ",")
+        public static List<string> CombinationJoin<T>(IEnumerable<T> value, string quotes = "", string separator = ",")
         {
-            var permutations = Combination(list);
+            var permutations = Combination(value);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }
@@ -113,12 +113,12 @@ namespace Meow.Mathematics
         /// 求从起始标号到结束标号的排列，其余元素不变
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
+        /// <param name="value">值</param>
         /// <param name="startIndex">起始标号</param>
         /// <param name="endIndex">结束标号</param>
-        public static List<List<T>> Permutation<T>(IEnumerable<T> list, int startIndex, int endIndex)
+        public static List<List<T>> Permutation<T>(IEnumerable<T> value, int startIndex, int endIndex)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             var result = new List<List<T>>();
             if (data.IsEmpty() || startIndex < 0 || endIndex > data.Length - 1)
                 return result;
@@ -130,14 +130,14 @@ namespace Meow.Mathematics
         /// 求从起始标号到结束标号的排列，其余元素不变,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="startIndex">起始标号</param>
         /// <param name="endIndex">结束标号</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> PermutationJoin<T>(IEnumerable<T> list, int startIndex, int endIndex, string quotes = "", string separator = ",")
+        public static List<string> PermutationJoin<T>(IEnumerable<T> value, int startIndex, int endIndex, string quotes = "", string separator = ",")
         {
-            var permutations = Permutation(list, startIndex, endIndex);
+            var permutations = Permutation(value, startIndex, endIndex);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }
@@ -146,10 +146,10 @@ namespace Meow.Mathematics
         /// 返回数组所有元素的全排列
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
-        public static List<List<T>> Permutation<T>(IEnumerable<T> list)
+        /// <param name="value">值</param>
+        public static List<List<T>> Permutation<T>(IEnumerable<T> value)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             var result = Permutation(data, 0, data.Length - 1);
             return result;
         }
@@ -158,12 +158,12 @@ namespace Meow.Mathematics
         /// 返回数组所有元素的全排列,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> PermutationJoin<T>(IEnumerable<T> list, string quotes = "", string separator = ",")
+        public static List<string> PermutationJoin<T>(IEnumerable<T> value, string quotes = "", string separator = ",")
         {
-            var permutations = Permutation(list);
+            var permutations = Permutation(value);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }
@@ -202,11 +202,11 @@ namespace Meow.Mathematics
         /// 求数组中n个元素的排列组合
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
+        /// <param name="value">值</param>
         /// <param name="n">元素个数</param>
-        public static List<List<T>> PermutationCombination<T>(IEnumerable<T> list, int n)
+        public static List<List<T>> PermutationCombination<T>(IEnumerable<T> value, int n)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             var result = new List<List<T>>();
             if (data.IsEmpty() || n > data.Count())
                 return result;
@@ -224,13 +224,13 @@ namespace Meow.Mathematics
         /// 求数组中n个元素的排列组合,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="n">元素个数</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> PermutationCombinationJoin<T>(IEnumerable<T> list, int n, string quotes = "", string separator = ",")
+        public static List<string> PermutationCombinationJoin<T>(IEnumerable<T> value, int n, string quotes = "", string separator = ",")
         {
-            var permutations = PermutationCombination(list, n);
+            var permutations = PermutationCombination(value, n);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }
@@ -239,10 +239,10 @@ namespace Meow.Mathematics
         /// 求数组中所有元素的排列组合
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">所求数组</param>
-        public static List<List<T>> PermutationCombination<T>(IEnumerable<T> list)
+        /// <param name="value">值</param>
+        public static List<List<T>> PermutationCombination<T>(IEnumerable<T> value)
         {
-            var data = list.ToArray();
+            var data = value.ToArray();
             if (data.IsEmpty())
                 return new List<List<T>>();
             var result = new List<List<T>>();
@@ -258,12 +258,12 @@ namespace Meow.Mathematics
         /// 求数组中所有元素的排列组合,组合项连接为带分隔符的字符串
         /// </summary>
         /// <typeparam name="T">集合元素类型</typeparam>
-        /// <param name="list">集合</param>
+        /// <param name="value">值</param>
         /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
         /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static List<string> PermutationCombinationJoin<T>(IEnumerable<T> list, string quotes = "", string separator = ",")
+        public static List<string> PermutationCombinationJoin<T>(IEnumerable<T> value, string quotes = "", string separator = ",")
         {
-            var permutations = PermutationCombination(list);
+            var permutations = PermutationCombination(value);
             var result = permutations.Select(item => item.Join(quotes, separator)).ToList();
             return result;
         }

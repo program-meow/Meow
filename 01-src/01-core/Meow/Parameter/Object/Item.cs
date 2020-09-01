@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Meow.Parameter.Common
+namespace Meow.Parameter.Object
 {
     /// <summary>
     /// 列表项

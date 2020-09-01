@@ -10,24 +10,24 @@ namespace Meow.Helper
         /// <summary>
         /// 转换为64位整型
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static long ToLong(object input)
+        /// <param name="value">值</param>
+        public static long ToLong(object value)
         {
-            return ToLongOrNull(input) ?? 0;
+            return ToLongOrNull(value) ?? 0;
         }
 
         /// <summary>
         /// 转换为64位可空整型
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static long? ToLongOrNull(object input)
+        /// <param name="value">值</param>
+        public static long? ToLongOrNull(object value)
         {
-            var success = long.TryParse(input.SafeString(), out var result);
+            var success = long.TryParse(value.SafeString(), out var result);
             if (success)
                 return result;
             try
             {
-                var temp = Decimal.ToDecimalOrNull(input, 0);
+                var temp = Decimal.ToDecimalOrNull(value, 0);
                 if (temp == null)
                     return null;
                 return System.Convert.ToInt64(temp);

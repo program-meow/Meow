@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Meow.Parameter.Common;
+using Meow.Parameter.Object;
 
 namespace Meow.Helper
 {

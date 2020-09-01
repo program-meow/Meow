@@ -8,6 +8,7 @@
         /// <summary>
         /// 安全获取值，当值为null时，不会抛出异常
         /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
         /// <param name="value">可空值</param>
         public static T SafeValue<T>(this T? value) where T : struct
         {
@@ -17,20 +18,20 @@
         /// <summary>
         /// 安全转换为字符串，去除两端空格，当值为null时返回""
         /// </summary>
-        /// <param name="input">输入值</param>
-        public static string SafeString(this object input)
+        /// <param name="value">值</param>
+        public static string SafeString(this object value)
         {
-            return input?.ToString().Trim() ?? string.Empty;
+            return value?.ToString().Trim() ?? string.Empty;
         }
 
         /// <summary>
         /// 通用泛型转换
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
-        /// <param name="input">输入值</param>
-        public static T To<T>(this object input)
+        /// <param name="value">值</param>
+        public static T To<T>(this object value)
         {
-            return Meow.Helper.Common.To<T>(input);
+            return Meow.Helper.Common.To<T>(value);
         }
     }
 }
