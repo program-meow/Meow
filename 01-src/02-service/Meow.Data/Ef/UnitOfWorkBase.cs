@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using Meow.Data.Core.Transaction;
+using Meow.Data.Core.UnitOfWork;
 using Meow.Data.Ef.Interface;
-using Meow.Data.UnitOfWork;
+using Meow.Exception;
 using Meow.Helper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Guid = System.Guid;
 
 namespace Meow.Data.Ef
@@ -151,7 +156,22 @@ namespace Meow.Data.Ef
         /// </summary>
         public int Commit()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new ConcurrencyException(ex);
+            }
+        }
+
+        /// <summary>
+        /// 保存更改
+        /// </summary>
+        public override int SaveChanges()
+        {
+            return SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         #endregion
@@ -163,7 +183,114 @@ namespace Meow.Data.Ef
         /// </summary>
         public async Task<int> CommitAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new ConcurrencyException(ex);
+            }
+        }
+
+        /// <summary>
+        /// 异步保存更改
+        /// </summary>
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            SaveChangesBefore();
+            var transactionActionManager = Create<ITransactionActionManager>();
+            if (transactionActionManager.Count == 0)
+                return await base.SaveChangesAsync(cancellationToken);
+            return await TransactionCommit(transactionActionManager, cancellationToken);
+        }
+
+        /// <summary>
+        /// 保存更改前操作
+        /// </summary>
+        protected virtual void SaveChangesBefore()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        InterceptAddedOperation(entry);
+                        break;
+                    case EntityState.Modified:
+                        InterceptModifiedOperation(entry);
+                        break;
+                    case EntityState.Deleted:
+                        InterceptDeletedOperation(entry);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 拦截添加操作
+        /// </summary>
+        protected virtual void InterceptAddedOperation(EntityEntry entry)
+        {
+            InitCreationAudited(entry);
+            InitModificationAudited(entry);
+        }
+
+        /// <summary>
+        /// 初始化创建审计信息
+        /// </summary>
+        private void InitCreationAudited(EntityEntry entry)
+        {
+        }
+
+        /// <summary>
+        /// 初始化修改审计信息
+        /// </summary>
+        private void InitModificationAudited(EntityEntry entry)
+        {
+        }
+
+        /// <summary>
+        /// 拦截修改操作
+        /// </summary>
+        protected virtual void InterceptModifiedOperation(EntityEntry entry)
+        {
+            InitModificationAudited(entry);
+        }
+
+        /// <summary>
+        /// 拦截删除操作
+        /// </summary>
+        protected virtual void InterceptDeletedOperation(EntityEntry entry)
+        {
+        }
+
+        /// <summary>
+        /// 手工创建事务提交
+        /// </summary>
+        private async Task<int> TransactionCommit(ITransactionActionManager transactionActionManager, CancellationToken cancellationToken)
+        {
+            using (var connection = Database.GetDbConnection())
+            {
+                if (connection.State == ConnectionState.Closed)
+                    await connection.OpenAsync(cancellationToken);
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        await transactionActionManager.CommitAsync(transaction);
+                        Database.UseTransaction(transaction);
+                        var result = await base.SaveChangesAsync(cancellationToken);
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
         #endregion

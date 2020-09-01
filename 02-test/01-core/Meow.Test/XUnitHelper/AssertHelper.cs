@@ -16,7 +16,7 @@ namespace Meow.Test.XUnitHelper
         /// <typeparam name="TException">异常类型</typeparam>
         /// <param name="action">操作</param>
         /// <param name="keyword">关键字</param>
-        public static TException Throws<TException>(Action action, string keyword = "") where TException : Exception
+        public static TException Throws<TException>(Action action, string keyword = "") where TException : System.Exception
         {
             var exception = GetException<TException>(action);
             if (!string.IsNullOrWhiteSpace(keyword))
@@ -27,7 +27,7 @@ namespace Meow.Test.XUnitHelper
         /// <summary>
         /// 获取异常
         /// </summary>
-        private static TException GetException<TException>(Action action) where TException : Exception
+        private static TException GetException<TException>(Action action) where TException : System.Exception
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Meow.Test.XUnitHelper
         /// <typeparam name="TException">异常类型</typeparam>
         /// <param name="action">操作</param>
         /// <param name="keyword">关键字</param>
-        public static async Task<TException> ThrowsAsync<TException>(Func<Task> action, string keyword = "") where TException : Exception
+        public static async Task<TException> ThrowsAsync<TException>(Func<Task> action, string keyword = "") where TException : System.Exception
         {
             var exception = await GetExceptionAsync<TException>(action);
             if (!string.IsNullOrWhiteSpace(keyword))
@@ -57,7 +57,7 @@ namespace Meow.Test.XUnitHelper
         /// <summary>
         /// 获取异常
         /// </summary>
-        private static async Task<TException> GetExceptionAsync<TException>(Func<Task> action) where TException : Exception
+        private static async Task<TException> GetExceptionAsync<TException>(Func<Task> action) where TException : System.Exception
         {
             try
             {

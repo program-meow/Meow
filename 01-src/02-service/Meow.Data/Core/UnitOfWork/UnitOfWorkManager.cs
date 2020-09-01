@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Meow.Data.UnitOfWork
+namespace Meow.Data.Core.UnitOfWork
 {
     /// <summary>
     /// 工作单元管理器

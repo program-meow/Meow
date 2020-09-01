@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Meow.Dependency;
 
-namespace Meow.Data.UnitOfWork
+namespace Meow.Data.Core.UnitOfWork
 {
     /// <summary>
     /// 工作单元管理器

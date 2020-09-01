@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Meow.Aspect;
 
-namespace Meow.Data.UnitOfWork
+namespace Meow.Data.Core.UnitOfWork
 {
     /// <summary>
     /// 工作单元
