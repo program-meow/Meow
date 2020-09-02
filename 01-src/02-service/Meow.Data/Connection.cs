@@ -10,7 +10,7 @@ namespace Meow.Data
     public class Connection
     {
         /// <summary>
-        /// 初始化
+        /// 初始化连接对象
         /// </summary>
         /// <param name="type">数据库类型</param>
         /// <param name="server">服务端地址</param>
@@ -23,7 +23,7 @@ namespace Meow.Data
         }
 
         /// <summary>
-        /// 初始化
+        /// 初始化连接对象
         /// </summary>
         /// <param name="type">数据库类型</param>
         /// <param name="server">服务端地址</param>

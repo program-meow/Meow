@@ -11,3 +11,15 @@
 
 /02-test/01-core/Meow.Test/bin
 /02-test/01-core/Meow.Test/obj
+
+
+
+
+/03-sample/01-application/01-Presentation/Meow.Sample.Api/bin
+/03-sample/01-application/01-Presentation/Meow.Sample.Api/obj
+/03-sample/01-application/02-Service/Meow.Sample.Service/bin
+/03-sample/01-application/02-Service/Meow.Sample.Service/obj
+/03-sample/01-application/03-Domain/Meow.Sample.Domain/bin
+/03-sample/01-application/03-Domain/Meow.Sample.Domain/obj
+/03-sample/01-application/04-Infrastructure/Meow.Sample.Data/bin
+/03-sample/01-application/04-Infrastructure/Meow.Sample.Data/obj

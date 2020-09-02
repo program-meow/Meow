@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\..\output\release\Meow.Domain.xml</DocumentationFile>
+    <OutputPath>..\..\..\output\src\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\src\release\Meow.Domain.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\..\output\release\Meow.Domain.xml</DocumentationFile>
+    <OutputPath>..\..\..\output\src\release\</OutputPath>
+    <DocumentationFile>..\..\..\output\src\release\Meow.Domain.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
