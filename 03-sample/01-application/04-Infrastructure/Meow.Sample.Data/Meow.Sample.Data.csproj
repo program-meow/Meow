@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\01-src\02-service\Meow.Data\02-Meow.Data.csproj" />
     <ProjectReference Include="..\..\03-Domain\Meow.Sample.Domain\Meow.Sample.Domain.csproj" />
   </ItemGroup>
 

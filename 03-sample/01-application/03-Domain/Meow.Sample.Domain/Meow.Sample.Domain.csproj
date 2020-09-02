@@ -19,4 +19,8 @@
     <Folder Include="Repository\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\01-src\02-service\Meow.Domain\01-Meow.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

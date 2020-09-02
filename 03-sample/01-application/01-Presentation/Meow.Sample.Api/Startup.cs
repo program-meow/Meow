@@ -1,3 +1,4 @@
+using Meow.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,9 @@ namespace Meow.Sample.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var a = Configuration?.GetSection("SqlServerConnection"); 
+            var b = Configuration?.GetSection("Connection")?["SqlServer"]; 
         }
 
         /// <summary>
