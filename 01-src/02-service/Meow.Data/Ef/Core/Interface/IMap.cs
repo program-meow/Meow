@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Meow.Data.Ef.Interface
+namespace Meow.Data.Ef.Core.Interface
 {
     /// <summary>
     /// 映射

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Meow.Extension.Validate;
+using Meow.Extension.Validation;
 using Xunit;
 
-namespace Meow.Test.Extension.Validate
+namespace Meow.Test.Extension.Validation
 {
     /// <summary>
     /// ≤‚ ‘ «∑ÒŒ™Null¿©’π

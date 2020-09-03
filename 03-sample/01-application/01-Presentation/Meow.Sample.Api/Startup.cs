@@ -1,4 +1,5 @@
-using Meow.Data;
+using System;
+using Meow.Extension.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,12 +32,15 @@ namespace Meow.Sample.Api
         /// </summary>
         /// <param name="services">·þÎñ</param>
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
             var a = Configuration?.GetSection("SqlServerConnection"); 
-            var b = Configuration?.GetSection("Connection")?["SqlServer"]; 
+            var b = Configuration?.GetSection("Connection")?["SqlServer"];
+
+
+            return services.AddMeow();
         }
 
         /// <summary>

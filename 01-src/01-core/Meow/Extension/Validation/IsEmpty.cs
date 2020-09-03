@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Meow.Extension.Validate
+namespace Meow.Extension.Validation
 {
     /// <summary>
     /// 是否为空扩展

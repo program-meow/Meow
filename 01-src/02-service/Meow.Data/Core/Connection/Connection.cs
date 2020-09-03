@@ -1,24 +1,29 @@
-﻿using Meow.Exception;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Meow.Exception;
 using Meow.Extension.Helper;
+using Meow.Extension.Validation;
 using Meow.Parameter.Enum;
+using Meow.Validation;
 
-namespace Meow.Data
+namespace Meow.Data.Core.Connection
 {
     /// <summary>
     /// 连接对象
     /// </summary>
-    public class Connection
+    public class Connection : IValidation
     {
         /// <summary>
         /// 初始化连接对象
         /// </summary>
         /// <param name="type">数据库类型</param>
         /// <param name="server">服务端地址</param>
+        /// <param name="port">端口</param>
         /// <param name="database">数据库名称</param>
         /// <param name="userId">用户</param>
         /// <param name="password">密码</param>
-        public Connection(string type, string server, string database, string userId, string password)
-        : this(type, server, "", database, userId, password)
+        public Connection(string type, string server, string port, string database, string userId, string password)
+        : this(type.ToEnum<Database>(), server, port, database, userId, password)
         {
         }
 
@@ -31,7 +36,7 @@ namespace Meow.Data
         /// <param name="database">数据库名称</param>
         /// <param name="userId">用户</param>
         /// <param name="password">密码</param>
-        public Connection(string type, string server, string port, string database, string userId, string password)
+        public Connection(Database type, string server, string port, string database, string userId, string password)
         {
             Type = type;
             Server = server;
@@ -44,52 +49,55 @@ namespace Meow.Data
         /// <summary>
         /// 数据库类型
         /// </summary>
-        public string Type { get; set; }
+        [DisplayName("数据库类型")]
+        [Required(ErrorMessage = "数据库类型不能为空")]
+        public Database? Type { get; set; }
         /// <summary>
         /// 服务端地址
         /// </summary>
+        [DisplayName("服务端地址")]
+        [Required(ErrorMessage = "服务端地址不能为空")]
         public string Server { get; set; }
         /// <summary>
         /// 端口
         /// </summary>
+        [DisplayName("端口")]
         public string Port { get; set; }
         /// <summary>
         /// 数据库名称
         /// </summary>
+        [DisplayName("数据库名称")]
+        [Required(ErrorMessage = "数据库名称不能为空")]
         public string Database { get; set; }
         /// <summary>
         /// 用户
         /// </summary>
+        [DisplayName("用户")]
+        [Required(ErrorMessage = "用户不能为空")]
         public string UserId { get; set; }
         /// <summary>
         /// 密码
         /// </summary>
+        [DisplayName("密码")]
+        [Required(ErrorMessage = "密码不能为空")]
         public string Password { get; set; }
 
         /// <summary>
-        /// 获取数据库类型
+        /// 转换连接字符串
         /// </summary>
-        public Database GetDatabaseType()
+        public override string ToString()
         {
-            return Type.ToEnum<Database>();
-        }
-
-        /// <summary>
-        /// 获取连接字符串
-        /// </summary>
-        public string GetConnectionString()
-        {
-            var type = GetDatabaseType();
-            switch (type)
+            this.Validate();
+            switch (Type)
             {
                 case Parameter.Enum.Database.SqlServer:
-                    return "";
+                    return $"Server={Server};Database={Database};uid={UserId};pwd={Password};MultipleActiveResultSets=true";
                 case Parameter.Enum.Database.MySql:
-                    return "";
+                    return $"server={Server};{(Port.IsEmpty() ? "" : $"port={Port};")}database={Database};user id={UserId};password={Password};CharSet=utf8;";
                 case Parameter.Enum.Database.PgSql:
-                    return "";
+                    return $"server={Server};{(Port.IsEmpty() ? "" : $"port={Port};")}database={Database};User Id={UserId};password={Password};";
                 case Parameter.Enum.Database.Oracle:
-                    return "";
+                    return $"Data Source=localhost/ORCL;User Id=system;Password=admin;";
                 default:
                     throw new Warning("不支持该数据库类型");
             }

@@ -5,11 +5,9 @@ using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.AspectScope;
 using AspectCore.Extensions.Autofac;
 using Autofac;
-using Meow.Helper;
 
 namespace Meow.Extension.Helper
 {
-
     /// <summary>
     /// AspectCore扩展
     /// </summary>
@@ -24,7 +22,7 @@ namespace Meow.Extension.Helper
         {
             builder.RegisterDynamicProxy(config => {
                 config.EnableParameterAspect();
-                config.NonAspectPredicates.Add(t => Reflection.GetTopBaseType(t.DeclaringType).SafeString() == "Microsoft.EntityFrameworkCore.DbContext");
+                config.NonAspectPredicates.Add(t => Meow.Helper.Reflection.GetTopBaseType(t.DeclaringType).SafeString() == "Microsoft.EntityFrameworkCore.DbContext");
                 configAction?.Invoke(config);
             });
             builder.EnableAspectScoped();

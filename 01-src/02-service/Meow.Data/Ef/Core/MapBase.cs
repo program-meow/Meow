@@ -1,8 +1,8 @@
-﻿using Meow.Data.Ef.Interface;
+﻿using Meow.Data.Ef.Core.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Meow.Data.Ef
+namespace Meow.Data.Ef.Core
 {
     /// <summary>
     /// 映射配置

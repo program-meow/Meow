@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
+using Meow.Data.Core.Connection;
 
 namespace Meow.Sample.Service
 {
@@ -11,15 +11,15 @@ namespace Meow.Sample.Service
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfiguration _configuration;
+        private readonly IConnectionProvider _connectionProvider;
 
         /// <summary>
         /// 初始化搜索配置提供器
         /// </summary>
-        /// <param name="configuration">配置</param>
-        public ConfigProvider(IConfiguration configuration)
+        /// <param name="connectionProvider">配置</param>
+        public ConfigProvider(IConnectionProvider connectionProvider)
         {
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionProvider = connectionProvider ?? throw new ArgumentNullException(nameof(connectionProvider));
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Meow.Sample.Service
         /// </summary>
         public void GetConfig()
         {
-            var aa = _configuration["Connection:SqlServer"];
+            var aa = _connectionProvider.GetConnection("SqlServer");
         }
     }
 }

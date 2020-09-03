@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Meow.Extension.Validate;
+using Meow.Extension.Validation;
 using Xunit;
 
 namespace Meow.Test
@@ -23,11 +23,13 @@ namespace Meow.Test
             {
                 TestValue = "测试"
             };
-            var b = Test.ToStr(a);
+           // var b = Test.ToStr(a);
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Test
     {
 

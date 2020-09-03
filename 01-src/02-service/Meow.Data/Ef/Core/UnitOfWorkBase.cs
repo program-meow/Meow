@@ -7,14 +7,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meow.Data.Core.Transaction;
 using Meow.Data.Core.UnitOfWork;
-using Meow.Data.Ef.Interface;
+using Meow.Data.Ef.Core.Interface;
 using Meow.Exception;
 using Meow.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Guid = System.Guid;
 
-namespace Meow.Data.Ef
+namespace Meow.Data.Ef.Core
 {
     /// <summary>
     /// 工作单元

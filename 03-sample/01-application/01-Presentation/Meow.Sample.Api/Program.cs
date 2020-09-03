@@ -1,3 +1,5 @@
+using Meow.Exception;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +16,18 @@ namespace Meow.Sample.Api
         /// <param name="args">入口点参数</param>
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                WebHost.CreateDefaultBuilder(args)
+                    .UseStartup<Startup>()
+                    .Build()
+                    .Run();
+            }
+            catch (System.Exception ex)
+            {
+                throw new Warning($"应用程序启动失败:{ex.Message}");
+            }
+            //CreateHostBuilder(args).Build().Run();
         }
 
         /// <summary>

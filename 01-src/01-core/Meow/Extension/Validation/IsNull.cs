@@ -1,4 +1,4 @@
-﻿namespace Meow.Extension.Validate
+﻿namespace Meow.Extension.Validation
 {
     /// <summary>
     /// 是否为NUll扩展
