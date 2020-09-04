@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using Meow.Test.Sample;
-using Meow.Test.XUnitHelper;
+using Meow.Common.Test.Sample;
+using Meow.Common.Test.XUnitHelper;
 using Xunit;
 
 namespace Meow.Test.Helper
@@ -68,7 +68,7 @@ namespace Meow.Test.Helper
         [Fact]
         public void TestGetName_Validate()
         {
-            Assert.Equal(string.Empty, Meow.Helper.Enum.GetName(typeof(Sample.Sample), 3));
+            Assert.Equal(string.Empty, Meow.Helper.Enum.GetName(typeof(Sample), 3));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Meow.Test.Helper
         {
             AssertHelper.Throws<ArgumentNullException>(() => Meow.Helper.Enum.GetValue<SampleEnum>(null), "member");
             AssertHelper.Throws<ArgumentNullException>(() => Meow.Helper.Enum.GetValue<SampleEnum>(string.Empty), "member");
-            AssertHelper.Throws<ArgumentNullException>(() => Meow.Helper.Enum.GetValue<Sample.Sample>(string.Empty), "member");
+            AssertHelper.Throws<ArgumentNullException>(() => Meow.Helper.Enum.GetValue<Sample>(string.Empty), "member");
         }
 
         /// <summary>
@@ -222,8 +222,8 @@ namespace Meow.Test.Helper
         public void TestGetItems_Validate()
         {
             AssertHelper.Throws<InvalidOperationException>(() => {
-                Meow.Helper.Enum.GetItems<Sample.Sample>();
-            }, "类型 Meow.Test.Sample.Sample 不是枚举");
+                Meow.Helper.Enum.GetItems<Sample>();
+            }, "类型 Meow.Common.Test.Sample.Sample 不是枚举");
         }
 
         /// <summary>

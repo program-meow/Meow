@@ -1,6 +1,6 @@
 ﻿using System;
-using Meow.Domain.Base.Interface;
-using Meow.Domain.Data.Store;
+using Meow.Domain.Core.Model;
+using Meow.Domain.Core.Store;
 
 namespace Meow.Domain.Repository
 {

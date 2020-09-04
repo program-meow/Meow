@@ -1,7 +1,7 @@
 using System.Text;
+using Meow.Common.Test.Sample;
+using Meow.Common.Test.XUnitHelper;
 using Meow.Helper;
-using Meow.Test.Sample;
-using Meow.Test.XUnitHelper;
 using Newtonsoft.Json;
 using Xunit;
 

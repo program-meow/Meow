@@ -1,6 +1,6 @@
 using System;
+using Meow.Common.Test.Sample;
 using Meow.Extension.Helper;
-using Meow.Test.Sample;
 using Xunit;
 
 namespace Meow.Test.Extension.Helper

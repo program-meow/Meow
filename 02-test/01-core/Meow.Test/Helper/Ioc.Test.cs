@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Autofac;
+using Meow.Common.Test.Sample;
 using Meow.Dependency;
 using Meow.Extension.Helper;
 using Meow.Helper;
-using Meow.Test.Sample;
 using Xunit;
 
 namespace Meow.Test.Helper
@@ -18,7 +18,7 @@ namespace Meow.Test.Helper
         /// </summary>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.AddScoped<ISample, Sample.Sample>();
+            builder.AddScoped<ISample, Sample>();
         }
     }
 

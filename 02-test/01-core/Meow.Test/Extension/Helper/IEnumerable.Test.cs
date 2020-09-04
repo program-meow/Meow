@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Meow.Common.Test.Sample;
 using Meow.Extension.Helper;
-using Meow.Test.Sample;
 using Xunit;
 
 namespace Meow.Test.Extension.Helper
@@ -164,37 +164,37 @@ namespace Meow.Test.Extension.Helper
             var intValue4 = 4;
             int? intValue5 = null;
             var enumValue = SampleEnum.A;
-            var list = new List<Sample.Sample>
+            var list = new List<Sample>
             {
-                new Sample.Sample
+                new Sample
                 {
                     GuidValue = guidValue1,
                     TestValue = testValue1,
                     NullableIntValue = intValue1,
                     EnumValue = enumValue,
                 },
-                new Sample.Sample
+                new Sample
                 {
                     GuidValue = guidValue2,
                     TestValue = testValue2,
                     NullableIntValue = intValue2,
                     EnumValue = enumValue,
                 },
-                new Sample.Sample
+                new Sample
                 {
                     GuidValue = guidValue1,
                     TestValue = testValue3,
                     NullableIntValue = intValue3,
                     EnumValue = enumValue,
                 },
-                new Sample.Sample
+                new Sample
                 {
                     GuidValue = guidValue2,
                     TestValue = testValue1,
                     NullableIntValue = intValue4,
                     EnumValue = enumValue,
                 },
-                new Sample.Sample
+                new Sample
                 {
                     GuidValue = guidValue1,
                     TestValue = testValue2,

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Meow.Common.Test.Sample;
 using Meow.Validation;
 using Xunit;
 
@@ -12,14 +13,14 @@ namespace Meow.Test.Validation
         /// <summary>
         /// 测试样例
         /// </summary>
-        private readonly Sample.Sample _sample;
+        private readonly Sample _sample;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public DataAnnotationValidationTest()
         {
-            _sample = new Sample.Sample();
+            _sample = new Sample();
         }
 
         /// <summary>
