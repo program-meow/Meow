@@ -1,0 +1,1 @@
+IEnumerable   仿照  IQueryable  进行查询扩展
