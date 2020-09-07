@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Meow.Domain;
 using Meow.Domain.Model;
 
 namespace Meow.Sample.Domain.Model

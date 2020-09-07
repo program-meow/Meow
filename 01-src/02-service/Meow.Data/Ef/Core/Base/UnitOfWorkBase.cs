@@ -7,8 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meow.Data.Core.Transaction;
 using Meow.Data.Core.UnitOfWork;
+using Meow.Data.Ef.Core.Helper;
 using Meow.Exception;
 using Meow.Helper;
+using Meow.Parameter.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Guid = System.Guid;
@@ -39,6 +41,10 @@ namespace Meow.Data.Ef.Core.Base
         /// 跟踪号
         /// </summary>
         public string TraceId { get; set; }
+        /// <summary>
+        /// 数据库类型
+        /// </summary>
+        public Database DatabaseType { get; set; }
 
         #endregion
 
@@ -65,6 +71,7 @@ namespace Meow.Data.Ef.Core.Base
             : base(options)
         {
             TraceId = Guid.NewGuid().ToString();
+            DatabaseType = DbContextHelper.GetDatabaseType(options);
             _serviceProvider = serviceProvider ?? Ioc.Create<IServiceProvider>();
             RegisterToManager();
         }
@@ -99,7 +106,7 @@ namespace Meow.Data.Ef.Core.Base
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (IMap mapper in GetMaps())
-                mapper.Map(modelBuilder);
+                mapper.Map(DatabaseType, modelBuilder);
         }
 
         /// <summary>

@@ -42,7 +42,7 @@ namespace Meow.Data.Ef.Core.Extension
         /// <param name="services">服务集合</param>
         /// <param name="name">名称</param>
         /// <param name="root">根名称</param>
-        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, string name, string root = "Connection")
+        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, string name = "Database", string root = "Connection")
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService
         {
