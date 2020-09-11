@@ -2,6 +2,7 @@
 /* Application  应用程序                                        */
 /*==============================================================*/
 
+
 /*==============================================================*/
 /* Table: Application                                           */
 /*==============================================================*/
@@ -9,7 +10,6 @@ create table "Systems"."Application" (
    "ApplicationId" UUID                 not null,
    "Code" VARCHAR(60)          not null,
    "Name" VARCHAR(200)         not null,
-   "Device" INT4                 not null,
    "Comment" VARCHAR(500)         null,
    "Enabled" BOOL                 not null,
    "RegisterEnabled" BOOL                 not null,
@@ -33,9 +33,6 @@ comment on column "Systems"."Application"."Code" is
 
 comment on column "Systems"."Application"."Name" is
 '应用程序名称';
-
-comment on column "Systems"."Application"."Device" is
-'终端设备';
 
 comment on column "Systems"."Application"."Comment" is
 '备注';
