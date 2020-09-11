@@ -11,8 +11,7 @@ namespace Meow.Data.Core.Connection
         /// <summary>
         /// 获取连接对象
         /// </summary>
-        /// <param name="name">名称</param>
-        /// <param name="root">根名称</param>
-        Connection GetConnection([NotEmpty] string name, [NotEmpty] string root = "Connection");
+        /// <param name="key">标识</param>
+        Connection GetConnection([NotEmpty] string key);
     }
 }

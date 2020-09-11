@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Meow.Common.Test;
 using Meow.Common.Test.Sample;
 using Meow.Extension.Helper;
+using Meow.Query.Pager;
 using Xunit;
 
 namespace Meow.Test.Extension.Helper
@@ -153,60 +155,82 @@ namespace Meow.Test.Extension.Helper
         [Fact]
         public void TestDistinct()
         {
-            var guidValue1 = new Guid("EAB523C6-2FE7-47BE-89D5-C6D440C3033A");
-            var guidValue2 = new Guid("83B0233C-A24F-49FD-8083-1337209EBC9A");
-            var testValue1 = "小明";
-            var testValue2 = "小王";
-            var testValue3 = "小李";
-            var intValue1 = 1;
-            var intValue2 = 2;
-            var intValue3 = 3;
-            var intValue4 = 4;
-            int? intValue5 = null;
-            var enumValue = SampleEnum.A;
-            var list = new List<Sample>
-            {
-                new Sample
-                {
-                    GuidValue = guidValue1,
-                    TestValue = testValue1,
-                    NullableIntValue = intValue1,
-                    EnumValue = enumValue,
-                },
-                new Sample
-                {
-                    GuidValue = guidValue2,
-                    TestValue = testValue2,
-                    NullableIntValue = intValue2,
-                    EnumValue = enumValue,
-                },
-                new Sample
-                {
-                    GuidValue = guidValue1,
-                    TestValue = testValue3,
-                    NullableIntValue = intValue3,
-                    EnumValue = enumValue,
-                },
-                new Sample
-                {
-                    GuidValue = guidValue2,
-                    TestValue = testValue1,
-                    NullableIntValue = intValue4,
-                    EnumValue = enumValue,
-                },
-                new Sample
-                {
-                    GuidValue = guidValue1,
-                    TestValue = testValue2,
-                    NullableIntValue = intValue5,
-                    EnumValue = enumValue,
-                },
-            };
-
+            var list = TestSampleCreate.GetList();
             Assert.Equal(2, list.Distinct(t => t.GuidValue).Count());
             Assert.Equal(3, list.Distinct(t => t.TestValue).Count());
             Assert.Equal(5, list.Distinct(t => t.NullableIntValue).Count());
             Assert.True(list.Distinct(t => t.EnumValue).Count() == 1);
+        }
+
+        /// <summary>
+        /// 测试添加查询条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf()
+        {
+            var list = TestSampleCreate.GetList();
+            Assert.Equal(2, list.WhereIf(t => t.TestValue.Contains("小明"), true).Count());
+            Assert.Equal(5, list.WhereIf(t => t.TestValue.Contains("小明"), false).Count());
+        }
+
+        /// <summary>
+        /// 测试添加查询条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty()
+        {
+            var list = TestSampleCreate.GetList();
+            Assert.Equal(2, list.WhereIfNotEmpty(t => t.TestValue.Contains("小明")).Count());
+            Assert.Equal(5, list.WhereIfNotEmpty(t => t.TestValue.Contains("")).Count());
+        }
+
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        [Fact]
+        public void TestBetween()
+        {
+            var list = TestSampleCreate.GetList();
+            Assert.Equal(3, list.Between(t => t.IntValue, 2, (int?)null).Count);
+            Assert.Equal(4, list.Between(t => t.DoubleValue, (double)0, (double)3).Count);
+            Assert.True(list.Between(t => t.DecimalValue, (decimal)6, (decimal?)null).Count == 0);
+            var date = new DateTime(2002, 1, 1, 1, 1, 1);
+            Assert.True(list.Between(t => t.DateValue, date, date).Count == 1);
+        }
+
+        /// <summary>
+        /// 测试分页，包含排序
+        /// </summary>
+        [Fact]
+        public void TestPage()
+        {
+            var list = TestSampleCreate.GetList();
+            Assert.Equal(2, list.Page(new Pager(1, 2)).Count);
+            Assert.True(list.Page(new Pager(3, 2)).Count == 1);
+            Assert.True(list.Page(new Pager(10, 2)).Count == 0);
+        }
+
+        /// <summary>
+        /// 测试转换为分页列表，包含排序分页操作
+        /// </summary>
+        [Fact]
+        public void TestToPagerList()
+        {
+            var list = TestSampleCreate.GetList();
+            var pag1 = list.ToPagerList(new Pager(1, 2));
+            Assert.Equal(5, pag1.TotalCount);
+            Assert.Equal(3, pag1.PageCount);
+            Assert.Equal(2, pag1.Data.Count);
+
+            var pag2 = list.ToPagerList(new Pager(1, 10));
+            Assert.Equal(5, pag2.TotalCount);
+            Assert.Equal(1, pag2.PageCount);
+            Assert.Equal(5, pag2.Data.Count);
+
+            var pag3 = list.ToPagerList(new Pager(10, 10));
+            Assert.Equal(5, pag3.TotalCount);
+            Assert.Equal(1, pag3.PageCount);
+            Assert.True(pag3.Data.Count == 0);
         }
     }
 }

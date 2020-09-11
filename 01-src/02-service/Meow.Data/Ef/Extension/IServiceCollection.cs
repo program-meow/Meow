@@ -39,15 +39,14 @@ namespace Meow.Data.Ef.Extension
         /// <typeparam name="TService">工作单元接口类型</typeparam>
         /// <typeparam name="TImplementation">工作单元实现类型</typeparam>
         /// <param name="services">服务集合</param>
-        /// <param name="name">名称</param>
-        /// <param name="root">根名称</param>
-        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, string name, string root = "Connection")
+        /// <param name="key">标识</param>
+        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, string key)
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService
         {
             return AddUnitOfWork<TService, TImplementation>(services, builder =>
             {
-                ConfigConnection(builder, name, root);
+                ConfigConnection(builder, key);
             });
         }
 
@@ -57,34 +56,39 @@ namespace Meow.Data.Ef.Extension
         /// <typeparam name="TService">工作单元接口类型</typeparam>
         /// <typeparam name="TImplementation">工作单元实现类型</typeparam>
         /// <param name="services">服务集合</param>
-        /// <param name="type">数据库类型</param>
+        /// <param name="databaseType">数据库类型</param>
         /// <param name="connection">连接字符串</param>
-        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, Database type, string connection)
+        public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services, Database databaseType, string connection)
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService
         {
             return AddUnitOfWork<TService, TImplementation>(services, builder =>
             {
-                ConfigConnection(builder, type, connection);
+                ConfigConnection(builder, databaseType, connection);
             });
         }
 
         /// <summary>
         /// 配置连接字符串
         /// </summary>
-        private static void ConfigConnection(DbContextOptionsBuilder builder, string name, string root = "Connection")
+        /// <param name="builder">数据库上下文选项生成器</param>
+        /// <param name="key">标识</param>
+        private static void ConfigConnection(DbContextOptionsBuilder builder, string key)
         {
             var connectionProvider = Ioc.Create<IConnectionProvider>();
-            var connection = connectionProvider.GetConnection(name, root);
+            var connection = connectionProvider.GetConnection(key);
             ConfigConnection(builder, connection.Type.SafeValue(), connection.ToString());
         }
 
         /// <summary>
         /// 配置连接字符串
         /// </summary>
-        private static void ConfigConnection(DbContextOptionsBuilder builder, Database type, string connection)
+        /// <param name="builder">数据库上下文选项生成器</param>
+        /// <param name="databaseType">数据库类型</param>
+        /// <param name="connection">数据库连接字符串</param>
+        private static void ConfigConnection(DbContextOptionsBuilder builder, Database databaseType, string connection)
         {
-            switch (type)
+            switch (databaseType)
             {
                 case Database.SqlServer:
                     builder.UseSqlServer(connection);
