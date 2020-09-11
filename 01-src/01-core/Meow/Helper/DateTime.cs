@@ -1,4 +1,5 @@
 ﻿using Meow.Extension.Helper;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -11,18 +12,18 @@ namespace Meow.Helper
         /// 转换为日期
         /// </summary>
         /// <param name="value">值</param>
-        public static System.DateTime ToDate(object value)
+        public static MicrosoftSystem.DateTime ToDate(object value)
         {
-            return ToDateOrNull(value) ?? System.DateTime.MinValue;
+            return ToDateOrNull(value) ?? MicrosoftSystem.DateTime.MinValue;
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
         /// <param name="value">值</param>
-        public static System.DateTime? ToDateOrNull(object value)
+        public static MicrosoftSystem.DateTime? ToDateOrNull(object value)
         {
-            return System.DateTime.TryParse(value.SafeString(), out var result) ? (System.DateTime?)result : null;
+            return MicrosoftSystem.DateTime.TryParse(value.SafeString(), out var result) ? (MicrosoftSystem.DateTime?)result : null;
         }
     }
 }

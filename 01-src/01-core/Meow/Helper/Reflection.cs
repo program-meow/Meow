@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Meow.Parameter.Object;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -38,7 +38,7 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="memberName">成员名称</param>
-        public static string GetDescription(Type type, string memberName)
+        public static string GetDescription(MicrosoftSystem.Type type, string memberName)
         {
             if (type == null)
                 return string.Empty;
@@ -104,7 +104,7 @@ namespace Meow.Helper
         /// </summary>
         /// <typeparam name="TFind">查找类型</typeparam>
         /// <param name="assemblies">待查找的程序集列表</param>
-        public static List<Type> FindTypes<TFind>(params Assembly[] assemblies)
+        public static List<MicrosoftSystem.Type> FindTypes<TFind>(params Assembly[] assemblies)
         {
             var findType = typeof(TFind);
             return FindTypes(findType, assemblies);
@@ -115,9 +115,9 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="findType">查找类型</param>
         /// <param name="assemblies">待查找的程序集列表</param>
-        public static List<Type> FindTypes(Type findType, params Assembly[] assemblies)
+        public static List<MicrosoftSystem.Type> FindTypes(MicrosoftSystem.Type findType, params Assembly[] assemblies)
         {
-            var result = new List<Type>();
+            var result = new List<MicrosoftSystem.Type>();
             foreach (var assembly in assemblies)
                 result.AddRange(GetTypes(findType, assembly));
             return result.Distinct().ToList();
@@ -126,12 +126,12 @@ namespace Meow.Helper
         /// <summary>
         /// 获取类型列表
         /// </summary>
-        private static List<Type> GetTypes(Type findType, Assembly assembly)
+        private static List<MicrosoftSystem.Type> GetTypes(MicrosoftSystem.Type findType, Assembly assembly)
         {
-            var result = new List<Type>();
+            var result = new List<MicrosoftSystem.Type>();
             if (assembly == null)
                 return result;
-            Type[] types;
+            MicrosoftSystem.Type[] types;
             try
             {
                 types = assembly.GetTypes();
@@ -148,7 +148,7 @@ namespace Meow.Helper
         /// <summary>
         /// 添加类型
         /// </summary>
-        private static void AddType(List<Type> result, Type findType, Type type)
+        private static void AddType(List<MicrosoftSystem.Type> result, MicrosoftSystem.Type findType, MicrosoftSystem.Type type)
         {
             if (type.IsInterface || type.IsAbstract)
                 return;
@@ -160,7 +160,7 @@ namespace Meow.Helper
         /// <summary>
         /// 泛型匹配
         /// </summary>
-        private static bool MatchGeneric(Type findType, Type type)
+        private static bool MatchGeneric(MicrosoftSystem.Type findType, MicrosoftSystem.Type type)
         {
             if (findType.IsGenericTypeDefinition == false)
                 return false;
@@ -191,9 +191,9 @@ namespace Meow.Helper
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="type">类型</param>
         /// <param name="parameters">传递给构造函数的参数</param>        
-        public static T CreateInstance<T>(Type type, params object[] parameters)
+        public static T CreateInstance<T>(MicrosoftSystem.Type type, params object[] parameters)
         {
-            return Meow.Helper.Common.To<T>(Activator.CreateInstance(type, parameters));
+            return Meow.Helper.Common.To<T>(MicrosoftSystem.Activator.CreateInstance(type, parameters));
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace Meow.Helper
         {
             if (property.PropertyType.GetTypeInfo().IsEnum)
                 return true;
-            var value = Nullable.GetUnderlyingType(property.PropertyType);
+            var value = MicrosoftSystem.Nullable.GetUnderlyingType(property.PropertyType);
             if (value == null)
                 return false;
             return value.GetTypeInfo().IsEnum;
@@ -285,9 +285,9 @@ namespace Meow.Helper
         /// </summary>
         private static bool IsDate(PropertyInfo property)
         {
-            if (property.PropertyType == typeof(System.DateTime))
+            if (property.PropertyType == typeof(MicrosoftSystem.DateTime))
                 return true;
-            if (property.PropertyType == typeof(System.DateTime?))
+            if (property.PropertyType == typeof(MicrosoftSystem.DateTime?))
                 return true;
             return false;
         }
@@ -374,7 +374,7 @@ namespace Meow.Helper
         /// 是否集合
         /// </summary>
         /// <param name="type">类型</param>
-        public static bool IsCollection(Type type)
+        public static bool IsCollection(MicrosoftSystem.Type type)
         {
             if (type.IsArray)
                 return true;
@@ -385,7 +385,7 @@ namespace Meow.Helper
         /// 是否泛型集合
         /// </summary>
         /// <param name="type">类型</param>
-        public static bool IsGenericCollection(Type type)
+        public static bool IsGenericCollection(MicrosoftSystem.Type type)
         {
             if (!type.IsGenericType)
                 return false;
@@ -423,7 +423,7 @@ namespace Meow.Helper
         /// 获取顶级基类
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
-        public static Type GetTopBaseType<T>()
+        public static MicrosoftSystem.Type GetTopBaseType<T>()
         {
             return GetTopBaseType(typeof(T));
         }
@@ -432,7 +432,7 @@ namespace Meow.Helper
         /// 获取顶级基类
         /// </summary>
         /// <param name="type">类型</param>
-        public static Type GetTopBaseType(Type type)
+        public static MicrosoftSystem.Type GetTopBaseType(MicrosoftSystem.Type type)
         {
             if (type == null)
                 return null;
@@ -447,7 +447,7 @@ namespace Meow.Helper
         /// 获取元素类型，如果是集合，返回集合的元素类型
         /// </summary>
         /// <param name="type">类型</param>
-        public static Type GetElementType(Type type)
+        public static MicrosoftSystem.Type GetElementType(MicrosoftSystem.Type type)
         {
             if (IsCollection(type) == false)
                 return type;
@@ -455,7 +455,7 @@ namespace Meow.Helper
                 return type.GetElementType();
             var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
             if (genericArgumentsTypes == null || genericArgumentsTypes.Length == 0)
-                throw new ArgumentException("泛型类型参数不能为空");
+                throw new MicrosoftSystem.ArgumentException("泛型类型参数不能为空");
             return genericArgumentsTypes[0];
         }
     }

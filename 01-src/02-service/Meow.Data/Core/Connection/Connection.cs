@@ -4,14 +4,13 @@ using Meow.Exception;
 using Meow.Extension.Helper;
 using Meow.Extension.Validation;
 using Meow.Parameter.Enum;
-using Meow.Validation;
 
 namespace Meow.Data.Core.Connection
 {
     /// <summary>
     /// 连接对象
     /// </summary>
-    public class Connection : IValidation
+    public class Connection
     {
         /// <summary>
         /// 初始化连接对象

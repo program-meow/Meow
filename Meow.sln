@@ -58,13 +58,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{47CB9D6B-A4B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-service", "02-service", "{A0B9C2B5-E64C-4ECA-B05C-B6DAA91D28C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Domain.Test", "02-test\02-service\Meow.Domain.Test\01-Meow.Domain.Test.csproj", "{33427C2D-798C-433F-BFA4-46FE79164E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Domain.Test", "02-test\02-service\Meow.Domain.Test\01-Meow.Domain.Test.csproj", "{33427C2D-798C-433F-BFA4-46FE79164E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Data.Test", "02-test\02-service\Meow.Data.Test\02-Meow.Data.Test.csproj", "{D79D07C3-1028-44E6-902A-531F5E60B961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Data.Test", "02-test\02-service\Meow.Data.Test\02-Meow.Data.Test.csproj", "{D79D07C3-1028-44E6-902A-531F5E60B961}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-common", "00-common", "{9F91F2CF-9459-46DE-9241-68C3EC4E5EB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00-Meow.Common.Test", "02-test\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj", "{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00-Meow.Common.Test", "02-test\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj", "{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Auth", "01-src\01-core\Meow.Auth\02-Meow.Auth.csproj", "{EB765091-DC61-425E-80CF-EABA84B02E25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,10 @@ Global
 		{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB765091-DC61-425E-80CF-EABA84B02E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB765091-DC61-425E-80CF-EABA84B02E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB765091-DC61-425E-80CF-EABA84B02E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB765091-DC61-425E-80CF-EABA84B02E25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{D79D07C3-1028-44E6-902A-531F5E60B961} = {A0B9C2B5-E64C-4ECA-B05C-B6DAA91D28C1}
 		{9F91F2CF-9459-46DE-9241-68C3EC4E5EB0} = {D302FE39-9F42-468B-90FD-63444D2E5972}
 		{7C4DA6C7-F66B-4651-95F9-0DBC7CC639F3} = {9F91F2CF-9459-46DE-9241-68C3EC4E5EB0}
+		{EB765091-DC61-425E-80CF-EABA84B02E25} = {E5102F71-C322-4532-A9E0-C079FFD26857}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA069380-0511-4E26-9AB2-343F143CBD5E}

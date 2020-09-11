@@ -1,4 +1,5 @@
-﻿using Meow.Data.Ef.Mapping;
+﻿using Meow.Data.Ef;
+using Meow.Data.Ef.Core.Map;
 using Meow.Sample.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,9 +14,9 @@ namespace Meow.Sample.Data.Mapping.Systems
         /// <summary>
         /// 映射表
         /// </summary>
-        protected override void MapTable(EntityTypeBuilder<Application> builder)
+        protected override void MapTable(EntityTypeMapTableBuilder<Application> builder)
         {
-            builder.ToTable("Application", "Systems");
+            builder.ToTable("Systems", "Application");
         }
 
         /// <summary>

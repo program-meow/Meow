@@ -1,4 +1,5 @@
 ﻿using Meow.Extension.Helper;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -30,7 +31,7 @@ namespace Meow.Helper
                 var temp = Decimal.ToDecimalOrNull(value, 0);
                 if (temp == null)
                     return null;
-                return System.Convert.ToInt64(temp);
+                return MicrosoftSystem.Convert.ToInt64(temp);
             }
             catch
             {

@@ -24,8 +24,7 @@
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
-    public interface IEntity<in TEntity, out TKey> : IEntity<TKey> where TEntity : IEntity
+    public interface IEntity<in TEntity, out TKey> : ICompareChange<TEntity>, IEntity<TKey> where TEntity : IEntity
     {
     }
-
 }

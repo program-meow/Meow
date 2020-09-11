@@ -1,4 +1,5 @@
 ﻿using Meow.Extension.Helper;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -30,7 +31,7 @@ namespace Meow.Helper
                 var temp = Double.ToDoubleOrNull(value, 0);
                 if (temp == null)
                     return null;
-                return System.Convert.ToInt32(temp);
+                return MicrosoftSystem.Convert.ToInt32(temp);
             }
             catch
             {

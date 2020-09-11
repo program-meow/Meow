@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Meow.Auth.Session;
 using Meow.Extension.Helper;
 using Meow.Helper;
+using Meow.Validation;
 using Guid = System.Guid;
 
 namespace Meow.Domain.Core.Model
@@ -43,6 +45,46 @@ namespace Meow.Domain.Core.Model
         public TKey Id { get; private set; }
 
         /// <summary>
+        /// 相等运算
+        /// </summary>
+        public override bool Equals(object other)
+        {
+            return this == (other as EntityBase<TEntity, TKey>);
+        }
+
+        /// <summary>
+        /// 获取哈希
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return ReferenceEquals(Id, null) ? 0 : Id.GetHashCode();
+        }
+
+        /// <summary>
+        /// 相等比较
+        /// </summary>
+        public static bool operator ==(EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right)
+        {
+            if ((object)left == null && (object)right == null)
+                return true;
+            if (!(left is TEntity) || !(right is TEntity))
+                return false;
+            if (Equals(left.Id, null))
+                return false;
+            if (left.Id.Equals(default(TKey)))
+                return false;
+            return left.Id.Equals(right.Id);
+        }
+
+        /// <summary>
+        /// 不相等比较
+        /// </summary>
+        public static bool operator !=(EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right)
+        {
+            return !(left == right);
+        }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         public virtual void Init()
@@ -66,7 +108,31 @@ namespace Meow.Domain.Core.Model
         /// </summary>
         protected virtual TKey CreateId()
         {
-            return Common.To<TKey>(Guid.NewGuid());
+            return Meow.Helper.Common.To<TKey>(Guid.NewGuid());
+        }
+
+        /// <summary>
+        /// 用户会话
+        /// </summary>
+        protected virtual ISession Session => Ioc.Create<ISession>();
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        protected override void Validate(ValidationResultCollection results)
+        {
+            ValidateId(results);
+        }
+
+        /// <summary>
+        /// 验证标识
+        /// </summary>
+        protected virtual void ValidateId(ValidationResultCollection results)
+        {
+            if (typeof(TKey) == typeof(int) || typeof(TKey) == typeof(long))
+                return;
+            if (string.IsNullOrWhiteSpace(Id.SafeString()) || Id.Equals(default(TKey)))
+                results.Add(new ValidationResult("Id不能为空"));
         }
     }
 }

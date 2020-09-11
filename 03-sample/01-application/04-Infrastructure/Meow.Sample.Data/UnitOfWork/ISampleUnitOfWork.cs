@@ -1,4 +1,4 @@
-﻿using Meow.Data.Core.UnitOfWork;
+﻿using Meow.Data;
 
 namespace Meow.Sample.Data.UnitOfWork
 {

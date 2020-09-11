@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Meow.Extension.Helper;
 using Meow.Parameter.Const;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -26,7 +26,6 @@ namespace Meow.Helper
             result.AddRange(from each in array where !string.IsNullOrWhiteSpace(each) select Common.To<T>(each));
             return result;
         }
-
 
         #region PinYin(获取汉字的拼音简码)
 
@@ -118,7 +117,7 @@ namespace Meow.Helper
         /// </summary>
         private static string ResolveByConst(string text)
         {
-            int index = Chinese.PinYin.IndexOf(text, StringComparison.Ordinal);
+            int index = Chinese.PinYin.IndexOf(text, MicrosoftSystem.StringComparison.Ordinal);
             if (index < 0)
                 return string.Empty;
             return Chinese.PinYin.Substring(index + 1, 1);
@@ -186,9 +185,14 @@ namespace Meow.Helper
         public static string SplitWordGroup(string value, char separator = '-')
         {
             var pattern = @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)";
-            return string.IsNullOrWhiteSpace(value) ? string.Empty : System.Text.RegularExpressions.Regex.Replace(value, pattern, $"{separator}$1$2").TrimStart(separator).ToLower();
+            return string.IsNullOrWhiteSpace(value) ? string.Empty : MicrosoftSystem.Text.RegularExpressions.Regex.Replace(value, pattern, $"{separator}$1$2").TrimStart(separator).ToLower();
         }
 
         #endregion
+
+        /// <summary>
+        /// 换行符
+        /// </summary>
+        public static string Line => MicrosoftSystem.Environment.NewLine;
     }
 }

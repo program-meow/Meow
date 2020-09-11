@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Meow.Validation;
 
 namespace Meow.Common.Test.Sample
 {
     /// <summary>
     /// 测试样例
     /// </summary>
-    public interface ISample : IValidation
+    public interface ISample
     {
     }
 

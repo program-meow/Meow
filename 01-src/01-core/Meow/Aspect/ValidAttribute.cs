@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
 using Meow.Aspect.Base;
-using Meow.Extension.Validation;
 using Meow.Validation;
 
 namespace Meow.Aspect

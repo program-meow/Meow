@@ -1,4 +1,5 @@
-﻿using Meow.Sample.Data.UnitOfWork;
+﻿using Meow.Data.Ef;
+using Meow.Sample.Data.UnitOfWork;
 using Meow.Sample.Domain.Model;
 using Meow.Sample.Domain.Repository;
 
@@ -7,7 +8,7 @@ namespace Meow.Sample.Data.Repository.Systems
     /// <summary>
     /// 应用程序仓储
     /// </summary>
-    public class ApplicationRepository : Meow.Data.Ef.Repository.Repository<Application>, IApplicationRepository
+    public class ApplicationRepository : CrudRepository<Application>, IApplicationRepository
     {
         /// <summary>
         /// 初始化应用程序仓储

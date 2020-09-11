@@ -1,5 +1,5 @@
 using System;
-using Meow.Data.Ef.Core.Extension;
+using Meow.Data.Ef.Extension;
 using Meow.Extension.Application;
 using Meow.Sample.Data.UnitOfWork;
 using Microsoft.AspNetCore.Builder;

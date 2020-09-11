@@ -26,7 +26,7 @@ namespace Meow.Extension.Validation
         /// </summary>
         /// <typeparam name="T">验证对象类型</typeparam>
         /// <param name="value">验证值</param>
-        public static ValidationResultCollection Validate<T>(this T value) where T : IValidation
+        public static ValidationResultCollection Validate<T>(this T value) where T : class
         {
             var result = DataAnnotationValidation.Validate(value);
             if (result.IsValid)

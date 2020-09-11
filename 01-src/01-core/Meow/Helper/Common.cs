@@ -1,4 +1,4 @@
-﻿using System;
+﻿using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -11,7 +11,7 @@ namespace Meow.Helper
         /// 获取类型
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
-        public static Type GetType<T>()
+        public static MicrosoftSystem.Type GetType<T>()
         {
             return GetType(typeof(T));
         }
@@ -20,9 +20,9 @@ namespace Meow.Helper
         /// 获取类型
         /// </summary>
         /// <param name="type">类型</param>
-        public static Type GetType(Type type)
+        public static MicrosoftSystem.Type GetType(MicrosoftSystem.Type type)
         {
-            return Nullable.GetUnderlyingType(type) ?? type;
+            return MicrosoftSystem.Nullable.GetUnderlyingType(type) ?? type;
         }
 
         /// <summary>
@@ -43,11 +43,11 @@ namespace Meow.Helper
                 if (typeName == "string")
                     return (T)(object)value.ToString();
                 if (typeName == "guid")
-                    return (T)(object)new System.Guid(value.ToString());
+                    return (T)(object)new MicrosoftSystem.Guid(value.ToString());
                 if (type.IsEnum)
                     return Enum.Parse<T>(value);
-                if (value is IConvertible)
-                    return (T)System.Convert.ChangeType(value, type);
+                if (value is MicrosoftSystem.IConvertible)
+                    return (T)MicrosoftSystem.Convert.ChangeType(value, type);
                 return (T)value;
             }
             catch

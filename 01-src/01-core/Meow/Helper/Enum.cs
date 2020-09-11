@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Meow.Extension.Helper;
 using Meow.Parameter.Object;
+using MicrosoftSystem = System;
 
 namespace Meow.Helper
 {
@@ -24,9 +24,9 @@ namespace Meow.Helper
             {
                 if (typeof(TEnum).IsGenericType)
                     return default(TEnum);
-                throw new ArgumentNullException(nameof(member));
+                throw new MicrosoftSystem.ArgumentNullException(nameof(member));
             }
-            return (TEnum)System.Enum.Parse(Common.GetType<TEnum>(), value, true);
+            return (TEnum)MicrosoftSystem.Enum.Parse(Common.GetType<TEnum>(), value, true);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <param name="member">成员名、值、实例均可</param>
-        public static string GetName(Type type, object member)
+        public static string GetName(MicrosoftSystem.Type type, object member)
         {
             if (type == null)
                 return string.Empty;
@@ -54,7 +54,7 @@ namespace Meow.Helper
                 return member.ToString();
             if (type.GetTypeInfo().IsEnum == false)
                 return string.Empty;
-            return System.Enum.GetName(type, member);
+            return MicrosoftSystem.Enum.GetName(type, member);
         }
 
         /// <summary>
@@ -72,12 +72,12 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <param name="member">成员名、值、实例均可</param>
-        public static int GetValue(Type type, object member)
+        public static int GetValue(MicrosoftSystem.Type type, object member)
         {
             string value = member.SafeString();
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentNullException(nameof(member));
-            return (int)System.Enum.Parse(type, member.ToString(), true);
+                throw new MicrosoftSystem.ArgumentNullException(nameof(member));
+            return (int)MicrosoftSystem.Enum.Parse(type, member.ToString(), true);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <param name="member">成员名、值、实例均可</param>
-        public static string GetDescription(Type type, object member)
+        public static string GetDescription(MicrosoftSystem.Type type, object member)
         {
             return Reflection.GetDescription(type, GetName(type, member));
         }
@@ -113,11 +113,11 @@ namespace Meow.Helper
         /// 获取项集合,文本设置为Description，值为Value
         /// </summary>
         /// <param name="type">枚举类型</param>
-        public static List<Item> GetItems(Type type)
+        public static List<Item> GetItems(MicrosoftSystem.Type type)
         {
             type = Common.GetType(type);
             if (type.IsEnum == false)
-                throw new InvalidOperationException($"类型 {type} 不是枚举");
+                throw new MicrosoftSystem.InvalidOperationException($"类型 {type} 不是枚举");
             var result = new List<Item>();
             foreach (var field in type.GetFields())
                 AddItem(type, result, field);
@@ -127,7 +127,7 @@ namespace Meow.Helper
         /// <summary>
         /// 添加描述项
         /// </summary>
-        private static void AddItem(Type type, ICollection<Item> result, FieldInfo field)
+        private static void AddItem(MicrosoftSystem.Type type, ICollection<Item> result, FieldInfo field)
         {
             if (!field.FieldType.IsEnum)
                 return;
@@ -149,11 +149,11 @@ namespace Meow.Helper
         /// 获取名称集合
         /// </summary>
         /// <param name="type">枚举类型</param>
-        public static List<string> GetNames(Type type)
+        public static List<string> GetNames(MicrosoftSystem.Type type)
         {
             type = Common.GetType(type);
             if (type.IsEnum == false)
-                throw new InvalidOperationException($"类型 {type} 不是枚举");
+                throw new MicrosoftSystem.InvalidOperationException($"类型 {type} 不是枚举");
             var result = new List<string>();
             foreach (var field in type.GetFields())
             {

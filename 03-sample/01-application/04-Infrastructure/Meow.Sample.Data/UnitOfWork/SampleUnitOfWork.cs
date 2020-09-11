@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meow.Sample.Data.UnitOfWork
 {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public class SampleUnitOfWork : Meow.Data.Ef.UnitOfWork.UnitOfWork, ISampleUnitOfWork
+    public class SampleUnitOfWork : Meow.Data.Ef.UnitOfWork, ISampleUnitOfWork
     {
         /// <summary>
         /// 初始化工作单元
@@ -16,10 +16,6 @@ namespace Meow.Sample.Data.UnitOfWork
         public SampleUnitOfWork(DbContextOptions<SampleUnitOfWork> options, IServiceProvider serviceProvider)
             : base(options, serviceProvider)
         {
-            foreach (var item in options.Extensions)
-            {
-                var aa = item.ToString();
-            }
         }
     }
 }

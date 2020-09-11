@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Meow.Domain.Model;
+using Meow.Domain.Model.Auditing;
 
 namespace Meow.Sample.Domain.Model
 {
@@ -9,7 +10,7 @@ namespace Meow.Sample.Domain.Model
     /// 应用程序
     /// </summary>
     [DisplayName("应用程序")]
-    public class Application : AggregateRoot<Application>, IDelete
+    public class Application : AggregateRoot<Application>, IDelete, IAudited
     {
         /// <summary>
         /// 初始化应用程序
@@ -84,5 +85,39 @@ namespace Meow.Sample.Domain.Model
         [DisplayName("是否删除")]
         [Required(ErrorMessage = "是否删除不能为空")]
         public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions()
+        {
+            AddDescription(t => t.Id);
+            AddDescription(t => t.Code);
+            AddDescription(t => t.Name);
+            AddDescription(t => t.Comment);
+            AddDescription(t => t.Enabled);
+            AddDescription(t => t.RegisterEnabled);
+            AddDescription(t => t.CreationTime);
+            AddDescription(t => t.CreatorId);
+            AddDescription(t => t.LastModificationTime);
+            AddDescription(t => t.LastModifierId);
+        }
+
+        /// <summary>
+        /// 添加变更列表
+        /// </summary>
+        protected override void AddChanges(Application other)
+        {
+            AddChange(t => t.Id, other.Id);
+            AddChange(t => t.Code, other.Code);
+            AddChange(t => t.Name, other.Name);
+            AddChange(t => t.Comment, other.Comment);
+            AddChange(t => t.Enabled, other.Enabled);
+            AddChange(t => t.RegisterEnabled, other.RegisterEnabled);
+            AddChange(t => t.CreationTime, other.CreationTime);
+            AddChange(t => t.CreatorId, other.CreatorId);
+            AddChange(t => t.LastModificationTime, other.LastModificationTime);
+            AddChange(t => t.LastModifierId, other.LastModifierId);
+        }
     }
 }

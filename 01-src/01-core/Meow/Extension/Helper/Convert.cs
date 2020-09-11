@@ -154,7 +154,7 @@ namespace Meow.Extension.Helper
         /// 转换为Guid集合
         /// </summary>
         /// <param name="value">值</param>
-        public static List<Guid> ToGuidList(this IList<object> value)
+        public static List<Guid> ToGuidList(this IEnumerable<object> value)
         {
             if (value == null)
                 return new List<Guid>();
