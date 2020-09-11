@@ -2,6 +2,7 @@
 /* Application  应用程序                                        */
 /*==============================================================*/
 
+
 --删除表中所有外键
 DECLARE @SQL VARCHAR(max),@FK VARCHAR(max),@TB varchar(max)
 set @TB= 'Systems.Application'
@@ -29,7 +30,6 @@ create table Systems.Application (
    ApplicationId        uniqueidentifier     not null,
    Code                 nvarchar(60)         not null,
    Name                 nvarchar(200)        not null,
-   Device               int                  not null,
    Comment              nvarchar(500)        null,
    Enabled              bit                  not null,
    RegisterEnabled      bit                  not null,
@@ -152,37 +152,6 @@ end
 execute sp_addextendedproperty 'MS_Description', 
    '应用程序名称',
    'schema', 'Systems', 'table', 'Application', 'column', 'Name'
-go
-
-/*==============================================================*/
-/* 列不存在即添加列*/
-/*==============================================================*/
-if not exists(
-select 1 from  sys.columns
-           where object_id = object_id('Systems.Application')  and name='Device')
-begin
-alter table Systems.Application
-   add Device int                  not null
-   
-end
-
-/*==============================================================*/
-/* 描述删除再添加*/
-/*==============================================================*/
-if exists(select 1 from sys.extended_properties p where
-      p.major_id = object_id('Systems.Application')
-  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Device')
-)
-begin
-   execute sp_dropextendedproperty 'MS_Description', 
-   'schema', 'Systems', 'table', 'Application', 'column', 'Device'
-
-end
-
-
-execute sp_addextendedproperty 'MS_Description', 
-   '终端设备',
-   'schema', 'Systems', 'table', 'Application', 'column', 'Device'
 go
 
 /*==============================================================*/
@@ -463,10 +432,3 @@ execute sp_addextendedproperty 'MS_Description',
    '版本号',
    'schema', 'Systems', 'table', 'Application', 'column', 'Version'
 go
-
-
-
-
-
-
-
