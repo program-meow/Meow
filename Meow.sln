@@ -51,21 +51,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-service", "02-service", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-infrastructure", "04-infrastructure", "{7C67D248-496C-4923-B2D8-1743694ED02E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-document", "05-document", "{A9410208-CEC2-4669-8456-792ECCDBBAF3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-document", "00-document", "{A9410208-CEC2-4669-8456-792ECCDBBAF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-domain", "03-domain", "{27350275-7BF2-403C-B045-89FE81871142}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pd", "pd", "{FA7E42B4-5636-4363-850F-4A421FD8EEB7}"
 	ProjectSection(SolutionItems) = preProject
-		03-sample\01-application\05-Document\Pd\Meow.Sample.sws = 03-sample\01-application\05-Document\Pd\Meow.Sample.sws
+		03-sample\01-application\00-document\pd\Meow.Sample.sws = 03-sample\01-application\00-document\pd\Meow.Sample.sws
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{8F8DC698-915F-45E6-9924-FEC4671AADF1}"
 	ProjectSection(SolutionItems) = preProject
-		03-sample\01-application\05-Document\Sql\MySql.sql = 03-sample\01-application\05-Document\Sql\MySql.sql
-		03-sample\01-application\05-Document\Sql\Oracle.sql = 03-sample\01-application\05-Document\Sql\Oracle.sql
-		03-sample\01-application\05-Document\Sql\PgSql.sql = 03-sample\01-application\05-Document\Sql\PgSql.sql
-		03-sample\01-application\05-Document\Sql\SqlServer.sql = 03-sample\01-application\05-Document\Sql\SqlServer.sql
+		03-sample\01-application\00-document\sql\MySql.sql = 03-sample\01-application\00-document\sql\MySql.sql
+		03-sample\01-application\00-document\sql\Oracle.sql = 03-sample\01-application\00-document\sql\Oracle.sql
+		03-sample\01-application\00-document\sql\PgSql.sql = 03-sample\01-application\00-document\sql\PgSql.sql
+		03-sample\01-application\00-document\sql\SqlServer.sql = 03-sample\01-application\00-document\sql\SqlServer.sql
 	EndProjectSection
 EndProject
 Global
