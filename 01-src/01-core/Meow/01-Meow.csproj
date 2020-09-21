@@ -16,6 +16,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>meow;dotnetcore</PackageTags>
     <PackageReleaseNotes>为个人学习，若喜欢可随意使用。</PackageReleaseNotes>
+    <PackageId>Meow.Core</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
