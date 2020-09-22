@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
-using Meow.Aspect.Base;
+using Meow.Aspect.Core;
 
 namespace Meow.Aspect
 {

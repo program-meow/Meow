@@ -1,6 +1,6 @@
 ﻿using AspectCore.DynamicProxy.Parameters;
 
-namespace Meow.Aspect.Base
+namespace Meow.Aspect.Core
 {
     /// <summary>
     /// 参数拦截器
