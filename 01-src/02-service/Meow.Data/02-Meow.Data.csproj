@@ -4,10 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Meow.Data</AssemblyName>
     <RootNamespace>Meow.Data</RootNamespace>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Authors>程序喵</Authors>
-    <Description>Meow应用框架核心类库。
-用于【数据服务】日常开发，以提升开发效率。
+    <Description>Meow应用框架 - 数据服务类库。
 以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。
 暂供个人学习和使用。</Description>
     <Copyright>程序喵</Copyright>
@@ -16,6 +15,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>meow;dotnetcore</PackageTags>
     <PackageReleaseNotes>为个人学习，若喜欢可随意使用。</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -40,7 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\01-core\Meow.Auth\02-Meow.Auth.csproj" />
-    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.Core.csproj" />
     <ProjectReference Include="..\Meow.Domain\01-Meow.Domain.csproj" />
   </ItemGroup>
 
