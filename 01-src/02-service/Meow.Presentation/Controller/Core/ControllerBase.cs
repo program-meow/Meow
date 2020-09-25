@@ -1,6 +1,6 @@
-﻿using Meow.Auth.Session;
+﻿using System.Net;
+using Meow.Auth.Session;
 using Meow.Extension.Helper;
-using Meow.Parameter.Enum;
 using Meow.Presentation.Attribute;
 using Meow.Presentation.Parameter;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +26,8 @@ namespace Meow.Presentation.Controller.Core
         protected virtual IActionResult Ok(dynamic data = null, string message = null)
         {
             if (message == null)
-                message = HttpStatusCode.Ok.Description();
-            return new Result(HttpStatusCode.Ok, message, data);
+                message = HttpStatusCode.OK.Description();
+            return new Result(HttpStatusCode.OK, message, data);
         }
 
         /// <summary>
