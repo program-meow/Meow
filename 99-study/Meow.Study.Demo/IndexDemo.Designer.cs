@@ -56,7 +56,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button EmailB;
         private System.Windows.Forms.Button EmailButton;
     }
 }
