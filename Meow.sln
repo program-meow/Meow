@@ -68,9 +68,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{8F8DC698-915
 		03-sample\01-application\00-document\sql\SqlServer.sql = 03-sample\01-application\00-document\sql\SqlServer.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Meow.Service", "01-src\02-service\Meow.Service\03-Meow.Service.csproj", "{D1C23B43-F2C1-412B-A34E-0FD206437156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Service", "01-src\02-service\Meow.Service\03-Meow.Service.csproj", "{D1C23B43-F2C1-412B-A34E-0FD206437156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Meow.Presentation", "01-src\02-service\Meow.Presentation\04-Meow.Presentation.csproj", "{9062C012-4255-4461-A087-EF0E368D57BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Presentation", "01-src\02-service\Meow.Presentation\04-Meow.Presentation.csproj", "{9062C012-4255-4461-A087-EF0E368D57BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99-study", "99-study", "{CC9DB70F-4D53-4CFC-AE5D-857742CFE9A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Study.Demo", "99-study\Meow.Study.Demo\01-Meow.Study.Demo.csproj", "{910AF935-CAB5-4937-97A1-6A50EDD32712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +138,10 @@ Global
 		{9062C012-4255-4461-A087-EF0E368D57BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9062C012-4255-4461-A087-EF0E368D57BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9062C012-4255-4461-A087-EF0E368D57BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910AF935-CAB5-4937-97A1-6A50EDD32712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910AF935-CAB5-4937-97A1-6A50EDD32712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910AF935-CAB5-4937-97A1-6A50EDD32712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910AF935-CAB5-4937-97A1-6A50EDD32712}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -166,6 +174,7 @@ Global
 		{8F8DC698-915F-45E6-9924-FEC4671AADF1} = {A9410208-CEC2-4669-8456-792ECCDBBAF3}
 		{D1C23B43-F2C1-412B-A34E-0FD206437156} = {4692F447-435F-4719-8C75-252637E6D465}
 		{9062C012-4255-4461-A087-EF0E368D57BD} = {4692F447-435F-4719-8C75-252637E6D465}
+		{910AF935-CAB5-4937-97A1-6A50EDD32712} = {CC9DB70F-4D53-4CFC-AE5D-857742CFE9A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA069380-0511-4E26-9AB2-343F143CBD5E}
