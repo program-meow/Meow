@@ -1,26 +1,27 @@
 /.vs
-/output
-
-
 
 /01-src/01-core/Meow/bin
 /01-src/01-core/Meow/obj
 /01-src/01-core/Meow.Auth/bin
 /01-src/01-core/Meow.Auth/obj
 
-/01-src/02-service/Meow.Domain/bin
-/01-src/02-service/Meow.Domain/obj
-/01-src/02-service/Meow.Data/bin
-/01-src/02-service/Meow.Data/obj
-/01-src/02-service/Meow.Service/bin
-/01-src/02-service/Meow.Service/obj
-/01-src/02-service/Meow.Presentation/bin
-/01-src/02-service/Meow.Presentation/obj
+/01-src/02-application/Meow.Application.Domain/bin
+/01-src/02-application/Meow.Application.Domain/obj
+/01-src/02-application/Meow.Application.Data/bin
+/01-src/02-application/Meow.Application.Data/obj
+/01-src/02-application/Meow.Application.Service/bin
+/01-src/02-application/Meow.Application.Service/obj
+/01-src/02-application/Meow.Application.Presentation/bin
+/01-src/02-application/Meow.Application.Presentation/obj
 
+/01-src/03-addin/Meow.Addin.Email/bin
+/01-src/03-addin/Meow.Addin.Email/obj
 
+/01-src/04-middleware/Meow.Middleware.Wechat/bin
+/01-src/04-middleware/Meow.Middleware.Wechat/obj
 
-
-
+/01-src/05-biz/Meow.Biz.Tenant/bin
+/01-src/05-biz/Meow.Biz.Tenant/obj
 
 /02-test/00-common/Meow.Common.Test/bin
 /02-test/00-common/Meow.Common.Test/obj
@@ -28,29 +29,18 @@
 /02-test/01-core/Meow.Test/bin
 /02-test/01-core/Meow.Test/obj
 
-/02-test/02-service/Meow.Domain.Test/bin
-/02-test/02-service/Meow.Domain.Test/obj
-/02-test/02-service/Meow.Data.Test/bin
-/02-test/02-service/Meow.Data.Test/obj
+/02-test/02-application/Meow.Application.Domain.Test/bin
+/02-test/02-application/Meow.Application.Domain.Test/obj
+/02-test/02-application/Meow.Application.Data.Test/bin
+/02-test/02-application/Meow.Application.Data.Test/obj
 
+/03-sample/01-application/01-presentation/Meow.Application.Sample.Api/bin
+/03-sample/01-application/01-presentation/Meow.Application.Sample.Api/obj
+/03-sample/01-application/02-service/Meow.Application.Sample.Service/bin
+/03-sample/01-application/02-service/Meow.Application.Sample.Service/obj
+/03-sample/01-application/03-domain/Meow.Application.Sample.Domain/bin
+/03-sample/01-application/03-domain/Meow.Application.Sample.Domain/obj
+/03-sample/01-application/04-infrastructure/Meow.Application.Sample.Data/bin
+/03-sample/01-application/04-infrastructure/Meow.Application.Sample.Data/obj
 
-
-
-
-
-
-/03-sample/01-application/01-presentation/Meow.Sample.Api/bin
-/03-sample/01-application/01-presentation/Meow.Sample.Api/obj
-/03-sample/01-application/02-service/Meow.Sample.Service/bin
-/03-sample/01-application/02-service/Meow.Sample.Service/obj
-/03-sample/01-application/03-domain/Meow.Sample.Domain/bin
-/03-sample/01-application/03-domain/Meow.Sample.Domain/obj
-/03-sample/01-application/04-infrastructure/Meow.Sample.Data/bin
-/03-sample/01-application/04-infrastructure/Meow.Sample.Data/obj
-
-
-
-
-
-/99-study/Meow.Study.Demo/bin
-/99-study/Meow.Study.Demo/obj
+/04-output

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\..\04-output\</OutputPath>
+    <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\..\04-output\</OutputPath>
+    <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+</Project>

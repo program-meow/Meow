@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Meow</AssemblyName>
+    <RootNamespace>Meow</RootNamespace>
+    <PackageId>Meow.Core</PackageId>
+    <Version>1.0.0.0</Version>
+    <Authors>程序喵</Authors>
+    <Description>Meow应用框架 - 核心 - 日常开发基础扩展及辅助类库。
+以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。
+个人学习和使用，若喜欢可随意使用。</Description>
+    <Copyright>程序喵</Copyright>
+    <RepositoryUrl>https://github.com/program-meow/meow</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>meow;dotnetcore</PackageTags>
+    <PackageReleaseNotes>个人学习和使用，若喜欢可随意使用。</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/program-meow/meow</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\04-output\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\Meow.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\04-output\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\Meow.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
