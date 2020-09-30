@@ -28,4 +28,12 @@
     <DocumentationFile>..\..\..\04-output\Meow.Addin.Email.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
+
 </Project>
