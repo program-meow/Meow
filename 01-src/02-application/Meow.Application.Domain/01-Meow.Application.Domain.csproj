@@ -28,4 +28,13 @@
     <DocumentationFile>..\..\..\04-output\Meow.Application.Domain.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow.Auth\02-Meow.Auth.csproj" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
+
 </Project>

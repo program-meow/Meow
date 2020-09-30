@@ -27,4 +27,14 @@
     <DocumentationFile>..\..\..\04-output\Meow.Application.Presentation.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow.Auth\02-Meow.Auth.csproj" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
+
 </Project>

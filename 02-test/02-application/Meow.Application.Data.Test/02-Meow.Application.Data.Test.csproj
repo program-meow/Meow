@@ -33,4 +33,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\01-src\02-application\Meow.Application.Data\02-Meow.Application.Data.csproj" />
+    <ProjectReference Include="..\..\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj" />
+  </ItemGroup>
+
 </Project>

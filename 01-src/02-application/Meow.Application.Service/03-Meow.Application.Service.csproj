@@ -27,4 +27,9 @@
     <DocumentationFile>..\..\..\04-output\Meow.Application.Service.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstraction\" />
+    <Folder Include="Implement\" />
+  </ItemGroup>
+
 </Project>

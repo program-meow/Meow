@@ -14,5 +14,10 @@
     <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Api.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\01-src\02-application\Meow.Application.Presentation\04-Meow.Application.Presentation.csproj" />
+    <ProjectReference Include="..\..\02-service\Meow.Application.Sample.Service\Meow.Application.Sample.Service.csproj" />
+  </ItemGroup>
+
 
 </Project>

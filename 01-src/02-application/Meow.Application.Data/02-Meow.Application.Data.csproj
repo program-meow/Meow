@@ -27,4 +27,17 @@
     <DocumentationFile>..\..\..\04-output\Meow.Application.Data.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow.Auth\02-Meow.Auth.csproj" />
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+    <ProjectReference Include="..\Meow.Application.Domain\01-Meow.Application.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

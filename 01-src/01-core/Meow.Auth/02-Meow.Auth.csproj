@@ -27,4 +27,12 @@
     <DocumentationFile>..\..\..\04-output\Meow.Auth.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Meow\01-Meow.csproj" />
+  </ItemGroup>
+
 </Project>

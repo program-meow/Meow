@@ -14,4 +14,10 @@
     <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Service.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\01-src\02-application\Meow.Application.Service\03-Meow.Application.Service.csproj" />
+    <ProjectReference Include="..\..\03-domain\Meow.Application.Sample.Domain\Meow.Application.Sample.Domain.csproj" />
+    <ProjectReference Include="..\..\04-infrastructure\Meow.Application.Sample.Data\Meow.Application.Sample.Data.csproj" />
+  </ItemGroup>
+
 </Project>
