@@ -18,6 +18,15 @@ namespace Meow.Application.Sample.Api.Controllers
         protected IApplicationService ApplicationService { get; set; }
 
         /// <summary>
+        /// 初始化首页
+        /// </summary>
+        /// <param name="applicationService">应用程序服务</param>
+        public HomeController(IApplicationService applicationService)
+        {
+            ApplicationService = applicationService;
+        }
+
+        /// <summary>
         /// 测试
         /// </summary>
         [HttpGet]

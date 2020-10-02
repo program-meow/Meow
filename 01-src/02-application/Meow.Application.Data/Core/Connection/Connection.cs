@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Meow.Exception;
+﻿using Meow.Exception;
+using Meow.Parameter.Enum;
 using Meow.Extension.Helper;
 using Meow.Extension.Validation;
-using Meow.Parameter.Enum;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Meow.Application.Data.Core.Connection
 {
@@ -17,12 +17,12 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         /// <param name="type">数据库类型</param>
         /// <param name="server">服务端地址</param>
-        /// <param name="port">端口</param>
         /// <param name="database">数据库名称</param>
         /// <param name="userId">用户</param>
         /// <param name="password">密码</param>
-        public Connection(string type, string server, string port, string database, string userId, string password)
-        : this(type.ToEnum<Database>(), server, port, database, userId, password)
+        /// <param name="port">端口</param>
+        public Connection(string type, string server, string database, string userId, string password, int? port = null)
+        : this(type.ToEnum<Database>(), server, database, userId, password, port)
         {
         }
 
@@ -31,18 +31,18 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         /// <param name="type">数据库类型</param>
         /// <param name="server">服务端地址</param>
-        /// <param name="port">端口</param>
         /// <param name="database">数据库名称</param>
         /// <param name="userId">用户</param>
         /// <param name="password">密码</param>
-        public Connection(Database type, string server, string port, string database, string userId, string password)
+        /// <param name="port">端口</param>
+        public Connection(Database type, string server, string database, string userId, string password, int? port = null)
         {
             Type = type;
             Server = server;
-            Port = port;
             Database = database;
             UserId = userId;
             Password = password;
+            Port = port;
         }
 
         /// <summary>
@@ -57,11 +57,6 @@ namespace Meow.Application.Data.Core.Connection
         [DisplayName("服务端地址")]
         [Required(ErrorMessage = "服务端地址不能为空")]
         public string Server { get; set; }
-        /// <summary>
-        /// 端口
-        /// </summary>
-        [DisplayName("端口")]
-        public string Port { get; set; }
         /// <summary>
         /// 数据库名称
         /// </summary>
@@ -80,6 +75,11 @@ namespace Meow.Application.Data.Core.Connection
         [DisplayName("密码")]
         [Required(ErrorMessage = "密码不能为空")]
         public string Password { get; set; }
+        /// <summary>
+        /// 端口
+        /// </summary>
+        [DisplayName("端口")]
+        public int? Port { get; set; }
 
         /// <summary>
         /// 转换连接字符串
@@ -92,10 +92,11 @@ namespace Meow.Application.Data.Core.Connection
                 case Parameter.Enum.Database.SqlServer:
                     return $"Server={Server};Database={Database};uid={UserId};pwd={Password};MultipleActiveResultSets=true";
                 case Parameter.Enum.Database.MySql:
-                    return $"server={Server};{(Port.IsEmpty() ? "" : $"port={Port};")}database={Database};user id={UserId};password={Password};CharSet=utf8;";
+                    return $"server={Server};{(Port.IsNull() ? "" : $"port={Port};")}database={Database};user id={UserId};password={Password};CharSet=utf8;";
                 case Parameter.Enum.Database.PgSql:
-                    return $"server={Server};{(Port.IsEmpty() ? "" : $"port={Port};")}database={Database};User Id={UserId};password={Password};";
+                    return $"server={Server};{(Port.IsNull() ? "" : $"port={Port};")}database={Database};User Id={UserId};password={Password};";
                 case Parameter.Enum.Database.Oracle:
+                    throw new Warning("暂不支持该Oracle数据库，后续支持");
                     return $"Data Source=localhost/ORCL;User Id=system;Password=admin;";
                 default:
                     throw new Warning("不支持该数据库类型");

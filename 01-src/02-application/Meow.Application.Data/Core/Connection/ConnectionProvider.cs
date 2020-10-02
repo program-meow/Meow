@@ -1,4 +1,5 @@
 ﻿using System;
+using Meow.Extension.Helper;
 using Meow.Extension.Validation;
 using Microsoft.Extensions.Configuration;
 
@@ -32,10 +33,10 @@ namespace Meow.Application.Data.Core.Connection
             var connection = new Connection(
                 _configuration[$"{key}:Type"]
                 , _configuration[$"{key}:Server"]
-                , _configuration[$"{key}:Port"]
                 , _configuration[$"{key}:Database"]
                 , _configuration[$"{key}:UserId"]
                 , _configuration[$"{key}:Password"]
+                , _configuration[$"{key}:Port"].ToIntOrNull()
             );
             connection.Validate();
             return connection;
