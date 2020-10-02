@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Service.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\04-output\03-sample\01-application\</OutputPath>
+    <DocumentationFile>..\..\..\..\04-output\03-sample\01-application\Meow.Application.Sample.Service.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\..\04-output\Meow.Application.Sample.Service.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\04-output\03-sample\01-application\</OutputPath>
+    <DocumentationFile>..\..\..\..\04-output\03-sample\01-application\Meow.Application.Sample.Service.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

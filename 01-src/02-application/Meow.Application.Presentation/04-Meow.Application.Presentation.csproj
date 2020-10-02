@@ -18,13 +18,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Application.Presentation.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\02-application\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\02-application\Meow.Application.Presentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Application.Presentation.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\02-application\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\02-application\Meow.Application.Presentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,8 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\01-core\Meow.Auth\02-Meow.Auth.csproj" />
-    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+    <ProjectReference Include="..\Meow.Application.Service\03-Meow.Application.Service.csproj" />
   </ItemGroup>
 
 </Project>

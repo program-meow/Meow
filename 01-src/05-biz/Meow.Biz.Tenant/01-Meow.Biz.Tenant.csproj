@@ -18,13 +18,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Biz.Tenant.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\05-biz\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\05-biz\Meow.Biz.Tenant.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Biz.Tenant.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\05-biz\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\05-biz\Meow.Biz.Tenant.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
 
 </Project>

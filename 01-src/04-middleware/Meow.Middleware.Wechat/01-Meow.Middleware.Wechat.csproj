@@ -18,13 +18,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Middleware.Wechat.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\04-middleware\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\04-middleware\Meow.Middleware.Wechat.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Middleware.Wechat.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\04-middleware\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\04-middleware\Meow.Middleware.Wechat.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
 
 </Project>

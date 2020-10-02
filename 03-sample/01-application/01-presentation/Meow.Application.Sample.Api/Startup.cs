@@ -1,4 +1,6 @@
 using System;
+using Meow.Application.Data.Ef.Extension;
+using Meow.Application.Sample.Data.UnitOfWork;
 using Meow.Extension.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +38,7 @@ namespace Meow.Application.Sample.Api
         {
             services.AddControllers();
 
-            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("SqlServer");
+            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("SqlServer");
             //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("PgSql");
             return services.AddMeow();
         }

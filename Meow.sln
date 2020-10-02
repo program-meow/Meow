@@ -58,37 +58,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-biz", "05-biz", "{8E36D1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow", "01-src\01-core\Meow\01-Meow.csproj", "{1CDE587C-8AF4-4CCC-9BEE-E5ACDA4D95E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Auth", "01-src\01-core\Meow.Auth\02-Meow.Auth.csproj", "{2F8E1929-4BA6-4E03-A570-3F17B5A89CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Auth", "01-src\01-core\Meow.Auth\02-Meow.Auth.csproj", "{2F8E1929-4BA6-4E03-A570-3F17B5A89CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Application.Domain", "01-src\02-application\Meow.Application.Domain\01-Meow.Application.Domain.csproj", "{344924CA-7983-4506-8165-BB83C756181C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Application.Domain", "01-src\02-application\Meow.Application.Domain\01-Meow.Application.Domain.csproj", "{344924CA-7983-4506-8165-BB83C756181C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Application.Data", "01-src\02-application\Meow.Application.Data\02-Meow.Application.Data.csproj", "{5587079B-28F8-4962-B6E1-15D65DBDFFDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Application.Data", "01-src\02-application\Meow.Application.Data\02-Meow.Application.Data.csproj", "{5587079B-28F8-4962-B6E1-15D65DBDFFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Meow.Application.Service", "01-src\02-application\Meow.Application.Service\03-Meow.Application.Service.csproj", "{837616F6-25D8-42EA-8C0D-CCF007F567FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Application.Service", "01-src\02-application\Meow.Application.Service\03-Meow.Application.Service.csproj", "{837616F6-25D8-42EA-8C0D-CCF007F567FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Meow.Application.Presentation", "01-src\02-application\Meow.Application.Presentation\04-Meow.Application.Presentation.csproj", "{42B5C029-D40D-4171-BED8-8E30C1ABDD63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Application.Presentation", "01-src\02-application\Meow.Application.Presentation\04-Meow.Application.Presentation.csproj", "{42B5C029-D40D-4171-BED8-8E30C1ABDD63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Addin.Email", "01-src\03-addin\Meow.Addin.Email\01-Meow.Addin.Email.csproj", "{59E8BBBA-9927-4A45-AD66-63855B0C8BE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Addin.Email", "01-src\03-addin\Meow.Addin.Email\01-Meow.Addin.Email.csproj", "{59E8BBBA-9927-4A45-AD66-63855B0C8BE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00-Meow.Common.Test", "02-test\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj", "{70CD24D7-40CD-42BE-BDFE-CEFE62E7AF9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00-Meow.Common.Test", "02-test\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj", "{70CD24D7-40CD-42BE-BDFE-CEFE62E7AF9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Test", "02-test\01-core\Meow.Test\01-Meow.Test.csproj", "{FD933096-9FCF-463D-BA65-58466E008F6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Test", "02-test\01-core\Meow.Test\01-Meow.Test.csproj", "{FD933096-9FCF-463D-BA65-58466E008F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Application.Domain.Test", "02-test\02-application\Meow.Application.Domain.Test\01-Meow.Application.Domain.Test.csproj", "{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Application.Domain.Test", "02-test\02-application\Meow.Application.Domain.Test\01-Meow.Application.Domain.Test.csproj", "{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Application.Data.Test", "02-test\02-application\Meow.Application.Data.Test\02-Meow.Application.Data.Test.csproj", "{9F20F350-B707-4FB9-81B3-EB65F979B13E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Application.Sample.Domain", "03-sample\01-application\03-domain\Meow.Application.Sample.Domain\Meow.Application.Sample.Domain.csproj", "{E27924CC-BA71-433D-B856-627322B8B460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Application.Sample.Domain", "03-sample\01-application\03-domain\Meow.Application.Sample.Domain\Meow.Application.Sample.Domain.csproj", "{E27924CC-BA71-433D-B856-627322B8B460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Application.Sample.Data", "03-sample\01-application\04-infrastructure\Meow.Application.Sample.Data\Meow.Application.Sample.Data.csproj", "{91D35EFD-AA8E-4EED-B5BE-23249B1A0538}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Application.Sample.Data", "03-sample\01-application\04-infrastructure\Meow.Application.Sample.Data\Meow.Application.Sample.Data.csproj", "{91D35EFD-AA8E-4EED-B5BE-23249B1A0538}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Application.Sample.Service", "03-sample\01-application\02-service\Meow.Application.Sample.Service\Meow.Application.Sample.Service.csproj", "{1191FD50-807F-40CE-BB38-17586C1B03AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Application.Sample.Service", "03-sample\01-application\02-service\Meow.Application.Sample.Service\Meow.Application.Sample.Service.csproj", "{1191FD50-807F-40CE-BB38-17586C1B03AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Application.Sample.Api", "03-sample\01-application\01-presentation\Meow.Application.Sample.Api\Meow.Application.Sample.Api.csproj", "{03355C98-92D6-4117-827C-5E4E45DEC6F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Application.Sample.Api", "03-sample\01-application\01-presentation\Meow.Application.Sample.Api\Meow.Application.Sample.Api.csproj", "{03355C98-92D6-4117-827C-5E4E45DEC6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Middleware.Wechat", "01-src\04-middleware\Meow.Middleware.Wechat\01-Meow.Middleware.Wechat.csproj", "{2C3B4B43-0D11-4234-893F-C128D72FE97A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Middleware.Wechat", "01-src\04-middleware\Meow.Middleware.Wechat\01-Meow.Middleware.Wechat.csproj", "{2C3B4B43-0D11-4234-893F-C128D72FE97A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Biz.Tenant", "01-src\05-biz\Meow.Biz.Tenant\01-Meow.Biz.Tenant.csproj", "{D799651E-526A-4A68-A585-23E9133B8591}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Biz.Tenant", "01-src\05-biz\Meow.Biz.Tenant\01-Meow.Biz.Tenant.csproj", "{D799651E-526A-4A68-A585-23E9133B8591}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Application.Data.Test", "02-test\02-application\Meow.Application.Data.Test\02-Meow.Application.Data.Test.csproj", "{128AA5A0-56A5-4C90-964C-0DABD8BF84B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,10 +136,6 @@ Global
 		{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F20F350-B707-4FB9-81B3-EB65F979B13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F20F350-B707-4FB9-81B3-EB65F979B13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F20F350-B707-4FB9-81B3-EB65F979B13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F20F350-B707-4FB9-81B3-EB65F979B13E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E27924CC-BA71-433D-B856-627322B8B460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E27924CC-BA71-433D-B856-627322B8B460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E27924CC-BA71-433D-B856-627322B8B460}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -164,6 +160,10 @@ Global
 		{D799651E-526A-4A68-A585-23E9133B8591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D799651E-526A-4A68-A585-23E9133B8591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D799651E-526A-4A68-A585-23E9133B8591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128AA5A0-56A5-4C90-964C-0DABD8BF84B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128AA5A0-56A5-4C90-964C-0DABD8BF84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128AA5A0-56A5-4C90-964C-0DABD8BF84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128AA5A0-56A5-4C90-964C-0DABD8BF84B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,13 +198,13 @@ Global
 		{70CD24D7-40CD-42BE-BDFE-CEFE62E7AF9D} = {9F91F2CF-9459-46DE-9241-68C3EC4E5EB0}
 		{FD933096-9FCF-463D-BA65-58466E008F6C} = {CAA3A840-923C-4E4D-A537-34D1FCC9CDB7}
 		{47E964BB-A2F0-42CC-95B1-AD4FB44B7B33} = {A0B9C2B5-E64C-4ECA-B05C-B6DAA91D28C1}
-		{9F20F350-B707-4FB9-81B3-EB65F979B13E} = {A0B9C2B5-E64C-4ECA-B05C-B6DAA91D28C1}
 		{E27924CC-BA71-433D-B856-627322B8B460} = {27350275-7BF2-403C-B045-89FE81871142}
 		{91D35EFD-AA8E-4EED-B5BE-23249B1A0538} = {7C67D248-496C-4923-B2D8-1743694ED02E}
 		{1191FD50-807F-40CE-BB38-17586C1B03AC} = {0971DA96-9C01-4197-9C6E-AE94B77708D9}
 		{03355C98-92D6-4117-827C-5E4E45DEC6F0} = {5BE745EC-401F-4177-9321-7C7FBF1FA12E}
 		{2C3B4B43-0D11-4234-893F-C128D72FE97A} = {4692F447-435F-4719-8C75-252637E6D465}
 		{D799651E-526A-4A68-A585-23E9133B8591} = {FCDCEBA5-1D19-48C5-8E35-8320B468293F}
+		{128AA5A0-56A5-4C90-964C-0DABD8BF84B9} = {A0B9C2B5-E64C-4ECA-B05C-B6DAA91D28C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA069380-0511-4E26-9AB2-343F143CBD5E}

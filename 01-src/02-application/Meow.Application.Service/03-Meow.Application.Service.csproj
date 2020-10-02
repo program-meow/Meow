@@ -18,18 +18,23 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Application.Service.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\02-application\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\02-application\Meow.Application.Service.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\04-output\</OutputPath>
-    <DocumentationFile>..\..\..\04-output\Meow.Application.Service.xml</DocumentationFile>
+    <OutputPath>..\..\..\04-output\01-src\02-application\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\01-src\02-application\Meow.Application.Service.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Abstraction\" />
     <Folder Include="Implement\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Meow.Application.Data\02-Meow.Application.Data.csproj" />
+    <ProjectReference Include="..\Meow.Application.Domain\01-Meow.Application.Domain.csproj" />
   </ItemGroup>
 
 </Project>
