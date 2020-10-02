@@ -10,10 +10,10 @@ namespace Meow.Addin.Email.Core.Config
     public class EmailConfigFactory
     {
         /// <summary>
-        /// 获取邮箱
+        /// 创建邮箱对象
         /// </summary>
         /// <param name="emailType">邮箱类型</param>
-        public IEmailConfig GetEmail(Parameter.Enum.Email emailType)
+        public static IEmailConfig Create(Parameter.Enum.Email emailType)
         {
             switch (emailType)
             {

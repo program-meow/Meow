@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Meow.Exception;
+using Meow.Parameter.Enum;
 using Meow.Extension.Helper;
 using Meow.Extension.Validation;
-using Meow.Parameter.Enum;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meow.Application.Data.Ef.Core.Helper
@@ -23,22 +23,22 @@ namespace Meow.Application.Data.Ef.Core.Helper
                 throw new Warning("数据库上下文配置不能为空");
             foreach (var item in options.Extensions)
             {
-                var info = item.SafeString();
-                var dbContextNamespace = GetDbContextNamespace();
-                if (dbContextNamespace.ContainsKey(info))
-                    return dbContextNamespace[info];
+                var assemblyName = item.SafeString();
+                var dbContextAssemblyName = GetDbContextAssemblyName();
+                if (dbContextAssemblyName.ContainsKey(assemblyName))
+                    return dbContextAssemblyName[assemblyName];
             }
             throw new Warning("数据库上下文配置无法识别");
         }
 
         /// <summary>
-        /// 获取数据库上下文命名空间
+        /// 获取数据库上下文程序集名称
         /// </summary>
-        private static Dictionary<string, Database> GetDbContextNamespace()
+        private static Dictionary<string, Database> GetDbContextAssemblyName()
         {
             return new Dictionary<string, Database>{
                { "Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal.SqlServerOptionsExtension",Database.SqlServer},
-               { "MySql",Database.MySql},
+               { "Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal.MySqlOptionsExtension",Database.MySql},
                { "Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.NpgsqlOptionsExtension",Database.PgSql},
                { "Oracle",Database.Oracle},
              };

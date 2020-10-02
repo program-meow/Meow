@@ -2,6 +2,7 @@ using System;
 using Meow.Application.Data.Ef.Extension;
 using Meow.Application.Sample.Data.UnitOfWork;
 using Meow.Extension.Application;
+using Meow.Parameter.Enum;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -40,6 +41,13 @@ namespace Meow.Application.Sample.Api
 
             services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("SqlServer");
             //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("PgSql");
+            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("MySql");
+
+            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>(Database.SqlServer,Configuration["SqlServerString"]);
+            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>(Database.PgSql,Configuration["PgSqlString"]);
+            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>(Database.MySql,Configuration["MySqlString"]);
+
+
             return services.AddMeow();
         }
 

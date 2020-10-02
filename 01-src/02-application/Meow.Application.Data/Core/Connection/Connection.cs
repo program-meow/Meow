@@ -1,8 +1,5 @@
-﻿using Meow.Exception;
-using Meow.Parameter.Enum;
-using Meow.Extension.Helper;
+﻿using System.ComponentModel;
 using Meow.Extension.Validation;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Meow.Application.Data.Core.Connection
@@ -10,47 +7,8 @@ namespace Meow.Application.Data.Core.Connection
     /// <summary>
     /// 连接对象
     /// </summary>
-    public class Connection
+    public abstract class Connection : IConnection
     {
-        /// <summary>
-        /// 初始化连接对象
-        /// </summary>
-        /// <param name="type">数据库类型</param>
-        /// <param name="server">服务端地址</param>
-        /// <param name="database">数据库名称</param>
-        /// <param name="userId">用户</param>
-        /// <param name="password">密码</param>
-        /// <param name="port">端口</param>
-        public Connection(string type, string server, string database, string userId, string password, int? port = null)
-        : this(type.ToEnum<Database>(), server, database, userId, password, port)
-        {
-        }
-
-        /// <summary>
-        /// 初始化连接对象
-        /// </summary>
-        /// <param name="type">数据库类型</param>
-        /// <param name="server">服务端地址</param>
-        /// <param name="database">数据库名称</param>
-        /// <param name="userId">用户</param>
-        /// <param name="password">密码</param>
-        /// <param name="port">端口</param>
-        public Connection(Database type, string server, string database, string userId, string password, int? port = null)
-        {
-            Type = type;
-            Server = server;
-            Database = database;
-            UserId = userId;
-            Password = password;
-            Port = port;
-        }
-
-        /// <summary>
-        /// 数据库类型
-        /// </summary>
-        [DisplayName("数据库类型")]
-        [Required(ErrorMessage = "数据库类型不能为空")]
-        public Database? Type { get; set; }
         /// <summary>
         /// 服务端地址
         /// </summary>
@@ -82,25 +40,53 @@ namespace Meow.Application.Data.Core.Connection
         public int? Port { get; set; }
 
         /// <summary>
-        /// 转换连接字符串
+        /// 初始化连接对象
         /// </summary>
-        public override string ToString()
+        /// <param name="server">服务端地址</param>
+        /// <param name="database">数据库名称</param>
+        /// <param name="userId">用户</param>
+        /// <param name="password">密码</param>
+        /// <param name="port">端口</param>
+        public void Init(string server, string database, string userId, string password, int? port = null)
+        {
+            Server = server;
+            Database = database;
+            UserId = userId;
+            Password = password;
+            Port = port;
+        }
+
+        /// <summary>
+        /// 验证链接
+        /// </summary>
+        private void Validation()
         {
             this.Validate();
-            switch (Type)
-            {
-                case Parameter.Enum.Database.SqlServer:
-                    return $"Server={Server};Database={Database};uid={UserId};pwd={Password};MultipleActiveResultSets=true";
-                case Parameter.Enum.Database.MySql:
-                    return $"server={Server};{(Port.IsNull() ? "" : $"port={Port};")}database={Database};user id={UserId};password={Password};CharSet=utf8;";
-                case Parameter.Enum.Database.PgSql:
-                    return $"server={Server};{(Port.IsNull() ? "" : $"port={Port};")}database={Database};User Id={UserId};password={Password};";
-                case Parameter.Enum.Database.Oracle:
-                    throw new Warning("暂不支持该Oracle数据库，后续支持");
-                    return $"Data Source=localhost/ORCL;User Id=system;Password=admin;";
-                default:
-                    throw new Warning("不支持该数据库类型");
-            }
+            if (!IsValidatePort())
+                return;
+            Port.CheckNull(nameof(Port));
         }
+
+        /// <summary>
+        /// 是否验证端口
+        /// </summary>
+        protected virtual bool IsValidatePort()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// 转换为连接字符串
+        /// </summary>
+        public string ToConnectionString()
+        {
+            Validation();
+            return GetConnectionString();
+        }
+
+        /// <summary>
+        /// 获取连接字符串
+        /// </summary>
+        protected abstract string GetConnectionString();
     }
 }

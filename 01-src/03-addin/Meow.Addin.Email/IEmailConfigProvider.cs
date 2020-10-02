@@ -9,7 +9,7 @@ namespace Meow.Addin.Email
     public interface IEmailConfigProvider : IScopeDependency
     {
         /// <summary>
-        /// 获取邮箱账户
+        /// 设置邮箱账户
         /// </summary>
         Account Account();
         /// <summary>

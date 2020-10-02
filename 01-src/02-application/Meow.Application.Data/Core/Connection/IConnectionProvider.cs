@@ -1,5 +1,4 @@
-﻿using Meow.Aspect;
-using Meow.Dependency;
+﻿using Meow.Dependency;
 
 namespace Meow.Application.Data.Core.Connection
 {
@@ -12,6 +11,6 @@ namespace Meow.Application.Data.Core.Connection
         /// 获取连接对象
         /// </summary>
         /// <param name="key">标识</param>
-        Connection GetConnection([NotEmpty] string key);
+        IConnection GetConnection(string key);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
+using Meow.Parameter.Enum;
 using Meow.Extension.Helper;
-using Meow.Extension.Validation;
 using Microsoft.Extensions.Configuration;
 
 namespace Meow.Application.Data.Core.Connection
@@ -28,17 +28,14 @@ namespace Meow.Application.Data.Core.Connection
         /// 获取连接对象
         /// </summary>
         /// <param name="key">标识</param>
-        public Connection GetConnection(string key)
+        public IConnection GetConnection(string key)
         {
-            var connection = new Connection(
-                _configuration[$"{key}:Type"]
-                , _configuration[$"{key}:Server"]
-                , _configuration[$"{key}:Database"]
-                , _configuration[$"{key}:UserId"]
-                , _configuration[$"{key}:Password"]
-                , _configuration[$"{key}:Port"].ToIntOrNull()
-            );
-            connection.Validate();
+            var connection = ConnectionFactory.Create(_configuration[$"{key}:Type"].ToEnum<Database>());
+            connection.Init(_configuration[$"{key}:Server"]
+                            , _configuration[$"{key}:Database"]
+                            , _configuration[$"{key}:UserId"]
+                            , _configuration[$"{key}:Password"]
+                            , _configuration[$"{key}:Port"].ToIntOrNull());
             return connection;
         }
     }

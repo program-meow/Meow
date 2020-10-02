@@ -8,7 +8,7 @@ namespace Meow.Application.Data.Core.Transaction
     /// <summary>
     /// 事务操作管理器
     /// </summary>
-    public interface ITransactionActionManager : IScopeDependency
+    internal interface ITransactionActionManager : IScopeDependency
     {
         /// <summary>
         /// 事务操作数量

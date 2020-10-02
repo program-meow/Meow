@@ -8,7 +8,7 @@ namespace Meow.Application.Data.Core.Transaction
     /// <summary>
     /// 事务操作管理器
     /// </summary>
-    public class TransactionActionManager : ITransactionActionManager
+    internal class TransactionActionManager : ITransactionActionManager
     {
         /// <summary>
         /// 操作列表

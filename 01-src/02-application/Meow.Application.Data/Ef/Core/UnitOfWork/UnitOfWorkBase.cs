@@ -38,7 +38,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// <summary>
         /// 服务提供器
         /// </summary>
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         #endregion
 
