@@ -39,8 +39,8 @@ namespace Meow.Application.Sample.Api
         {
             services.AddControllers();
 
-            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("SqlServer");
-            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("PgSql");
+            //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("SqlServer");
+            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("PgSql");
             //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>("MySql");
 
             //services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>(Database.SqlServer,Configuration["SqlServerString"]);

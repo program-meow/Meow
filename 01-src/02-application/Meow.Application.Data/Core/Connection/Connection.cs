@@ -37,6 +37,7 @@ namespace Meow.Application.Data.Core.Connection
         /// 端口
         /// </summary>
         [DisplayName("端口")]
+        [Required(ErrorMessage = "端口不能为空")]
         public int? Port { get; set; }
 
         /// <summary>
@@ -57,30 +58,11 @@ namespace Meow.Application.Data.Core.Connection
         }
 
         /// <summary>
-        /// 验证链接
-        /// </summary>
-        private void Validation()
-        {
-            this.Validate();
-            if (!IsValidatePort())
-                return;
-            Port.CheckNull(nameof(Port));
-        }
-
-        /// <summary>
-        /// 是否验证端口
-        /// </summary>
-        protected virtual bool IsValidatePort()
-        {
-            return true;
-        }
-
-        /// <summary>
         /// 转换为连接字符串
         /// </summary>
         public string ToConnectionString()
         {
-            Validation();
+            this.Validate();
             return GetConnectionString();
         }
 

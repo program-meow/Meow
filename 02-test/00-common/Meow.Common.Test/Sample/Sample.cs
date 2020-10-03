@@ -199,5 +199,10 @@ namespace Meow.Common.Test.Sample
         {
             return new Sample { StringValue = "B" };
         }
+
+        /// <summary>
+        /// 默认值
+        /// </summary>
+        public string DefaultValue { get; set; } = "默认值";
     }
 }

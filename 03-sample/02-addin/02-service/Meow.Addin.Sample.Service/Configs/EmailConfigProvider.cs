@@ -1,7 +1,7 @@
 ﻿using Meow.Addin.Email;
 using Meow.Addin.Email.Core.Parameter;
 
-namespace Meow.Addin.Sample.Service.ConfigProvideres
+namespace Meow.Addin.Sample.Service.Configs
 {
     /// <summary>
     /// 邮箱配置提供器

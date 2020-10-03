@@ -1,4 +1,5 @@
-﻿using Meow.Extension.Helper;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Meow.Application.Data.Core.Connection
 {
@@ -8,11 +9,18 @@ namespace Meow.Application.Data.Core.Connection
     public class ConnectionPgSql : Connection
     {
         /// <summary>
+        /// 端口
+        /// </summary>
+        [DisplayName("端口")]
+        [Required(ErrorMessage = "端口不能为空")]
+        public new int? Port { get; set; } = 5432;
+
+        /// <summary>
         /// 获取连接字符串
         /// </summary>
         protected override string GetConnectionString()
         {
-            return $"server={Server};{(Port.IsNull() ? "" : $"port={Port};")}database={Database};User Id={UserId};password={Password};";
+            return $"server={Server};port={Port};database={Database};User Id={UserId};password={Password};";
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Meow.Application.Data.Core.Connection
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Meow.Application.Data.Core.Connection
 {
     /// <summary>
     /// SqlServer连接对象
@@ -6,19 +9,18 @@
     public class ConnectionSqlServer : Connection
     {
         /// <summary>
-        /// 是否验证端口
+        /// 端口
         /// </summary>
-        protected override bool IsValidatePort()
-        {
-            return false;
-        }
+        [DisplayName("端口")]
+        [Required(ErrorMessage = "端口不能为空")]
+        public new int? Port { get; set; } = 1433;
 
         /// <summary>
         /// 获取连接字符串
         /// </summary>
         protected override string GetConnectionString()
         {
-            return $"Server={Server};Database={Database};uid={UserId};pwd={Password};MultipleActiveResultSets=true";
+            return $"Server={Server}{(Port == 1433 ? "" : $",{Port}")};Database={Database};uid={UserId};pwd={Password};MultipleActiveResultSets=true";
         }
     }
 }
