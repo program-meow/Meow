@@ -1,5 +1,5 @@
-﻿using Meow.Dependency;
-using Meow.Parameter.Object;
+﻿using Meow.Addin.Email.Core.Parameter;
+using Meow.Dependency;
 
 namespace Meow.Addin.Email
 {
@@ -11,7 +11,7 @@ namespace Meow.Addin.Email
         /// <summary>
         /// 设置邮箱账户
         /// </summary>
-        Account Account();
+        EmailFromAccount Account();
         /// <summary>
         /// 邮箱类型
         /// </summary>

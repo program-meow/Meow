@@ -9,6 +9,19 @@ namespace Meow.Test.Extension.Helper
     public class StringTest
     {
         /// <summary>
+        /// 测试是否空值 - 字符串
+        /// </summary>
+        [Theory]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        [InlineData(" ", true)]
+        [InlineData("a", false)]
+        public void TestIsEmpty_String(string value, bool result)
+        {
+            Assert.Equal(value.IsEmpty(), result);
+        }
+
+        /// <summary>
         /// 泛型集合转换
         /// </summary>
         [Fact]

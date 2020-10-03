@@ -1,4 +1,4 @@
-﻿using Meow.Extension.Validation;
+﻿using Meow.Extension.Helper;
 
 namespace Meow.Application.Data.Core.Connection
 {

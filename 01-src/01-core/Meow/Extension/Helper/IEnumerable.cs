@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Meow.Extension.Validation;
 using Meow.Mathematics.Enum;
 using Meow.Query.Core.Criteria;
 using Meow.Query.Pager;
@@ -14,6 +13,18 @@ namespace Meow.Extension.Helper
     /// </summary>
     public static partial class Extension
     {
+
+        /// <summary>
+        /// 是否为空
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsEmpty<T>(this IEnumerable<T> value)
+        {
+            if (value.IsNull())
+                return true;
+            return !value.Any();
+        }
+
         /// <summary>
         /// 转换为用分隔符连接的字符串
         /// </summary>

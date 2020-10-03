@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Meow.Extension.Helper;
 using Meow.Parameter.Const;
 using MicrosoftSystem = System;
@@ -194,5 +195,281 @@ namespace Meow.Helper
         /// 换行符
         /// </summary>
         public static string Line => MicrosoftSystem.Environment.NewLine;
+        /// <summary>
+        /// 空字符串
+        /// </summary>
+        public static string Empty => MicrosoftSystem.String.Empty;
+
+        #region 判断
+
+        #region 正则表达式
+
+        /// <summary>
+        /// 数字正则表达式
+        /// </summary>
+        private static readonly Regex RegexNumeric = new Regex("^[0-9]+$");
+        /// <summary>
+        /// 数字（带正负号）正则表达式
+        /// </summary>
+        private static readonly Regex RegexNumericSign = new Regex("^[+-]?[0-9]+$");
+        /// <summary>
+        /// 小数正则表达式
+        /// </summary>
+        private static readonly Regex RegexDecimal = new Regex("^([0-9]+[.]?[0-9]+)|([0-9]+)$");
+        /// <summary>
+        /// 小数（带正负号）正则表达式
+        /// </summary>
+        private static readonly Regex RegexDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$");
+        /// <summary>
+        /// 中文正则表达式
+        /// </summary>
+        private static readonly Regex RegexChinese = new Regex("^[\u4e00-\u9fa5]*$");
+        /// <summary>
+        /// Email正则表达式
+        /// </summary>
+        private static readonly Regex RegexEmail = new Regex(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
+        /// <summary>
+        /// 邮政编码正则表达式
+        /// </summary>
+        private static readonly Regex RegexPostcode = new Regex(@"^(\d{6})$");
+        /// <summary>
+        /// URL正则表达式
+        /// </summary>
+        private static readonly Regex RegexUrl = new Regex(@"^(http|https|ftp|mms)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
+        /// <summary>
+        /// 日期正则表达式
+        /// </summary>
+        private static readonly Regex RegexDate = new Regex(@"^\d{4}(\-|\/|\.)\d{1,2}(\-|\/|\.)\d{1,2}$");
+        /// <summary>
+        /// 合法的电话号码正则表达式
+        /// </summary>
+        private static readonly Regex RegexTel = new Regex(@"^\d{6,8}|\d{3,4}-\d{6,8}$");
+        /// <summary>
+        /// 合法的手机号码正则表达式
+        /// </summary>
+        private static readonly Regex RegexMobile = new Regex(@"^1(3|4|5|7|8|9)\d{9}$");
+        /// <summary>
+        /// 合法的用户名正则表达式（限中文/英文/数字/减号/下划线）
+        /// </summary>
+        private static readonly Regex RegexUserName = new Regex("^([\u4E00-\u9FA5a-zA-Z0-9_-]){2,16}$");
+        /// <summary>
+        /// 合法的IPv4地址正则表达式
+        /// </summary>
+        private static readonly Regex RegexIp = new Regex(@"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+        /// <summary>
+        /// 合法身份证号正则表达式
+        /// </summary>
+        private static readonly Regex RegexIdCard = new Regex(@"^(11|12|13|14|15|21|22|23|31|32|33|34|35|36|37|41|42|43|44|45|46|50|51|52|53|54|61|62|63|64|65|71|81|82|91)(\d{13}|\d{15}[\dxX])$");
+
+        #endregion
+
+        /// <summary>
+        /// 自定义验证
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="regexString">正则表达式字符串</param>
+        public static bool IsMatch(string value, string regexString)
+        {
+            if (value.IsEmpty())
+                return false;
+            var reg = new Regex(regexString);
+            var m = reg.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否数字
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNumeric(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexNumeric.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否数字（带正负号）
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNumberSign(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexNumericSign.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否是小数
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDecimal(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexDecimal.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否是小数（带正负号）
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDecimalSign(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexDecimalSign.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否中文
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsChinese(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexChinese.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否是邮箱
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsEmail(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexEmail.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否是邮政编码
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsPostcode(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexPostcode.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否是URL
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsUrl(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexUrl.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否日期
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDate(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexDate.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否日期时间
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDatetime(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            return MicrosoftSystem.DateTime.TryParse(value, out _);
+        }
+
+        /// <summary>
+        /// 是否为合法的电话号码
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsTel(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexTel.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否为合法的手机号码
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsMobile(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexMobile.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否为合法的用户名（限中文/英文/数字/减号/下划线）
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsUserName(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexUserName.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否为合法的IPv4地址
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsIp(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexIp.Match(value);
+            return m.Success;
+        }
+
+        /// <summary>
+        /// 是否合法身份证号
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsIdCard(string value)
+        {
+            if (value.IsEmpty())
+                return false;
+            var m = RegexIdCard.Match(value);
+            return m.Success;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 获取邮箱名
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string GetEmailName(string value)
+        {
+            if (!IsEmail(value))
+                return Empty;
+            var list = value.Split("@");
+            if (list.Count() < 1)
+                return Empty;
+            return list[0];
+        }
     }
 }

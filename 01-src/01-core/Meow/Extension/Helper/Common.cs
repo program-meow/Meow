@@ -6,6 +6,15 @@
     public static partial class Extension
     {
         /// <summary>
+        /// 是否为Null
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNull(this object value)
+        {
+            return value == null;
+        }
+
+        /// <summary>
         /// 安全获取值，当值为null时，不会抛出异常
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>

@@ -72,7 +72,7 @@ namespace Meow.Application.Data.Ef.Extension
                     builder.UseNpgsql(connectionString);
                     break;
                 case ConnectionOracle _:
-                    builder.UseSqlServer(connectionString);
+                    builder.UseOracle(connectionString);
                     break;
                 default:
                     throw new Warning("不支持该数据库类型");

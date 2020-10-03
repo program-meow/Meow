@@ -13,11 +13,11 @@ namespace Meow.Addin.Email.Core.Config
         /// 创建邮箱对象
         /// </summary>
         /// <param name="emailType">邮箱类型</param>
-        public static IEmailConfig Create(Parameter.Enum.Email emailType)
+        public static IEmailConfig Create(Meow.Parameter.Enum.Email emailType)
         {
             switch (emailType)
             {
-                case Parameter.Enum.Email.NetEase163:
+                case Meow.Parameter.Enum.Email.NetEase163:
                     return new EmailConfigNetEase163();
                 default:
                     throw new Warning("暂不支持邮箱类型");

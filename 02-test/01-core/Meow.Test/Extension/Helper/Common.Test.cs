@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Meow.Common.Test.Sample;
 using Meow.Extension.Helper;
 using Xunit;
@@ -10,6 +11,57 @@ namespace Meow.Test.Extension.Helper
     /// </summary>
     public class CommonTest
     {
+        /// <summary>
+        /// 测试是否Null - 字符串
+        /// </summary>
+        [Theory]
+        [InlineData(null, true)]
+        [InlineData("", false)]
+        [InlineData(" ", false)]
+        [InlineData("a", false)]
+        public void TestIsNull_String(string value, bool result)
+        {
+            Assert.Equal(value.IsNull(), result);
+        }
+
+        /// <summary>
+        /// 测试是否Null - Guid
+        /// </summary>
+        [Fact]
+        public void TestIsNull_Guid()
+        {
+            Assert.False(Guid.Empty.IsNull());
+            Assert.False(Guid.NewGuid().IsNull());
+        }
+
+        /// <summary>
+        /// 测试是否Null - 可空Guid
+        /// </summary>
+        [Fact]
+        public void TestIsNull_Guid_Nullable()
+        {
+            Guid? value = null;
+            Assert.True(value.IsNull());
+            value = Guid.Empty;
+            Assert.False(value.IsNull());
+            value = Guid.NewGuid();
+            Assert.False(value.IsNull());
+        }
+
+        /// <summary>
+        /// 测试是否Null - 集合
+        /// </summary>
+        [Fact]
+        public void TestIsNull_List()
+        {
+            List<int> list = null;
+            Assert.True(list.IsNull());
+            list = new List<int>();
+            Assert.False(list.IsNull());
+            list.Add(1);
+            Assert.False(list.IsNull());
+        }
+
         /// <summary>
         /// 测试安全获取值
         /// </summary>

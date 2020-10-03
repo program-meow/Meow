@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Meow.Parameter.Object
+namespace Meow.Addin.Email.Core.Parameter
 {
     /// <summary>
-    /// 账户
+    /// 邮箱发送方账户
     /// </summary>
-    public class Account
+    public class EmailFromAccount
     {
         /// <summary>
         /// 名称
@@ -18,6 +18,7 @@ namespace Meow.Parameter.Object
         /// </summary>
         [DisplayName("用户名")]
         [Required(ErrorMessage = "用户名不能为空")]
+        [EmailAddress(ErrorMessage = "邮箱地址不正确")]
         public string UserName { get; set; }
         /// <summary>
         /// 密码

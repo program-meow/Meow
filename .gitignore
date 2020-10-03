@@ -43,4 +43,9 @@
 /03-sample/01-application/04-infrastructure/Meow.Application.Sample.Data/bin
 /03-sample/01-application/04-infrastructure/Meow.Application.Sample.Data/obj
 
+/03-sample/02-addin/01-presentation/Meow.Addin.Sample.Api/bin
+/03-sample/02-addin/01-presentation/Meow.Addin.Sample.Api/obj
+/03-sample/02-addin/02-service/Meow.Addin.Sample.Service/bin
+/03-sample/02-addin/02-service/Meow.Addin.Sample.Service/obj
+
 /04-output

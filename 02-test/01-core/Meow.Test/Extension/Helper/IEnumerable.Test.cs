@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Meow.Common.Test;
-using Meow.Common.Test.Sample;
 using Meow.Extension.Helper;
 using Meow.Query.Pager;
 using Xunit;
@@ -14,6 +13,21 @@ namespace Meow.Test.Extension.Helper
     /// </summary>
     public class IEnumerableTest
     {
+
+        /// <summary>
+        /// 测试是否空值 - 集合
+        /// </summary>
+        [Fact]
+        public void TestIsEmpty_List()
+        {
+            List<int> list = null;
+            Assert.True(list.IsEmpty());
+            list = new List<int>();
+            Assert.True(list.IsEmpty());
+            list.Add(1);
+            Assert.False(list.IsEmpty());
+        }
+
         /// <summary>
         /// 测试将集合连接为带分隔符的字符串
         /// </summary>

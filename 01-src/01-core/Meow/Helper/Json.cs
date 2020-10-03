@@ -1,4 +1,4 @@
-﻿using Meow.Extension.Validation;
+﻿using Meow.Extension.Helper;
 using Newtonsoft.Json;
 
 namespace Meow.Helper

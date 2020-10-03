@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MailKit.Net.Smtp;
-using Meow.Addin.Email.Core.Config;
+﻿using MimeKit;
 using Meow.Exception;
-using Meow.Extension.Helper;
-using Meow.Extension.Validation;
+using MailKit.Net.Smtp;
 using Meow.Parameter.Object;
-using MimeKit;
+using Meow.Extension.Helper;
+using System.Threading.Tasks;
+using Meow.Extension.Validation;
+using System.Collections.Generic;
+using Meow.Addin.Email.Core.Config;
+using Meow.Addin.Email.Core.Parameter;
 
 namespace Meow.Addin.Email
 {
@@ -26,7 +27,7 @@ namespace Meow.Addin.Email
         /// <summary>
         /// 账户
         /// </summary>
-        private Account Account { get; set; }
+        private EmailFromAccount Account { get; set; }
         /// <summary>
         /// IP
         /// </summary>
@@ -78,54 +79,88 @@ namespace Meow.Addin.Email
         /// <summary>
         /// 添加接收邮箱
         /// </summary>
-        /// <param name="address">地址</param>
+        /// <param name="toEmailAddress">接收邮箱地址</param>
         /// <param name="name">名称</param>
-        public void AddToEmail(string address, string name = "")
+        public IEmailService AddToEmail(string toEmailAddress, string name = "")
         {
-            MimeMessage.To.Add(new MailboxAddress(name, address));
+            toEmailAddress.CheckEmail("接收方");
+            MimeMessage.To.Add(new MailboxAddress(name.EmptyCover(toEmailAddress.GetEmailName()), toEmailAddress));
+            return this;
+        }
+
+        /// <summary>
+        /// 添加接收邮箱集合
+        /// </summary>
+        /// <param name="toEmailAddress">接收邮箱地址集合</param>
+        public IEmailService AddToEmail(IEnumerable<string> toEmailAddress)
+        {
+            foreach (var toEmail in toEmailAddress)
+            {
+                toEmail.CheckEmpty(nameof(toEmail));
+                AddToEmail(toEmail);
+            }
+            return this;
         }
 
         /// <summary>
         /// 添加接收邮箱集合
         /// </summary>
         /// <param name="toEmails">接收邮箱集合</param>
-        public void AddToEmails(List<Parameter.Object.Email> toEmails)
+        public IEmailService AddToEmail(IEnumerable<EmailToAccount> toEmails)
         {
-            foreach (var email in toEmails)
+            foreach (var toEmail in toEmails)
             {
-                email.Validate();
-                AddToEmail(email.Name, email.Address);
+                toEmail.Validate();
+                AddToEmail(toEmail.Address, toEmail.Name);
             }
+            return this;
         }
 
         /// <summary>
         /// 添加抄送邮箱
         /// </summary>
-        /// <param name="address">地址</param>
+        /// <param name="ccEmailAddress">抄送邮箱地址</param>
         /// <param name="name">名称</param>
-        public void AddCcEmail(string address, string name = "")
+        public IEmailService AddCcEmail(string ccEmailAddress, string name = "")
         {
-            MimeMessage.Cc.Add(new MailboxAddress(name, address));
+            ccEmailAddress.CheckEmpty("抄送方");
+            MimeMessage.Cc.Add(new MailboxAddress(name.EmptyCover(ccEmailAddress.GetEmailName()), ccEmailAddress));
+            return this;
         }
 
         /// <summary>
         /// 添加抄送邮箱集合
         /// </summary>
-        /// <param name="toEmails">抄送邮箱集合</param>
-        public void AddCcEmails(List<Parameter.Object.Email> toEmails)
+        /// <param name="ccEmailAddress">抄送邮箱地址集合</param>
+        public IEmailService AddCcEmail(IEnumerable<string> ccEmailAddress)
         {
-            foreach (var email in toEmails)
+            foreach (var ccEmail in ccEmailAddress)
             {
-                email.Validate();
-                AddCcEmail(email.Name, email.Address);
+                ccEmail.CheckEmpty(nameof(ccEmail));
+                AddCcEmail(ccEmail);
             }
+            return this;
+        }
+
+        /// <summary>
+        /// 添加抄送邮箱集合
+        /// </summary>
+        /// <param name="ccEmails">抄送邮箱集合</param>
+        public IEmailService AddCcEmail(IEnumerable<EmailToAccount> ccEmails)
+        {
+            foreach (var ccEmail in ccEmails)
+            {
+                ccEmail.Validate();
+                AddCcEmail(ccEmail.Address, ccEmail.Name);
+            }
+            return this;
         }
 
         /// <summary>
         /// 消息
         /// </summary>
         /// <param name="message">消息</param>
-        public void Message(Message message)
+        public IEmailService Message(Message message)
         {
             message.Validate();
             MimeMessage.Subject = message.Title;
@@ -133,6 +168,7 @@ namespace Meow.Addin.Email
             {
                 Text = message.Content
             };
+            return this;
         }
 
         /// <summary>

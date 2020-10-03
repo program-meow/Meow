@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Meow.Exception;
 using Meow.Validation;
 
@@ -10,17 +9,6 @@ namespace Meow.Extension.Validation
     /// </summary>
     public static partial class Extension
     {
-        /// <summary>
-        /// 检测对象是否为null,为null则抛出<see cref="ArgumentNullException"/>异常
-        /// </summary>
-        /// <param name="value">值</param>
-        /// <param name="parameterName">参数名</param>
-        public static void CheckNull(this object value, string parameterName)
-        {
-            if (value.IsNull())
-                throw new ArgumentNullException(parameterName);
-        }
-
         /// <summary>
         /// 验证
         /// </summary>
