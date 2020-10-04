@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace Meow.Application.Data.Core.Connection
+﻿namespace Meow.Application.Data.Core.Connection
 {
     /// <summary>
     /// MySql连接对象
@@ -9,11 +6,12 @@ namespace Meow.Application.Data.Core.Connection
     public class ConnectionMySql : Connection
     {
         /// <summary>
-        /// 端口
+        /// 默认端口号
         /// </summary>
-        [DisplayName("端口")]
-        [Required(ErrorMessage = "端口不能为空")]
-        public override int? Port { get; set; } = 3306;
+        protected override int DefaultPort()
+        {
+            return 3306;
+        }
 
         /// <summary>
         /// 获取连接字符串

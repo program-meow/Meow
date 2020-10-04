@@ -9,7 +9,7 @@ namespace Meow.Application.Data.Ef
     /// 增删改查仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class CrudRepository<TEntity> : CrudRepository<TEntity, Guid>, IRepository<TEntity>
+    public abstract class CrudRepository<TEntity> : CrudRepository<TEntity, Guid>, ICrudRepository<TEntity>
         where TEntity : class, IAggregateRoot<TEntity, Guid>
     {
         /// <summary>
@@ -27,7 +27,7 @@ namespace Meow.Application.Data.Ef
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class CrudRepository<TEntity, TKey> : CrudStoreBase<TEntity, TKey>, IRepository<TEntity, TKey>
+    public abstract class CrudRepository<TEntity, TKey> : CrudStoreBase<TEntity, TKey>, ICrudRepository<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TEntity, TKey>
     {
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Meow.Exception;
+﻿using Meow.Exception;
 
 namespace Meow.Application.Data.Core.Connection
 {
@@ -10,11 +8,12 @@ namespace Meow.Application.Data.Core.Connection
     public class ConnectionOracle: Connection
     {
         /// <summary>
-        /// 端口
+        /// 默认端口号
         /// </summary>
-        [DisplayName("端口")]
-        [Required(ErrorMessage = "端口不能为空")]
-        public override int? Port { get; set; } = 1521;
+        protected override int DefaultPort()
+        {
+            return 1521;
+        }
 
         /// <summary>
         /// 获取连接字符串

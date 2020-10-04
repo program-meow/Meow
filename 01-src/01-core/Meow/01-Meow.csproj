@@ -5,7 +5,7 @@
     <AssemblyName>Meow</AssemblyName>
     <RootNamespace>Meow</RootNamespace>
     <PackageId>Meow.Core</PackageId>
-    <Version>1.0.1.4</Version>
+    <Version>1.0.1.5</Version>
     <Authors>程序喵</Authors>
     <Description>Meow应用框架 - 核心 - 日常开发基础扩展及辅助类库。
 以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。

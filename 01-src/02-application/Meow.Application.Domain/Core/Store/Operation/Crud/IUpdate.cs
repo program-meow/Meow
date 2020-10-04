@@ -2,7 +2,7 @@
 using Meow.Application.Domain.Core.Model;
 using Meow.Aspect;
 
-namespace Meow.Application.Domain.Core.Store.Operation.Store
+namespace Meow.Application.Domain.Core.Store.Operation.Crud
 {
     /// <summary>
     /// 修改实体

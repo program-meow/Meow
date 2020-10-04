@@ -14,7 +14,7 @@ namespace Meow.Application.Data.Ef.Core.Store
     /// 增删改查存储器
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
-    public abstract class CrudStoreBase<TEntity> : CrudStoreBase<TEntity, Guid>, IStore<TEntity>
+    public abstract class CrudStoreBase<TEntity> : CrudStoreBase<TEntity, Guid>, ICrudStore<TEntity>
         where TEntity : class, IKey<Guid>, IVersion
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Meow.Application.Data.Ef.Core.Store
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
-    public abstract class CrudStoreBase<TEntity, TKey> : QueryStoreBase<TEntity, TKey>, IStore<TEntity, TKey>
+    public abstract class CrudStoreBase<TEntity, TKey> : QueryStoreBase<TEntity, TKey>, ICrudStore<TEntity, TKey>
         where TEntity : class, IKey<TKey>
     {
         /// <summary>

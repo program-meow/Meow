@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meow.Application.Domain.Core.Model;
 
-namespace Meow.Application.Domain.Core.Store.Operation.Store
+namespace Meow.Application.Domain.Core.Store.Operation.Crud
 {
     /// <summary>
     /// 移除实体

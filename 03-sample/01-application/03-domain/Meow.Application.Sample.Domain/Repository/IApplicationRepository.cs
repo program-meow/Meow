@@ -5,7 +5,7 @@ namespace Meow.Application.Sample.Domain.Repository
     /// <summary>
     /// 应用程序仓储
     /// </summary>
-    public interface IApplicationRepository : IRepository<Model.Application>
+    public interface IApplicationRepository : ICrudRepository<Model.Application>
     {
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Meow.Extension.Validation;
 using System.ComponentModel.DataAnnotations;
+using Meow.Extension.Helper;
 
 namespace Meow.Application.Data.Core.Connection
 {
@@ -38,7 +39,7 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         [DisplayName("端口")]
         [Required(ErrorMessage = "端口不能为空")]
-        public abstract int? Port { get; set; }
+        public int? Port { get; set; }
 
         /// <summary>
         /// 初始化连接对象
@@ -62,9 +63,16 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         public string ToConnectionString()
         {
+            if (Port.IsNull())
+                Port = DefaultPort();
             this.Validate();
             return GetConnectionString();
         }
+
+        /// <summary>
+        /// 默认端口号
+        /// </summary>
+        protected abstract int DefaultPort();
 
         /// <summary>
         /// 获取连接字符串
