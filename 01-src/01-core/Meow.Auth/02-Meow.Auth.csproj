@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Meow.Auth</AssemblyName>
     <RootNamespace>Meow.Auth</RootNamespace>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.1.1</Version>
     <Authors>程序喵</Authors>
     <Description>Meow应用框架 - 核心 - 身份认证类库。
 以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。
