@@ -14,7 +14,7 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         [DisplayName("端口")]
         [Required(ErrorMessage = "端口不能为空")]
-        public new int? Port { get; set; } = 1521;
+        public override int? Port { get; set; } = 1521;
 
         /// <summary>
         /// 获取连接字符串

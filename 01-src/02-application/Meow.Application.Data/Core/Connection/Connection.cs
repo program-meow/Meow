@@ -38,7 +38,7 @@ namespace Meow.Application.Data.Core.Connection
         /// </summary>
         [DisplayName("端口")]
         [Required(ErrorMessage = "端口不能为空")]
-        public int? Port { get; set; }
+        public abstract int? Port { get; set; }
 
         /// <summary>
         /// 初始化连接对象
