@@ -48,4 +48,8 @@
 /03-sample/02-addin/02-service/Meow.Addin.Sample.Service/bin
 /03-sample/02-addin/02-service/Meow.Addin.Sample.Service/obj
 
+/03-sample/05-nuget/Meow.NuGet.Sample.Api/bin
+/03-sample/05-nuget/Meow.NuGet.Sample.Api/obj
+
 /04-output
+

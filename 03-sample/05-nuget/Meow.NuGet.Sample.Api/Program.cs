@@ -3,7 +3,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Meow.Addin.Sample.Api
+namespace Meow.NuGet.Sample.Api
 {
     /// <summary>
     /// ”¶”√≥Ã–Ú

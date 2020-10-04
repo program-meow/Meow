@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\04-output\03-sample\02-nuget\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\03-sample\02-nuget\Meow.NuGet.Sample.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\04-output\03-sample\02-nuget\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\03-sample\02-nuget\Meow.NuGet.Sample.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Meow.Addin.Email" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Application.Data" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Application.Domain" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Application.Presentation" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Application.Service" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Auth" Version="1.0.1.1" />
+    <PackageReference Include="Meow.Core" Version="1.0.1.1" />
+  </ItemGroup>
+
+
+</Project>

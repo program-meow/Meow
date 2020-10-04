@@ -96,9 +96,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-presentation", "01-prese
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-service", "02-service", "{D16BF762-F30E-4551-AD3F-E1562FFDF9A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Addin.Sample.Service", "03-sample\02-addin\02-service\Meow.Addin.Sample.Service\Meow.Addin.Sample.Service.csproj", "{6AAB3550-1AF5-41E9-A44A-74EA471B6813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Addin.Sample.Service", "03-sample\02-addin\02-service\Meow.Addin.Sample.Service\Meow.Addin.Sample.Service.csproj", "{6AAB3550-1AF5-41E9-A44A-74EA471B6813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.Addin.Sample.Api", "03-sample\02-addin\01-presentation\Meow.Addin.Sample.Api\Meow.Addin.Sample.Api.csproj", "{9A06F278-9213-40EA-A4B4-FBA3D632A267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Addin.Sample.Api", "03-sample\02-addin\01-presentation\Meow.Addin.Sample.Api\Meow.Addin.Sample.Api.csproj", "{9A06F278-9213-40EA-A4B4-FBA3D632A267}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-middleware", "03-middleware", "{20FE768B-9E83-4746-B2EE-F5C881DA0400}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-biz", "04-biz", "{B0AB0FC4-01D3-4D01-BD45-284FD5B070C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-nuget", "05-nuget", "{06E59073-CB50-4DD9-923B-08301B3DFB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meow.NuGet.Sample.Api", "03-sample\05-nuget\Meow.NuGet.Sample.Api\Meow.NuGet.Sample.Api.csproj", "{12D67089-0F2F-4A70-B964-F7819678362E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -182,6 +190,10 @@ Global
 		{9A06F278-9213-40EA-A4B4-FBA3D632A267}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A06F278-9213-40EA-A4B4-FBA3D632A267}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A06F278-9213-40EA-A4B4-FBA3D632A267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D67089-0F2F-4A70-B964-F7819678362E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D67089-0F2F-4A70-B964-F7819678362E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D67089-0F2F-4A70-B964-F7819678362E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D67089-0F2F-4A70-B964-F7819678362E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -228,6 +240,10 @@ Global
 		{D16BF762-F30E-4551-AD3F-E1562FFDF9A7} = {0D7D6F15-E8B4-4B15-8808-41ED895DCE3A}
 		{6AAB3550-1AF5-41E9-A44A-74EA471B6813} = {D16BF762-F30E-4551-AD3F-E1562FFDF9A7}
 		{9A06F278-9213-40EA-A4B4-FBA3D632A267} = {5B50E061-1809-4117-A02E-3FC246D93755}
+		{20FE768B-9E83-4746-B2EE-F5C881DA0400} = {7D40BE35-1766-49CF-A97B-864337BA9124}
+		{B0AB0FC4-01D3-4D01-BD45-284FD5B070C3} = {7D40BE35-1766-49CF-A97B-864337BA9124}
+		{06E59073-CB50-4DD9-923B-08301B3DFB29} = {7D40BE35-1766-49CF-A97B-864337BA9124}
+		{12D67089-0F2F-4A70-B964-F7819678362E} = {06E59073-CB50-4DD9-923B-08301B3DFB29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA069380-0511-4E26-9AB2-343F143CBD5E}
