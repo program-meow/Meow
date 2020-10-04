@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Meow.Application.Data</AssemblyName>
     <RootNamespace>Meow.Application.Data</RootNamespace>
-    <Version>1.0.1.1</Version>
+    <Version>1.0.1.3</Version>
     <Authors>程序喵</Authors>
     <Description>Meow应用框架 - 应用程序 - 数据层类库。
 以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。
