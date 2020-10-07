@@ -7,7 +7,7 @@
     <Description>Meow应用框架 - 业务 - 租户类库。
 以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本。
 个人学习和使用，若喜欢可随意使用。</Description>
-    <Version>1.0.1.1</Version>
+    <Version>1.0.1.7</Version>
     <Authors>程序喵</Authors>
     <Copyright>程序喵</Copyright>
     <PackageProjectUrl>https://github.com/program-meow/meow</PackageProjectUrl>

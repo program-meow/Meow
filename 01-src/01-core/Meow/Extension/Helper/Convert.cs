@@ -151,6 +151,15 @@ namespace Meow.Extension.Helper
         }
 
         /// <summary>
+        /// 转换为Guid可空集合
+        /// </summary>
+        /// <param name="value">值,范例: "83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
+        public static List<Guid?> ToToGuidOrNullList(this string value)
+        {
+            return value.ToGuidList().ToOrNull();
+        }
+
+        /// <summary>
         /// 转换为Guid集合
         /// </summary>
         /// <param name="value">值</param>
@@ -159,6 +168,17 @@ namespace Meow.Extension.Helper
             if (value == null)
                 return new List<Guid>();
             return value.Select(t => t.ToGuid()).ToList();
+        }
+
+        /// <summary>
+        /// 转换为Guid可空集合
+        /// </summary>
+        /// <param name="value">值</param>
+        public static List<Guid?> ToToGuidOrNullList(this IEnumerable<object> value)
+        {
+            if (value == null)
+                return new List<Guid?>();
+            return value.ToGuidList().ToOrNull();
         }
 
         /// <summary>

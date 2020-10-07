@@ -28,19 +28,9 @@ namespace Meow.Parameter.Object
         /// 初始化树
         /// </summary>
         /// <param name="data">数据</param>
-        /// <param name="subset">子集</param>
-        /// <param name="sortId">排序号</param>
-        public Tree(T data, Tree<T> subset, int? sortId = 1) : this(data, new List<Tree<T>> { subset }, sortId)
-        {
-        }
-
-        /// <summary>
-        /// 初始化树
-        /// </summary>
-        /// <param name="data">数据</param>
         /// <param name="subsets">子集集合</param>
         /// <param name="sortId">排序号</param>
-        public Tree(T data, List<Tree<T>> subsets, int? sortId = 1)
+        public Tree(T data, IEnumerable<Tree<T>> subsets, int? sortId = 1)
         {
             Subsets = new List<Tree<T>>();
             Data = data;
@@ -75,9 +65,12 @@ namespace Meow.Parameter.Object
         /// 添加子集
         /// </summary>
         /// <param name="subsets">子集集合</param>
-        public Tree<T> AddSubset(List<Tree<T>> subsets)
+        public Tree<T> AddSubset(IEnumerable<Tree<T>> subsets)
         {
-            Subsets.AddNoNull(subsets);
+            if (subsets.IsNull())
+                return this;
+            foreach (var item in subsets)
+                AddSubset(item);
             return this;
         }
     }

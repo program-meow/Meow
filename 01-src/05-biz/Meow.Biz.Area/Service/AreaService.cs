@@ -2,9 +2,9 @@
 using Meow.Biz.Area.Dto;
 using Meow.Biz.Area.Dto.Extension;
 using Meow.Biz.Area.Repository;
+using Meow.Extension.Helper;
 using Meow.Parameter.Enum;
 using Meow.Parameter.Object;
-using Guid = System.Guid;
 
 namespace Meow.Biz.Area.Service
 {
@@ -31,9 +31,9 @@ namespace Meow.Biz.Area.Service
         /// 获取：若不存在则返回null
         /// </summary>
         /// <param name="id">编号</param>
-        public AreaDto Get(Guid? id)
+        public AreaDto Get(string id)
         {
-            var area = AreaRepository.Find(id);
+            var area = AreaRepository.Find(id.ToGuidOrNull());
             return area.ToDto();
         }
 
@@ -42,9 +42,9 @@ namespace Meow.Biz.Area.Service
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="endLevel">结束地区级别：默认区县级别</param>
-        public Tree<AreaDto> GetTree(Guid? id, AreaLevel endLevel = AreaLevel.County)
+        public Tree<AreaDto> GetTree(string id, AreaLevel endLevel = AreaLevel.County)
         {
-            var area = AreaRepository.FindTree(id, endLevel);
+            var area = AreaRepository.FindTree(id.ToGuidOrNull(), endLevel);
             return area.ToDto();
         }
 
@@ -52,19 +52,29 @@ namespace Meow.Biz.Area.Service
         /// 获取：若不存在则返回空对象
         /// </summary>
         /// <param name="id">编号</param>
-        public AreaDto Single(Guid? id)
+        public AreaDto Single(string id)
         {
-            var area = AreaRepository.Single(id);
+            var area = AreaRepository.Single(id.ToGuidOrNull());
             return area.ToDto();
+        }
+
+        /// <summary>
+        /// 根据编号集合字符串获取
+        /// </summary>
+        /// <param name="idsStr">编号集合字符串,范例: "83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
+        public List<AreaDto> GetByIdsStr(string idsStr)
+        {
+            var areas = AreaRepository.FindByIds(idsStr.ToToGuidOrNullList());
+            return areas.ToDto();
         }
 
         /// <summary>
         /// 根据编号集合获取
         /// </summary>
         /// <param name="ids">编号集合</param>
-        public List<AreaDto> GetByIds(IEnumerable<Guid?> ids)
+        public List<AreaDto> GetByIds(IEnumerable<string> ids)
         {
-            var areas = AreaRepository.FindByIds(ids);
+            var areas = AreaRepository.FindByIds(ids.ToToGuidOrNullList());
             return areas.ToDto();
         }
 
@@ -101,9 +111,10 @@ namespace Meow.Biz.Area.Service
         /// 获取子集
         /// </summary>
         /// <param name="id">编号</param>
-        public List<AreaDto> GetSubset(Guid? id)
+        /// <param name="endLevel">结束地区级别：默认为null,为null默认只获取下一级</param>
+        public List<AreaDto> GetSubset(string id, AreaLevel? endLevel = null)
         {
-            var areas = AreaRepository.FindSubset(id);
+            var areas = AreaRepository.FindSubset(id.ToGuidOrNull(), endLevel);
             return areas.ToDto();
         }
 
@@ -111,9 +122,10 @@ namespace Meow.Biz.Area.Service
         /// 获取父级
         /// </summary>
         /// <param name="id">编号</param>
-        public List<AreaDto> GetParent(Guid? id)
+        /// <param name="isDistinct">是否移除自身</param>
+        public List<AreaDto> GetParent(string id, bool isDistinct = false)
         {
-            var areas = AreaRepository.FindParent(id);
+            var areas = AreaRepository.FindParent(id.ToGuidOrNull(), isDistinct);
             return areas.ToDto();
         }
 
@@ -121,9 +133,10 @@ namespace Meow.Biz.Area.Service
         /// 获取父级树
         /// </summary>
         /// <param name="id">编号</param>
-        public Tree<AreaDto> GetParentTree(Guid? id)
+        /// <param name="isDistinct">是否移除自身</param>
+        public Tree<AreaDto> GetParentTree(string id, bool isDistinct = false)
         {
-            var area = AreaRepository.FindParentTree(id);
+            var area = AreaRepository.FindParentTree(id.ToGuidOrNull(), isDistinct);
             return area.ToDto();
         }
 
@@ -131,9 +144,9 @@ namespace Meow.Biz.Area.Service
         /// 获取地址
         /// </summary>
         /// <param name="id">编号</param>
-        public AddressDto GetAddress(Guid? id)
+        public AddressDto GetAddress(string id)
         {
-            var address = AreaRepository.FindAddress(id);
+            var address = AreaRepository.FindAddress(id.ToGuidOrNull());
             return address.ToDto();
         }
 
@@ -144,9 +157,9 @@ namespace Meow.Biz.Area.Service
         /// <param name="cityId">城市编号</param>
         /// <param name="countyId">区县编号</param>
         /// <param name="townId">街道/乡镇编号</param>
-        public AddressDto GetAddress(Guid? provinceId, Guid? cityId, Guid? countyId, Guid? townId = null)
+        public AddressDto GetAddress(string provinceId, string cityId, string countyId, string townId = null)
         {
-            var address = AreaRepository.FindAddress(provinceId, cityId, countyId, townId);
+            var address = AreaRepository.FindAddress(provinceId.ToGuidOrNull(), cityId.ToGuidOrNull(), countyId.ToGuidOrNull(), townId.ToGuidOrNull());
             return address.ToDto();
         }
 

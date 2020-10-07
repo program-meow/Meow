@@ -4,6 +4,7 @@ using Meow.Biz.Area.Data;
 using Meow.Biz.Area.Model;
 using Meow.Exception;
 using Meow.Extension.Helper;
+using Meow.Extension.Parameter.Enum;
 using Meow.Parameter.Enum;
 using Meow.Parameter.Object;
 using Guid = System.Guid;
@@ -68,9 +69,11 @@ namespace Meow.Biz.Area.Repository
             if (area.IsNull())
                 return new Tree<Model.Area>();
             if (area.Level.SafeValue() > endLevel)
-                endLevel = area.Level.SafeValue() + 1;
+                endLevel = area.Level.SafeValue();
+            if (!area.Level.TryLowerLevel(out AreaLevel? lowerLevel))
+                return new Tree<Model.Area>(area, null, area.SortId);
             var areas = FindAll();
-            var subsets = FindAllTree(areas, area.Level.SafeValue() + 1, endLevel, area.Id);
+            var subsets = FindAllTree(areas, lowerLevel.SafeValue(), endLevel, area.Id);
             return new Tree<Model.Area>(area, subsets, area.SortId);
         }
 
@@ -91,7 +94,7 @@ namespace Meow.Biz.Area.Repository
         /// <param name="ids">编号集合</param>
         public List<Model.Area> FindByIds(IEnumerable<Guid?> ids)
         {
-            var safeIds = ids.ToNotNull();
+            var safeIds = ids.Distinct().ToNotNull();
             if (safeIds.IsEmpty())
                 return new List<Model.Area>();
             return Find().Where(t => safeIds.Contains(t.Id)).ToList();
@@ -131,7 +134,12 @@ namespace Meow.Biz.Area.Repository
             var areas = list.Where(t => t.Level == startLevel).WhereIfNotEmpty(t => t.ParentId == parentId).ToList();
             foreach (var item in areas)
             {
-                var subsets = FindAllTree(list, startLevel + 1, endLevel, item.Id);
+                if (!startLevel.TryLowerLevel(out AreaLevel? lowerLevel))
+                {
+                    result.Add(new Tree<Model.Area>(item, null, item.SortId));
+                    continue;
+                }
+                var subsets = FindAllTree(list, lowerLevel.SafeValue(), endLevel, item.Id);
                 result.Add(new Tree<Model.Area>(item, subsets, item.SortId));
             }
             return result.OrderBy(t => t.SortId).ToList();
@@ -155,36 +163,71 @@ namespace Meow.Biz.Area.Repository
         /// 查找子集
         /// </summary>
         /// <param name="id">编号</param>
-        public List<Model.Area> FindSubset(Guid? id)
+        /// <param name="endLevel">结束地区级别：默认为null,为null默认只获取下一级</param>
+        public List<Model.Area> FindSubset(Guid? id, AreaLevel? endLevel = null)
         {
             var area = Find(id);
             if (area.IsNull())
                 return new List<Model.Area>();
-            var subsetLevel = area.Level.SafeValue() + 1;
-            var result = Find().Where(t => t.Level == subsetLevel).ToList();
+            if (!area.Level.TryLowerLevel(out AreaLevel? lowerLevel))
+                return new List<Model.Area>();
+            if (endLevel.IsNull() || area.Level >= endLevel)
+                endLevel = lowerLevel;
+            var areas = FindAll();
+            var result = FindAllSubset(areas, area.Id, lowerLevel.SafeValue(), endLevel.SafeValue());
             return result;
+        }
+
+        /// <summary>
+        /// 查找所有子集
+        /// </summary>
+        /// <param name="list">集合</param>
+        /// <param name="parentId">父编号</param>
+        /// <param name="startLevel">起始地区级别</param>
+        /// <param name="endLevel">结束地区级别</param>
+        private List<Model.Area> FindAllSubset(List<Model.Area> list, Guid? parentId, AreaLevel startLevel, AreaLevel endLevel)
+        {
+            var result = new List<Model.Area>();
+            if (startLevel > endLevel)
+                return result;
+            var areas = list.Where(t => t.ParentId == parentId).Where(t => t.Level == startLevel).OrderBy(t => t.SortId).ToList();
+            foreach (var item in areas)
+            {
+                result.Add(item);
+                if (!startLevel.TryLowerLevel(out AreaLevel? lowerLevel))
+                    continue;
+                var subsets = FindAllSubset(list, item.Id, lowerLevel.SafeValue(), endLevel);
+                result.AddRange(subsets);
+            }
+            return result.ToList();
         }
 
         /// <summary>
         /// 查找父级
         /// </summary>
         /// <param name="id">编号</param>
-        public List<Model.Area> FindParent(Guid? id)
+        /// <param name="isDistinct">是否移除自身</param>
+        public List<Model.Area> FindParent(Guid? id, bool isDistinct = false)
         {
             var area = Find(id);
             if (area.IsNull())
                 return new List<Model.Area>();
             var ids = area.Path.ToGuidList();
-            return Find().Where(t => ids.Contains(t.Id)).OrderBy(t => t.Level).ToList();
+            var result = Find().Where(t => ids.Contains(t.Id)).OrderBy(t => t.Level).ToList();
+            if (!isDistinct)
+                return result;
+            result.Remove(area);
+            return result;
         }
 
         /// <summary>
         /// 查找父级树
         /// </summary>
         /// <param name="id">编号</param>
-        public Tree<Model.Area> FindParentTree(Guid? id)
+        /// <param name="isDistinct">是否移除自身</param>
+        public Tree<Model.Area> FindParentTree(Guid? id, bool isDistinct = false)
         {
-            var areas = FindParent(id);
+            var areas = FindParent(id, isDistinct);
             if (areas.IsEmpty())
                 return new Tree<Model.Area>();
             return FindParentTree(areas, AreaLevel.Province);
@@ -194,16 +237,18 @@ namespace Meow.Biz.Area.Repository
         /// 获取父级树
         /// </summary>
         /// <param name="areas">地区集合</param>
-        /// <param name="areaLevel">地区级别</param>
-        private Tree<Model.Area> FindParentTree(List<Model.Area> areas, AreaLevel areaLevel)
+        /// <param name="startLevel">起始地区级别</param>
+        private Tree<Model.Area> FindParentTree(List<Model.Area> areas, AreaLevel startLevel)
         {
-            if (areaLevel > AreaLevel.Town)
+            if (startLevel > AreaLevel.Town)
                 return null;
-            var area = areas.FirstOrDefault(t => t.Level == areaLevel);
+            var area = areas.FirstOrDefault(t => t.Level == startLevel);
             if (area.IsNull())
                 return null;
-            var subset = FindParentTree(areas, areaLevel + 1);
-            return new Tree<Model.Area>(area, subset);
+            if (!startLevel.TryLowerLevel(out AreaLevel? lowerLevel))
+                return new Tree<Model.Area>(area, null, area?.SortId);
+            var subset = FindParentTree(areas, lowerLevel.SafeValue());
+            return new Tree<Model.Area>(area, new List<Tree<Model.Area>> { subset });
         }
 
         /// <summary>

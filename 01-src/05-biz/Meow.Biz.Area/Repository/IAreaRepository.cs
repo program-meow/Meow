@@ -57,17 +57,20 @@ namespace Meow.Biz.Area.Repository
         /// 查找子集
         /// </summary>
         /// <param name="id">编号</param>
-        List<Model.Area> FindSubset([NotEmpty] Guid? id);
+        /// <param name="endLevel">结束地区级别：默认为null,为null默认只获取下一级</param>
+        List<Model.Area> FindSubset([NotEmpty] Guid? id, AreaLevel? endLevel = null);
         /// <summary>
         /// 查找父级
         /// </summary>
         /// <param name="id">编号</param>
-        List<Model.Area> FindParent([NotEmpty] Guid? id);
+        /// <param name="isDistinct">是否移除自身</param>
+        List<Model.Area> FindParent([NotEmpty] Guid? id, bool isDistinct = false);
         /// <summary>
         /// 查找父级树
         /// </summary>
         /// <param name="id">编号</param>
-        Tree<Model.Area> FindParentTree([NotEmpty] Guid? id);
+        /// <param name="isDistinct">是否移除自身</param>
+        Tree<Model.Area> FindParentTree([NotEmpty] Guid? id, bool isDistinct = false);
         /// <summary>
         /// 查找地址
         /// </summary>

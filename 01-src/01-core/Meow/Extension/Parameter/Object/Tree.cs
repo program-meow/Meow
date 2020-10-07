@@ -30,7 +30,7 @@ namespace Meow.Extension.Parameter.Object
             if (value == null)
                 return new Tree<TOut>();
             if (value.Subsets.IsEmpty())
-                return new Tree<TOut>(handler(value.Data), new Tree<TOut>(), value.SortId);
+                return new Tree<TOut>(handler(value.Data), null, value.SortId);
             var subsets = new List<Tree<TOut>>();
             foreach (var item in value.Subsets)
                 subsets.Add(item.To(handler));

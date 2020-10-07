@@ -16,8 +16,8 @@ namespace Meow.Extension.Helper
         /// <param name="data">添加数据</param>
         public static void AddNoNull<T>(this List<T> value, T data)
         {
-            if (value == null)
-                return;
+            if (value.IsNull())
+                value = new List<T>();
             if (data.IsNull())
                 return;
             value.Add(data);
@@ -31,7 +31,9 @@ namespace Meow.Extension.Helper
         /// <param name="list">添加数据集合</param>
         public static void AddNoNull<T>(this List<T> value, IEnumerable<T> list)
         {
-            if (value == null)
+            if (value.IsNull())
+                value = new List<T>();
+            if (list.IsNull())
                 return;
             foreach (var item in list)
                 value.AddNoNull(item);
@@ -44,8 +46,8 @@ namespace Meow.Extension.Helper
         /// <param name="data">添加数据</param>
         public static void AddNoEmpty(this List<string> value, string data)
         {
-            if (value == null)
-                return;
+            if (value.IsNull())
+                value = new List<string>();
             if (data.IsEmpty())
                 return;
             value.Add(data);
@@ -56,13 +58,13 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="data">添加数据</param>
-        public static void AddNoEmpty(this List<Guid> value, Guid data)
+        public static void AddNoEmpty(this List<Guid> value, Guid? data)
         {
-            if (value == null)
-                return;
+            if (value.IsNull())
+                value = new List<Guid>();
             if (data.IsEmpty())
                 return;
-            value.Add(data);
+            value.Add(data.SafeValue());
         }
 
         /// <summary>
@@ -72,8 +74,8 @@ namespace Meow.Extension.Helper
         /// <param name="data">添加数据</param>
         public static void AddNoEmpty(this List<Guid?> value, Guid? data)
         {
-            if (value == null)
-                return;
+            if (value.IsNull())
+                value = new List<Guid?>();
             if (data.IsEmpty())
                 return;
             value.Add(data);

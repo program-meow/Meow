@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Meow.Application.Presentation.Controller;
 using Meow.Biz.Area.Service;
@@ -33,7 +32,7 @@ namespace Meow.Biz.Area.Controller
         /// </summary>
         /// <param name="id">编号</param>
         [HttpGet]
-        public IActionResult Get(Guid? id)
+        public IActionResult Get(string id)
         {
             var result = AreaService.Single(id);
             return Ok(result);
@@ -45,9 +44,20 @@ namespace Meow.Biz.Area.Controller
         /// <param name="id">编号</param>
         /// <param name="endLevel">结束地区级别：默认区县级别</param>
         [HttpGet("getTree")]
-        public IActionResult GetTree(Guid? id, AreaLevel endLevel = AreaLevel.County)
+        public IActionResult GetTree(string id, AreaLevel endLevel = AreaLevel.County)
         {
             var result = AreaService.GetTree(id, endLevel);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 根据编号集合字符串获取
+        /// </summary>
+        /// <param name="idsStr">编号集合字符串,范例: "83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
+        [HttpGet("getByIdsStr")]
+        public IActionResult GetByIdsStr(string idsStr)
+        {
+            var result = AreaService.GetByIdsStr(idsStr);
             return Ok(result);
         }
 
@@ -56,7 +66,7 @@ namespace Meow.Biz.Area.Controller
         /// </summary>
         /// <param name="ids">编号集合</param>
         [HttpGet("getByIds")]
-        public IActionResult GetByIds(IEnumerable<Guid?> ids)
+        public IActionResult GetByIds(List<string> ids)
         {
             var result = AreaService.GetByIds(ids);
             return Ok(result);
@@ -98,10 +108,11 @@ namespace Meow.Biz.Area.Controller
         /// 获取子集
         /// </summary>
         /// <param name="id">编号</param>
+        /// <param name="endLevel">结束地区级别：默认为null,为null默认只获取下一级</param>
         [HttpGet("getSubset")]
-        public IActionResult GetSubset(Guid? id)
+        public IActionResult GetSubset(string id, AreaLevel? endLevel = null)
         {
-            var result = AreaService.GetSubset(id);
+            var result = AreaService.GetSubset(id, endLevel);
             return Ok(result);
         }
 
@@ -109,10 +120,11 @@ namespace Meow.Biz.Area.Controller
         /// 获取父级
         /// </summary>
         /// <param name="id">编号</param>
+        /// <param name="isDistinct">是否移除自身</param>
         [HttpGet("getParent")]
-        public IActionResult GetParent(Guid? id)
+        public IActionResult GetParent(string id, bool isDistinct = false)
         {
-            var result = AreaService.GetParent(id);
+            var result = AreaService.GetParent(id, isDistinct);
             return Ok(result);
         }
 
@@ -120,10 +132,11 @@ namespace Meow.Biz.Area.Controller
         /// 获取父级树
         /// </summary>
         /// <param name="id">编号</param>
+        /// <param name="isDistinct">是否移除自身</param>
         [HttpGet("getParentTree")]
-        public IActionResult GetParentTree(Guid? id)
+        public IActionResult GetParentTree(string id, bool isDistinct = false)
         {
-            var result = AreaService.GetParentTree(id);
+            var result = AreaService.GetParentTree(id, isDistinct);
             return Ok(result);
         }
 
@@ -132,7 +145,7 @@ namespace Meow.Biz.Area.Controller
         /// </summary>
         /// <param name="id">编号</param>
         [HttpGet("getAddressById")]
-        public IActionResult GetAddress(Guid? id)
+        public IActionResult GetAddress(string id)
         {
             var result = AreaService.GetAddress(id);
             return Ok(result);
@@ -146,7 +159,7 @@ namespace Meow.Biz.Area.Controller
         /// <param name="countyId">区县编号</param>
         /// <param name="townId">街道/乡镇编号</param>
         [HttpGet("getAddress")]
-        public IActionResult GetAddress(Guid? provinceId, Guid? cityId, Guid? countyId, Guid? townId = null)
+        public IActionResult GetAddress(string provinceId, string cityId, string countyId, string townId = null)
         {
             var result = AreaService.GetAddress(provinceId, cityId, countyId, townId);
             return Ok(result);
