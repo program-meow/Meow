@@ -242,5 +242,23 @@ namespace Meow.Extension.Helper
         {
             return value.IsEmpty() ? coverValue : value;
         }
+
+        /// <summary>
+        /// 压缩
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Compress(this string value)
+        {
+            return String.Compress(value);
+        }
+
+        /// <summary>
+        /// 解压
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Decompress(this string value)
+        {
+            return String.Decompress(value);
+        }
     }
 }

@@ -114,5 +114,20 @@ namespace Meow.Test.Extension.Helper
         {
             Assert.Equal(result, value.SplitWordGroup());
         }
+
+        /// <summary>
+        /// 霞編儿抹才盾儿
+        /// </summary>
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData("", "")]
+        [InlineData(" ", "")]
+        [InlineData("込込込込込込込込込込込込込込込込込", "込込込込込込込込込込込込込込込込込")]
+        public void TestCompressAndDecompress(string value, string result)
+        {
+            var compressValue = value.Compress();
+            var decompressValue = compressValue.Decompress();
+            Assert.Equal(result, decompressValue);
+        }
     }
 }

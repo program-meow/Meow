@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Meow.Extension.Helper;
 
 namespace Meow.Parameter.Object
 {
@@ -10,9 +11,7 @@ namespace Meow.Parameter.Object
         /// <summary>
         /// 初始化树
         /// </summary>
-        /// <param name="data">数据</param>
-        /// <param name="sortId">排序号</param>
-        public Tree(T data, int? sortId = null) : this(data, null, sortId)
+        public Tree() : this(default(T))
         {
         }
 
@@ -20,12 +19,32 @@ namespace Meow.Parameter.Object
         /// 初始化树
         /// </summary>
         /// <param name="data">数据</param>
-        /// <param name="subsets">子集</param>
         /// <param name="sortId">排序号</param>
-        public Tree(T data, List<Tree<T>> subsets, int? sortId = null)
+        public Tree(T data, int? sortId = 1) : this(data, new List<Tree<T>>(), sortId)
         {
+        }
+
+        /// <summary>
+        /// 初始化树
+        /// </summary>
+        /// <param name="data">数据</param>
+        /// <param name="subset">子集</param>
+        /// <param name="sortId">排序号</param>
+        public Tree(T data, Tree<T> subset, int? sortId = 1) : this(data, new List<Tree<T>> { subset }, sortId)
+        {
+        }
+
+        /// <summary>
+        /// 初始化树
+        /// </summary>
+        /// <param name="data">数据</param>
+        /// <param name="subsets">子集集合</param>
+        /// <param name="sortId">排序号</param>
+        public Tree(T data, List<Tree<T>> subsets, int? sortId = 1)
+        {
+            Subsets = new List<Tree<T>>();
             Data = data;
-            Subsets = subsets ?? new List<Tree<T>>();
+            AddSubset(subsets);
             SortId = sortId;
         }
 
@@ -48,7 +67,7 @@ namespace Meow.Parameter.Object
         /// <param name="subset">子集</param>
         public Tree<T> AddSubset(Tree<T> subset)
         {
-            Subsets.Add(subset);
+            Subsets.AddNoNull(subset);
             return this;
         }
 
@@ -58,7 +77,7 @@ namespace Meow.Parameter.Object
         /// <param name="subsets">子集集合</param>
         public Tree<T> AddSubset(List<Tree<T>> subsets)
         {
-            Subsets.AddRange(subsets);
+            Subsets.AddNoNull(subsets);
             return this;
         }
     }

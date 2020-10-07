@@ -471,5 +471,31 @@ namespace Meow.Helper
                 return Empty;
             return list[0];
         }
+
+        /// <summary>
+        /// 压缩
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Compress(string value)
+        {
+            if (value.IsEmpty())
+                return string.Empty;
+            var rawData = Encoding.UTF8.GetBytes(value);
+            var zippedData = Byte.Compress(rawData);
+            return MicrosoftSystem.Convert.ToBase64String(zippedData);
+        }
+
+        /// <summary>
+        /// 解压
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Decompress(string value)
+        {
+            if (value.IsEmpty())
+                return string.Empty;
+            var rawData = MicrosoftSystem.Convert.FromBase64String(value);
+            var zippedData = Byte.Decompress(rawData);
+            return Encoding.UTF8.GetString(zippedData);
+        }
     }
 }

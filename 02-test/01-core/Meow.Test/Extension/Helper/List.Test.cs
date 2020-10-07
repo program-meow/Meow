@@ -18,7 +18,7 @@ namespace Meow.Test.Extension.Helper
         {
             var list = new List<Guid?>();
             list.AddNoNull(new Guid("83B0233C-A24F-49FD-8083-1337209EBC9A"));
-            list.AddNoNull(null);
+            list.AddNoNull((Guid?) null);
             list.AddNoNull(new Guid("EAB523C6-2FE7-47BE-89D5-C6D440C3033A"));
             Assert.Equal(2, list.Count);
         }

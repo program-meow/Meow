@@ -99,5 +99,20 @@ namespace Meow.Test.Helper
         {
             Assert.Equal(result, Meow.Helper.String.SplitWordGroup(value));
         }
+
+        /// <summary>
+        /// 霞編儿抹才盾儿
+        /// </summary>
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData("", "")]
+        [InlineData(" ", "")]
+        [InlineData("込込込込込込込込込込込込込込込込込", "込込込込込込込込込込込込込込込込込")]
+        public void TestCompressAndDecompress(string value, string result)
+        {
+            var compressValue = Meow.Helper.String.Compress(value);
+            var decompressValue = Meow.Helper.String.Decompress(compressValue);
+            Assert.Equal(result, decompressValue);
+        }
     }
 }

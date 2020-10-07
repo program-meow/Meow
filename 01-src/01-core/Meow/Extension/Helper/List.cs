@@ -24,6 +24,20 @@ namespace Meow.Extension.Helper
         }
 
         /// <summary>
+        /// 添加不为空数据集合
+        /// </summary>
+        /// <typeparam name="T">集合元素类型</typeparam>
+        /// <param name="value">值</param>
+        /// <param name="list">添加数据集合</param>
+        public static void AddNoNull<T>(this List<T> value, IEnumerable<T> list)
+        {
+            if (value == null)
+                return;
+            foreach (var item in list)
+                value.AddNoNull(item);
+        }
+
+        /// <summary>
         /// 添加不为空数据
         /// </summary>
         /// <param name="value">值</param>

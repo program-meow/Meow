@@ -17,6 +17,7 @@ namespace Meow.Extension.Helper
         /// <summary>
         /// 是否为空
         /// </summary>
+        /// <typeparam name="T">集合元素类型</typeparam>
         /// <param name="value">值</param>
         public static bool IsEmpty<T>(this IEnumerable<T> value)
         {

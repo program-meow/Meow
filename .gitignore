@@ -20,6 +20,8 @@
 /01-src/04-middleware/Meow.Middleware.Wechat/bin
 /01-src/04-middleware/Meow.Middleware.Wechat/obj
 
+/01-src/05-biz/Meow.Biz.Area/bin
+/01-src/05-biz/Meow.Biz.Area/obj
 /01-src/05-biz/Meow.Biz.Tenant/bin
 /01-src/05-biz/Meow.Biz.Tenant/obj
 
