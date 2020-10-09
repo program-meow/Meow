@@ -462,22 +462,21 @@ namespace Meow.Helper
             return genericArgumentsTypes[0];
         }
 
-
-
-
-
-
-
         /// <summary>
         /// 解析对象
         /// </summary>
         /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
-        public static List<ItemObjectTree> AnalyzingObject<T>(T value) where T : new()
+        public static List<ItemObjectTree> Analyzing<T>(T value) where T : new()
         {
-            return value.IsNull() ?
-                new List<ItemObjectTree>() :
-                AnalyzingObject(value, null);
+            if (value.IsNull())
+                return new List<ItemObjectTree>();
+            if (value.IsSingleType())
+                return new List<ItemObjectTree> { new ItemObjectTree(null, value.GetTypeHighPrecisionEnum(), value) };
+            var properties = value.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            if (properties.IsEmpty())
+                return new List<ItemObjectTree>();
+            return AnalyzingObject(value, properties);
         }
 
         /// <summary>
@@ -485,46 +484,89 @@ namespace Meow.Helper
         /// </summary>
         /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
-        /// <param name="parentName">父名称</param>
-        private static List<ItemObjectTree> AnalyzingObject<T>(T value, string parentName) where T : new()
+        /// <param name="properties">属性信息集合</param>
+        private static List<ItemObjectTree> AnalyzingObject<T>(T value, PropertyInfo[] properties) where T : new()
         {
             var result = new List<ItemObjectTree>();
-            if (value.IsNull())
-                return result;
-            if (value.IsSingleType())
+            var count = 1;
+            foreach (var item in properties)
             {
-                result.Add(new ItemObjectTree(parentName, value.GetTypeHighPrecisionEnum(), value));
-                return result;
+                var itemResult = AnalyzingObject(value, item, count);
+                result.Add(itemResult);
+                count += 1;
             }
-            var type = value.GetType();
-            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-            if (properties.IsEmpty())
-                return result;
-            for (int i = 0; i < properties.Count(); i++)
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <typeparam name="T">解析对象类型</typeparam>
+        /// <param name="value">值</param>
+        /// <param name="property">属性信息</param>
+        /// <param name="sortId">排序号</param>
+        private static ItemObjectTree AnalyzingObject<T>(T value, PropertyInfo property, int sortId) where T : new()
+        {
+            var itemValue = property.GetValue(value, null);
+            if (property.IsCollectionType())
+                return AnalyzingCollectionType(itemValue, property, sortId);
+            if (property.IsSingleType())
+                return AnalyzingSingleType(itemValue, property, sortId);
+            return AnalyzingObjectType(itemValue, property, sortId);
+        }
+
+        /// <summary>
+        /// 解析集合类型
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="property">属性信息</param>
+        /// <param name="sortId">排序号</param>
+        private static ItemObjectTree AnalyzingCollectionType(object value, PropertyInfo property, int sortId)
+        {
+            var result = new ItemObjectTree(property.Name, TypeHighPrecision.Collection, null, sortId);
+            var listCache = (IList)value ?? new List<object>();
+            var count = 1;
+            foreach (var item in listCache)
             {
-                var itemValue = properties[i].GetValue(value, null);
-                if (properties[i].IsCollectionType())
-                {
-                    var collection = new ItemObjectTree(properties[i].Name, TypeHighPrecision.Collection, null, i + 1);
-                    var listCache = (IList)itemValue ?? new List<object>();
-                    for (int j = 0; j < listCache.Count; j++)
-                    {
-                        var item = AnalyzingObject(listCache[j], null);
-                        collection.AddSubset(new ItemObjectTree(null, listCache[j].GetTypeHighPrecisionEnum(), null, item, j + 1));
-                    }
-                    result.Add(collection);
-                    continue;
-                }
-                if (properties[i].IsSingleType())
-                {
-                    var single = new ItemObjectTree(properties[i].Name, properties[i].GetTypeHighPrecisionEnum(), itemValue, i + 1);
-                    result.Add(single);
-                    continue;
-                }
-                var objct = new ItemObjectTree(properties[i].Name, TypeHighPrecision.Object, null, i + 1);
-                objct.AddSubset(AnalyzingObject(itemValue, null));
-                result.Add(objct);
+                var itemResult = AnalyzingCollectionType(item, count);
+                result.AddSubset(itemResult);
+                count += 1;
             }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析集合类型
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="sortId">排序号</param>
+        private static ItemObjectTree AnalyzingCollectionType(object value, int sortId)
+        {
+            var item = Analyzing(value);
+            return new ItemObjectTree(null, value.GetTypeHighPrecisionEnum(), null, item, sortId);
+        }
+
+        /// <summary>
+        /// 解析单类型
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="property">属性信息</param>
+        /// <param name="sortId">排序号</param>
+        private static ItemObjectTree AnalyzingSingleType(object value, PropertyInfo property, int sortId)
+        {
+            return new ItemObjectTree(property.Name, property.GetTypeHighPrecisionEnum(), value, sortId);
+        }
+
+        /// <summary>
+        /// 解析对象类型
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="property">属性信息</param>
+        /// <param name="sortId">排序号</param>
+        private static ItemObjectTree AnalyzingObjectType(object value, PropertyInfo property, int sortId)
+        {
+            var result = new ItemObjectTree(property.Name, TypeHighPrecision.Object, null, sortId);
+            result.AddSubset(Analyzing(value));
             return result;
         }
     }

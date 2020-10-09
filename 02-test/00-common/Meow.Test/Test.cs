@@ -31,10 +31,21 @@ namespace Meow.Test
             var value = new TestObjct
             {
                 Name = "11",
-                Age = 2,
-                Qian = 5,
+                Value = new List<TestObjct>
+                {
+                    new TestObjct
+                    {
+                        Name = "21"
+                    },
+                    new TestObjct
+                    {
+                        Name = "22",
+                    }
+                }
             };
-            var bb = Meow.Helper.Reflection.AnalyzingObject(value);
+            var list = new List<TestObjct> { value };
+            var aa = Meow.Helper.Reflection.Analyzing(value);
+            var bb = Meow.Helper.Reflection.Analyzing(list);
         }
     }
 }

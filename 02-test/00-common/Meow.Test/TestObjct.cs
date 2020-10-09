@@ -12,12 +12,8 @@ namespace Meow.Test
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 对象集合
+        /// 值
         /// </summary>
-        public int Age { get; set; }
-        /// <summary>
-        /// 钱
-        /// </summary>
-        public decimal Qian { get; set; }
+        public List<TestObjct> Value { get; set; }
     }
 }

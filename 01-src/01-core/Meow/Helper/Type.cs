@@ -106,7 +106,7 @@ namespace Meow.Helper
         }
 
         /// <summary>
-        /// 是否单类型类型：包含值类型和String类型
+        /// 是否单类型：包含值类型和String类型
         /// </summary>
         /// <param name="value">值</param>
         public static bool IsSingleType(PropertyInfo value)
@@ -226,7 +226,7 @@ namespace Meow.Helper
         }
 
         /// <summary>
-        /// 是否单类型类型：包含值类型和String类型
+        /// 是否单类型：包含值类型和String类型
         /// </summary>
         /// <param name="value">值</param>
         public static bool IsSingleType(object value)
