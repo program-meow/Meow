@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Meow.Extension.Helper;
 using Microsoft.Extensions.DependencyInjection;
+using MicrosoftType = System.Type;
 
 namespace Meow.Helper
 {
@@ -44,7 +45,7 @@ namespace Meow.Helper
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public static List<T> CreateList<T>(Type type, string name = null)
+        public static List<T> CreateList<T>(MicrosoftType type, string name = null)
         {
             return ((IEnumerable<T>)DefaultContainer.CreateList(type, name)).ToList();
         }
@@ -65,7 +66,7 @@ namespace Meow.Helper
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public static T Create<T>(Type type, string name = null)
+        public static T Create<T>(MicrosoftType type, string name = null)
         {
             return (T)DefaultContainer.Create(type, name);
         }

@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Meow.Extension.Helper;
 using Meow.Mathematics.Enum;
-using SystemExpression = System.Linq.Expressions.Expression;
+using MicrosoftExpression = System.Linq.Expressions.Expression;
+using MicrosoftType = System.Type;
 
 namespace Meow.Helper
 {
@@ -20,7 +21,7 @@ namespace Meow.Helper
         /// 获取类型
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
-        public static Type GetType(SystemExpression expression)
+        public static MicrosoftType GetType(MicrosoftExpression expression)
         {
             var memberExpression = GetMemberExpression(expression);
             return memberExpression?.Type;
@@ -34,7 +35,7 @@ namespace Meow.Helper
         /// 获取成员
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
-        public static MemberInfo GetMember(SystemExpression expression)
+        public static MemberInfo GetMember(MicrosoftExpression expression)
         {
             var memberExpression = GetMemberExpression(expression);
             return memberExpression?.Member;
@@ -45,7 +46,7 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="right">取表达式右侧,(l,r) => l.id == r.id，设置为true,返回r.id表达式</param>
-        public static MemberExpression GetMemberExpression(SystemExpression expression, bool right = false)
+        public static MemberExpression GetMemberExpression(MicrosoftExpression expression, bool right = false)
         {
             if (expression == null)
                 return null;
@@ -74,7 +75,7 @@ namespace Meow.Helper
         /// <summary>
         /// 获取方法调用表达式的成员名称
         /// </summary>
-        private static MemberExpression GetMethodCallExpressionName(SystemExpression expression)
+        private static MemberExpression GetMethodCallExpressionName(MicrosoftExpression expression)
         {
             var methodCallExpression = (MethodCallExpression)expression;
             var left = (MemberExpression)methodCallExpression.Object;
@@ -95,7 +96,7 @@ namespace Meow.Helper
         /// 获取成员名称，范例：t => t.A.Name,返回 A.Name
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
-        public static string GetName(SystemExpression expression)
+        public static string GetName(MicrosoftExpression expression)
         {
             var memberExpression = GetMemberExpression(expression);
             return GetMemberName(memberExpression);
@@ -146,7 +147,7 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
         /// <param name="right">取表达式右侧,(l,r) => l.LId == r.RId，设置为true,返回RId</param>
-        public static string GetLastName(SystemExpression expression, bool right = false)
+        public static string GetLastName(MicrosoftExpression expression, bool right = false)
         {
             var memberExpression = GetMemberExpression(expression, right);
             if (memberExpression == null)
@@ -161,7 +162,7 @@ namespace Meow.Helper
         /// 是否值表达式
         /// </summary>
         /// <param name="expression">表达式</param>
-        private static bool IsValueExpression(SystemExpression expression)
+        private static bool IsValueExpression(MicrosoftExpression expression)
         {
             if (expression == null)
                 return false;
@@ -208,7 +209,7 @@ namespace Meow.Helper
         /// 获取值,范例：t => t.Name == "A",返回 A
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name == "A"</param>
-        public static object GetValue(SystemExpression expression)
+        public static object GetValue(MicrosoftExpression expression)
         {
             if (expression == null)
                 return null;
@@ -245,7 +246,7 @@ namespace Meow.Helper
         /// <summary>
         /// 是否包含参数，用于检测是属性，而不是值
         /// </summary>
-        private static bool HasParameter(SystemExpression expression)
+        private static bool HasParameter(MicrosoftExpression expression)
         {
             if (expression == null)
                 return false;
@@ -264,7 +265,7 @@ namespace Meow.Helper
         /// <summary>
         /// 获取方法调用表达式的值
         /// </summary>
-        private static object GetMethodCallExpressionValue(SystemExpression expression)
+        private static object GetMethodCallExpressionValue(MicrosoftExpression expression)
         {
             var methodCallExpression = (MethodCallExpression)expression;
             var value = GetValue(methodCallExpression.Arguments.FirstOrDefault());
@@ -306,7 +307,7 @@ namespace Meow.Helper
         /// <summary>
         /// 获取常量表达式的值
         /// </summary>
-        private static object GetConstantExpressionValue(SystemExpression expression)
+        private static object GetConstantExpressionValue(MicrosoftExpression expression)
         {
             var constantExpression = (ConstantExpression)expression;
             return constantExpression.Value;
@@ -320,7 +321,7 @@ namespace Meow.Helper
         /// 获取查询操作符,范例：t => t.Name == "A",返回 Operator.Equal
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name == "A"</param>
-        public static Operator? GetOperator(SystemExpression expression)
+        public static Operator? GetOperator(MicrosoftExpression expression)
         {
             if (expression == null)
                 return null;
@@ -351,7 +352,7 @@ namespace Meow.Helper
         /// <summary>
         /// 获取方法调用表达式的值
         /// </summary>
-        private static Operator? GetMethodCallExpressionOperator(SystemExpression expression)
+        private static Operator? GetMethodCallExpressionOperator(MicrosoftExpression expression)
         {
             var methodCallExpression = (MethodCallExpression)expression;
             switch (methodCallExpression?.Method?.Name?.ToLower())
@@ -374,7 +375,7 @@ namespace Meow.Helper
         /// 获取参数，范例：t.Name,返回 t
         /// </summary>
         /// <param name="expression">表达式，范例：t.Name</param>
-        public static ParameterExpression GetParameter(SystemExpression expression)
+        public static ParameterExpression GetParameter(MicrosoftExpression expression)
         {
             if (expression == null)
                 return null;
@@ -409,9 +410,9 @@ namespace Meow.Helper
         /// 获取分组的谓词表达式，通过Or进行分组
         /// </summary>
         /// <param name="expression">谓词表达式</param>
-        public static List<List<SystemExpression>> GetGroupPredicates(SystemExpression expression)
+        public static List<List<MicrosoftExpression>> GetGroupPredicates(MicrosoftExpression expression)
         {
-            var result = new List<List<SystemExpression>>();
+            var result = new List<List<MicrosoftExpression>>();
             if (expression == null)
                 return result;
             AddPredicates(expression, result, CreateGroup(result));
@@ -421,9 +422,9 @@ namespace Meow.Helper
         /// <summary>
         /// 创建分组
         /// </summary>
-        private static List<SystemExpression> CreateGroup(List<List<SystemExpression>> result)
+        private static List<MicrosoftExpression> CreateGroup(List<List<MicrosoftExpression>> result)
         {
-            var gourp = new List<SystemExpression>();
+            var gourp = new List<MicrosoftExpression>();
             result.Add(gourp);
             return gourp;
         }
@@ -431,7 +432,7 @@ namespace Meow.Helper
         /// <summary>
         /// 添加通过Or分割的谓词表达式
         /// </summary>
-        private static void AddPredicates(SystemExpression expression, List<List<SystemExpression>> result, List<SystemExpression> group)
+        private static void AddPredicates(MicrosoftExpression expression, List<List<MicrosoftExpression>> result, List<MicrosoftExpression> group)
         {
             switch (expression.NodeType)
             {
@@ -478,7 +479,7 @@ namespace Meow.Helper
         /// </summary>
         /// <typeparam name="TAttribute">特性类型</typeparam>
         /// <param name="expression">属性表达式</param>
-        public static TAttribute GetAttribute<TAttribute>(SystemExpression expression) where TAttribute : Attribute
+        public static TAttribute GetAttribute<TAttribute>(MicrosoftExpression expression) where TAttribute : Attribute
         {
             var memberInfo = GetMember(expression);
             return memberInfo.GetCustomAttribute<TAttribute>();
@@ -533,12 +534,12 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="expression">表达式</param>
-        public static ConstantExpression Constant(object value, SystemExpression expression = null)
+        public static ConstantExpression Constant(object value, MicrosoftExpression expression = null)
         {
             var type = GetType(expression);
             if (type == null)
-                return SystemExpression.Constant(value);
-            return SystemExpression.Constant(value, type);
+                return MicrosoftExpression.Constant(value);
+            return MicrosoftExpression.Constant(value, type);
         }
 
         #endregion
@@ -551,7 +552,7 @@ namespace Meow.Helper
         /// <typeparam name="T">参数类型</typeparam>
         public static ParameterExpression CreateParameter<T>()
         {
-            return SystemExpression.Parameter(typeof(T), "t");
+            return MicrosoftExpression.Parameter(typeof(T), "t");
         }
 
         #endregion

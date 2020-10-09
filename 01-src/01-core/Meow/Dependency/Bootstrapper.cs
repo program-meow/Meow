@@ -136,13 +136,13 @@ namespace Meow.Dependency
         /// <summary>
         /// 注册事件处理器
         /// </summary>
-        private void RegisterEventHandlers(Type handlerType)
+        private void RegisterEventHandlers(System.Type handlerType)
         {
             var handlerTypes = GetTypes(handlerType);
             foreach (var handler in handlerTypes)
             {
                 _builder.RegisterType(handler).As(handler.FindInterfaces(
-                    (filter, criteria) => filter.IsGenericType && ((Type)criteria).IsAssignableFrom(filter.GetGenericTypeDefinition())
+                    (filter, criteria) => filter.IsGenericType && ((System.Type)criteria).IsAssignableFrom(filter.GetGenericTypeDefinition())
                     , handlerType
                 )).InstancePerLifetimeScope();
             }
@@ -151,7 +151,7 @@ namespace Meow.Dependency
         /// <summary>
         /// 获取类型集合
         /// </summary>
-        private Type[] GetTypes(Type type)
+        private System.Type[] GetTypes(System.Type type)
         {
             return _finder.Find(type, _assemblies).ToArray();
         }
@@ -178,7 +178,7 @@ namespace Meow.Dependency
         /// <summary>
         /// 获取类型集合
         /// </summary>
-        private Type[] GetTypes<T>()
+        private System.Type[] GetTypes<T>()
         {
             return _finder.Find<T>(_assemblies).ToArray();
         }

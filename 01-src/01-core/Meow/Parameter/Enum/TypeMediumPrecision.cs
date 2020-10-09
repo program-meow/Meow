@@ -8,49 +8,44 @@ namespace Meow.Parameter.Enum
     public enum TypeMediumPrecision
     {
         /// <summary>
+        /// Null类型
+        /// </summary>        
+        [Description("Null类型")]
+        Null = 1,
+        /// <summary>
         /// 布尔值类型
         /// </summary>        
         [Description("布尔值类型")]
-        Bool = 1,
+        Bool = 2,
         /// <summary>
         /// 数值类型
         /// </summary>        
         [Description("数值类型")]
-        Number = 2,
+        Number = 3,
         /// <summary>
         /// 枚举类型
         /// </summary>        
         [Description("枚举类型")]
-        Enum = 3,
+        Enum = 4,
         /// <summary>
         /// 日期类型
         /// </summary>        
         [Description("日期类型")]
-        DateTime = 4,
-        /// <summary>
-        /// 集合类型
-        /// </summary>        
-        [Description("集合类型")]
-        Collection = 5,
-        /// <summary>
-        /// 对象类型
-        /// </summary>        
-        [Description("对象类型")]
-        Object = 6,
-        /// <summary>
-        /// 动态类型
-        /// </summary>        
-        [Description("动态类型")]
-        Dynamic = 7,
+        DateTime = 5,
         /// <summary>
         /// 字符串类型
         /// </summary>        
         [Description("字符串类型")]
-        String = 8,
+        String = 6,
         /// <summary>
-        /// 指针类型
+        /// 集合类型
         /// </summary>        
-        [Description("指针类型")]
-        Pointer = 9,
+        [Description("集合类型")]
+        Collection = 7,
+        /// <summary>
+        /// 对象类型
+        /// </summary>        
+        [Description("对象类型")]
+        Object = 8,
     }
 }

@@ -20,6 +20,7 @@ using Meow.Parameter.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MicrosoftType = System.Type;
 using Guid = System.Guid;
 
 namespace Meow.Application.Data.Ef.Core.UnitOfWork
@@ -34,7 +35,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// <summary>
         /// 映射字典
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, IEnumerable<IMap>> Maps;
+        private static readonly ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>> Maps;
         /// <summary>
         /// 服务提供器
         /// </summary>
@@ -66,7 +67,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// </summary>
         static UnitOfWorkBase()
         {
-            Maps = new ConcurrentDictionary<Type, IEnumerable<IMap>>();
+            Maps = new ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>>();
         }
 
         #endregion
@@ -132,7 +133,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// <summary>
         /// 获取映射接口类型
         /// </summary>
-        protected virtual Type GetMapType()
+        protected virtual MicrosoftType GetMapType()
         {
             return this.GetType();
         }
@@ -358,7 +359,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// 获取表名
         /// </summary>
         /// <param name="type">实体类型</param>
-        public string GetTable(Type type)
+        public string GetTable(MicrosoftType type)
         {
             if (type == null)
                 return null;
@@ -377,7 +378,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// 获取架构
         /// </summary>
         /// <param name="type">实体类型</param>
-        public string GetSchema(Type type)
+        public string GetSchema(MicrosoftType type)
         {
             if (type == null)
                 return null;
@@ -397,7 +398,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// </summary>
         /// <param name="type">实体类型</param>
         /// <param name="property">属性名</param>
-        public string GetColumn(Type type, string property)
+        public string GetColumn(MicrosoftType type, string property)
         {
             if (type == null || string.IsNullOrWhiteSpace(property))
                 return null;

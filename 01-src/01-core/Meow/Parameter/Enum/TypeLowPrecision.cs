@@ -8,19 +8,19 @@ namespace Meow.Parameter.Enum
     public enum TypeLowPrecision
     {
         /// <summary>
+        /// Null类型
+        /// </summary>        
+        [Description("Null类型")]
+        Null = 1,
+        /// <summary>
         /// 值类型
         /// </summary>        
         [Description("值类型")]
-        ValueTypes = 1,
+        Value = 2,
         /// <summary>
         /// 引用类型
         /// </summary>        
         [Description("引用类型")]
-        ReferenceTypes = 2,
-        /// <summary>
-        /// 指针类型
-        /// </summary>        
-        [Description("指针类型")]
-        PointerTypes = 3,
+        Reference = 3,
     }
 }

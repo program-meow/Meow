@@ -3,7 +3,8 @@ using System.Linq.Expressions;
 using Meow.Expression;
 using Meow.Helper;
 using Meow.Mathematics.Enum;
-using SystemExpression = System.Linq.Expressions.Expression;
+using MicrosoftExpression = System.Linq.Expressions.Expression;
+using MicrosoftType = System.Type;
 
 namespace Meow.Query.Core.Criteria.Base
 {
@@ -57,7 +58,7 @@ namespace Meow.Query.Core.Criteria.Base
         /// <summary>
         /// 获取属性类型
         /// </summary>
-        protected Type GetPropertyType()
+        protected MicrosoftType GetPropertyType()
         {
             return Lambda.GetType(_propertyExpression);
         }
@@ -129,7 +130,7 @@ namespace Meow.Query.Core.Criteria.Base
         /// <summary>
         /// 获取最小值表达式
         /// </summary>
-        protected virtual SystemExpression GetMinValueExpression()
+        protected virtual MicrosoftExpression GetMinValueExpression()
         {
             return Lambda.Constant(_min, _propertyExpression);
         }
@@ -171,7 +172,7 @@ namespace Meow.Query.Core.Criteria.Base
         /// <summary>
         /// 获取最大值表达式
         /// </summary>
-        protected virtual SystemExpression GetMaxValueExpression()
+        protected virtual MicrosoftExpression GetMaxValueExpression()
         {
             return Lambda.Constant(_max, _propertyExpression);
         }

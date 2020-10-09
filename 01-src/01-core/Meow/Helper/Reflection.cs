@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Meow.Extension.Helper;
+using Meow.Parameter.Enum;
 using Meow.Parameter.Object;
 using MicrosoftSystem = System;
 
@@ -466,10 +468,17 @@ namespace Meow.Helper
 
 
 
-
-
-
-
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <typeparam name="T">解析对象类型</typeparam>
+        /// <param name="value">值</param>
+        public static List<ItemObjectTree> AnalyzingObject<T>(T value) where T : new()
+        {
+            return value.IsNull() ?
+                new List<ItemObjectTree>() :
+                AnalyzingObject(value, null, null);
+        }
 
         /// <summary>
         /// 解析对象
@@ -478,47 +487,40 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         /// <param name="parentName">父名称</param>
         /// <param name="count">下角标</param>
-        private static List<ItemTree> AnalyzingObject<T>(T value, string parentName, int? count) where T : new()
+        private static List<ItemObjectTree> AnalyzingObject<T>(T value, string parentName, int? count) where T : new()
         {
-            var result = new List<ItemTree>();
+            var result = new List<ItemObjectTree>();
             if (value.IsNull())
                 return result;
-            var type = value.GetType();
-            if (type.IsValueType || type.Name.StartsWith("String"))
+            if (value.IsSingleType())
             {
-                result.Add(new ItemTree(parentName, value));
+                result.Add(new ItemObjectTree(parentName, value.GetTypeHighPrecisionEnum(), value));
                 return result;
             }
+            var type = value.GetType();
             var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             if (properties.IsEmpty())
                 return result;
-
-
-
-
-
-
-            throw new MicrosoftSystem.NotImplementedException();
+            for (int i = 0; i < properties.Count(); i++)
+            {
+                var itemValue = properties[i].GetValue(value, null);
+                if (properties[i].IsCollectionType())
+                {
+                    var listCache = (IList)itemValue;
+                    var parent = new ItemObjectTree(parentName, TypeHighPrecision.Collection, null, i + 1);
+                    foreach (var item in listCache)
+                        parent.AddSubset(AnalyzingObject(item, properties[i].Name, count));
+                    continue;
+                }
+                if (properties[i].IsSingleType())
+                {
+                    var parent = new ItemObjectTree(parentName, TypeHighPrecision.Object, null, i + 1);
+                    parent.AddSubset(new ItemObjectTree(properties[i].Name, properties[i].GetTypeHighPrecisionEnum(), itemValue));
+                    continue;
+                }
+                result.AddRange(AnalyzingObject(itemValue, properties[i].Name, count));
+            }
+            return result;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

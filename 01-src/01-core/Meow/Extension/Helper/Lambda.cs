@@ -421,7 +421,7 @@ namespace Meow.Extension.Helper
         /// <param name="methodName">方法名</param>
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
-        public static SystemExpression Call(this SystemExpression instance, string methodName, Type[] paramTypes, params object[] values)
+        public static SystemExpression Call(this SystemExpression instance, string methodName, System.Type[] paramTypes, params object[] values)
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));

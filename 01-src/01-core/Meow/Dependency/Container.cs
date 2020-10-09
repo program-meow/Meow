@@ -37,9 +37,9 @@ namespace Meow.Dependency
         /// </summary>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public object CreateList(Type type, string name = null)
+        public object CreateList(System.Type type, string name = null)
         {
-            Type serviceType = typeof(IEnumerable<>).MakeGenericType(type);
+            System.Type serviceType = typeof(IEnumerable<>).MakeGenericType(type);
             return Create(serviceType, name);
         }
 
@@ -58,7 +58,7 @@ namespace Meow.Dependency
         /// </summary>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public object Create(Type type, string name = null)
+        public object Create(System.Type type, string name = null)
         {
             return Web.HttpContext?.RequestServices != null ? GetServiceFromHttpContext(type, name) : GetService(type, name);
         }
@@ -66,7 +66,7 @@ namespace Meow.Dependency
         /// <summary>
         /// 从HttpContext获取服务
         /// </summary>
-        private object GetServiceFromHttpContext(Type type, string name)
+        private object GetServiceFromHttpContext(System.Type type, string name)
         {
             var serviceProvider = Web.HttpContext.RequestServices;
             if (name == null)
@@ -78,7 +78,7 @@ namespace Meow.Dependency
         /// <summary>
         /// 获取服务
         /// </summary>
-        private object GetService(Type type, string name)
+        private object GetService(System.Type type, string name)
         {
             if (name == null)
                 return _container.Resolve(type);
