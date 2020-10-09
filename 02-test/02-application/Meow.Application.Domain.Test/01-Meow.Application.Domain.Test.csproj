@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\01-src\02-application\Meow.Application.Domain\01-Meow.Application.Domain.csproj" />
-    <ProjectReference Include="..\..\00-common\Meow.Common.Test\00-Meow.Common.Test.csproj" />
+    <ProjectReference Include="..\..\00-common\Meow.Common.Test\01-Meow.Common.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>

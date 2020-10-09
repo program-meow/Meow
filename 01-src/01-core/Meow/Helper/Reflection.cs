@@ -477,7 +477,7 @@ namespace Meow.Helper
         {
             return value.IsNull() ?
                 new List<ItemObjectTree>() :
-                AnalyzingObject(value, null, null);
+                AnalyzingObject(value, null);
         }
 
         /// <summary>
@@ -486,8 +486,7 @@ namespace Meow.Helper
         /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
         /// <param name="parentName">父名称</param>
-        /// <param name="count">下角标</param>
-        private static List<ItemObjectTree> AnalyzingObject<T>(T value, string parentName, int? count) where T : new()
+        private static List<ItemObjectTree> AnalyzingObject<T>(T value, string parentName) where T : new()
         {
             var result = new List<ItemObjectTree>();
             if (value.IsNull())
@@ -506,19 +505,25 @@ namespace Meow.Helper
                 var itemValue = properties[i].GetValue(value, null);
                 if (properties[i].IsCollectionType())
                 {
-                    var listCache = (IList)itemValue;
-                    var parent = new ItemObjectTree(parentName, TypeHighPrecision.Collection, null, i + 1);
-                    foreach (var item in listCache)
-                        parent.AddSubset(AnalyzingObject(item, properties[i].Name, count));
+                    var collection = new ItemObjectTree(properties[i].Name, TypeHighPrecision.Collection, null, i + 1);
+                    var listCache = (IList)itemValue ?? new List<object>();
+                    for (int j = 0; j < listCache.Count; j++)
+                    {
+                        var item = AnalyzingObject(listCache[j], null);
+                        collection.AddSubset(new ItemObjectTree(null, listCache[j].GetTypeHighPrecisionEnum(), null, item, j + 1));
+                    }
+                    result.Add(collection);
                     continue;
                 }
                 if (properties[i].IsSingleType())
                 {
-                    var parent = new ItemObjectTree(parentName, TypeHighPrecision.Object, null, i + 1);
-                    parent.AddSubset(new ItemObjectTree(properties[i].Name, properties[i].GetTypeHighPrecisionEnum(), itemValue));
+                    var single = new ItemObjectTree(properties[i].Name, properties[i].GetTypeHighPrecisionEnum(), itemValue, i + 1);
+                    result.Add(single);
                     continue;
                 }
-                result.AddRange(AnalyzingObject(itemValue, properties[i].Name, count));
+                var objct = new ItemObjectTree(properties[i].Name, TypeHighPrecision.Object, null, i + 1);
+                objct.AddSubset(AnalyzingObject(itemValue, null));
+                result.Add(objct);
             }
             return result;
         }

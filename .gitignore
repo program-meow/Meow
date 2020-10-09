@@ -25,6 +25,8 @@
 /01-src/05-biz/Meow.Biz.Tenant/bin
 /01-src/05-biz/Meow.Biz.Tenant/obj
 
+/02-test/00-common/Meow.Test/bin
+/02-test/00-common/Meow.Test/obj
 /02-test/00-common/Meow.Common.Test/bin
 /02-test/00-common/Meow.Common.Test/obj
 

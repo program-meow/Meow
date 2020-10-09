@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Meow.Test</AssemblyName>
+    <RootNamespace>Meow.Test</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\04-output\02-test\00-common\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\02-test\00-common\Meow.Test.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\04-output\02-test\00-common\</OutputPath>
+    <DocumentationFile>..\..\..\04-output\02-test\00-common\Meow.Test.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\01-src\01-core\Meow\01-Meow.csproj" />
+  </ItemGroup>
+
+</Project>

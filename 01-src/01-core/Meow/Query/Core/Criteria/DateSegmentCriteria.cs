@@ -4,7 +4,7 @@ using Meow.Extension.Helper;
 using Meow.Mathematics.Enum;
 using Meow.Query.Core.Criteria.Base;
 using Meow.Query.Core.Helper;
-using SystemExpression = System.Linq.Expressions.Expression;
+using MicrosoftExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Query.Core.Criteria
 {
@@ -38,7 +38,7 @@ namespace Meow.Query.Core.Criteria
         /// <summary>
         /// 获取最小值
         /// </summary>
-        protected override SystemExpression GetMinValueExpression()
+        protected override MicrosoftExpression GetMinValueExpression()
         {
             return ValueExpressionHelper.CreateDateTimeExpression(GetMinValue().SafeValue().Date, GetPropertyType());
         }
@@ -46,7 +46,7 @@ namespace Meow.Query.Core.Criteria
         /// <summary>
         /// 获取最大值
         /// </summary>
-        protected override SystemExpression GetMaxValueExpression()
+        protected override MicrosoftExpression GetMaxValueExpression()
         {
             return ValueExpressionHelper.CreateDateTimeExpression(GetMaxValue().SafeValue().Date.AddDays(1), GetPropertyType());
         }

@@ -5,7 +5,7 @@ using System.Reflection;
 using Meow.Expression;
 using Meow.Helper;
 using Meow.Mathematics.Enum;
-using SystemExpression = System.Linq.Expressions.Expression;
+using MicrosoftExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Extension.Helper
 {
@@ -21,17 +21,17 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="propertyName">属性名,支持多级属性名，与句点分隔，范例：Customer.Name</param>
-        public static SystemExpression Property(this SystemExpression expression, string propertyName)
+        public static MicrosoftExpression Property(this MicrosoftExpression expression, string propertyName)
         {
             if (propertyName.All(t => t != '.'))
-                return SystemExpression.Property(expression, propertyName);
+                return MicrosoftExpression.Property(expression, propertyName);
             var propertyNameList = propertyName.Split('.');
-            SystemExpression result = null;
+            MicrosoftExpression result = null;
             for (int i = 0; i < propertyNameList.Length; i++)
             {
                 if (i == 0)
                 {
-                    result = SystemExpression.Property(expression, propertyNameList[0]);
+                    result = MicrosoftExpression.Property(expression, propertyNameList[0]);
                     continue;
                 }
                 result = result.Property(propertyNameList[i]);
@@ -44,9 +44,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="member">属性</param>
-        public static SystemExpression Property(this SystemExpression expression, MemberInfo member)
+        public static MicrosoftExpression Property(this MicrosoftExpression expression, MemberInfo member)
         {
-            return SystemExpression.MakeMemberAccess(expression, member);
+            return MicrosoftExpression.MakeMemberAccess(expression, member);
         }
 
         #endregion
@@ -58,13 +58,13 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression And(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression And(this MicrosoftExpression left, MicrosoftExpression right)
         {
             if (left == null)
                 return right;
             if (right == null)
                 return left;
-            return SystemExpression.AndAlso(left, right);
+            return MicrosoftExpression.AndAlso(left, right);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Meow.Extension.Helper
                 return right;
             if (right == null)
                 return left;
-            return left.Compose(right, SystemExpression.AndAlso);
+            return left.Compose(right, MicrosoftExpression.AndAlso);
         }
 
         #endregion
@@ -91,13 +91,13 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression Or(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression Or(this MicrosoftExpression left, MicrosoftExpression right)
         {
             if (left == null)
                 return right;
             if (right == null)
                 return left;
-            return SystemExpression.OrElse(left, right);
+            return MicrosoftExpression.OrElse(left, right);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Meow.Extension.Helper
                 return right;
             if (right == null)
                 return left;
-            return left.Compose(right, SystemExpression.OrElse);
+            return left.Compose(right, MicrosoftExpression.OrElse);
         }
 
         #endregion
@@ -137,9 +137,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression Equal(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression Equal(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.Equal(left, right);
+            return MicrosoftExpression.Equal(left, right);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression Equal(this SystemExpression left, object value)
+        public static MicrosoftExpression Equal(this MicrosoftExpression left, object value)
         {
             return left.Equal(Lambda.Constant(value, left));
         }
@@ -161,9 +161,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression NotEqual(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression NotEqual(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.NotEqual(left, right);
+            return MicrosoftExpression.NotEqual(left, right);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression NotEqual(this SystemExpression left, object value)
+        public static MicrosoftExpression NotEqual(this MicrosoftExpression left, object value)
         {
             return left.NotEqual(Lambda.Constant(value, left));
         }
@@ -185,9 +185,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression Greater(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression Greater(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.GreaterThan(left, right);
+            return MicrosoftExpression.GreaterThan(left, right);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression Greater(this SystemExpression left, object value)
+        public static MicrosoftExpression Greater(this MicrosoftExpression left, object value)
         {
             return left.Greater(Lambda.Constant(value, left));
         }
@@ -209,9 +209,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression GreaterEqual(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression GreaterEqual(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.GreaterThanOrEqual(left, right);
+            return MicrosoftExpression.GreaterThanOrEqual(left, right);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression GreaterEqual(this SystemExpression left, object value)
+        public static MicrosoftExpression GreaterEqual(this MicrosoftExpression left, object value)
         {
             return left.GreaterEqual(Lambda.Constant(value, left));
         }
@@ -233,9 +233,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression Less(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression Less(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.LessThan(left, right);
+            return MicrosoftExpression.LessThan(left, right);
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression Less(this SystemExpression left, object value)
+        public static MicrosoftExpression Less(this MicrosoftExpression left, object value)
         {
             return left.Less(Lambda.Constant(value, left));
         }
@@ -257,9 +257,9 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        public static SystemExpression LessEqual(this SystemExpression left, SystemExpression right)
+        public static MicrosoftExpression LessEqual(this MicrosoftExpression left, MicrosoftExpression right)
         {
-            return SystemExpression.LessThanOrEqual(left, right);
+            return MicrosoftExpression.LessThanOrEqual(left, right);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression LessEqual(this SystemExpression left, object value)
+        public static MicrosoftExpression LessEqual(this MicrosoftExpression left, object value)
         {
             return left.LessEqual(Lambda.Constant(value, left));
         }
@@ -281,7 +281,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression StartsWith(this SystemExpression left, object value)
+        public static MicrosoftExpression StartsWith(this MicrosoftExpression left, object value)
         {
             return left.Call("StartsWith", new[] { typeof(string) }, value);
         }
@@ -295,7 +295,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression EndsWith(this SystemExpression left, object value)
+        public static MicrosoftExpression EndsWith(this MicrosoftExpression left, object value)
         {
             return left.Call("EndsWith", new[] { typeof(string) }, value);
         }
@@ -309,7 +309,7 @@ namespace Meow.Extension.Helper
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        public static SystemExpression Contains(this SystemExpression left, object value)
+        public static MicrosoftExpression Contains(this MicrosoftExpression left, object value)
         {
             return left.Call("Contains", new[] { typeof(string) }, value);
         }
@@ -324,7 +324,7 @@ namespace Meow.Extension.Helper
         /// <param name="left">左操作数</param>
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
-        public static SystemExpression Operation(this SystemExpression left, Operator @operator, object value)
+        public static MicrosoftExpression Operation(this MicrosoftExpression left, Operator @operator, object value)
         {
             switch (@operator)
             {
@@ -356,7 +356,7 @@ namespace Meow.Extension.Helper
         /// <param name="left">左操作数</param>
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
-        public static SystemExpression Operation(this SystemExpression left, Operator @operator, SystemExpression value)
+        public static MicrosoftExpression Operation(this MicrosoftExpression left, Operator @operator, MicrosoftExpression value)
         {
             switch (@operator)
             {
@@ -386,14 +386,14 @@ namespace Meow.Extension.Helper
         /// <param name="instance">调用的实例</param>
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
-        public static SystemExpression Call(this SystemExpression instance, string methodName, params SystemExpression[] values)
+        public static MicrosoftExpression Call(this MicrosoftExpression instance, string methodName, params MicrosoftExpression[] values)
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
             var methodInfo = instance.Type.GetMethod(methodName);
             if (methodInfo == null)
                 return null;
-            return SystemExpression.Call(instance, methodInfo, values);
+            return MicrosoftExpression.Call(instance, methodInfo, values);
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace Meow.Extension.Helper
         /// <param name="instance">调用的实例</param>
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
-        public static SystemExpression Call(this SystemExpression instance, string methodName, params object[] values)
+        public static MicrosoftExpression Call(this MicrosoftExpression instance, string methodName, params object[] values)
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
@@ -410,8 +410,8 @@ namespace Meow.Extension.Helper
             if (methodInfo == null)
                 return null;
             if (values == null || values.Length == 0)
-                return SystemExpression.Call(instance, methodInfo);
-            return SystemExpression.Call(instance, methodInfo, values.Select(SystemExpression.Constant));
+                return MicrosoftExpression.Call(instance, methodInfo);
+            return MicrosoftExpression.Call(instance, methodInfo, values.Select(MicrosoftExpression.Constant));
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace Meow.Extension.Helper
         /// <param name="methodName">方法名</param>
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
-        public static SystemExpression Call(this SystemExpression instance, string methodName, System.Type[] paramTypes, params object[] values)
+        public static MicrosoftExpression Call(this MicrosoftExpression instance, string methodName, System.Type[] paramTypes, params object[] values)
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
@@ -429,8 +429,8 @@ namespace Meow.Extension.Helper
             if (methodInfo == null)
                 return null;
             if (values == null || values.Length == 0)
-                return SystemExpression.Call(instance, methodInfo);
-            return SystemExpression.Call(instance, methodInfo, values.Select(SystemExpression.Constant));
+                return MicrosoftExpression.Call(instance, methodInfo);
+            return MicrosoftExpression.Call(instance, methodInfo, values.Select(MicrosoftExpression.Constant));
         }
 
         #endregion
@@ -445,11 +445,11 @@ namespace Meow.Extension.Helper
         /// <param name="second">右操作数</param>
         /// <param name="merge">合并操作</param>
         internal static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
-            Func<SystemExpression, SystemExpression, SystemExpression> merge)
+            Func<MicrosoftExpression, MicrosoftExpression, MicrosoftExpression> merge)
         {
             var map = first.Parameters.Select((f, i) => new { f, s = second.Parameters[i] }).ToDictionary(p => p.s, p => p.f);
             var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
-            return SystemExpression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
+            return MicrosoftExpression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
         }
 
         #endregion
@@ -462,11 +462,11 @@ namespace Meow.Extension.Helper
         /// <typeparam name="TDelegate">委托类型</typeparam>
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
-        public static Expression<TDelegate> ToLambda<TDelegate>(this SystemExpression body, params ParameterExpression[] parameters)
+        public static Expression<TDelegate> ToLambda<TDelegate>(this MicrosoftExpression body, params ParameterExpression[] parameters)
         {
             if (body == null)
                 return null;
-            return SystemExpression.Lambda<TDelegate>(body, parameters);
+            return MicrosoftExpression.Lambda<TDelegate>(body, parameters);
         }
 
         #endregion
@@ -479,7 +479,7 @@ namespace Meow.Extension.Helper
         /// <typeparam name="T">委托类型</typeparam>
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
-        public static Expression<Func<T, bool>> ToPredicate<T>(this SystemExpression body, params ParameterExpression[] parameters)
+        public static Expression<Func<T, bool>> ToPredicate<T>(this MicrosoftExpression body, params ParameterExpression[] parameters)
         {
             return ToLambda<Func<T, bool>>(body, parameters);
         }

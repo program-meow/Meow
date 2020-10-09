@@ -1,6 +1,6 @@
 ﻿using System;
 using Meow.Extension.Helper;
-using SystemExpression = System.Linq.Expressions.Expression;
+using MicrosoftExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Query.Core.Helper
 {
@@ -14,7 +14,7 @@ namespace Meow.Query.Core.Helper
         /// </summary>
         /// <param name="value">日期值</param>
         /// <param name="isNull">日期是否可空</param>
-        public static SystemExpression CreateDateTimeExpression(object value, bool isNull = true)
+        public static MicrosoftExpression CreateDateTimeExpression(object value, bool isNull = true)
         {
             Type type = isNull ? typeof(DateTime?) : typeof(DateTime);
             return CreateDateTimeExpression(value, type);
@@ -25,13 +25,13 @@ namespace Meow.Query.Core.Helper
         /// </summary>
         /// <param name="value">日期值</param>
         /// <param name="targetType">目标类型</param>
-        public static SystemExpression CreateDateTimeExpression(object value, Type targetType)
+        public static MicrosoftExpression CreateDateTimeExpression(object value, Type targetType)
         {
             var parse = typeof(DateTime).GetMethod("Parse", new[] { typeof(string) });
             if (parse == null)
                 return null;
-            var parseExpression = SystemExpression.Call(parse, SystemExpression.Constant(value.SafeString()));
-            return SystemExpression.Convert(parseExpression, targetType);
+            var parseExpression = MicrosoftExpression.Call(parse, MicrosoftExpression.Constant(value.SafeString()));
+            return MicrosoftExpression.Convert(parseExpression, targetType);
         }
     }
 }
