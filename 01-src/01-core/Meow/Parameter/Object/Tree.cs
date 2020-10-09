@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Meow.Extension.Helper;
 
 namespace Meow.Parameter.Object
@@ -41,14 +42,17 @@ namespace Meow.Parameter.Object
         /// <summary>
         /// 数据
         /// </summary>
+        [DisplayName("数据")]
         public T Data { get; set; }
         /// <summary>
         /// 子集
         /// </summary>
+        [DisplayName("子集")]
         public List<Tree<T>> Subsets { get; set; }
         /// <summary>
         /// 排序号
         /// </summary>
+        [DisplayName("排序号")]
         public int? SortId { get; set; }
 
         /// <summary>

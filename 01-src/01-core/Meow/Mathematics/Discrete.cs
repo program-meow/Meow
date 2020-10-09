@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Meow.Extension.Helper;
-using Meow.Extension.Validation;
 
 namespace Meow.Mathematics
 {

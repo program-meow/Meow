@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Meow.Extension.Helper;
 using Meow.Parameter.Object;
 using MicrosoftSystem = System;
 
@@ -458,5 +459,66 @@ namespace Meow.Helper
                 throw new MicrosoftSystem.ArgumentException("泛型类型参数不能为空");
             return genericArgumentsTypes[0];
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <typeparam name="T">解析对象类型</typeparam>
+        /// <param name="value">值</param>
+        /// <param name="parentName">父名称</param>
+        /// <param name="count">下角标</param>
+        private static List<ItemTree> AnalyzingObject<T>(T value, string parentName, int? count) where T : new()
+        {
+            var result = new List<ItemTree>();
+            if (value.IsNull())
+                return result;
+            var type = value.GetType();
+            if (type.IsValueType || type.Name.StartsWith("String"))
+            {
+                result.Add(new ItemTree(parentName, value));
+                return result;
+            }
+            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            if (properties.IsEmpty())
+                return result;
+
+
+
+
+
+
+            throw new MicrosoftSystem.NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
