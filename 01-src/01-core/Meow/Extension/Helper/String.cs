@@ -260,5 +260,16 @@ namespace Meow.Extension.Helper
         {
             return String.Decompress(value);
         }
+
+        /// <summary>
+        /// 重复次数
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="repeatValue">重复值</param>
+        /// <param name="isFuzzy">是否模糊大小写</param>
+        public static int Repeat(this string value, string repeatValue, bool isFuzzy = false)
+        {
+            return String.Repeat(value, repeatValue, isFuzzy);
+        }
     }
 }

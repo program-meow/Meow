@@ -33,6 +33,21 @@ namespace Meow.Test
         /// 集合
         /// </summary>
         public List<TestObjct> List { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string> ListString { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string[] ListArray { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<List<string>> ListListString { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string[][] ArrayArrayString { get; set; }
     }
 }

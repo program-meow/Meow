@@ -86,6 +86,15 @@ namespace Meow.Extension.Helper
         }
 
         /// <summary>
+        /// 是否嵌套集合
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNestingCollectionType(this PropertyInfo value)
+        {
+            return Type.IsNestingCollectionType(value);
+        }
+
+        /// <summary>
         /// 是否为NULL
         /// </summary>
         /// <param name="value">值</param>

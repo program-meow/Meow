@@ -129,5 +129,25 @@ namespace Meow.Test.Extension.Helper
             var decompressValue = compressValue.Decompress();
             Assert.Equal(result, decompressValue);
         }
+
+        /// <summary>
+        /// ≤‚ ‘÷ÿ∏¥¥Œ ˝
+        /// </summary>
+        [Theory]
+        [InlineData(null, 0, false)]
+        [InlineData("a", 4, false)]
+        [InlineData("b", 3, false)]
+        [InlineData("c", 2, false)]
+        [InlineData("d", 1, false)]
+        [InlineData("NetCore", 0, false)]
+        [InlineData("a", 5, true)]
+        [InlineData("b", 4, true)]
+        [InlineData("c", 3, true)]
+        [InlineData("d", 2, true)]
+        public void TestRepeat(string repeat, int count, bool isFuzzy)
+        {
+            var value = "ABCDabcdabcaba";
+            Assert.Equal(count, value.Repeat(repeat, isFuzzy));
+        }
     }
 }

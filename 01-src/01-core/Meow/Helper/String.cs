@@ -497,5 +497,23 @@ namespace Meow.Helper
             var zippedData = Byte.Decompress(rawData);
             return Encoding.UTF8.GetString(zippedData);
         }
+
+        /// <summary>
+        /// 重复次数
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="repeatValue">重复值</param>
+        /// <param name="isFuzzy">是否模糊大小写</param>
+        public static int Repeat(string value, string repeatValue, bool isFuzzy = false)
+        {
+            if (value.IsEmpty() || repeatValue.IsEmpty())
+                return 0;
+            value = isFuzzy ? value.ToLower() : value;
+            repeatValue = isFuzzy ? repeatValue.ToLower() : repeatValue;
+            if (!value.Contains(repeatValue))
+                return 0;
+            var replace = value.Replace(repeatValue, "");
+            return (value.Length - replace.Length) / repeatValue.Length;
+        }
     }
 }

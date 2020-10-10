@@ -27,19 +27,19 @@ namespace Meow.Parameter.Object
         /// </summary>
         [DisplayName("文本")]
         [JsonProperty("text", NullValueHandling = NullValueHandling.Ignore)]
-        public string Text { get; }
+        public string Text { get; set; }
         /// <summary>
         /// 值
         /// </summary>
         [DisplayName("值")]
         [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public object Value { get; }
+        public object Value { get; set; }
         /// <summary>
         /// 排序号
         /// </summary>
         [DisplayName("排序号")]
         [JsonProperty("sortId", NullValueHandling = NullValueHandling.Ignore)]
-        public int? SortId { get; }
+        public int? SortId { get; set; }
 
         /// <summary>
         /// 比较

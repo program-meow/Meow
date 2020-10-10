@@ -18,7 +18,7 @@ namespace Meow.Helper
         /// <summary>
         /// 类型高精度枚举字典
         /// </summary>
-        private static readonly List<Item> TypeHighPrecisionDictionary = new List<Item>
+        private static readonly List<Item> RegexTypeHighPrecisionDictionary = new List<Item>
         {
             new Item("Nullable", TypeHighPrecision.Null),
             new Item("Boolean", TypeHighPrecision.Bool),
@@ -67,7 +67,7 @@ namespace Meow.Helper
         private static TypeHighPrecision GetHighPrecisionEnumByTypeName(string name)
         {
             name = SetTypeFullName(name);
-            var value = TypeHighPrecisionDictionary.FirstOrDefault(t => t.Text == name);
+            var value = RegexTypeHighPrecisionDictionary.FirstOrDefault(t => t.Text == name);
             return (TypeHighPrecision?)value?.Value ?? TypeHighPrecision.Object;
         }
 
@@ -163,6 +163,21 @@ namespace Meow.Helper
             if (value == null)
                 return false;
             return GetTypeHighPrecisionEnum(value).ToMedium() == TypeMediumPrecision.Collection;
+        }
+
+        /// <summary>
+        /// 是否嵌套集合
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNestingCollectionType(PropertyInfo value)
+        {
+            if (value == null)
+                return false;
+            if (value.PropertyType.FullName.Repeat("List") > 1)
+                return true;
+            if (value.PropertyType.FullName.Repeat("[]") > 1)
+                return true;
+            return false;
         }
 
         /// <summary>

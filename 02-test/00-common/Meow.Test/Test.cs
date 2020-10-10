@@ -26,23 +26,40 @@ namespace Meow.Test
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            var value = GetObjct();
+            var aa = value.AnalyzingToItems();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var value = GetObjct();
+            var list = new List<TestObjct> { value, value };
+            var aa = list.AnalyzingToItems();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private TestObjct GetObjct()
+        {
             var value = new TestObjct
             {
-                //Name = "11",
-                //Value = new TestObjct
-                //{
-                //    Name = "21",
-                //    Value = new TestObjct
-                //    {
-                //        Name = "31",
-                //    }
-                //},
-                //Enum = Database.MySql,
+                Name = "11",
+                Value = new TestObjct
+                {
+                    Name = "21",
+                    Value = new TestObjct
+                    {
+                        Name = "31",
+                    }
+                },
+                Enum = Database.Oracle,
                 List = new List<TestObjct>
                 {
                     new TestObjct
                     {
-                        //Name = "List11",
+                        Name = "List11",
                         List = new List<TestObjct>
                         {
                             new TestObjct
@@ -57,7 +74,7 @@ namespace Meow.Test
                     },
                     new TestObjct
                     {
-                      //  Name = "List21",
+                        Name = "List21",
                         List = new List<TestObjct>
                         {
                             new TestObjct
@@ -70,10 +87,14 @@ namespace Meow.Test
                             }
                         }
                     }
-                }
+                },
+                ListString = new List<string> { "A", "B" },
+                ListArray = new string[] { "C", "D" },
+                ListListString = new List<List<string>> { new List<string> { "A", "B" }, new List<string> { "C", "D" } },
+                ArrayArrayString = new string[][] { new string[] { "A", "B" } },
             };
-
-            var aa = value.AnalyzingToItems();
+            return value;
         }
+
     }
 }

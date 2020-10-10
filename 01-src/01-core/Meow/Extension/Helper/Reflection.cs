@@ -27,26 +27,34 @@ namespace Meow.Extension.Helper
         /// <summary>
         /// 解析对象
         /// </summary>
-        /// <param name="value">值</param>
-        /// <param name="rootName">根名称</param>
-        public static ItemObjectTree Analyzing(this IEnumerable<object> value, string rootName = null)
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
+        public static List<ItemObjectTree> Analyzing(this IEnumerable<object> value)
         {
-            return Meow.Helper.Reflection.Analyzing(value, rootName);
+            return Meow.Helper.Reflection.Analyzing(value);
         }
 
         /// <summary>
         /// 解析对象
         /// </summary>
-        /// <param name="value">值</param>
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
         public static List<ItemObjectTree> Analyzing(this object value)
         {
             return Meow.Helper.Reflection.Analyzing(value);
         }
 
         /// <summary>
+        /// 解析集合对象到列表集合
+        /// </summary>
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
+        public static List<Item> AnalyzingToItems(this IEnumerable<object> value)
+        {
+            return Meow.Helper.Reflection.AnalyzingToItems(value);
+        }
+
+        /// <summary>
         /// 解析对象到列表集合
         /// </summary>
-        /// <param name="value">值</param>
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
         public static List<Item> AnalyzingToItems(this object value)
         {
             return Meow.Helper.Reflection.AnalyzingToItems(value);

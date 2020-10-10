@@ -84,7 +84,7 @@ namespace Meow.Test.Helper
             Assert.Equal(result, Meow.Helper.String.RemoveEnd(value, removeValue));
         }
 
-        /// <summary>s
+        /// <summary>
         /// 分隔词组
         /// </summary>
         [Theory]
@@ -113,6 +113,26 @@ namespace Meow.Test.Helper
             var compressValue = Meow.Helper.String.Compress(value);
             var decompressValue = Meow.Helper.String.Decompress(compressValue);
             Assert.Equal(result, decompressValue);
+        }
+
+        /// <summary>
+        /// 测试重复次数
+        /// </summary>
+        [Theory]
+        [InlineData(null, 0, false)]
+        [InlineData("a", 4, false)]
+        [InlineData("b", 3, false)]
+        [InlineData("c", 2, false)]
+        [InlineData("d", 1, false)]
+        [InlineData("NetCore", 0, false)]
+        [InlineData("a", 5, true)]
+        [InlineData("b", 4, true)]
+        [InlineData("c", 3, true)]
+        [InlineData("d", 2, true)]
+        public void TestRepeat(string repeat, int count, bool isFuzzy)
+        {
+            var value = "ABCDabcdabcaba";
+            Assert.Equal(count, Meow.Helper.String.Repeat(value, repeat, isFuzzy));
         }
     }
 }
