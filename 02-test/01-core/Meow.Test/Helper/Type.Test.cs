@@ -39,6 +39,7 @@ namespace Meow.Test.Helper
             int[] a20 = new int[] { 1, 2 };
             System.DateTime? a21 = System.DateTime.MaxValue;
             System.DateTime? a22 = null;
+            Dictionary<string, string> a23 = new Dictionary<string, string>();
             Assert.Equal(TypeHighPrecision.Bool, a1.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.Byte, a2.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.Char, a3.GetTypeHighPrecisionEnum());
@@ -55,12 +56,13 @@ namespace Meow.Test.Helper
             Assert.Equal(TypeHighPrecision.Enum, a14.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.DateTime, a15.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.String, a16.GetTypeHighPrecisionEnum());
-            Assert.Equal(TypeHighPrecision.Collection, a17.GetTypeHighPrecisionEnum());
+            Assert.Equal(TypeHighPrecision.Array, a17.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.Object, a18.GetTypeHighPrecisionEnum());
-            Assert.Equal(TypeHighPrecision.Collection, a19.GetTypeHighPrecisionEnum());
-            Assert.Equal(TypeHighPrecision.Collection, a20.GetTypeHighPrecisionEnum());
+            Assert.Equal(TypeHighPrecision.List, a19.GetTypeHighPrecisionEnum());
+            Assert.Equal(TypeHighPrecision.Array, a20.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.DateTime, a21.GetTypeHighPrecisionEnum());
             Assert.Equal(TypeHighPrecision.Null, a22.GetTypeHighPrecisionEnum());
+            Assert.Equal(TypeHighPrecision.Dictionary, a23.GetTypeHighPrecisionEnum());
         }
     }
 }

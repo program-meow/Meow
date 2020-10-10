@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Meow.Extension.Helper;
+using Meow.Extension.Parameter.Enum;
 using Meow.Parameter.Enum;
 using Meow.Parameter.Object;
 using MicrosoftSystem = System;
@@ -463,11 +464,32 @@ namespace Meow.Helper
         }
 
         /// <summary>
-        /// 解析对象
+        /// 解析对象(暂无法解析字典对象)
         /// </summary>
-        /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
-        public static List<ItemObjectTree> Analyzing<T>(T value) where T : new()
+        /// <param name="rootName">根名称</param>
+        public static ItemObjectTree Analyzing(IEnumerable<object> value, string rootName = null)
+        {
+            if (value.IsEmpty())
+                return new ItemObjectTree();
+            var subsets = new List<ItemObjectTree>();
+            var count = 1;
+            foreach (var item in value)
+            {
+                var itemResult = Analyzing(item);
+                if (itemResult.IsEmpty())
+                    continue;
+                subsets.Add(new ItemObjectTree(null, item.GetTypeHighPrecisionEnum(), null, itemResult, count));
+                count += 1;
+            }
+            return new ItemObjectTree(rootName, value.GetTypeHighPrecisionEnum(), null, subsets);
+        }
+
+        /// <summary>
+        /// 解析对象(暂无法解析字典对象)
+        /// </summary>
+        /// <param name="value">值</param>
+        public static List<ItemObjectTree> Analyzing(object value)
         {
             if (value.IsNull())
                 return new List<ItemObjectTree>();
@@ -479,19 +501,22 @@ namespace Meow.Helper
             return AnalyzingObject(value, properties);
         }
 
+        #region 解析对象实现
+
         /// <summary>
         /// 解析对象
         /// </summary>
-        /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
         /// <param name="properties">属性信息集合</param>
-        private static List<ItemObjectTree> AnalyzingObject<T>(T value, PropertyInfo[] properties) where T : new()
+        private static List<ItemObjectTree> AnalyzingObject(object value, PropertyInfo[] properties)
         {
             var result = new List<ItemObjectTree>();
             var count = 1;
             foreach (var item in properties)
             {
                 var itemResult = AnalyzingObject(value, item, count);
+                if (itemResult.IsNull())
+                    continue;
                 result.Add(itemResult);
                 count += 1;
             }
@@ -501,12 +526,13 @@ namespace Meow.Helper
         /// <summary>
         /// 解析对象
         /// </summary>
-        /// <typeparam name="T">解析对象类型</typeparam>
         /// <param name="value">值</param>
         /// <param name="property">属性信息</param>
         /// <param name="sortId">排序号</param>
-        private static ItemObjectTree AnalyzingObject<T>(T value, PropertyInfo property, int sortId) where T : new()
+        private static ItemObjectTree AnalyzingObject(object value, PropertyInfo property, int sortId)
         {
+            if (property.IsNull())
+                return null;
             var itemValue = property.GetValue(value, null);
             if (property.IsCollectionType())
                 return AnalyzingCollectionType(itemValue, property, sortId);
@@ -523,16 +549,22 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingCollectionType(object value, PropertyInfo property, int sortId)
         {
-            var result = new ItemObjectTree(property.Name, TypeHighPrecision.Collection, null, sortId);
+            if (property.IsDictionaryType())
+                return null;
+            var subsets = new List<ItemObjectTree>();
             var listCache = (IList)value ?? new List<object>();
             var count = 1;
             foreach (var item in listCache)
             {
                 var itemResult = AnalyzingCollectionType(item, count);
-                result.AddSubset(itemResult);
+                if (itemResult.IsNull())
+                    continue;
+                subsets.Add(itemResult);
                 count += 1;
             }
-            return result;
+            if (subsets.IsEmpty())
+                return null;
+            return new ItemObjectTree(property.Name, property.GetTypeHighPrecisionEnum(), null, subsets, sortId);
         }
 
         /// <summary>
@@ -542,8 +574,10 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingCollectionType(object value, int sortId)
         {
-            var item = Analyzing(value);
-            return new ItemObjectTree(null, value.GetTypeHighPrecisionEnum(), null, item, sortId);
+            var subsets = Analyzing(value);
+            if (subsets.IsEmpty())
+                return null;
+            return new ItemObjectTree(null, value.GetTypeHighPrecisionEnum(), null, subsets, sortId);
         }
 
         /// <summary>
@@ -554,6 +588,8 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingSingleType(object value, PropertyInfo property, int sortId)
         {
+            if (value.SafeString().IsEmpty())
+                return null;
             return new ItemObjectTree(property.Name, property.GetTypeHighPrecisionEnum(), value, sortId);
         }
 
@@ -565,9 +601,134 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingObjectType(object value, PropertyInfo property, int sortId)
         {
-            var result = new ItemObjectTree(property.Name, TypeHighPrecision.Object, null, sortId);
-            result.AddSubset(Analyzing(value));
+            var subsets = Analyzing(value);
+            if (subsets.IsEmpty())
+                return null;
+            return new ItemObjectTree(property.Name, property.GetTypeHighPrecisionEnum(), null, subsets, sortId);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 解析对象到列表集合
+        /// </summary>
+        /// <param name="value">值</param>
+        public static List<Item> AnalyzingToItems(object value)
+        {
+            var result = new List<Item>();
+            var itemObjectTrees = Analyzing(value);
+            foreach (var item in itemObjectTrees)
+            {
+                var itemResult = AnalyzingToItems(item, item.Type.IsSingleType() ? "" : item.Text);
+                result.AddNoNull(itemResult);
+            }
             return result;
         }
+
+        /// <summary>
+        /// 解析对象到列表集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static List<Item> AnalyzingToItems(ItemObjectTree item, string parentName)
+        {
+            switch (item.Type.ToMedium())
+            {
+                case TypeMediumPrecision.Null:
+                    return null;
+                case TypeMediumPrecision.Collection:
+                    return AnalyzingToCollectionItems(item.Subsets, parentName);
+                case TypeMediumPrecision.Object:
+                    return AnalyzingToObjectItems(item.Subsets, parentName);
+                default:
+                    return AnalyzingToSingleItems(item, parentName);
+            }
+        }
+
+        /// <summary>
+        /// 解析对象到集合列表集合
+        /// </summary>
+        /// <param name="list">集合</param>
+        /// <param name="parentName">父名称</param>
+        private static List<Item> AnalyzingToCollectionItems(List<ItemObjectTree> list, string parentName)
+        {
+            var result = new List<Item>();
+            var count = 0;
+            foreach (var item in list)
+            {
+                if (item.Subsets.IsEmpty())
+                    continue;
+                if (item.Type == TypeHighPrecision.Object)
+                {
+                    var objectName = $"{parentName}[{count}]";
+                    foreach (var subset in item.Subsets)
+                    {
+                        var aa = AnalyzingToItems(subset, objectName);
+                        result.AddRange(aa);
+                    }
+                }
+
+
+
+                //var name = item.Text.IsEmpty() ? $"{parentName}[{count}]" : $"{parentName}.{item.Text}[{count}]";
+                //foreach (var subset in item.Subsets)
+                //{
+                //    var aa = AnalyzingToItems(subset, name);
+                //}
+
+
+
+            }
+            return result;
+        }
+
+
+        /// <summary>
+        /// 解析对象到对象列表集合
+        /// </summary>
+        /// <param name="list">集合</param>
+        /// <param name="parentName">父名称</param>
+        private static List<Item> AnalyzingToObjectItems(List<ItemObjectTree> list, string parentName)
+        {
+            var result = new List<Item>();
+            foreach (var item in list)
+            {
+                var itemResult = AnalyzingToObjectItem(item, parentName);
+                if (item.Type != TypeHighPrecision.Object)
+                    result.AddNoNull(itemResult);
+                if (item.Type.IsSingleType())
+                    continue;
+                var subsets = AnalyzingToItems(item, itemResult.Text);
+                result.AddNoNull(subsets);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象到对象
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static Item AnalyzingToObjectItem(ItemObjectTree item, string parentName)
+        {
+            var name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
+            return new Item(name, item.Value);
+        }
+
+        /// <summary>
+        /// 解析对象到单类型列表集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static List<Item> AnalyzingToSingleItems(ItemObjectTree item, string parentName)
+        {
+            var name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
+            return new List<Item>
+            {
+                new Item(name, item.Value)
+            };
+        }
+
+
     }
 }

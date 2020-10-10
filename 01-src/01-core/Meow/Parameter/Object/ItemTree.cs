@@ -8,7 +8,14 @@ namespace Meow.Parameter.Object
     /// <summary>
     /// 列表项树
     /// </summary>
-    public class ItemTree : Item
+    public class ItemTree : ItemTree<ItemTree>
+    {
+    }
+
+    /// <summary>
+    /// 列表项树
+    /// </summary>
+    public class ItemTree<T> : Item
     {
         /// <summary>
         /// 初始化列表项树
@@ -23,7 +30,7 @@ namespace Meow.Parameter.Object
         /// <param name="text">文本</param>
         /// <param name="value">值</param>
         /// <param name="sortId">排序号</param>
-        public ItemTree(string text, object value, int? sortId = 1) : this(text, value, new List<ItemTree>(), sortId)
+        public ItemTree(string text, object value, int? sortId = 1) : this(text, value, new List<T>(), sortId)
         {
         }
 
@@ -34,9 +41,9 @@ namespace Meow.Parameter.Object
         /// <param name="value">值</param>
         /// <param name="subsets">子集集合</param>
         /// <param name="sortId">排序号</param>
-        public ItemTree(string text, object value, IEnumerable<ItemTree> subsets, int? sortId = 1) : base(text, value, sortId)
+        public ItemTree(string text, object value, IEnumerable<T> subsets, int? sortId = 1) : base(text, value, sortId)
         {
-            Subsets = new List<ItemTree>();
+            Subsets = new List<T>();
             AddSubset(subsets);
         }
 
@@ -45,13 +52,13 @@ namespace Meow.Parameter.Object
         /// </summary>
         [DisplayName("子集")]
         [JsonProperty("subsets", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ItemTree> Subsets { get; set; }
+        public List<T> Subsets { get; set; }
 
         /// <summary>
         /// 添加子集
         /// </summary>
         /// <param name="subset">子集</param>
-        public ItemTree AddSubset(ItemTree subset)
+        public ItemTree<T> AddSubset(T subset)
         {
             Subsets.AddNoNull(subset);
             return this;
@@ -61,7 +68,7 @@ namespace Meow.Parameter.Object
         /// 添加子集
         /// </summary>
         /// <param name="subsets">子集集合</param>
-        public ItemTree AddSubset(IEnumerable<ItemTree> subsets)
+        public ItemTree<T> AddSubset(IEnumerable<T> subsets)
         {
             if (subsets.IsNull())
                 return this;

@@ -1,7 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Meow.Extension.Helper;
 using Meow.Extension.Parameter.Enum;
 using Meow.Parameter.Enum;
+using Meow.Parameter.Object;
 
 namespace Meow.Helper
 {
@@ -10,6 +13,66 @@ namespace Meow.Helper
     /// </summary>
     public static class Type
     {
+        #region 基础
+
+        /// <summary>
+        /// 类型高精度枚举字典
+        /// </summary>
+        private static readonly List<Item> TypeHighPrecisionDictionary = new List<Item>
+        {
+            new Item("Nullable", TypeHighPrecision.Null),
+            new Item("Boolean", TypeHighPrecision.Bool),
+            new Item("Byte", TypeHighPrecision.Byte),
+            new Item("Char", TypeHighPrecision.Char),
+            new Item("Decimal", TypeHighPrecision.Decimal),
+            new Item("Double", TypeHighPrecision.Double),
+            new Item("Single", TypeHighPrecision.Float),
+            new Item("Int32", TypeHighPrecision.Int),
+            new Item("Int64", TypeHighPrecision.Long),
+            new Item("SByte", TypeHighPrecision.Sbyte),
+            new Item("Int16", TypeHighPrecision.Short),
+            new Item("UInt32", TypeHighPrecision.Uint),
+            new Item("UInt64", TypeHighPrecision.Ulong),
+            new Item("UInt16", TypeHighPrecision.Ushort),
+            new Item("Enum", TypeHighPrecision.Enum),
+            new Item("DateTime", TypeHighPrecision.DateTime),
+            new Item("String", TypeHighPrecision.String),
+            new Item("Object", TypeHighPrecision.Object),
+            new Item("Array", TypeHighPrecision.Array),
+            new Item("Dictionary", TypeHighPrecision.Dictionary),
+            new Item("List", TypeHighPrecision.List),
+        };
+
+        /// <summary>
+        /// 设置名称
+        /// </summary>
+        /// <param name="name">名称</param>
+        private static string SetTypeFullName(string name)
+        {
+            if (name.IsEmpty() || name.StartsWith("Nullable"))
+                return "Nullable";
+            if (name.Contains("[]"))
+                return "Array";
+            if (name.StartsWith("Dictionary"))
+                return "Dictionary";
+            if (name.StartsWith("List"))
+                return "List";
+            return name;
+        }
+
+        /// <summary>
+        /// 根据类型名称获取类型高精度枚举
+        /// </summary>
+        /// <param name="name">名称</param>
+        private static TypeHighPrecision GetHighPrecisionEnumByTypeName(string name)
+        {
+            name = SetTypeFullName(name);
+            var value = TypeHighPrecisionDictionary.FirstOrDefault(t => t.Text == name);
+            return (TypeHighPrecision?)value?.Value ?? TypeHighPrecision.Object;
+        }
+
+        #endregion
+
         #region PropertyInfo
 
         /// <summary>
@@ -18,47 +81,11 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeHighPrecision GetTypeHighPrecisionEnum(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeHighPrecision.Null;
             if (Meow.Helper.Reflection.IsEnum(value))
                 return TypeHighPrecision.Enum;
-            if (value.PropertyType.Name.Contains("[]") || value.PropertyType.Name.StartsWith("List"))
-                return TypeHighPrecision.Collection;
-            switch (value.PropertyType.Name)
-            {
-                case "Boolean":
-                    return TypeHighPrecision.Bool;
-                case "Byte":
-                    return TypeHighPrecision.Byte;
-                case "Char":
-                    return TypeHighPrecision.Char;
-                case "Decimal":
-                    return TypeHighPrecision.Decimal;
-                case "Double":
-                    return TypeHighPrecision.Double;
-                case "Single":
-                    return TypeHighPrecision.Float;
-                case "Int32":
-                    return TypeHighPrecision.Int;
-                case "Int64":
-                    return TypeHighPrecision.Long;
-                case "SByte":
-                    return TypeHighPrecision.Sbyte;
-                case "Int16":
-                    return TypeHighPrecision.Short;
-                case "UInt32":
-                    return TypeHighPrecision.Uint;
-                case "UInt64":
-                    return TypeHighPrecision.Ulong;
-                case "UInt16":
-                    return TypeHighPrecision.Ushort;
-                case "DateTime":
-                    return TypeHighPrecision.DateTime;
-                case "String":
-                    return TypeHighPrecision.String;
-                default:
-                    return TypeHighPrecision.Object;
-            }
+            return GetHighPrecisionEnumByTypeName(value.PropertyType.Name);
         }
 
         /// <summary>
@@ -67,7 +94,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeMediumPrecision GetTypeMediumPrecisionEnum(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeMediumPrecision.Null;
             return GetTypeHighPrecisionEnum(value).ToMedium();
         }
@@ -78,7 +105,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeLowPrecision GetTypeLowPrecisionEnum(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeLowPrecision.Null;
             return GetTypeHighPrecisionEnum(value).ToLow();
         }
@@ -89,7 +116,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsValueType(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return GetTypeLowPrecisionEnum(value) == TypeLowPrecision.Value;
         }
@@ -100,7 +127,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsReferenceType(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return GetTypeLowPrecisionEnum(value) == TypeLowPrecision.Reference;
         }
@@ -111,9 +138,20 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsSingleType(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return IsValueType(value) || GetTypeHighPrecisionEnum(value) == TypeHighPrecision.String;
+        }
+
+        /// <summary>
+        /// 是否字典类型
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDictionaryType(PropertyInfo value)
+        {
+            if (value == null)
+                return false;
+            return GetTypeHighPrecisionEnum(value) == TypeHighPrecision.Dictionary;
         }
 
         /// <summary>
@@ -122,9 +160,20 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsCollectionType(PropertyInfo value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
-            return GetTypeHighPrecisionEnum(value) == TypeHighPrecision.Collection;
+            return GetTypeHighPrecisionEnum(value).ToMedium() == TypeMediumPrecision.Collection;
+        }
+
+        /// <summary>
+        /// 是否为NULL
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNull(PropertyInfo value)
+        {
+            if (value == null)
+                return true;
+            return GetTypeHighPrecisionEnum(value) == TypeHighPrecision.Null;
         }
 
         #endregion
@@ -137,48 +186,12 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeHighPrecision GetTypeHighPrecisionEnum(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeHighPrecision.Null;
             var type = value.GetType();
             if (Meow.Helper.Reflection.IsEnum(type))
                 return TypeHighPrecision.Enum;
-            if (type.Name.Contains("[]") || type.Name.StartsWith("List"))
-                return TypeHighPrecision.Collection;
-            switch (type.Name)
-            {
-                case "Boolean":
-                    return TypeHighPrecision.Bool;
-                case "Byte":
-                    return TypeHighPrecision.Byte;
-                case "Char":
-                    return TypeHighPrecision.Char;
-                case "Decimal":
-                    return TypeHighPrecision.Decimal;
-                case "Double":
-                    return TypeHighPrecision.Double;
-                case "Single":
-                    return TypeHighPrecision.Float;
-                case "Int32":
-                    return TypeHighPrecision.Int;
-                case "Int64":
-                    return TypeHighPrecision.Long;
-                case "SByte":
-                    return TypeHighPrecision.Sbyte;
-                case "Int16":
-                    return TypeHighPrecision.Short;
-                case "UInt32":
-                    return TypeHighPrecision.Uint;
-                case "UInt64":
-                    return TypeHighPrecision.Ulong;
-                case "UInt16":
-                    return TypeHighPrecision.Ushort;
-                case "DateTime":
-                    return TypeHighPrecision.DateTime;
-                case "String":
-                    return TypeHighPrecision.String;
-                default:
-                    return TypeHighPrecision.Object;
-            }
+            return GetHighPrecisionEnumByTypeName(type.Name);
         }
 
         /// <summary>
@@ -187,7 +200,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeMediumPrecision GetTypeMediumPrecisionEnum(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeMediumPrecision.Null;
             return GetTypeHighPrecisionEnum(value).ToMedium();
         }
@@ -198,7 +211,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static TypeLowPrecision GetTypeLowPrecisionEnum(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return TypeLowPrecision.Null;
             return GetTypeHighPrecisionEnum(value).ToLow();
         }
@@ -209,7 +222,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsValueType(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return GetTypeLowPrecisionEnum(value) == TypeLowPrecision.Value;
         }
@@ -220,7 +233,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsReferenceType(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return GetTypeLowPrecisionEnum(value) == TypeLowPrecision.Reference;
         }
@@ -231,7 +244,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsSingleType(object value)
         {
-            if (value.IsNull())
+            if (value == null)
                 return false;
             return IsValueType(value) || GetTypeHighPrecisionEnum(value) == TypeHighPrecision.String;
         }

@@ -40,10 +40,12 @@ namespace Meow.Extension.Parameter.Enum
                     return TypeMediumPrecision.DateTime;
                 case TypeHighPrecision.String:
                     return TypeMediumPrecision.String;
-                case TypeHighPrecision.Collection:
-                    return TypeMediumPrecision.Collection;
                 case TypeHighPrecision.Object:
                     return TypeMediumPrecision.Object;
+                case TypeHighPrecision.Array:
+                case TypeHighPrecision.Dictionary:
+                case TypeHighPrecision.List:
+                    return TypeMediumPrecision.Collection;
                 default:
                     throw new Warning("超出范围");
             }
@@ -87,8 +89,10 @@ namespace Meow.Extension.Parameter.Enum
                 case TypeHighPrecision.DateTime:
                     return TypeLowPrecision.Value;
                 case TypeHighPrecision.String:
-                case TypeHighPrecision.Collection:
                 case TypeHighPrecision.Object:
+                case TypeHighPrecision.Array:
+                case TypeHighPrecision.Dictionary:
+                case TypeHighPrecision.List:
                     return TypeLowPrecision.Reference;
                 default:
                     throw new Warning("超出范围");
@@ -122,8 +126,8 @@ namespace Meow.Extension.Parameter.Enum
                 case TypeMediumPrecision.DateTime:
                     return TypeLowPrecision.Value;
                 case TypeMediumPrecision.String:
-                case TypeMediumPrecision.Collection:
                 case TypeMediumPrecision.Object:
+                case TypeMediumPrecision.Collection:
                     return TypeLowPrecision.Reference;
                 default:
                     throw new Warning("超出范围");
@@ -139,6 +143,28 @@ namespace Meow.Extension.Parameter.Enum
             if (value.IsNull())
                 return null;
             return value.SafeValue().ToLow();
+        }
+
+        /// <summary>
+        /// 是否单类型：包含值类型和String类型
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsSingleType(this TypeHighPrecision value)
+        {
+            if (value.IsNull())
+                return false;
+            return value.ToLow() == TypeLowPrecision.Value || value == TypeHighPrecision.String;
+        }
+
+        /// <summary>
+        /// 是否单类型：包含值类型和String类型
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsSingleType(this TypeHighPrecision? value)
+        {
+            if (value.IsNull())
+                return false;
+            return value.SafeValue().IsSingleType();
         }
     }
 }

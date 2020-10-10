@@ -67,12 +67,31 @@ namespace Meow.Extension.Helper
         }
 
         /// <summary>
+        /// 是否字典类型
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsDictionaryType(this PropertyInfo value)
+        {
+            return Type.IsDictionaryType(value);
+
+        }
+
+        /// <summary>
         /// 是否集合类型
         /// </summary>
         /// <param name="value">值</param>
         public static bool IsCollectionType(this PropertyInfo value)
         {
             return Type.IsCollectionType(value);
+        }
+
+        /// <summary>
+        /// 是否为NULL
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsNull(this PropertyInfo value)
+        {
+            return Type.IsNull(value);
         }
 
         #endregion

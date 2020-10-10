@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using Meow.Parameter.Object;
 
 namespace Meow.Extension.Helper
 {
@@ -20,6 +22,34 @@ namespace Meow.Extension.Helper
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
             return instance.GetType().GetProperty(member.Name)?.GetValue(instance);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="rootName">根名称</param>
+        public static ItemObjectTree Analyzing(this IEnumerable<object> value, string rootName = null)
+        {
+            return Meow.Helper.Reflection.Analyzing(value, rootName);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="value">值</param>
+        public static List<ItemObjectTree> Analyzing(this object value)
+        {
+            return Meow.Helper.Reflection.Analyzing(value);
+        }
+
+        /// <summary>
+        /// 解析对象到列表集合
+        /// </summary>
+        /// <param name="value">值</param>
+        public static List<Item> AnalyzingToItems(this object value)
+        {
+            return Meow.Helper.Reflection.AnalyzingToItems(value);
         }
     }
 }

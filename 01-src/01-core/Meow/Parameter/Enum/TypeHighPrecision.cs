@@ -93,14 +93,24 @@ namespace Meow.Parameter.Enum
         [Description("字符串类型")]
         String = 17,
         /// <summary>
-        /// 集合类型
-        /// </summary>        
-        [Description("集合类型")]
-        Collection = 18,
-        /// <summary>
         /// 对象类型
         /// </summary>        
         [Description("对象类型")]
-        Object = 19,
+        Object = 18,
+        /// <summary>
+        /// 数组类型
+        /// </summary>        
+        [Description("数组类型")]
+        Array = 19,
+        /// <summary>
+        /// 字典类型
+        /// </summary>        
+        [Description("字典类型")]
+        Dictionary = 20,
+        /// <summary>
+        /// 集合类型
+        /// </summary>        
+        [Description("集合类型")]
+        List = 21,
     }
 }

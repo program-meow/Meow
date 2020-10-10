@@ -38,14 +38,14 @@ namespace Meow.Parameter.Enum
         [Description("字符串类型")]
         String = 6,
         /// <summary>
-        /// 集合类型
-        /// </summary>        
-        [Description("集合类型")]
-        Collection = 7,
-        /// <summary>
         /// 对象类型
         /// </summary>        
         [Description("对象类型")]
-        Object = 8,
+        Object = 7,
+        /// <summary>
+        /// 集合类型
+        /// </summary>        
+        [Description("集合类型")]
+        Collection = 8,
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using Meow.Extension.Helper;
+using Meow.Parameter.Enum;
 
 namespace Meow.Test
 {
@@ -30,22 +28,52 @@ namespace Meow.Test
         {
             var value = new TestObjct
             {
-                Name = "11",
-                Value = new List<TestObjct>
+                //Name = "11",
+                //Value = new TestObjct
+                //{
+                //    Name = "21",
+                //    Value = new TestObjct
+                //    {
+                //        Name = "31",
+                //    }
+                //},
+                //Enum = Database.MySql,
+                List = new List<TestObjct>
                 {
                     new TestObjct
                     {
-                        Name = "21"
+                        //Name = "List11",
+                        List = new List<TestObjct>
+                        {
+                            new TestObjct
+                            {
+                                Name = "List12",
+                            },
+                            new TestObjct
+                            {
+                                Name = "List13",
+                            }
+                        }
                     },
                     new TestObjct
                     {
-                        Name = "22",
+                      //  Name = "List21",
+                        List = new List<TestObjct>
+                        {
+                            new TestObjct
+                            {
+                                Name = "List22",
+                            },
+                            new TestObjct
+                            {
+                                Name = "List23",
+                            }
+                        }
                     }
                 }
             };
-            var list = new List<TestObjct> { value };
-            var aa = Meow.Helper.Reflection.Analyzing(value);
-            var bb = Meow.Helper.Reflection.Analyzing(list);
+
+            var aa = value.AnalyzingToItems();
         }
     }
 }
