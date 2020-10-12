@@ -28,6 +28,10 @@ namespace Meow.Test
         {
             var value = GetObjct();
             var aa = value.AnalyzingToItems();
+
+            var test = new List<int> { 1, 2 };
+            var bb = test.Analyzing();
+            var cc = test.AnalyzingToItems();
         }
 
         private void button2_Click(object sender, EventArgs e)

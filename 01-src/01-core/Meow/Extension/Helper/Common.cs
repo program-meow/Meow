@@ -51,5 +51,18 @@
         {
             return Meow.Helper.Common.To<T>(value);
         }
+
+        /// <summary>
+        /// 是否为空
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsEmpty(this object value)
+        {
+            if (value.IsNull())
+                return true;
+            if (!value.IsSingleType())
+                return false;
+            return value.SafeString().IsEmpty();
+        }
     }
 }

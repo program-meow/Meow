@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Meow.Auth.Principal;
-using Meow.Extension.Helper;
 using Meow.Helper;
 
 namespace Meow.Auth.Helper
@@ -51,19 +50,7 @@ namespace Meow.Auth.Helper
         /// <summary>
         /// 获取访问令牌
         /// </summary>
-        public static string AccessToken
-        {
-            get
-            {
-                var authorization = Web.Request?.Headers["Authorization"].SafeString();
-                if (string.IsNullOrWhiteSpace(authorization))
-                    return null;
-                var list = authorization.Split(' ');
-                if (list.Length == 2)
-                    return list[1];
-                return null;
-            }
-        }
+        public static string AccessToken => Web.AccessToken;
 
         #endregion
     }

@@ -464,11 +464,28 @@ namespace Meow.Helper
             return genericArgumentsTypes[0];
         }
 
+        #region 解析对象
+
         /// <summary>
         /// 解析对象
         /// </summary>
+        /// <typeparam name="T">对象元素类型</typeparam>
         /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
-        public static List<ItemObjectTree> Analyzing(IEnumerable<object> value)
+        public static List<ItemObjectTree> Analyzing<T>(T value) where T : class
+        {
+            if (value.IsNull())
+                return new List<ItemObjectTree>();
+            if (value.GetTypeMediumPrecisionEnum() == TypeMediumPrecision.Collection)
+                return new List<ItemObjectTree>();
+            return AnalyzingObject(value);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <typeparam name="T">集合元素类型</typeparam>
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
+        public static List<ItemObjectTree> Analyzing<T>(IEnumerable<T> value) where T : class
         {
             if (value.IsEmpty())
                 return new List<ItemObjectTree>();
@@ -485,11 +502,13 @@ namespace Meow.Helper
             return result;
         }
 
+        #region 解析对象实现
+
         /// <summary>
         /// 解析对象
         /// </summary>
         /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
-        public static List<ItemObjectTree> Analyzing(object value)
+        private static List<ItemObjectTree> AnalyzingObject(object value)
         {
             if (value.IsNull())
                 return new List<ItemObjectTree>();
@@ -500,8 +519,6 @@ namespace Meow.Helper
                 return new List<ItemObjectTree>();
             return AnalyzingObject(value, properties);
         }
-
-        #region 解析对象实现
 
         /// <summary>
         /// 解析对象
@@ -576,7 +593,7 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingCollectionType(object value, int sortId)
         {
-            var subsets = Analyzing(value);
+            var subsets = AnalyzingObject(value);
             if (subsets.IsEmpty())
                 return null;
             return new ItemObjectTree(null, value.GetTypeHighPrecisionEnum(), null, subsets, sortId);
@@ -603,7 +620,7 @@ namespace Meow.Helper
         /// <param name="sortId">排序号</param>
         private static ItemObjectTree AnalyzingObjectType(object value, PropertyInfo property, int sortId)
         {
-            var subsets = Analyzing(value);
+            var subsets = AnalyzingObject(value);
             if (subsets.IsEmpty())
                 return null;
             return new ItemObjectTree(property.Name, property.GetTypeHighPrecisionEnum(), null, subsets, sortId);
@@ -611,11 +628,33 @@ namespace Meow.Helper
 
         #endregion
 
+        #endregion
+
+        #region 解析集合对象到列表集合
+
+        /// <summary>
+        /// 解析对象到列表集合
+        /// </summary>
+        /// <typeparam name="T">对象元素类型</typeparam>
+        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
+        public static List<Item> AnalyzingToItems<T>(T value) where T : class
+        {
+            var result = new List<Item>();
+            var objectTrees = Analyzing(value);
+            foreach (var item in objectTrees)
+            {
+                var itemResult = AnalyzingToItems(item, item.Type.IsSingleType() ? null : item.Text);
+                result.AddNoNull(itemResult);
+            }
+            return result.DefaultSortId();
+        }
+
         /// <summary>
         /// 解析集合对象到列表集合
         /// </summary>
+        /// <typeparam name="T">集合元素类型</typeparam>
         /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
-        public static List<Item> AnalyzingToItems(IEnumerable<object> value)
+        public static List<Item> AnalyzingToItems<T>(IEnumerable<T> value) where T : class
         {
             var result = new List<Item>();
             var objectTrees = Analyzing(value);
@@ -630,6 +669,8 @@ namespace Meow.Helper
             }
             return result.DefaultSortId();
         }
+
+        #region 解析集合对象到列表集合实现
 
         /// <summary>
         /// 解析集合对象到列表集合
@@ -646,22 +687,6 @@ namespace Meow.Helper
                 result.AddRange(subsetResult);
             }
             return result;
-        }
-
-        /// <summary>
-        /// 解析对象到列表集合
-        /// </summary>
-        /// <param name="value">值  暂不支持Dictionary、List&lt;List&lt;object&gt;&gt;、object[][]类型</param>
-        public static List<Item> AnalyzingToItems(object value)
-        {
-            var result = new List<Item>();
-            var objectTrees = Analyzing(value);
-            foreach (var item in objectTrees)
-            {
-                var itemResult = AnalyzingToItems(item, item.Type.IsSingleType() ? null : item.Text);
-                result.AddNoNull(itemResult);
-            }
-            return result.DefaultSortId();
         }
 
         /// <summary>
@@ -722,7 +747,7 @@ namespace Meow.Helper
                     return AnalyzingToItems(item, itemName).Where(t => !t.Value.SafeString().IsEmpty()).ToList();
                 default:
                     var singleValue = item.Subsets[0].Value.SafeString();
-                    return singleValue.IsEmpty() 
+                    return singleValue.IsEmpty()
                            ? new List<Item>()
                            : new List<Item> { new Item(itemName, singleValue) };
             }
@@ -775,5 +800,9 @@ namespace Meow.Helper
                 new Item(name, item.Value)
             };
         }
+
+        #endregion
+
+        #endregion
     }
 }
