@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Meow.Extension.Helper;
+using Meow.Http;
 using Meow.Parameter.Enum;
 
 namespace Meow.Test
@@ -100,5 +101,30 @@ namespace Meow.Test
             return value;
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var data = new TestHttp
+            {
+                Id = "id123",
+                Name = "name456"
+            };
+            var aa = new HttpGet("http://localhost:61361/home/test").UrlData(data).Result();
+        }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TestHttp
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get; set; }
+    }
+
 }

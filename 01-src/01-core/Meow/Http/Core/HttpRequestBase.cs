@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Meow.Extension.Helper;
+using Meow.Extension.Parameter.Object;
 using Meow.Helper;
 using Meow.Parameter.Object;
 using DateTime = System.DateTime;
@@ -377,6 +378,40 @@ namespace Meow.Http.Core
 
         #endregion
 
+        #region ResultAsync(获取结果)
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        public string Result()
+        {
+            return Async.RunSync(ResultAsync);
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        public async Task<string> ResultAsync()
+        {
+            SendBefore();
+            var response = await SendAsync();
+            var result = await response.Content.ReadAsStringAsync();
+            SendAfter(result, response);
+            return result;
+        }
+
+        #endregion
+
+        #region SendBefore(发送前操作)
+
+        /// <summary>
+        /// 发送前操作
+        /// </summary>
+        protected virtual void SendBefore()
+        {
+        }
+
+        #endregion
 
         #region SendAsync(发送请求)
 
@@ -445,12 +480,22 @@ namespace Meow.Http.Core
             var message = new HttpRequestMessage
             {
                 Method = _httpMethod,
-                RequestUri = new Uri(_url),
+                RequestUri = new Uri((CreateUrl())),
                 Content = CreateHttpContent()
             };
             foreach (var header in _headers)
                 message.Headers.Add(header.Key, header.Value);
             return message;
+        }
+
+        /// <summary>
+        /// 创建URL
+        /// </summary>
+        protected virtual string CreateUrl()
+        {
+            return _urlData.Effective().IsEmpty()
+                   ? _url
+                   : $"{_url}?{_urlData.Connector()}";
         }
 
         /// <summary>
@@ -487,6 +532,48 @@ namespace Meow.Http.Core
         private HttpContent CreateXmlContent()
         {
             return new StringContent(_specialData, _encoding, "text/xml");
+        }
+
+        #endregion
+
+        #region SendAfter(发送后操作)
+
+        /// <summary>
+        /// 发送后操作
+        /// </summary>
+        protected virtual void SendAfter(string result, HttpResponseMessage response)
+        {
+            var contentType = GetContentType(response);
+            if (response.IsSuccessStatusCode)
+            {
+                SuccessHandler(result, response.StatusCode, contentType);
+                return;
+            }
+            FailHandler(result, response.StatusCode, contentType);
+        }
+
+        /// <summary>
+        /// 获取内容类型
+        /// </summary>
+        private string GetContentType(HttpResponseMessage response)
+        {
+            return response?.Content?.Headers?.ContentType == null ? string.Empty : response.Content.Headers.ContentType.MediaType;
+        }
+
+        /// <summary>
+        /// 成功处理操作
+        /// </summary>
+        protected virtual void SuccessHandler(string result, HttpStatusCode statusCode, string contentType)
+        {
+        }
+
+        /// <summary>
+        /// 失败处理操作
+        /// </summary>
+        protected virtual void FailHandler(string result, HttpStatusCode statusCode, string contentType)
+        {
+            _failAction?.Invoke(result);
+            _failStatusCodeAction?.Invoke(result, statusCode);
         }
 
         #endregion

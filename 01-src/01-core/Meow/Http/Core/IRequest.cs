@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Meow.Aspect;
 using Meow.Parameter.Enum;
 
@@ -125,6 +126,19 @@ namespace Meow.Http.Core
         /// </summary>
         /// <param name="value">参数字典</param>
         TRequest UrlData<T>(IEnumerable<T> value) where T : class;
+
+        #endregion
+
+        #region ResultAsync(获取结果)
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        string Result();
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        Task<string> ResultAsync();
 
         #endregion
 
