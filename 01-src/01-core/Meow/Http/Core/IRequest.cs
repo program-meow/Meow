@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Meow.Aspect;
 using Meow.Parameter.Enum;
+using Meow.Parameter.Response;
 
 namespace Meow.Http.Core
 {
@@ -30,12 +31,7 @@ namespace Meow.Http.Core
         /// 设置内容类型
         /// </summary>
         /// <param name="contentType">内容类型</param>
-        TRequest ContentType([NotNull] HttpContent contentType);
-        /// <summary>
-        /// 设置内容类型
-        /// </summary>
-        /// <param name="contentType">内容类型</param>
-        TRequest ContentType([NotEmpty] string contentType);
+        TRequest ContentType([NotNull] HttpDataContentType contentType);
         /// <summary>
         /// 设置Cookie
         /// </summary>
@@ -79,12 +75,7 @@ namespace Meow.Http.Core
         /// 请求失败回调函数
         /// </summary>
         /// <param name="action">执行失败的回调函数,参数为响应结果</param>
-        TRequest OnFail([NotNull] Action<string> action);
-        /// <summary>
-        /// 请求失败回调函数
-        /// </summary>
-        /// <param name="action">执行失败的回调函数,第一个参数为响应结果，第二个参数为状态码</param>
-        TRequest OnFail([NotNull] Action<string, HttpStatusCode> action);
+        TRequest OnFail([NotNull] Action<HttpResponse> action);
         /// <summary>
         /// 忽略Ssl
         /// </summary>
@@ -106,26 +97,26 @@ namespace Meow.Http.Core
         #region 数据配置
 
         /// <summary>
-        /// Url参数
+        /// 参数
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        TRequest UrlData(string key, object value);
+        TRequest Data(string key, object value);
         /// <summary>
-        /// Url参数字典
+        /// 参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        TRequest UrlData(IDictionary<string, object> parameters);
+        TRequest Data(IDictionary<string, object> parameters);
         /// <summary>
-        /// Url参数对象
+        /// 参数对象
         /// </summary>
         /// <param name="value">参数字典</param>
-        TRequest UrlData<T>(T value) where T : class;
+        TRequest Data<T>(T value) where T : class;
         /// <summary>
-        /// Url参数集合对象
+        /// 参数集合对象
         /// </summary>
         /// <param name="value">参数字典</param>
-        TRequest UrlData<T>(IEnumerable<T> value) where T : class;
+        TRequest Data<T>(IEnumerable<T> value) where T : class;
 
         #endregion
 
@@ -134,13 +125,12 @@ namespace Meow.Http.Core
         /// <summary>
         /// 获取结果
         /// </summary>
-        string Result();
+        HttpResponse Result();
         /// <summary>
         /// 获取结果
         /// </summary>
-        Task<string> ResultAsync();
+        Task<HttpResponse> ResultAsync();
 
         #endregion
-
     }
 }

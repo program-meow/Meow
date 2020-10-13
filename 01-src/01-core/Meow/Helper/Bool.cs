@@ -33,29 +33,19 @@ namespace Meow.Helper
         /// </summary>
         private static bool? GetBool(object value)
         {
-            switch (value.SafeString().ToLower())
+            return value.SafeString().ToLower() switch
             {
-                case "0":
-                    return false;
-                case "否":
-                    return false;
-                case "不":
-                    return false;
-                case "no":
-                    return false;
-                case "fail":
-                    return false;
-                case "1":
-                    return true;
-                case "是":
-                    return true;
-                case "ok":
-                    return true;
-                case "yes":
-                    return true;
-                default:
-                    return null;
-            }
+                "0" => false,
+                "否" => false,
+                "不" => false,
+                "no" => false,
+                "fail" => false,
+                "1" => true,
+                "是" => true,
+                "ok" => true,
+                "yes" => true,
+                _ => (bool?)null
+            };
         }
     }
 }

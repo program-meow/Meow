@@ -40,6 +40,18 @@ namespace Meow.Application.Data.Core.Connection
         [DisplayName("端口")]
         [Required(ErrorMessage = "端口不能为空")]
         public int? Port { get; set; }
+        /// <summary>
+        /// 默认端口号
+        /// </summary>
+        private int? DefaultPort { get; }
+
+        /// <summary>
+        /// 初始化连接对象
+        /// </summary>
+        protected Connection(int? defaultPort)
+        {
+            DefaultPort = defaultPort;
+        }
 
         /// <summary>
         /// 初始化连接对象
@@ -64,15 +76,10 @@ namespace Meow.Application.Data.Core.Connection
         public string ToConnectionString()
         {
             if (Port.IsNull())
-                Port = DefaultPort();
+                Port = DefaultPort;
             this.Validate();
             return GetConnectionString();
         }
-
-        /// <summary>
-        /// 默认端口号
-        /// </summary>
-        protected abstract int DefaultPort();
 
         /// <summary>
         /// 获取连接字符串

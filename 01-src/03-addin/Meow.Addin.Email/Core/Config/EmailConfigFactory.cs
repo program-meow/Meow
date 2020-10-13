@@ -15,13 +15,11 @@ namespace Meow.Addin.Email.Core.Config
         /// <param name="emailType">邮箱类型</param>
         public static IEmailConfig Create(Meow.Parameter.Enum.Email emailType)
         {
-            switch (emailType)
+            return emailType switch
             {
-                case Meow.Parameter.Enum.Email.NetEase163:
-                    return new EmailConfigNetEase163();
-                default:
-                    throw new Warning("暂不支持邮箱类型");
-            }
+                Meow.Parameter.Enum.Email.NetEase163 => new EmailConfigNetEase163(),
+                _ => throw new Warning("暂不支持邮箱类型")
+            };
         }
 
         /// <summary>
@@ -31,17 +29,13 @@ namespace Meow.Addin.Email.Core.Config
         /// <param name="emailConfig">邮箱配置</param>
         public Ip GetConfig(EmailAgreement emailAgreement, IEmailConfig emailConfig)
         {
-            switch (emailAgreement)
+            return emailAgreement switch
             {
-                case EmailAgreement.Smtp:
-                    return emailConfig.Smtp();
-                case EmailAgreement.Pop3:
-                    return emailConfig.Pop3();
-                case EmailAgreement.Imap:
-                    return emailConfig.Imap();
-                default:
-                    throw new Warning("邮箱协议类型不支持");
-            }
+                EmailAgreement.Smtp => emailConfig.Smtp(),
+                EmailAgreement.Pop3 => emailConfig.Pop3(),
+                EmailAgreement.Imap => emailConfig.Imap(),
+                _ => throw new Warning("邮箱协议类型不支持")
+            };
         }
     }
 }

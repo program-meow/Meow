@@ -15,40 +15,31 @@ namespace Meow.Extension.Parameter.Enum
         /// <param name="value">类型高精度枚举</param>
         public static TypeMediumPrecision ToMedium(this TypeHighPrecision value)
         {
-            switch (value)
+            return value switch
             {
-                case TypeHighPrecision.Null:
-                    return TypeMediumPrecision.Null;
-                case TypeHighPrecision.Bool:
-                    return TypeMediumPrecision.Bool;
-                case TypeHighPrecision.Byte:
-                case TypeHighPrecision.Char:
-                case TypeHighPrecision.Decimal:
-                case TypeHighPrecision.Double:
-                case TypeHighPrecision.Float:
-                case TypeHighPrecision.Int:
-                case TypeHighPrecision.Long:
-                case TypeHighPrecision.Sbyte:
-                case TypeHighPrecision.Short:
-                case TypeHighPrecision.Uint:
-                case TypeHighPrecision.Ulong:
-                case TypeHighPrecision.Ushort:
-                    return TypeMediumPrecision.Number;
-                case TypeHighPrecision.Enum:
-                    return TypeMediumPrecision.Enum;
-                case TypeHighPrecision.DateTime:
-                    return TypeMediumPrecision.DateTime;
-                case TypeHighPrecision.String:
-                    return TypeMediumPrecision.String;
-                case TypeHighPrecision.Object:
-                    return TypeMediumPrecision.Object;
-                case TypeHighPrecision.Array:
-                case TypeHighPrecision.Dictionary:
-                case TypeHighPrecision.List:
-                    return TypeMediumPrecision.Collection;
-                default:
-                    throw new Warning("超出范围");
-            }
+                TypeHighPrecision.Null => TypeMediumPrecision.Null,
+                TypeHighPrecision.Bool => TypeMediumPrecision.Bool,
+                TypeHighPrecision.Byte => TypeMediumPrecision.Number,
+                TypeHighPrecision.Char => TypeMediumPrecision.Number,
+                TypeHighPrecision.Decimal => TypeMediumPrecision.Number,
+                TypeHighPrecision.Double => TypeMediumPrecision.Number,
+                TypeHighPrecision.Float => TypeMediumPrecision.Number,
+                TypeHighPrecision.Int => TypeMediumPrecision.Number,
+                TypeHighPrecision.Long => TypeMediumPrecision.Number,
+                TypeHighPrecision.Sbyte => TypeMediumPrecision.Number,
+                TypeHighPrecision.Short => TypeMediumPrecision.Number,
+                TypeHighPrecision.Uint => TypeMediumPrecision.Number,
+                TypeHighPrecision.Ulong => TypeMediumPrecision.Number,
+                TypeHighPrecision.Ushort => TypeMediumPrecision.Number,
+                TypeHighPrecision.Enum => TypeMediumPrecision.Enum,
+                TypeHighPrecision.DateTime => TypeMediumPrecision.DateTime,
+                TypeHighPrecision.String => TypeMediumPrecision.String,
+                TypeHighPrecision.Object => TypeMediumPrecision.Object,
+                TypeHighPrecision.Array => TypeMediumPrecision.Collection,
+                TypeHighPrecision.Dictionary => TypeMediumPrecision.Collection,
+                TypeHighPrecision.List => TypeMediumPrecision.Collection,
+                _ => throw new Warning("超出范围")
+            };
         }
 
         /// <summary>
@@ -68,35 +59,31 @@ namespace Meow.Extension.Parameter.Enum
         /// <param name="value">类型高精度枚举</param>
         public static TypeLowPrecision ToLow(this TypeHighPrecision value)
         {
-            switch (value)
+            return value switch
             {
-                case TypeHighPrecision.Null:
-                    return TypeLowPrecision.Null;
-                case TypeHighPrecision.Bool:
-                case TypeHighPrecision.Byte:
-                case TypeHighPrecision.Char:
-                case TypeHighPrecision.Decimal:
-                case TypeHighPrecision.Double:
-                case TypeHighPrecision.Float:
-                case TypeHighPrecision.Int:
-                case TypeHighPrecision.Long:
-                case TypeHighPrecision.Sbyte:
-                case TypeHighPrecision.Short:
-                case TypeHighPrecision.Uint:
-                case TypeHighPrecision.Ulong:
-                case TypeHighPrecision.Ushort:
-                case TypeHighPrecision.Enum:
-                case TypeHighPrecision.DateTime:
-                    return TypeLowPrecision.Value;
-                case TypeHighPrecision.String:
-                case TypeHighPrecision.Object:
-                case TypeHighPrecision.Array:
-                case TypeHighPrecision.Dictionary:
-                case TypeHighPrecision.List:
-                    return TypeLowPrecision.Reference;
-                default:
-                    throw new Warning("超出范围");
-            }
+                TypeHighPrecision.Null => TypeLowPrecision.Null,
+                TypeHighPrecision.Bool => TypeLowPrecision.Value,
+                TypeHighPrecision.Byte => TypeLowPrecision.Value,
+                TypeHighPrecision.Char => TypeLowPrecision.Value,
+                TypeHighPrecision.Decimal => TypeLowPrecision.Value,
+                TypeHighPrecision.Double => TypeLowPrecision.Value,
+                TypeHighPrecision.Float => TypeLowPrecision.Value,
+                TypeHighPrecision.Int => TypeLowPrecision.Value,
+                TypeHighPrecision.Long => TypeLowPrecision.Value,
+                TypeHighPrecision.Sbyte => TypeLowPrecision.Value,
+                TypeHighPrecision.Short => TypeLowPrecision.Value,
+                TypeHighPrecision.Uint => TypeLowPrecision.Value,
+                TypeHighPrecision.Ulong => TypeLowPrecision.Value,
+                TypeHighPrecision.Ushort => TypeLowPrecision.Value,
+                TypeHighPrecision.Enum => TypeLowPrecision.Value,
+                TypeHighPrecision.DateTime => TypeLowPrecision.Value,
+                TypeHighPrecision.String => TypeLowPrecision.Reference,
+                TypeHighPrecision.Object => TypeLowPrecision.Reference,
+                TypeHighPrecision.Array => TypeLowPrecision.Reference,
+                TypeHighPrecision.Dictionary => TypeLowPrecision.Reference,
+                TypeHighPrecision.List => TypeLowPrecision.Reference,
+                _ => throw new Warning("超出范围")
+            };
         }
 
         /// <summary>
@@ -116,22 +103,18 @@ namespace Meow.Extension.Parameter.Enum
         /// <param name="value">类型高精度枚举</param>
         public static TypeLowPrecision ToLow(this TypeMediumPrecision value)
         {
-            switch (value)
+            return value switch
             {
-                case TypeMediumPrecision.Null:
-                    return TypeLowPrecision.Null;
-                case TypeMediumPrecision.Bool:
-                case TypeMediumPrecision.Number:
-                case TypeMediumPrecision.Enum:
-                case TypeMediumPrecision.DateTime:
-                    return TypeLowPrecision.Value;
-                case TypeMediumPrecision.String:
-                case TypeMediumPrecision.Object:
-                case TypeMediumPrecision.Collection:
-                    return TypeLowPrecision.Reference;
-                default:
-                    throw new Warning("超出范围");
-            }
+                TypeMediumPrecision.Null => TypeLowPrecision.Null,
+                TypeMediumPrecision.Bool => TypeLowPrecision.Value,
+                TypeMediumPrecision.Number => TypeLowPrecision.Value,
+                TypeMediumPrecision.Enum => TypeLowPrecision.Value,
+                TypeMediumPrecision.DateTime => TypeLowPrecision.Value,
+                TypeMediumPrecision.String => TypeLowPrecision.Reference,
+                TypeMediumPrecision.Object => TypeLowPrecision.Reference,
+                TypeMediumPrecision.Collection => TypeLowPrecision.Reference,
+                _ => throw new Warning("超出范围")
+            };
         }
 
         /// <summary>

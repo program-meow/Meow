@@ -326,28 +326,19 @@ namespace Meow.Extension.Helper
         /// <param name="value">值</param>
         public static MicrosoftExpression Operation(this MicrosoftExpression left, Operator @operator, object value)
         {
-            switch (@operator)
+            return @operator switch
             {
-                case Operator.Equal:
-                    return left.Equal(value);
-                case Operator.NotEqual:
-                    return left.NotEqual(value);
-                case Operator.Greater:
-                    return left.Greater(value);
-                case Operator.GreaterEqual:
-                    return left.GreaterEqual(value);
-                case Operator.Less:
-                    return left.Less(value);
-                case Operator.LessEqual:
-                    return left.LessEqual(value);
-                case Operator.Starts:
-                    return left.StartsWith(value);
-                case Operator.Ends:
-                    return left.EndsWith(value);
-                case Operator.Contains:
-                    return left.Contains(value);
-            }
-            throw new NotImplementedException();
+                Operator.Equal => left.Equal(value),
+                Operator.NotEqual => left.NotEqual(value),
+                Operator.Greater => left.Greater(value),
+                Operator.GreaterEqual => left.GreaterEqual(value),
+                Operator.Less => left.Less(value),
+                Operator.LessEqual => left.LessEqual(value),
+                Operator.Starts => left.StartsWith(value),
+                Operator.Ends => left.EndsWith(value),
+                Operator.Contains => left.Contains(value),
+                _ => throw new NotImplementedException()
+            };
         }
 
         /// <summary>
@@ -358,22 +349,16 @@ namespace Meow.Extension.Helper
         /// <param name="value">值</param>
         public static MicrosoftExpression Operation(this MicrosoftExpression left, Operator @operator, MicrosoftExpression value)
         {
-            switch (@operator)
+            return @operator switch
             {
-                case Operator.Equal:
-                    return left.Equal(value);
-                case Operator.NotEqual:
-                    return left.NotEqual(value);
-                case Operator.Greater:
-                    return left.Greater(value);
-                case Operator.GreaterEqual:
-                    return left.GreaterEqual(value);
-                case Operator.Less:
-                    return left.Less(value);
-                case Operator.LessEqual:
-                    return left.LessEqual(value);
-            }
-            throw new NotImplementedException();
+                Operator.Equal => left.Equal(value),
+                Operator.NotEqual => left.NotEqual(value),
+                Operator.Greater => left.Greater(value),
+                Operator.GreaterEqual => left.GreaterEqual(value),
+                Operator.Less => left.Less(value),
+                Operator.LessEqual => left.LessEqual(value),
+                _ => throw new NotImplementedException()
+            };
         }
 
         #endregion

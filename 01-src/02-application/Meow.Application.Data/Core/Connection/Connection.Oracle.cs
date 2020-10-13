@@ -8,12 +8,9 @@ namespace Meow.Application.Data.Core.Connection
     public class ConnectionOracle: Connection
     {
         /// <summary>
-        /// 默认端口号
+        /// 初始化连接对象
         /// </summary>
-        protected override int DefaultPort()
-        {
-            return 1521;
-        }
+        public ConnectionOracle() : base(1521) { }
 
         /// <summary>
         /// 获取连接字符串

@@ -218,14 +218,12 @@ namespace Meow.Helper
         {
             if (member == null)
                 return false;
-            switch (member.MemberType)
+            return member.MemberType switch
             {
-                case MemberTypes.TypeInfo:
-                    return member.ToString() == "System.Boolean";
-                case MemberTypes.Property:
-                    return IsBool((PropertyInfo)member);
-            }
-            return false;
+                MemberTypes.TypeInfo => (member.ToString() == "System.Boolean"),
+                MemberTypes.Property => IsBool((PropertyInfo)member),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -244,14 +242,12 @@ namespace Meow.Helper
         {
             if (member == null)
                 return false;
-            switch (member.MemberType)
+            return member.MemberType switch
             {
-                case MemberTypes.TypeInfo:
-                    return ((TypeInfo)member).IsEnum;
-                case MemberTypes.Property:
-                    return IsEnum((PropertyInfo)member);
-            }
-            return false;
+                MemberTypes.TypeInfo => ((TypeInfo)member).IsEnum,
+                MemberTypes.Property => IsEnum((PropertyInfo)member),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -275,14 +271,12 @@ namespace Meow.Helper
         {
             if (member == null)
                 return false;
-            switch (member.MemberType)
+            return member.MemberType switch
             {
-                case MemberTypes.TypeInfo:
-                    return member.ToString() == "System.DateTime";
-                case MemberTypes.Property:
-                    return IsDate((PropertyInfo)member);
-            }
-            return false;
+                MemberTypes.TypeInfo => (member.ToString() == "System.DateTime"),
+                MemberTypes.Property => IsDate((PropertyInfo)member),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -305,14 +299,12 @@ namespace Meow.Helper
         {
             if (member == null)
                 return false;
-            switch (member.MemberType)
+            return member.MemberType switch
             {
-                case MemberTypes.TypeInfo:
-                    return member.ToString() == "System.Int32" || member.ToString() == "System.Int16" || member.ToString() == "System.Int64";
-                case MemberTypes.Property:
-                    return IsInt((PropertyInfo)member);
-            }
-            return false;
+                MemberTypes.TypeInfo => (member.ToString() == "System.Int32" || member.ToString() == "System.Int16" || member.ToString() == "System.Int64"),
+                MemberTypes.Property => IsInt((PropertyInfo)member),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -345,14 +337,12 @@ namespace Meow.Helper
                 return false;
             if (IsInt(member))
                 return true;
-            switch (member.MemberType)
+            return member.MemberType switch
             {
-                case MemberTypes.TypeInfo:
-                    return member.ToString() == "System.Double" || member.ToString() == "System.Decimal" || member.ToString() == "System.Single";
-                case MemberTypes.Property:
-                    return IsNumber((PropertyInfo)member);
-            }
-            return false;
+                MemberTypes.TypeInfo => (member.ToString() == "System.Double" || member.ToString() == "System.Decimal" || member.ToString() == "System.Single"),
+                MemberTypes.Property => IsNumber((PropertyInfo)member),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -696,17 +686,13 @@ namespace Meow.Helper
         /// <param name="parentName">父名称</param>
         private static List<Item> AnalyzingToItems(ItemObjectTree item, string parentName)
         {
-            switch (item.Type.ToMedium())
+            return item.Type.ToMedium() switch
             {
-                case TypeMediumPrecision.Null:
-                    return null;
-                case TypeMediumPrecision.Collection:
-                    return AnalyzingToCollectionItems(item.Subsets, parentName);
-                case TypeMediumPrecision.Object:
-                    return AnalyzingToObjectItems(item.Subsets, parentName);
-                default:
-                    return AnalyzingToSingleItems(item, parentName);
-            }
+                TypeMediumPrecision.Null => null,
+                TypeMediumPrecision.Collection => AnalyzingToCollectionItems(item.Subsets, parentName),
+                TypeMediumPrecision.Object => AnalyzingToObjectItems(item.Subsets, parentName),
+                _ => AnalyzingToSingleItems(item, parentName)
+            };
         }
 
         /// <summary>
@@ -738,19 +724,13 @@ namespace Meow.Helper
         {
             if (item.Subsets.IsEmpty())
                 return new List<Item>();
-            switch (item.Type.ToMedium())
+            return item.Type.ToMedium() switch
             {
-                case TypeMediumPrecision.Null:
-                    return new List<Item>();
-                case TypeMediumPrecision.Collection:
-                case TypeMediumPrecision.Object:
-                    return AnalyzingToItems(item, itemName).Where(t => !t.Value.SafeString().IsEmpty()).ToList();
-                default:
-                    var singleValue = item.Subsets[0].Value.SafeString();
-                    return singleValue.IsEmpty()
-                           ? new List<Item>()
-                           : new List<Item> { new Item(itemName, singleValue) };
-            }
+                TypeMediumPrecision.Null => new List<Item>(),
+                TypeMediumPrecision.Collection => AnalyzingToItems(item, itemName).Where(t => !t.Value.SafeString().IsEmpty()).ToList(),
+                TypeMediumPrecision.Object => AnalyzingToItems(item, itemName).Where(t => !t.Value.SafeString().IsEmpty()).ToList(),
+                _ => (item.Subsets[0].Value.SafeString().IsEmpty() ? new List<Item>() : new List<Item> { new Item(itemName, item.Subsets[0].Value) })
+            };
         }
 
         /// <summary>

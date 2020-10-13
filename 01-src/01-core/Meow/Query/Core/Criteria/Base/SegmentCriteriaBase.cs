@@ -108,15 +108,12 @@ namespace Meow.Query.Core.Criteria.Base
         /// </summary>
         protected virtual Operator CreateLeftOperator(Boundary? boundary)
         {
-            switch (boundary)
+            return boundary switch
             {
-                case Boundary.Left:
-                    return Operator.GreaterEqual;
-                case Boundary.Both:
-                    return Operator.GreaterEqual;
-                default:
-                    return Operator.Greater;
-            }
+                Boundary.Left => Operator.GreaterEqual,
+                Boundary.Both => Operator.GreaterEqual,
+                _ => Operator.Greater
+            };
         }
 
         /// <summary>
@@ -150,15 +147,12 @@ namespace Meow.Query.Core.Criteria.Base
         /// </summary>
         protected virtual Operator CreateRightOperator(Boundary? boundary)
         {
-            switch (boundary)
+            return boundary switch
             {
-                case Boundary.Right:
-                    return Operator.LessEqual;
-                case Boundary.Both:
-                    return Operator.LessEqual;
-                default:
-                    return Operator.Less;
-            }
+                Boundary.Right => Operator.LessEqual,
+                Boundary.Both => Operator.LessEqual,
+                _ => Operator.Less
+            };
         }
 
         /// <summary>

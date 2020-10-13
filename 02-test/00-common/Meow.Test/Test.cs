@@ -103,28 +103,15 @@ namespace Meow.Test
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var data = new TestHttp
+            var data = new HttpTestObjct
             {
                 Id = "id123",
                 Name = "name456"
             };
-            var aa = new HttpGet("http://localhost:61361/home/test").UrlData(data).Result();
+            var get = new HttpGet("http://localhost:32217/home/getTest").Data(data).Result();
+            //var post = new HttpPost("http://localhost:32217/home/postTest").UrlData(data).Result();
+            //var put = new HttpPut("http://localhost:32217/home/putTest").UrlData(data).Result();
+            //var delete = new HttpDelete("http://localhost:32217/home/deleteTest").UrlData(data).Result();
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class TestHttp
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Name { get; set; }
-    }
-
 }

@@ -6,12 +6,9 @@
     public class ConnectionPgSql : Connection
     {
         /// <summary>
-        /// 默认端口号
+        /// 初始化连接对象
         /// </summary>
-        protected override int DefaultPort()
-        {
-            return 5432;
-        }
+        public ConnectionPgSql() : base(5432) { }
 
         /// <summary>
         /// 获取连接字符串

@@ -6,12 +6,9 @@
     public class ConnectionMySql : Connection
     {
         /// <summary>
-        /// 默认端口号
+        /// 初始化连接对象
         /// </summary>
-        protected override int DefaultPort()
-        {
-            return 3306;
-        }
+        public ConnectionMySql() : base(3306) { }
 
         /// <summary>
         /// 获取连接字符串

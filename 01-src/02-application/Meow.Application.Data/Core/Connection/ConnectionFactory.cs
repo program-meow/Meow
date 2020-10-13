@@ -14,19 +14,14 @@ namespace Meow.Application.Data.Core.Connection
         /// <param name="databaseType">数据库类型</param>
         public static IConnection Create(Database databaseType)
         {
-            switch (databaseType)
+            return databaseType switch
             {
-                case Parameter.Enum.Database.SqlServer:
-                    return new ConnectionSqlServer();
-                case Parameter.Enum.Database.MySql:
-                    return new ConnectionMySql();
-                case Parameter.Enum.Database.PgSql:
-                    return new ConnectionPgSql();
-                case Parameter.Enum.Database.Oracle:
-                    return new ConnectionOracle();
-                default:
-                    throw new Warning("不支持该数据库类型");
-            }
+                Parameter.Enum.Database.SqlServer => (IConnection)new ConnectionSqlServer(),
+                Parameter.Enum.Database.MySql => new ConnectionMySql(),
+                Parameter.Enum.Database.PgSql => new ConnectionPgSql(),
+                Parameter.Enum.Database.Oracle => new ConnectionOracle(),
+                _ => throw new Warning("不支持该数据库类型")
+            };
         }
     }
 }

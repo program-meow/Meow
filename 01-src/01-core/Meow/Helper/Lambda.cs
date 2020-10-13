@@ -50,26 +50,21 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return null;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.Lambda:
-                    return GetMemberExpression(((LambdaExpression)expression).Body, right);
-                case ExpressionType.Convert:
-                case ExpressionType.Not:
-                    return GetMemberExpression(((UnaryExpression)expression).Operand, right);
-                case ExpressionType.MemberAccess:
-                    return (MemberExpression)expression;
-                case ExpressionType.Equal:
-                case ExpressionType.NotEqual:
-                case ExpressionType.GreaterThan:
-                case ExpressionType.LessThan:
-                case ExpressionType.GreaterThanOrEqual:
-                case ExpressionType.LessThanOrEqual:
-                    return GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right);
-                case ExpressionType.Call:
-                    return GetMethodCallExpressionName(expression);
-            }
-            return null;
+                ExpressionType.Lambda => GetMemberExpression(((LambdaExpression)expression).Body, right),
+                ExpressionType.Convert => GetMemberExpression(((UnaryExpression)expression).Operand, right),
+                ExpressionType.Not => GetMemberExpression(((UnaryExpression)expression).Operand, right),
+                ExpressionType.MemberAccess => (MemberExpression)expression,
+                ExpressionType.Equal => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.NotEqual => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.GreaterThan => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.LessThan => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.GreaterThanOrEqual => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.LessThanOrEqual => GetMemberExpression(right ? ((BinaryExpression)expression).Right : ((BinaryExpression)expression).Left, right),
+                ExpressionType.Call => GetMethodCallExpressionName(expression),
+                _ => null
+            };
         }
 
         /// <summary>
@@ -166,14 +161,12 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return false;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.MemberAccess:
-                    return IsValueExpression(((MemberExpression)expression).Expression);
-                case ExpressionType.Constant:
-                    return true;
-            }
-            return false;
+                ExpressionType.MemberAccess => IsValueExpression(((MemberExpression)expression).Expression),
+                ExpressionType.Constant => true,
+                _ => false
+            };
         }
 
         #endregion
@@ -213,34 +206,34 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return null;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.Lambda:
-                    return GetValue(((LambdaExpression)expression).Body);
-                case ExpressionType.Convert:
-                    return GetValue(((UnaryExpression)expression).Operand);
-                case ExpressionType.Equal:
-                case ExpressionType.NotEqual:
-                case ExpressionType.GreaterThan:
-                case ExpressionType.LessThan:
-                case ExpressionType.GreaterThanOrEqual:
-                case ExpressionType.LessThanOrEqual:
-                    var hasParameter = HasParameter(((BinaryExpression)expression).Left);
-                    if (hasParameter)
-                        return GetValue(((BinaryExpression)expression).Right);
-                    return GetValue(((BinaryExpression)expression).Left);
-                case ExpressionType.Call:
-                    return GetMethodCallExpressionValue(expression);
-                case ExpressionType.MemberAccess:
-                    return GetMemberValue((MemberExpression)expression);
-                case ExpressionType.Constant:
-                    return GetConstantExpressionValue(expression);
-                case ExpressionType.Not:
-                    if (expression.Type == typeof(bool))
-                        return false;
-                    return null;
-            }
-            return null;
+                ExpressionType.Lambda => GetValue(((LambdaExpression)expression).Body),
+                ExpressionType.Convert => GetValue(((UnaryExpression)expression).Operand),
+                ExpressionType.Equal => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.NotEqual => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.GreaterThan => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.LessThan => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.GreaterThanOrEqual => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.LessThanOrEqual => (HasParameter(((BinaryExpression)expression).Left)
+                                        ? GetValue(((BinaryExpression)expression).Right)
+                                        : GetValue(((BinaryExpression)expression).Left)),
+                ExpressionType.Call => GetMethodCallExpressionValue(expression),
+                ExpressionType.MemberAccess => GetMemberValue((MemberExpression)expression),
+                ExpressionType.Constant => GetConstantExpressionValue(expression),
+                ExpressionType.Not => (expression.Type == typeof(bool) ? false : (object)null),
+                _ => null
+            };
         }
 
         /// <summary>
@@ -250,16 +243,13 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return false;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.Convert:
-                    return HasParameter(((UnaryExpression)expression).Operand);
-                case ExpressionType.MemberAccess:
-                    return HasParameter(((MemberExpression)expression).Expression);
-                case ExpressionType.Parameter:
-                    return true;
-            }
-            return false;
+                ExpressionType.Convert => HasParameter(((UnaryExpression)expression).Operand),
+                ExpressionType.MemberAccess => HasParameter(((MemberExpression)expression).Expression),
+                ExpressionType.Parameter => true,
+                _ => false
+            };
         }
 
         /// <summary>
@@ -325,28 +315,19 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return null;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.Lambda:
-                    return GetOperator(((LambdaExpression)expression).Body);
-                case ExpressionType.Convert:
-                    return GetOperator(((UnaryExpression)expression).Operand);
-                case ExpressionType.Equal:
-                    return Operator.Equal;
-                case ExpressionType.NotEqual:
-                    return Operator.NotEqual;
-                case ExpressionType.GreaterThan:
-                    return Operator.Greater;
-                case ExpressionType.LessThan:
-                    return Operator.Less;
-                case ExpressionType.GreaterThanOrEqual:
-                    return Operator.GreaterEqual;
-                case ExpressionType.LessThanOrEqual:
-                    return Operator.LessEqual;
-                case ExpressionType.Call:
-                    return GetMethodCallExpressionOperator(expression);
-            }
-            return null;
+                ExpressionType.Lambda => GetOperator(((LambdaExpression)expression).Body),
+                ExpressionType.Convert => GetOperator(((UnaryExpression)expression).Operand),
+                ExpressionType.Equal => Operator.Equal,
+                ExpressionType.NotEqual => Operator.NotEqual,
+                ExpressionType.GreaterThan => Operator.Greater,
+                ExpressionType.LessThan => Operator.Less,
+                ExpressionType.GreaterThanOrEqual => Operator.GreaterEqual,
+                ExpressionType.LessThanOrEqual => Operator.LessEqual,
+                ExpressionType.Call => GetMethodCallExpressionOperator(expression),
+                _ => null
+            };
         }
 
         /// <summary>
@@ -355,16 +336,13 @@ namespace Meow.Helper
         private static Operator? GetMethodCallExpressionOperator(MicrosoftExpression expression)
         {
             var methodCallExpression = (MethodCallExpression)expression;
-            switch (methodCallExpression?.Method?.Name?.ToLower())
+            return methodCallExpression?.Method?.Name?.ToLower() switch
             {
-                case "contains":
-                    return Operator.Contains;
-                case "endswith":
-                    return Operator.Ends;
-                case "startswith":
-                    return Operator.Starts;
-            }
-            return null;
+                "contains" => Operator.Contains,
+                "endswith" => Operator.Ends,
+                "startswith" => Operator.Starts,
+                _ => (Operator?)null
+            };
         }
 
         #endregion
@@ -379,27 +357,21 @@ namespace Meow.Helper
         {
             if (expression == null)
                 return null;
-            switch (expression.NodeType)
+            return expression.NodeType switch
             {
-                case ExpressionType.Lambda:
-                    return GetParameter(((LambdaExpression)expression).Body);
-                case ExpressionType.Convert:
-                    return GetParameter(((UnaryExpression)expression).Operand);
-                case ExpressionType.Equal:
-                case ExpressionType.NotEqual:
-                case ExpressionType.GreaterThan:
-                case ExpressionType.LessThan:
-                case ExpressionType.GreaterThanOrEqual:
-                case ExpressionType.LessThanOrEqual:
-                    return GetParameter(((BinaryExpression)expression).Left);
-                case ExpressionType.MemberAccess:
-                    return GetParameter(((MemberExpression)expression).Expression);
-                case ExpressionType.Call:
-                    return GetParameter(((MethodCallExpression)expression).Object);
-                case ExpressionType.Parameter:
-                    return (ParameterExpression)expression;
-            }
-            return null;
+                ExpressionType.Lambda => GetParameter(((LambdaExpression)expression).Body),
+                ExpressionType.Convert => GetParameter(((UnaryExpression)expression).Operand),
+                ExpressionType.Equal => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.NotEqual => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.GreaterThan => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.LessThan => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.GreaterThanOrEqual => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.LessThanOrEqual => GetParameter(((BinaryExpression)expression).Left),
+                ExpressionType.MemberAccess => GetParameter(((MemberExpression)expression).Expression),
+                ExpressionType.Call => GetParameter(((MethodCallExpression)expression).Object),
+                ExpressionType.Parameter => (ParameterExpression)expression,
+                _ => null
+            };
         }
 
         #endregion

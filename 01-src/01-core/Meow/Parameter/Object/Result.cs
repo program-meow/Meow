@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.ComponentModel;
 using Meow.Extension.Helper;
-using Meow.Extension.Validation;
 
 namespace Meow.Parameter.Object
 {
