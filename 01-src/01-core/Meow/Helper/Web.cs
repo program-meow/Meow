@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Meow.Extension.Helper;
+using Meow.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -97,26 +98,18 @@ namespace Meow.Helper
 
         #endregion
 
-        //#region Client( Web客户端 )
+        #region HttpRequest( Http请求 )
 
-        ///// <summary>
-        ///// Web客户端，用于发送Http请求
-        ///// </summary>
-        //public static Util.Webs.Clients.WebClient Client()
-        //{
-        //    return new Util.Webs.Clients.WebClient();
-        //}
+        /// <summary>
+        /// HttpClient请求
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        public static HttpClientRequest<TResult> HttpClient<TResult>()
+        {
+            return new HttpClientRequest<TResult>();
+        }
 
-        ///// <summary>
-        ///// Web客户端，用于发送Http请求
-        ///// </summary>
-        ///// <typeparam name="TResult">返回结果类型</typeparam>
-        //public static Util.Webs.Clients.WebClient<TResult> Client<TResult>() where TResult : class
-        //{
-        //    return new Util.Webs.Clients.WebClient<TResult>();
-        //}
-
-        //#endregion
+        #endregion
 
         #region Url(请求地址)
 

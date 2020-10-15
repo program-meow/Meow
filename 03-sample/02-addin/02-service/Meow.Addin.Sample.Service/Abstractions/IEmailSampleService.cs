@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Meow.Dependency;
-using Meow.Parameter.Object;
+using Meow.Parameter.Response;
 
 namespace Meow.Addin.Sample.Service.Abstractions
 {
@@ -12,10 +12,10 @@ namespace Meow.Addin.Sample.Service.Abstractions
         /// <summary>
         /// 发送邮件
         /// </summary>
-        Result Send();
+        ResultResponse Send();
         /// <summary>
         /// 发送邮件
         /// </summary>
-        Task<Result> SendAsync();
+        Task<ResultResponse> SendAsync();
     }
 }

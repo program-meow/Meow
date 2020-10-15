@@ -7,16 +7,17 @@ using IdentityModel.Client;
 using Meow.Extension.Helper;
 using Meow.Extension.Parameter.Enum;
 using Meow.Helper;
-using Meow.Parameter.Enum;
 using Meow.Parameter.Response;
+using HttpContentTypeEnum = Meow.Parameter.Enum.HttpContentType;
+using HttpContentTypeHelper = Meow.Helper.HttpContentType;
 
 namespace Meow.Http.Core
 {
     /// <summary>
-    /// HttpClient请求
+    /// HttpClient请求实现
     /// </summary>
-    /// <typeparam name="TRequest">请求类型</typeparam>
-    public abstract class HttpClientRequest<TRequest> : Request<TRequest>, IHttpClientRequest<TRequest> where TRequest : IHttpClientRequest<TRequest>
+    /// <typeparam name="TResult">请求结果类型</typeparam>
+    public class HttpClientRequestImp<TResult> : HttpRequestBase<IHttpClientRequest<TResult>, TResult>, IHttpClientRequest<TResult>
     {
         #region 基础字段
 
@@ -34,16 +35,14 @@ namespace Meow.Http.Core
         /// </summary>
         /// <param name="httpMethod">Http动词</param>
         /// <param name="url">地址</param>
-        protected HttpClientRequest(HttpMethod httpMethod, string url) : base(url)
+        public HttpClientRequestImp(HttpMethod httpMethod, string url) : base(url)
         {
-            if (url.IsEmpty())
-                throw new ArgumentNullException(nameof(url));
             _httpMethod = httpMethod;
         }
 
         #endregion
 
-        #region SendAsync(发送请求)
+        #region 发送请求
 
         /// <summary>
         /// 发送请求
@@ -54,7 +53,7 @@ namespace Meow.Http.Core
             InitHttpClient(client);
             var response = await client.SendAsync(CreateRequestMessage());
             var result = await response.Content.ReadAsStringAsync();
-            return new HttpResponse(response.StatusCode, HttpContentType.Null.ToEnum(GetContentType(response)), result);
+            return new HttpResponse(response.StatusCode, HttpContentTypeHelper.ToEnum(GetContentType(response)), result);
         }
 
         /// <summary>
@@ -125,10 +124,10 @@ namespace Meow.Http.Core
         {
             return _contentType switch
             {
-                HttpDataContentType.FormData => new FormUrlEncodedContent(_data.ToDictionary(t => t.Text, t => t.Value.SafeString())),
-                HttpDataContentType.FormFile => throw new NotImplementedException("未实现该ContentType"),
-                HttpDataContentType.Json => CreateJsonContent(),
-                HttpDataContentType.Xml => CreateXmlContent(),
+                HttpContentTypeEnum.FormData => new FormUrlEncodedContent(_params.ToDictionary(t => t.Text, t => t.Value.SafeString())),
+                HttpContentTypeEnum.FormFile => throw new NotImplementedException("未实现该ContentType"),
+                HttpContentTypeEnum.Json => CreateJsonContent(),
+                HttpContentTypeEnum.Xml => CreateXmlContent(),
                 _ => throw new NotImplementedException("未实现该ContentType")
             };
         }
@@ -138,9 +137,9 @@ namespace Meow.Http.Core
         /// </summary>
         private HttpContent CreateJsonContent()
         {
-            if (_specialData.IsEmpty())
-                _specialData = Json.ToJson(_data);
-            return new StringContent(_specialData, _encoding, HttpDataContentType.Json.Label());
+            if (_data.IsEmpty())
+                _data = Json.ToJson(_params);
+            return new StringContent(_data, _encoding, HttpContentTypeEnum.Json.Label());
         }
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace Meow.Http.Core
         /// </summary>
         private HttpContent CreateXmlContent()
         {
-            return new StringContent(_specialData, _encoding, HttpDataContentType.Xml.Label());
+            return new StringContent(_data, _encoding, HttpContentTypeEnum.Xml.Label());
         }
 
         #endregion

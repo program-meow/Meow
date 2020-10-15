@@ -9,19 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Meow.Extension.Helper;
 using Meow.Extension.Parameter.Object;
+using Meow.Extension.Parameter.Response;
 using Meow.Helper;
-using Meow.Parameter.Enum;
 using Meow.Parameter.Object;
 using Meow.Parameter.Response;
 using DateTime = System.DateTime;
+using HttpContentTypeEnum = Meow.Parameter.Enum.HttpContentType;
 
 namespace Meow.Http.Core
 {
     /// <summary>
-    /// 请求
+    /// Http请求
     /// </summary>
     /// <typeparam name="TRequest">请求类型</typeparam>
-    public abstract class Request<TRequest> where TRequest : IRequest<TRequest>
+    /// <typeparam name="TResult">请求结果类型</typeparam>
+    public abstract class HttpRequestBase<TRequest, TResult> where TRequest : IHttpRequest<TRequest, TResult>
     {
         #region 基础字段
 
@@ -32,7 +34,7 @@ namespace Meow.Http.Core
         /// <summary>
         /// 内容类型
         /// </summary>
-        protected HttpDataContentType? _contentType;
+        protected HttpContentTypeEnum? _contentType;
         /// <summary>
         /// 字符编码
         /// </summary>
@@ -54,10 +56,6 @@ namespace Meow.Http.Core
         /// </summary>
         protected string _token;
         /// <summary>
-        /// 执行失败的回调函数
-        /// </summary>
-        protected Action<HttpResponse> _failAction;
-        /// <summary>
         /// ssl证书验证委托
         /// </summary>
         protected Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool> _serverCertificateCustomValidationCallback;
@@ -77,11 +75,28 @@ namespace Meow.Http.Core
         /// <summary>
         /// 参数
         /// </summary>
-        protected List<Item> _data;
+        protected List<Item> _params;
         /// <summary>
-        /// 特殊数据
+        /// 数据
         /// </summary>
-        protected string _specialData;
+        protected string _data;
+
+        #endregion
+
+        #region 回调函数
+
+        /// <summary>
+        /// 执行成功的回调函数
+        /// </summary>
+        protected Action<HttpResponse<TResult>> _okAction;
+        /// <summary>
+        /// 执行失败的回调函数
+        /// </summary>
+        protected Action<HttpResponse<TResult>> _errorAction;
+        /// <summary>
+        /// 执行成功的转换函数
+        /// </summary>
+        private Func<string, TResult> _convertAction;
 
         #endregion
 
@@ -91,19 +106,19 @@ namespace Meow.Http.Core
         /// 初始化Http请求
         /// </summary>
         /// <param name="url">地址</param>
-        protected Request(string url)
+        protected HttpRequestBase(string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
+            if (url.IsEmpty())
                 throw new ArgumentNullException(nameof(url));
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _url = url;
-            _contentType = HttpDataContentType.FormData;
+            _contentType = HttpContentTypeEnum.FormData;
             _encoding = System.Text.Encoding.UTF8;
             _timeout = new TimeSpan(0, 0, 30);
             _cookieContainer = new CookieContainer();
             _headers = new Dictionary<string, string>();
             _token = Web.AccessToken;
-            _data = new List<Item>();
+            _params = new List<Item>();
         }
 
         #endregion
@@ -145,7 +160,7 @@ namespace Meow.Http.Core
         /// 设置内容类型
         /// </summary>
         /// <param name="contentType">内容类型</param>
-        public TRequest ContentType(HttpDataContentType contentType)
+        public TRequest ContentType(HttpContentTypeEnum contentType)
         {
             if (contentType.IsNull())
                 return This();
@@ -235,18 +250,6 @@ namespace Meow.Http.Core
         }
 
         /// <summary>
-        /// 请求失败回调函数
-        /// </summary>
-        /// <param name="action">执行失败的回调函数,参数为响应结果</param>
-        public TRequest OnFail(Action<HttpResponse> action)
-        {
-            if (action.IsNull())
-                return This();
-            _failAction = action;
-            return This();
-        }
-
-        /// <summary>
         /// 忽略Ssl
         /// </summary>
         public TRequest IgnoreSsl()
@@ -294,7 +297,7 @@ namespace Meow.Http.Core
         {
             if (key.IsEmpty() || value.IsEmpty())
                 return This();
-            _data.Add(new Item(key, value, _data.Max(t => t.SortId).SafeValue() + 1));
+            _params.Add(new Item(key, value, _params.Max(t => t.SortId).SafeValue() + 1));
             return This();
         }
 
@@ -307,7 +310,7 @@ namespace Meow.Http.Core
             if (parameters.IsEmpty())
                 return This();
             foreach (var item in parameters.Effective())
-                _data.Add(new Item(item.Key, item.Value, _data.Max(t => t.SortId).SafeValue() + 1));
+                _params.Add(new Item(item.Key, item.Value, _params.Max(t => t.SortId).SafeValue() + 1));
             return This();
         }
 
@@ -321,7 +324,7 @@ namespace Meow.Http.Core
                 return This();
             var items = value.AnalyzingToItems().Effective();
             foreach (var item in items)
-                _data.Add(new Item(item.Text, item.Value, _data.Max(t => t.SortId).SafeValue() + 1));
+                _params.Add(new Item(item.Text, item.Value, _params.Max(t => t.SortId).SafeValue() + 1));
             return This();
         }
 
@@ -335,7 +338,61 @@ namespace Meow.Http.Core
                 return This();
             var items = value.AnalyzingToItems().Effective();
             foreach (var item in items)
-                _data.Add(new Item(item.Text, item.Value, _data.Max(t => t.SortId).SafeValue() + 1));
+                _params.Add(new Item(item.Text, item.Value, _params.Max(t => t.SortId).SafeValue() + 1));
+            return This();
+        }
+
+        /// <summary>
+        /// 参数
+        /// </summary>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="value">值</param>
+        public TRequest Data(HttpContentTypeEnum contentType, string value)
+        {
+            ContentType(contentType);
+            if (value.IsEmpty())
+                return This();
+            _data = value;
+            return This();
+        }
+
+        #endregion
+
+        #region 回调函数配置
+
+        /// <summary>
+        /// 请求成功回调函数
+        /// </summary>
+        /// <param name="action">执行成功的回调函数,参数为响应结果</param>
+        public TRequest Ok(Action<HttpResponse<TResult>> action)
+        {
+            if (action.IsNull())
+                return This();
+            _okAction = action;
+            return This();
+        }
+
+        /// <summary>
+        /// 请求失败回调函数
+        /// </summary>
+        /// <param name="action">执行失败的回调函数,参数为响应结果</param>
+        public TRequest Error(Action<HttpResponse<TResult>> action)
+        {
+            if (action.IsNull())
+                return This();
+            _errorAction = action;
+            return This();
+        }
+
+        /// <summary>
+        /// 将结果字符串转换为指定类型函数，当默认转换实现无法转换时使用
+        /// </summary>
+        /// <param name="action">响应结果转换回调函数,参数为响应结果</param>
+        public TRequest Convert(Func<string, TResult> action)
+        {
+            if (action.IsNull())
+                return This();
+            _convertAction = action;
             return This();
         }
 
@@ -346,7 +403,7 @@ namespace Meow.Http.Core
         /// <summary>
         /// 获取结果
         /// </summary>
-        public HttpResponse Result()
+        public HttpResponse<TResult> Result()
         {
             return Async.RunSync(ResultAsync);
         }
@@ -354,15 +411,28 @@ namespace Meow.Http.Core
         /// <summary>
         /// 获取结果
         /// </summary>
-        public async Task<HttpResponse> ResultAsync()
+        public async Task<HttpResponse<TResult>> ResultAsync()
         {
             SendBefore();
             var response = await SendAsync();
-            SendAfter(response);
-            return response;
+            var result = ConvertTo(response);
+            SendAfter(result);
+            return result;
+        }
+
+        /// <summary>
+        /// 将结果字符串转换为指定类型
+        /// </summary>
+        private HttpResponse<TResult> ConvertTo(HttpResponse response)
+        {
+            if (_convertAction.IsNotNull())
+                return response.To(_convertAction(response.Data));
+            return response.To<TResult>();
         }
 
         #endregion
+
+        #region 发送请求
 
         #region 发送前操作
 
@@ -375,44 +445,42 @@ namespace Meow.Http.Core
 
         #endregion
 
-        #region 发送请求
-
         /// <summary>
         /// 发送请求
         /// </summary>
         protected abstract Task<HttpResponse> SendAsync();
-
-        #endregion
 
         #region 发送后操作
 
         /// <summary>
         /// 发送后操作
         /// </summary>
-        protected virtual void SendAfter(HttpResponse response)
+        protected virtual void SendAfter(HttpResponse<TResult> result)
         {
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                SuccessHandler(response);
-                return;
-            }
-            FailHandler(response);
+            OkHandler(result);
+            ErrorHandler(result);
         }
 
         /// <summary>
         /// 成功处理操作
         /// </summary>
-        protected virtual void SuccessHandler(HttpResponse response)
+        protected virtual void OkHandler(HttpResponse<TResult> result)
         {
+            if (result.Code != HttpStatusCode.OK)
+                return;
+            _okAction?.Invoke(result);
         }
 
         /// <summary>
         /// 失败处理操作
         /// </summary>
-        protected virtual void FailHandler(HttpResponse response)
+        protected virtual void ErrorHandler(HttpResponse<TResult> result)
         {
-            _failAction?.Invoke(response);
+            if (result.Code == HttpStatusCode.OK)
+                return;
+            _errorAction?.Invoke(result);
         }
+        #endregion
 
         #endregion
     }

@@ -3,9 +3,8 @@
     /// <summary>
     /// HttpClient请求
     /// </summary>
-    /// <typeparam name="TRequest">请求类型</typeparam>
-    public interface IHttpClientRequest<out TRequest> : IRequest<TRequest> where TRequest : IHttpClientRequest<TRequest>
+    /// <typeparam name="TResult">请求结果类型</typeparam>
+    public interface IHttpClientRequest<TResult> : IHttpRequest<IHttpClientRequest<TResult>, TResult>
     {
-
     }
 }

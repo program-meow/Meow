@@ -4,8 +4,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Meow.Aspect;
-using Meow.Parameter.Enum;
 using Meow.Parameter.Response;
+using HttpContentTypeEnum = Meow.Parameter.Enum.HttpContentType;
 
 namespace Meow.Http.Core
 {
@@ -13,7 +13,8 @@ namespace Meow.Http.Core
     /// Http请求
     /// </summary>
     /// <typeparam name="TRequest">请求类型</typeparam>
-    public interface IRequest<out TRequest> where TRequest : IRequest<TRequest>
+    /// <typeparam name="TResult">请求结果类型</typeparam>
+    public interface IHttpRequest<out TRequest, TResult> where TRequest : IHttpRequest<TRequest, TResult>
     {
         #region 基础配置
 
@@ -31,7 +32,7 @@ namespace Meow.Http.Core
         /// 设置内容类型
         /// </summary>
         /// <param name="contentType">内容类型</param>
-        TRequest ContentType([NotNull] HttpDataContentType contentType);
+        TRequest ContentType([NotNull] HttpContentTypeEnum contentType);
         /// <summary>
         /// 设置Cookie
         /// </summary>
@@ -71,11 +72,6 @@ namespace Meow.Http.Core
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         TRequest Header<T>([NotEmpty] string key, T value);
-        /// <summary>
-        /// 请求失败回调函数
-        /// </summary>
-        /// <param name="action">执行失败的回调函数,参数为响应结果</param>
-        TRequest OnFail([NotNull] Action<HttpResponse> action);
         /// <summary>
         /// 忽略Ssl
         /// </summary>
@@ -117,19 +113,45 @@ namespace Meow.Http.Core
         /// </summary>
         /// <param name="value">参数字典</param>
         TRequest Data<T>(IEnumerable<T> value) where T : class;
+        /// <summary>
+        /// 参数
+        /// </summary>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="value">值</param>
+        TRequest Data(HttpContentTypeEnum contentType, string value);
 
         #endregion
 
-        #region ResultAsync(获取结果)
+        #region 回调函数配置
+
+        /// <summary>
+        /// 请求成功回调函数
+        /// </summary>
+        /// <param name="action">执行成功的回调函数,参数为响应结果</param>
+        TRequest Ok(Action<HttpResponse<TResult>> action);
+        /// <summary>
+        /// 请求失败回调函数
+        /// </summary>
+        /// <param name="action">执行失败的回调函数,参数为响应结果</param>
+        TRequest Error(Action<HttpResponse<TResult>> action);
+        /// <summary>
+        /// 将结果字符串转换为指定类型函数，当默认转换实现无法转换时使用
+        /// </summary>
+        /// <param name="action">响应结果转换回调函数,参数为响应结果</param>
+        TRequest Convert(Func<string, TResult> action);
+
+        #endregion
+
+        #region 获取结果
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        HttpResponse Result();
+        HttpResponse<TResult> Result();
         /// <summary>
         /// 获取结果
         /// </summary>
-        Task<HttpResponse> ResultAsync();
+        Task<HttpResponse<TResult>> ResultAsync();
 
         #endregion
     }

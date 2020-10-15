@@ -1,4 +1,5 @@
-﻿using Meow.Extension.Helper;
+﻿using Meow.Exception;
+using Meow.Extension.Helper;
 using Meow.Parameter.Enum;
 
 namespace Meow.Extension.Parameter.Enum
@@ -11,33 +12,28 @@ namespace Meow.Extension.Parameter.Enum
         /// <summary>
         /// HTTP内容类型标签
         /// </summary>
-        /// <param name="value">HTTP内容类型</param>
+        /// <param name="value">HTTP数据内容类型</param>
         public static string Label(this HttpContentType value)
         {
-            return "";
+            return value switch
+            {
+                HttpContentType.FormData => "application/x-www-form-urlencoded",
+                HttpContentType.FormFile => "multipart/form-data",
+                HttpContentType.Json => "application/json",
+                HttpContentType.Xml => "application/xml",
+                _ => throw new Warning("暂不支持的HTTP请求数据内容类型")
+            };
         }
 
         /// <summary>
         /// HTTP内容类型标签
         /// </summary>
-        /// <param name="value">HTTP内容类型</param>
+        /// <param name="value">HTTP数据内容类型</param>
         public static string Label(this HttpContentType? value)
         {
             if (value.IsNull())
                 return string.Empty;
             return value.SafeValue().Label();
-        }
-
-        /// <summary>
-        /// 转换为HTTP内容类型枚举
-        /// </summary>
-        /// <param name="value">HTTP内容类型</param>
-        /// <param name="label">标签</param>
-        public static HttpContentType ToEnum(this HttpContentType value, string label)
-        {
-            if (label.IsEmpty())
-                return HttpContentType.Null;
-            return HttpContentType.Null;
         }
     }
 }

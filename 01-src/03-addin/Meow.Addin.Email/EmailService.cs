@@ -8,6 +8,8 @@ using Meow.Extension.Validation;
 using System.Collections.Generic;
 using Meow.Addin.Email.Core.Config;
 using Meow.Addin.Email.Core.Parameter;
+using Meow.Helper;
+using Meow.Parameter.Response;
 
 namespace Meow.Addin.Email
 {
@@ -16,6 +18,8 @@ namespace Meow.Addin.Email
     /// </summary>
     public class EmailService : IEmailService
     {
+        #region 基础字段
+
         /// <summary>
         /// 短信配置提供器
         /// </summary>
@@ -32,6 +36,10 @@ namespace Meow.Addin.Email
         /// IP
         /// </summary>
         private Ip Ip { get; set; }
+
+        #endregion
+
+        #region 构造方法
 
         /// <summary>
         /// 初始化Email服务
@@ -75,6 +83,10 @@ namespace Meow.Addin.Email
         {
             MimeMessage.From.Add(new MailboxAddress(Account.Name, Account.UserName));
         }
+
+        #endregion
+
+        #region 发送/抄送方配置
 
         /// <summary>
         /// 添加接收邮箱
@@ -156,6 +168,10 @@ namespace Meow.Addin.Email
             return this;
         }
 
+        #endregion
+
+        #region 内容配置
+
         /// <summary>
         /// 消息
         /// </summary>
@@ -171,34 +187,24 @@ namespace Meow.Addin.Email
             return this;
         }
 
+        #endregion
+
+        #region 发送
+
         /// <summary>
         /// 发送
         /// </summary>
         /// <returns></returns>
-        public Result Send()
+        public ResultResponse Send()
         {
-            Validate();
-            try
-            {
-                using (var client = new SmtpClient())
-                {
-                    SetSmtpClient(client);
-                    client.Send(MimeMessage);
-                    client.Disconnect(true);
-                }
-                return new Result();
-            }
-            catch (System.Exception e)
-            {
-                return new Result(false, "", e.Message);
-            }
+            return Async.RunSync(SendAsync);
         }
 
         /// <summary>
         /// 发送
         /// </summary>
         /// <returns></returns>
-        public async Task<Result> SendAsync()
+        public async Task<ResultResponse> SendAsync()
         {
             Validate();
             try
@@ -209,11 +215,11 @@ namespace Meow.Addin.Email
                     await client.SendAsync(MimeMessage);
                     client.Disconnect(true);
                 }
-                return new Result();
+                return new ResultResponse();
             }
             catch (System.Exception e)
             {
-                return new Result(false, "", e.Message);
+                return new ResultResponse(false, "", e.Message);
             }
         }
 
@@ -237,5 +243,7 @@ namespace Meow.Addin.Email
             smtpClient.Connect(Ip.Address, Ip.Port.SafeValue(), false);
             smtpClient.Authenticate(Account.UserName, Account.Password);
         }
+
+        #endregion
     }
 }

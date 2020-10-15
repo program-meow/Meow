@@ -8,9 +8,24 @@ namespace Meow.Parameter.Enum
     public enum HttpContentType
     {
         /// <summary>
-        /// Null类型
+        /// 表单数据格式
         /// </summary>
-        [Description("Null类型")]
-        Null = 1,
+        [Description("表单数据格式")]
+        FormData = 1,
+        /// <summary>
+        /// 表单文件数据格式
+        /// </summary>
+        [Description("表单文件数据格式")]
+        FormFile = 2,
+        /// <summary>
+        /// JSON数据格式
+        /// </summary>
+        [Description("JSON数据格式")]
+        Json = 3,
+        /// <summary>
+        /// XML数据格式
+        /// </summary>
+        [Description("XML数据格式")]
+        Xml = 4,
     }
 }

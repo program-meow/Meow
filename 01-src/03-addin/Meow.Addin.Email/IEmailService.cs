@@ -4,6 +4,7 @@ using Meow.Parameter.Object;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Meow.Addin.Email.Core.Parameter;
+using Meow.Parameter.Response;
 
 namespace Meow.Addin.Email
 {
@@ -12,6 +13,8 @@ namespace Meow.Addin.Email
     /// </summary>
     public interface IEmailService : IScopeDependency
     {
+        #region 发送/抄送方配置
+
         /// <summary>
         /// 添加接收邮箱
         /// </summary>
@@ -44,20 +47,32 @@ namespace Meow.Addin.Email
         /// </summary>
         /// <param name="ccEmails">抄送邮箱集合</param>
         IEmailService AddCcEmail([NotNull] IEnumerable<EmailToAccount> ccEmails);
+
+        #endregion
+
+        #region 内容配置
+
         /// <summary>
         /// 消息
         /// </summary>
         /// <param name="message">消息</param>
         IEmailService Message([NotNull] Message message);
+
+        #endregion
+
+        #region 发送
+
         /// <summary>
         /// 发送
         /// </summary>
         /// <returns></returns>
-        Result Send();
+        ResultResponse Send();
         /// <summary>
         /// 发送
         /// </summary>
         /// <returns></returns>
-        Task<Result> SendAsync();
+        Task<ResultResponse> SendAsync();
+
+        #endregion
     }
 }

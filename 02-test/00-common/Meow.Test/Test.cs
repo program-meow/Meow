@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Meow.Extension.Helper;
-using Meow.Http;
+using Meow.Helper;
 using Meow.Parameter.Enum;
 
 namespace Meow.Test
@@ -108,7 +108,8 @@ namespace Meow.Test
                 Id = "id123",
                 Name = "name456"
             };
-            var get = new HttpGet("http://localhost:32217/home/getTest").Data(data).Result();
+
+            var get = Web.HttpClient<string>().Get("http://localhost:32217/home/getTest").Data(data).Result();
             //var post = new HttpPost("http://localhost:32217/home/postTest").UrlData(data).Result();
             //var put = new HttpPut("http://localhost:32217/home/putTest").UrlData(data).Result();
             //var delete = new HttpDelete("http://localhost:32217/home/deleteTest").UrlData(data).Result();

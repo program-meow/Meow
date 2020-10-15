@@ -4,6 +4,7 @@ using Meow.Addin.Email;
 using Meow.Addin.Email.Core.Parameter;
 using Meow.Addin.Sample.Service.Abstractions;
 using Meow.Parameter.Object;
+using Meow.Parameter.Response;
 
 namespace Meow.Addin.Sample.Service.Implements
 {
@@ -31,7 +32,7 @@ namespace Meow.Addin.Sample.Service.Implements
         /// <summary>
         /// 发送邮件
         /// </summary>
-        public Result Send()
+        public ResultResponse Send()
         {
             return EmailService
                 .AddToEmail(new List<EmailToAccount>
@@ -61,7 +62,7 @@ namespace Meow.Addin.Sample.Service.Implements
         /// <summary>
         /// 发送邮件
         /// </summary>
-        public async Task<Result> SendAsync()
+        public async Task<ResultResponse> SendAsync()
         {
             return await EmailService
                 .AddToEmail(new List<EmailToAccount>
