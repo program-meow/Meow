@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Meow.Extension.Helper;
-using Meow.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -100,14 +99,14 @@ namespace Meow.Helper
 
         #region HttpRequest( Http请求 )
 
-        /// <summary>
-        /// HttpClient请求
-        /// </summary>
-        /// <typeparam name="TResult">返回结果类型</typeparam>
-        public static HttpClientRequest<TResult> HttpClient<TResult>()
-        {
-            return new HttpClientRequest<TResult>();
-        }
+        ///// <summary>
+        ///// HttpClient请求
+        ///// </summary>
+        ///// <typeparam name="TResult">返回结果类型</typeparam>
+        //public static HttpClientRequest<TResult> HttpClient<TResult>()
+        //{
+        //    return new HttpClientRequest<TResult>();
+        //}
 
         #endregion
 

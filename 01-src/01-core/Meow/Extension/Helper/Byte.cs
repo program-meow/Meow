@@ -1,4 +1,5 @@
-﻿using Meow.Helper;
+﻿using System.Text;
+using Meow.Helper;
 
 namespace Meow.Extension.Helper
 {
@@ -7,6 +8,16 @@ namespace Meow.Extension.Helper
     /// </summary>
     public static partial class Extension
     {
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="encoding">字符编码：默认Default</param>
+        public static string GetString(this byte[] value, Encoding encoding = null)
+        {
+            return Byte.GetString(value, encoding);
+        }
+
         /// <summary>
         /// 压缩
         /// </summary>

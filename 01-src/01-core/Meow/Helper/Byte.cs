@@ -10,23 +10,28 @@ namespace Meow.Helper
     public static class Byte
     {
         /// <summary>
-        /// 转换为字节数组
+        /// 获取字符串
         /// </summary>
-        /// <param name="value">值</param>        
-        public static byte[] ToBytes(object value)
+        /// <param name="value">值</param>
+        /// <param name="encoding">字符编码：默认Default</param>
+        public static string GetString(byte[] value, Encoding encoding = null)
         {
-            return ToBytes(value, Encoding.UTF8);
+            encoding ??= Encoding.Default;
+            return encoding.GetString(value);
         }
 
         /// <summary>
         /// 转换为字节数组
         /// </summary>
         /// <param name="value">值</param>
-        /// <param name="encoding">字符编码</param>
-        public static byte[] ToBytes(object value, Encoding encoding)
+        /// <param name="encoding">字符编码：默认UTF8</param>
+        public static byte[] ToBytes(object value, Encoding encoding = null)
         {
             var str = value.SafeString();
-            return string.IsNullOrWhiteSpace(str) ? new byte[] { } : encoding.GetBytes(str);
+            if (str.IsEmpty())
+                return new byte[] { };
+            encoding ??= Encoding.UTF8;
+            return encoding.GetBytes(str);
         }
 
         /// <summary>

@@ -109,7 +109,7 @@ namespace Meow.Test
                 Name = "name456"
             };
 
-            var get = Web.HttpClient<string>().Get("http://localhost:32217/home/getTest").Data(data).Result();
+            //var get = Web.HttpClient<string>().Get("http://localhost:32217/home/getTest").Data(data).Result();
             //var post = new HttpPost("http://localhost:32217/home/postTest").UrlData(data).Result();
             //var put = new HttpPut("http://localhost:32217/home/putTest").UrlData(data).Result();
             //var delete = new HttpDelete("http://localhost:32217/home/deleteTest").UrlData(data).Result();

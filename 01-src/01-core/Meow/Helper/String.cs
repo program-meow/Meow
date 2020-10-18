@@ -480,7 +480,7 @@ namespace Meow.Helper
         {
             if (value.IsEmpty())
                 return string.Empty;
-            var rawData = Encoding.UTF8.GetBytes(value);
+            var rawData = Byte.ToBytes(value);
             var zippedData = Byte.Compress(rawData);
             return MicrosoftSystem.Convert.ToBase64String(zippedData);
         }
@@ -495,7 +495,7 @@ namespace Meow.Helper
                 return string.Empty;
             var rawData = MicrosoftSystem.Convert.FromBase64String(value);
             var zippedData = Byte.Decompress(rawData);
-            return Encoding.UTF8.GetString(zippedData);
+            return Byte.GetString(zippedData);
         }
 
         /// <summary>

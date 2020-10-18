@@ -35,7 +35,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// <summary>
         /// 映射字典
         /// </summary>
-        private static readonly ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>> Maps;
+        private static readonly ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>> _maps;
         /// <summary>
         /// 服务提供器
         /// </summary>
@@ -67,7 +67,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// </summary>
         static UnitOfWorkBase()
         {
-            Maps = new ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>>();
+            _maps = new ConcurrentDictionary<MicrosoftType, IEnumerable<IMap>>();
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace Meow.Application.Data.Ef.Core.UnitOfWork
         /// </summary>
         private IEnumerable<IMap> GetMaps()
         {
-            return Maps.GetOrAdd(GetMapType(), GetMapsFromAssemblies());
+            return _maps.GetOrAdd(GetMapType(), GetMapsFromAssemblies());
         }
 
         /// <summary>

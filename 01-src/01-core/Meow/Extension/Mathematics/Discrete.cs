@@ -3,7 +3,7 @@
 namespace Meow.Extension.Mathematics
 {
     /// <summary>
-    /// 集合类型扩展
+    /// 离散数学扩展
     /// </summary>
     public static partial class Extension
     {

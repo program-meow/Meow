@@ -6,9 +6,9 @@ using Xunit;
 namespace Meow.Test.Extension.Mathematics
 {
     /// <summary>
-    /// 测试集合类型扩展
+    /// 测试离散数学扩展
     /// </summary>
-    public class IEnumerableTest
+    public class DiscreteTest
     {
         /// <summary>
         /// 测试组合

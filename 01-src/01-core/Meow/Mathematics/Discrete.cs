@@ -7,7 +7,7 @@ namespace Meow.Mathematics
     /// <summary>
     /// 离散数学
     /// </summary>
-    public class Discrete
+    public static class Discrete
     {
         /// <summary>
         /// 求数组中n个元素的组合

@@ -5,7 +5,7 @@ namespace Meow.Mathematics
     /// <summary>
     /// 函数
     /// </summary>
-    public class Function
+    public static class Function
     {
         /// <summary>
         /// 并集

@@ -185,17 +185,8 @@ namespace Meow.Extension.Helper
         /// 转换为字节数组
         /// </summary>
         /// <param name="value">值</param>
-        public static byte[] ToBytes(this object value)
-        {
-            return Meow.Helper.Byte.ToBytes(value);
-        }
-
-        /// <summary>
-        /// 转换为字节数组
-        /// </summary>
-        /// <param name="value">值</param>
-        /// <param name="encoding">字符编码</param>
-        public static byte[] ToBytes(this object value, Encoding encoding)
+        /// <param name="encoding">字符编码：默认UTF8</param>
+        public static byte[] ToBytes(this object value, Encoding encoding = null)
         {
             return Meow.Helper.Byte.ToBytes(value, encoding);
         }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 公共 - 数学
     /// </summary>
-    public class Common
+    public static class Common
     {
         /// <summary>
         /// 交换两个变量
