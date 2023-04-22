@@ -1,0 +1,28 @@
+<Project>
+	<Import Project="version.props" />
+	<PropertyGroup>
+		<NetTargetFramework>net7.0</NetTargetFramework>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Meow Util Application Framework</Product>
+		<Authors>ncc;胡雲鹏</Authors>
+		<Copyright>ncc;胡雲鹏</Copyright>
+		<MaintainerEmail>455855199@qq.com</MaintainerEmail>
+		<PackageProjectUrl>https://github.com/program-meow/Meow</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/program-meow/Meow</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>
+			Meow应用框架以MIT开源发布，
+			$(Tips)
+		</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIconUrl></PackageIconUrl>
+		<PackageTags>meow;util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Tips>
+			以 何镇汐（https://github.com/dotnetcore/Util）应用框架为蓝本，
+			个人学习和使用，若喜欢可随意使用。
+		</Tips>
+	</PropertyGroup>
+</Project>

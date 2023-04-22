@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<RootNamespace>Meow</RootNamespace>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<Description>
+			Meow.Core是Meow应用框架的基础类库。
+			$(Tips)
+		</Description>
+		<AssemblyName>Meow.Core</AssemblyName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\..\output\Debug\$(NetTargetFramework)\01-core\Util.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\..\output\Release\$(NetTargetFramework)\01-core\Util.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Extensions\" />
+	  <Folder Include="Expressions\" />
+	</ItemGroup>
+
+</Project>

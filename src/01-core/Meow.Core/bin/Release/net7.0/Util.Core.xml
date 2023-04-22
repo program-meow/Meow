@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Meow.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Meow.Helpers.String">
+            <summary>
+            字符串操作
+            </summary>
+        </member>
+        <member name="P:Meow.Helpers.String.Empty">
+            <summary>
+            空字符串
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.String.Join``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            将集合连接为带分隔符的字符串
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="values">值</param>
+            <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
+            <param name="separator">分隔符，默认使用逗号分隔</param>
+        </member>
+        <member name="M:Meow.Helpers.String.FirstUpperCase(System.String)">
+            <summary>
+            首字母大写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.FirstLowerCase(System.String)">
+            <summary>
+            首字母小写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.CamelCase(System.Collections.Generic.List{System.String})">
+            <summary>
+            驼峰式命
+            </summary>
+            <param name="values">值</param>
+            <returns>驼峰形式字符串</returns>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveStart(System.String,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveStart(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveEnd(System.String,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveEnd(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.Truncate(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            截断字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="length">返回长度</param>
+            <param name="endCharCount">添加结束符号的个数，默认0，不添加</param>
+            <param name="endChar">结束符号，默认为省略号</param>
+            <returns>截断字符串</returns>
+        </member>
+        <member name="M:Meow.Helpers.String.Copy(System.String,System.Int32)">
+            <summary>
+            复制
+            </summary>
+            <param name="value">值</param>
+            <param name="count">复制次数</param>
+            <returns>复制好的字符串</returns>
+        </member>
+    </members>
+</doc>

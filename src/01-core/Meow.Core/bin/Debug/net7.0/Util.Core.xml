@@ -1,0 +1,4777 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Meow.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Meow.Consts.RegexPattern">
+            <summary>
+            正则表达式模式
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.BlankLine">
+            <summary>
+            空白行
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.BeginEndBlank">
+            <summary>
+            首尾空白
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Dbcs">
+            <summary>
+            双字节字符
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Code">
+            <summary>
+            字母开头,数字和字母组合 一般用于 业务编码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.ShieldSpecialCode">
+            <summary>
+            屏蔽特殊字符
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Cn">
+            <summary>
+            中文
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.ContainsCn">
+            <summary>
+            中文包含
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.CnEnNum">
+            <summary>
+            中文、字母、数字、横线、下划线
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.CnEnNumSpace">
+            <summary>
+            可以输入任意中文，字母，数字，空格组合 主要用于屏蔽特殊字符 
+            错误信息规定为：可以输入任意中文，空格，字母，数字组合
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.InputText2">
+            <summary>
+            可以输入任意中文，字母，数字，空格和少部分特殊字符组合 主要用于屏蔽特殊字符
+            错误信息规定为：可以输入任意中文，空格，字母，数字和少部分特殊字符组合
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.InputText3">
+            <summary>
+            可以输入任意中文，字母，数字，空格和部分特殊字符组合  主要用于备注和评论等场景
+            错误信息规定为：请不要输入特殊字符
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.IdCard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Email">
+            <summary>
+            邮件
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.LandlineNumber">
+            <summary>
+            座机号码（国内）
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.QQ">
+            <summary>
+            QQ号码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Domain">
+            <summary>
+            域名
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Url">
+            <summary>
+            网址Url
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Post">
+            <summary>
+            邮政编码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.IP">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.ContainsNumber">
+            <summary>
+            数字包含
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.MatchInteger">
+            <summary>
+            匹配整数
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PositiveInteger">
+            <summary>
+            正整数
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.NegativeInteger">
+            <summary>
+            负整数
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PositiveFloat">
+            <summary>
+            正浮点数
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.NegativeFloat">
+            <summary>
+            负浮点数
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Money">
+            <summary>
+            金额
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Float">
+            <summary>
+            数字 - 小数点两位  
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PositiveNumber">
+            <summary>
+            正数 - 小数点2位
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PositiveNumberWithOut0">
+            <summary>
+            正数不包含0 - 小数点2位
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PositiveIntegerWithOut0">
+            <summary>
+            正整数不包含0
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Discount">
+            <summary>
+            0-1包含1
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.DiscountWithOut0">
+            <summary>
+            0-1不包含1
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.DateFormat">
+            <summary>
+            日期格式
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.FileName">
+            <summary>
+            Windows文件/文件夹命名规则
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.ValidateCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.PayPassword">
+            <summary>
+            6位支付密码
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.SimplePassword">
+            <summary>
+            简易密码 ---  允许8-16字符，允许字母数字部分特殊字符[_@!.?=*]
+            </summary>
+        </member>
+        <member name="F:Meow.Consts.RegexPattern.StrongPassword">
+            <summary>
+            强密码 必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-16之间
+            </summary>
+        </member>
+        <member name="T:Meow.Converters.DateTimeJsonConverter">
+            <summary>
+            日期格式Json转换器
+            </summary>
+        </member>
+        <member name="F:Meow.Converters.DateTimeJsonConverter._format">
+            <summary>
+            日期格式
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.DateTimeJsonConverter.#ctor">
+            <summary>
+            初始化日期格式Json转换器
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.DateTimeJsonConverter.#ctor(System.String)">
+            <summary>
+            初始化日期格式Json转换器
+            </summary>
+            <param name="format">日期格式,默认值: yyyy-MM-dd HH:mm:ss</param>
+        </member>
+        <member name="M:Meow.Converters.DateTimeJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.DateTimeJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写入数据
+            </summary>
+        </member>
+        <member name="T:Meow.Converters.NullableDateTimeJsonConverter">
+            <summary>
+            可空日期格式Json转换器
+            </summary>
+        </member>
+        <member name="F:Meow.Converters.NullableDateTimeJsonConverter._format">
+            <summary>
+            日期格式
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.NullableDateTimeJsonConverter.#ctor">
+            <summary>
+            初始化可空日期格式Json转换器
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.NullableDateTimeJsonConverter.#ctor(System.String)">
+            <summary>
+            初始化可空日期格式Json转换器
+            </summary>
+            <param name="format">日期格式,默认值: yyyy-MM-dd HH:mm:ss</param>
+        </member>
+        <member name="M:Meow.Converters.NullableDateTimeJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="M:Meow.Converters.NullableDateTimeJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.DateTime},System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写入数据
+            </summary>
+        </member>
+        <member name="T:Meow.Error.ErrorMessageKey">
+            <summary>
+            错误消息键
+            </summary>
+        </member>
+        <member name="F:Meow.Error.ErrorMessageKey.TypeNotEnum">
+            <summary>
+            类型 {0} 不是枚举
+            </summary>
+        </member>
+        <member name="T:Meow.Expressions.ParameterRebind">
+            <summary>
+            参数重绑定操作
+            </summary>
+        </member>
+        <member name="F:Meow.Expressions.ParameterRebind._map">
+            <summary>
+            参数字典
+            </summary>
+        </member>
+        <member name="M:Meow.Expressions.ParameterRebind.#ctor(System.Collections.Generic.Dictionary{System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression})">
+            <summary>
+            初始化参数重绑定操作
+            </summary>
+            <param name="map">参数字典</param>
+        </member>
+        <member name="M:Meow.Expressions.ParameterRebind.ReplaceParameters(System.Collections.Generic.Dictionary{System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression},System.Linq.Expressions.Expression)">
+            <summary>
+            替换参数
+            </summary>
+            <param name="map">参数字典</param>
+            <param name="exp">表达式</param>
+        </member>
+        <member name="M:Meow.Expressions.ParameterRebind.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            访问参数
+            </summary>
+            <param name="parameterExpression">参数</param>
+        </member>
+        <member name="T:Meow.Extensions.CommonExtensions">
+            <summary>
+            公共扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeString(System.Object)">
+            <summary>
+            安全转换为字符串，去除两端空格，当值为null时返回""
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeValue(System.String)">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeValue(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeValue``1(System.Nullable{``0})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeValue``1(System.Collections.Generic.IEnumerable{System.Nullable{``0}})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.ToOrNull``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            转换可空集合
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.CommonExtensions.SafeValue``1(``0)">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="T:Meow.Extensions.ConvertExtensions">
+            <summary>
+            类型扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.To``1(System.Object)">
+            <summary>
+            通用泛型转换
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToList``1(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            通用泛型转换
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToList``1(System.String,System.String)">
+            <summary>
+            泛型集合转换
+            </summary>
+            <typeparam name="T">目标元素类型</typeparam>
+            <param name="value">以字符分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+            <param name="separator">分隔符，默认逗号作为分隔符</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToInt(System.Object)">
+            <summary>
+            转换为32位整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToIntOrNull(System.Object)">
+            <summary>
+            转换为32位可空整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToFloat(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为32位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToFloatOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为32位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDouble(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为64位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDoubleOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为64位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToLong(System.Object)">
+            <summary>
+            转换为64位整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToLongOrNull(System.Object)">
+            <summary>
+            转换为64位可空整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDecimal(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为128位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDecimalOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为128位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDateTime(System.Object)">
+            <summary>
+            转换为日期
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDateTimeOrNull(System.Object)">
+            <summary>
+            转换为可空日期
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToBool(System.Object)">
+            <summary>
+            转换为布尔值
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToBoolOrNull(System.Object)">
+            <summary>
+            转换为可空布尔值
+            </summary>
+            <param name="value">输入值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToGuid(System.Object)">
+            <summary>
+            转换为Guid
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToGuidOrNull(System.Object)">
+            <summary>
+            转换为可空Guid
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToGuidList(System.String,System.String)">
+            <summary>
+            转换为Guid集合
+            </summary>
+            <param name="value">以逗号分隔的Guid集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+            <param name="separator">分隔符，默认逗号作为分隔符</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToGuidList(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为Guid集合
+            </summary>
+            <param name="array">字符串集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToBytes(System.String)">
+            <summary>
+            转换为字节数组
+            </summary>
+            <param name="value">值</param>        
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            转换为字节数组
+            </summary>
+            <param name="value">值</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Extensions.ConvertExtensions.ToDictionary(System.Object)">
+            <summary>
+            对象转换为属性名值对
+            </summary>
+            <param name="data">对象</param>
+        </member>
+        <member name="T:Meow.Extensions.EnumExtensions">
+            <summary>
+            枚举扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.ParseEnum``1(System.Object)">
+            <summary>
+            枚举 - 获取实例
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+            <param name="member">成员名或值,范例:Enum1枚举有成员A=0,则传入"A"或"0"获取 Enum1.A</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetName(System.Enum)">
+            <summary>
+            获取成员名
+            </summary>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetValue(System.Enum)">
+            <summary>
+            获取枚举值
+            </summary>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetValue``1(System.Enum)">
+            <summary>
+            获取枚举值
+            </summary>
+            <typeparam name="TResult">返回值类型</typeparam>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetDescription(System.Enum)">
+            <summary>
+            获取枚举描述,使用System.ComponentModel.Description特性设置描述
+            </summary>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetItems(System.Enum)">
+            <summary>
+            获取项集合,文本设置为Description，值为Value
+            </summary>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="M:Meow.Extensions.EnumExtensions.GetNames(System.Enum)">
+            <summary>
+            获取名称集合
+            </summary>
+            <param name="instance">枚举实例</param>
+        </member>
+        <member name="T:Meow.Extensions.ExpressionExtensions">
+            <summary>
+            表达式扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetType(System.Linq.Expressions.Expression)">
+            <summary>
+            获取类型
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetMember(System.Linq.Expressions.Expression)">
+            <summary>
+            获取成员
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetMemberExpression(System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+            获取成员表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="right">取表达式右侧,(l,r) => l.id == r.id，设置为true,返回r.id表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetName(System.Linq.Expressions.Expression)">
+            <summary>
+            获取成员名称，范例：t => t.A.Name,返回 A.Name
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetMemberName(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            获取成员名称
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetNames``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object[]}})">
+            <summary>
+            获取名称列表，范例：t => new object[] { t.A.B, t.C },返回A.B,C
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetLastName(System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+            获取最后一级成员名称，范例：t => t.A.Name,返回 Name
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+            <param name="right">取表达式右侧,(l,r) => l.LId == r.RId，设置为true,返回RId</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetLastNames``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object[]}})">
+            <summary>
+            获取最后一级成员名称列表，范例：t => new object[] { t.A.B, t.C },返回B,C
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)">
+            <summary>
+            获取值,范例：t => t.Name == "A",返回 A
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name == "A"</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetOperator(System.Linq.Expressions.Expression)">
+            <summary>
+            获取查询操作符,范例：t => t.Name == "A",返回 Operator.Equal
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name == "A"</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetParameter(System.Linq.Expressions.Expression)">
+            <summary>
+            获取参数，范例：t.Name,返回 t
+            </summary>
+            <param name="expression">表达式，范例：t.Name</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetGroupPredicates(System.Linq.Expressions.Expression)">
+            <summary>
+            获取分组的谓词表达式，通过Or进行分组
+            </summary>
+            <param name="expression">谓词表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetConditionCount(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            获取查询条件个数
+            </summary>
+            <param name="expression">谓词表达式,范例1：t => t.Name == "A" ，结果1。
+            范例2：t => t.Name == "A" &amp;&amp; t.Age =1 ，结果2。</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetAttribute``1(System.Linq.Expressions.Expression)">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="expression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetAttribute``3(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetAttribute``2(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GetAttributes``3(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            获取特性列表
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Constant(System.Object,System.Linq.Expressions.Expression)">
+            <summary>
+            获取常量表达式
+            </summary>
+            <param name="value">值</param>
+            <param name="expression">表达式</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Equal``1(System.String,System.Object)">
+            <summary>
+            创建等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.NotEqual``1(System.String,System.Object)">
+            <summary>
+            创建不等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Greater``1(System.String,System.Object)">
+            <summary>
+            创建大于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GreaterEqual``1(System.String,System.Object)">
+            <summary>
+            创建大于等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Less``1(System.String,System.Object)">
+            <summary>
+            创建小于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.LessEqual``1(System.String,System.Object)">
+            <summary>
+            创建小于等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Starts``1(System.String,System.Object)">
+            <summary>
+            调用StartsWith方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Ends``1(System.String,System.Object)">
+            <summary>
+            调用EndsWith方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Contains``1(System.String,System.Object)">
+            <summary>
+            调用Contains方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.ParsePredicate``1(System.String,System.Object,Meow.Maths.Operator)">
+            <summary>
+            解析为谓词表达式
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+            <param name="operator">运算符</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Property(System.Linq.Expressions.Expression,System.String)">
+            <summary>
+            创建属性表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="propertyName">属性名,支持多级属性名，用句点分隔，范例：Customer.Name</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Property(System.Linq.Expressions.Expression,System.Reflection.MemberInfo)">
+            <summary>
+            创建属性表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="member">属性</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.And(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            与操作表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            与操作表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Or(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            或操作表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            或操作表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Value``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取lambda表达式的值
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Equal(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Equal(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.NotEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建不等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.NotEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建不等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Greater(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建大于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Greater(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建大于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GreaterEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建大于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.GreaterEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建大于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Less(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建小于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Less(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建小于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.LessEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建小于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.LessEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建小于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.StartsWith(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            头匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.EndsWith(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            尾匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Contains(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            模糊匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Operation(System.Linq.Expressions.Expression,Meow.Maths.Operator,System.Object)">
+            <summary>
+            操作
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="operator">运算符</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Operation(System.Linq.Expressions.Expression,Meow.Maths.Operator,System.Linq.Expressions.Expression)">
+            <summary>
+            操作
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="operator">运算符</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Call(System.Linq.Expressions.Expression,System.String,System.Linq.Expressions.Expression[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Call(System.Linq.Expressions.Expression,System.String,System.Object[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Call(System.Linq.Expressions.Expression,System.String,System.Type[],System.Object[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="paramTypes">参数类型列表</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.Compose``1(System.Linq.Expressions.Expression{``0},System.Linq.Expressions.Expression{``0},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression})">
+            <summary>
+            组合表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="first">左操作数</param>
+            <param name="second">右操作数</param>
+            <param name="merge">合并操作</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.ToLambda``1(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression[])">
+            <summary>
+            创建Lambda表达式
+            </summary>
+            <typeparam name="TDelegate">委托类型</typeparam>
+            <param name="body">表达式</param>
+            <param name="parameters">参数列表</param>
+        </member>
+        <member name="M:Meow.Extensions.ExpressionExtensions.ToPredicate``1(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression[])">
+            <summary>
+            创建谓词表达式
+            </summary>
+            <typeparam name="T">委托类型</typeparam>
+            <param name="body">表达式</param>
+            <param name="parameters">参数列表</param>
+        </member>
+        <member name="T:Meow.Extensions.JsonExtensions">
+            <summary>
+            JSON扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJson``1(``0,Meow.Options.JsonOptions)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">Json配置</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJson``1(``0,System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">序列化配置</param>
+            <param name="removeQuotationMarks">是否移除双引号</param>
+            <param name="toSingleQuotes">是否将双引号转成单引号</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJsonAsync``1(``0,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJsonObject``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJsonObject(System.String,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+            <param name="returnType">序列化配置</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJsonObjectAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken,System.Text.Encoding)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+            <param name="encoding">Json字符编码,默认UTF8</param>
+        </member>
+        <member name="M:Meow.Extensions.JsonExtensions.ToJsonObjectAsync``1(System.IO.Stream,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将Json流转换为对象
+            </summary>
+            <param name="json">Json流</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="T:Meow.Extensions.ListExtensions">
+            <summary>
+            集合扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.CamelCase(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            驼峰式命
+            </summary>
+            <param name="array">集合</param>
+            <returns>驼峰形式字符串</returns>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.Join``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            将集合连接为带分隔符的字符串
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
+            <param name="separator">分隔符，默认使用逗号分隔</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.Join``2(System.Collections.Generic.Dictionary{``0,``1},System.String,System.String)">
+            <summary>
+            将集合连接为带分隔符的字符串
+            </summary>
+            <typeparam name="TKey">字典键元素类型</typeparam>
+            <typeparam name="TValue">字典值元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
+            <param name="separator">分隔符，默认使用逗号分隔</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.ToLower(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为小写字符串集合
+            </summary>
+            <param name="array">集合</param>
+            <returns>小写字符串集合</returns>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.ToUpper(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为大写字符串集合
+            </summary>
+            <param name="array">集合</param>
+            <returns>大写字符串集合</returns>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotNull``1(System.Collections.Generic.List{``0},``0)">
+            <summary>
+            添加不为null的值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotNull``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            添加不为null的值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotEmpty(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotEmpty(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotEmpty(System.Collections.Generic.List{System.Guid},System.Guid)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotEmpty(System.Collections.Generic.List{System.Guid},System.Collections.Generic.List{System.Guid})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}},System.Nullable{System.Guid})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}},System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotEmpty(System.Collections.Generic.List{System.DateTime},System.DateTime)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotEmpty(System.Collections.Generic.List{System.DateTime},System.Collections.Generic.List{System.DateTime})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddNotEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}},System.Nullable{System.DateTime})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.AddRangeNotEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}},System.Collections.Generic.List{System.Nullable{System.DateTime}})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.IsSequenceBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Int32)">
+            <summary>
+            是否不间断连续 判断类型是Int
+            </summary>
+            <typeparam name="TSource">集合元素类型</typeparam>
+            <typeparam name="TKey">键元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.IsSequence(System.Collections.Generic.IEnumerable{System.Nullable{System.Int32}},System.Int32)">
+            <summary>
+            是否不间断连续
+            </summary>
+            <param name="array">集合</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.IsSequence(System.Collections.Generic.IEnumerable{System.Int32},System.Int32)">
+            <summary>
+            是否不间断连续
+            </summary>
+            <param name="array">集合</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveNull``1(System.Collections.Generic.List{``0})">
+            <summary>
+            移除null值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveNullBy``2(System.Collections.Generic.List{``0},System.Func{``0,``1})">
+            <summary>
+            根据条件移除null值
+            </summary>
+            <typeparam name="TSource">集合元素类型</typeparam>
+            <typeparam name="TKey">键元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmpty(System.Collections.Generic.List{System.String})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.String})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmpty(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Guid})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Nullable{System.Guid}})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmpty(System.Collections.Generic.List{System.DateTime})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.DateTime})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.ListExtensions.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Nullable{System.DateTime}})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="T:Meow.Extensions.RandomExtensions">
+            <summary>
+            随机数扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.RandomExtensions.GetRandomValue``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            从集合中随机获取值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Extensions.RandomExtensions.OrderByRandom``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            对集合随机排序
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="T:Meow.Extensions.ReflectionExtensions">
+            <summary>
+            反射扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ReflectionExtensions.GetTypeEnum(System.Type)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="T:Meow.Extensions.StreamExtensions">
+            <summary>
+            流扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToBytes(System.IO.Stream)">
+            <summary>
+            流转换为字节数组
+            </summary>
+            <param name="stream">流</param>
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToBytes(System.String)">
+            <summary>
+            字符串转换成字节数组
+            </summary>
+            <param name="data">数据,默认字符编码utf-8</param>        
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            字符串转换成字节数组
+            </summary>
+            <param name="data">数据</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToBytesAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            流转换为字节数组
+            </summary>
+            <param name="stream">流</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToStream(System.String)">
+            <summary>
+            字符串转换成流
+            </summary>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Meow.Extensions.StreamExtensions.ToStream(System.String,System.Text.Encoding)">
+            <summary>
+            字符串转换成流
+            </summary>
+            <param name="data">数据</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="T:Meow.Extensions.StringExtensions">
+            <summary>
+            字符串扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.FirstUpperCase(System.String)">
+            <summary>
+            首字母大写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.FirstLowerCase(System.String)">
+            <summary>
+            首字母小写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveStart(System.String,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveStart(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveStart(System.IO.StringWriter,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="writer">字符串写入器</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveEnd(System.String,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveEnd(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.RemoveEnd(System.IO.StringWriter,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="writer">字符串写入器</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            截断字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="length">返回长度</param>
+            <param name="endCharCount">添加结束符号的个数，默认0，不添加</param>
+            <param name="endChar">结束符号，默认为省略号</param>
+            <returns>截断字符串</returns>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.Copy(System.String,System.Int32)">
+            <summary>
+            复制
+            </summary>
+            <param name="value">值</param>
+            <param name="count">复制次数</param>
+            <returns>复制好的字符串</returns>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.ToSbcCase(System.String)">
+            <summary>
+            转全角
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.ToDbcCase(System.String)">
+            <summary>
+            转半角
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.Distinct(System.String)">
+            <summary>
+            去除重复
+            </summary>
+            <param name="value">值，范例1："5555",返回"5",范例2："4545",返回"45"</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.IsNumber(System.String)">
+            <summary>
+            是否数字
+            </summary>
+            <param name="value">值</param>        
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.IsContainsNumber(System.String)">
+            <summary>
+            是否包含数字
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.StringExtensions.IsContainsCn(System.String)">
+            <summary>
+            是否包含中文
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="T:Meow.Extensions.TimeExtensions">
+            <summary>
+            时间扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.ToNormalize(System.Nullable{System.DateTime})">
+            <summary>
+            转换为标准化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.ToNormalize(System.DateTime)">
+            <summary>
+            转换为标准化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.ToUniversalTime(System.DateTime)">
+            <summary>
+            转换为UTC日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.ToLocalTime(System.DateTime)">
+            <summary>
+            转换为本地化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.UtcToLocalTime(System.DateTime)">
+            <summary>
+            Utc日期转换为本地化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetUnixTimestamp(System.Nullable{System.DateTime})">
+            <summary>
+            获取Unix时间戳
+            </summary>
+            <param name="time">时间</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetUnixTimestamp(System.DateTime)">
+            <summary>
+            获取Unix时间戳
+            </summary>
+            <param name="time">时间</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetTimeFromUnixTimestamp(System.Nullable{System.Int64})">
+            <summary>
+            从Unix时间戳获取时间
+            </summary>
+            <param name="timestamp">Unix时间戳</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetTimeFromUnixTimestamp(System.Int64)">
+            <summary>
+            从Unix时间戳获取时间
+            </summary>
+            <param name="timestamp">Unix时间戳</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetNumberDayOfWeekByCn(System.Nullable{System.DateTime})">
+            <summary>
+            获取一周数字第几天 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDayOfWeekByCn(System.DateTime)">
+            <summary>
+            获取一周数字第几天 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetNumberDayOfWeekByEn(System.Nullable{System.DateTime})">
+            <summary>
+            获取一周数字第几天 - 国外：周日为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetNumberDayOfWeekByEn(System.DateTime)">
+            <summary>
+            获取一周数字第几天 - 国外：周日为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekNameByZh(System.Nullable{System.DateTime})">
+            <summary>
+            获取中文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekNameByZh(System.DateTime)">
+            <summary>
+            获取中文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekNameByEn(System.Nullable{System.DateTime})">
+            <summary>
+            获取英文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekNameByEn(System.DateTime)">
+            <summary>
+            获取英文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetTwelveHoursTimeByZh(System.Nullable{System.DateTime})">
+            <summary>
+            获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetTwelveHoursTimeByZh(System.DateTime)">
+            <summary>
+            获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffDays(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的天数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffDays(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的天数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffHours(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的小时数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffHours(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的小时数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffMinutes(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的分钟数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDiffMinutes(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的分钟数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDaysOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取年有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDaysOfYear(System.DateTime)">
+            <summary>
+            获取年有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDaysOfMonth(System.Nullable{System.DateTime})">
+            <summary>
+            获取月有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetDaysOfMonth(System.DateTime)">
+            <summary>
+            获取月有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeeksOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取年有多少周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeeksOfYear(System.DateTime)">
+            <summary>
+            获取年有多少周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取某一日期是该年中的第几周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekOfYear(System.DateTime)">
+            <summary>
+            获取某一日期是该年中的第几周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekRangeByCn(System.Nullable{System.DateTime},System.DateTime@,System.DateTime@)">
+            <summary>
+            根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+            <param name="firstDate">周开始日期</param>
+            <param name="lastDate">周结束日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.GetWeekRangeByCn(System.DateTime,System.DateTime@,System.DateTime@)">
+            <summary>
+            根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+            <param name="firstDate">周开始日期</param>
+            <param name="lastDate">周结束日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekCn(System.Nullable{System.DateTime},System.Nullable{System.DateTime}[])">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByCn(System.DateTime,System.DateTime[])">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByCn(System.Collections.Generic.IEnumerable{System.Nullable{System.DateTime}})">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByCn(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByEn(System.Nullable{System.DateTime},System.Nullable{System.DateTime}[])">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByEn(System.DateTime,System.DateTime[])">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByEn(System.Collections.Generic.IEnumerable{System.Nullable{System.DateTime}})">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsSameWeekByEn(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsLeapYear(System.Nullable{System.DateTime})">
+            <summary>
+            是否是闰年
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Extensions.TimeExtensions.IsLeapYear(System.DateTime)">
+            <summary>
+            是否是闰年
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="T:Meow.Extensions.ValidationExtensions">
+            <summary>
+            验证扩展
+            </summary>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsNull(System.Object)">
+            <summary>
+            是否为null
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.CheckNull(System.Object,System.String)">
+            <summary>
+            检测对象是否为null,为null则抛出<see cref="T:System.ArgumentNullException"/>异常
+            </summary>
+            <param name="obj">对象</param>
+            <param name="parameterName">参数名</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty(System.String)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty(System.Guid)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty(System.Nullable{System.Guid})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty(System.DateTime)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty(System.Nullable{System.DateTime})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Extensions.ValidationExtensions.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="T:Meow.Helpers.CommandLine">
+            <summary>
+            命令行操作
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._command">
+            <summary>
+            命令,范例: dotnet
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._arguments">
+            <summary>
+            命令参数,范例: --info
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._redirectStandardOutput">
+            <summary>
+            是否重定向标准输出流
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._outputEncoding">
+            <summary>
+            输出流字符编码,默认值: Encoding.UTF8
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._useShellExecute">
+            <summary>
+            是否使用操作系统shell启动,默认值: false
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.CommandLine._workingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.#ctor">
+            <summary>
+            初始化命令行操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.Create(System.String,System.String)">
+            <summary>
+            创建命令行操作
+            </summary>
+            <param name="command">命令,范例: dotnet</param>
+            <param name="arguments">命令参数,范例: --info</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.Command(System.String)">
+            <summary>
+            设置命令
+            </summary>
+            <param name="command">命令,范例: dotnet</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.Arguments(System.String)">
+            <summary>
+            设置命令参数
+            </summary>
+            <param name="arguments">命令参数,范例: --info</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.RedirectStandardOutput(System.Boolean)">
+            <summary>
+            设置重定向标准输出流
+            </summary>
+            <param name="value">是否重定向标准输出流,默认值: true,注意: 如果要设置UseShellExecute为 false，则必须将RedirectStandardOutput设置为true</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.OutputEncoding(System.Text.Encoding)">
+            <summary>
+            设置输出流字符编码
+            </summary>
+            <param name="encoding">输出流字符编码,默认值: Encoding.UTF8</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.UseShellExecute(System.Boolean)">
+            <summary>
+            设置是否使用操作系统shell启动
+            </summary>
+            <param name="value">是否使用操作系统shell启动,默认值: false</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.WorkingDirectory(System.String)">
+            <summary>
+            设置工作目录
+            </summary>
+            <param name="value">工作目录</param>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.Execute">
+            <summary>
+            执行命令行
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.CreateProcessStartInfo">
+            <summary>
+            创建进程启动信息
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.ExecuteResult">
+            <summary>
+            执行命令行,并返回响应结果
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.CommandLine.GetResult(System.Diagnostics.Process)">
+            <summary>
+            获取结果
+            </summary>
+        </member>
+        <member name="T:Meow.Helpers.Common">
+            <summary>
+            公共操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeString(System.Object)">
+            <summary>
+            安全转换为字符串，去除两端空格，当值为null时返回""
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeValue(System.String)">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeValue(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeValue``1(System.Nullable{``0})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeValue``1(System.Collections.Generic.IEnumerable{System.Nullable{``0}})">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.ToOrNull``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            转换可空集合
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.SafeValue``1(``0)">
+            <summary>
+            安全获取值，当值为null时，不会抛出异常
+            </summary>
+            <param name="value">可空值</param>
+        </member>
+        <member name="M:Meow.Helpers.Common.GetType``1">
+            <summary>
+            获取类型
+            </summary>
+            <typeparam name="T">类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Common.GetType(System.Type)">
+            <summary>
+            获取类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="T:Meow.Helpers.Convert">
+            <summary>
+            类型转换
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Convert.To``1(System.Object)">
+            <summary>
+            通用泛型转换
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToList``1(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            通用泛型转换
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToList``1(System.String,System.String)">
+            <summary>
+            泛型集合转换
+            </summary>
+            <typeparam name="T">目标元素类型</typeparam>
+            <param name="value">以字符分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+            <param name="separator">分隔符，默认逗号作为分隔符</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToInt(System.Object)">
+            <summary>
+            转换为32位整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToIntOrNull(System.Object)">
+            <summary>
+            转换为32位可空整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToFloat(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为32位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToFloatOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为32位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDouble(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为64位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDoubleOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为64位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToLong(System.Object)">
+            <summary>
+            转换为64位整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToLongOrNull(System.Object)">
+            <summary>
+            转换为64位可空整型
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDecimal(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为128位浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDecimalOrNull(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换为128位可空浮点型,并按指定小数位舍入
+            </summary>
+            <param name="value">值</param>
+            <param name="digits">小数位数</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDateTime(System.Object)">
+            <summary>
+            转换为日期
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDateTimeOrNull(System.Object)">
+            <summary>
+            转换为可空日期
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToBool(System.Object)">
+            <summary>
+            转换为布尔值
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToBoolOrNull(System.Object)">
+            <summary>
+            转换为可空布尔值
+            </summary>
+            <param name="value">输入值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToGuid(System.Object)">
+            <summary>
+            转换为Guid
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToGuidOrNull(System.Object)">
+            <summary>
+            转换为可空Guid
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToGuidList(System.String,System.String)">
+            <summary>
+            转换为Guid集合
+            </summary>
+            <param name="value">以逗号分隔的Guid集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+            <param name="separator">分隔符，默认逗号作为分隔符</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToGuidList(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为Guid集合
+            </summary>
+            <param name="array">字符串集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToBytes(System.String)">
+            <summary>
+            转换为字节数组
+            </summary>
+            <param name="value">值</param>        
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            转换为字节数组
+            </summary>
+            <param name="value">值</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Helpers.Convert.ToDictionary(System.Object)">
+            <summary>
+            对象转换为属性名值对
+            </summary>
+            <param name="data">对象</param>
+        </member>
+        <member name="T:Meow.Helpers.Enum">
+            <summary>
+            枚举操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Enum.Parse``1(System.Object)">
+            <summary>
+            获取实例
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+            <param name="member">成员名或值,范例:Enum1枚举有成员A=0,则传入"A"或"0"获取 Enum1.A</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetName``1(System.Object)">
+            <summary>
+            获取成员名
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+            <param name="member">成员名、值、实例均可,范例:Enum1枚举有成员A=0,则传入Enum1.A或0,获取成员名"A"</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetName(System.Type,System.Object)">
+            <summary>
+            获取成员名
+            </summary>
+            <param name="type">枚举类型</param>
+            <param name="member">成员名、值、实例均可</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetValue``1(System.Object)">
+            <summary>
+            获取成员值
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+            <param name="member">成员名、值、实例均可，范例:Enum1枚举有成员A=0,可传入"A"、0、Enum1.A，获取值0</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetValue(System.Type,System.Object)">
+            <summary>
+            获取成员值
+            </summary>
+            <param name="type">枚举类型</param>
+            <param name="member">成员名、值、实例均可</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetDescription``1(System.Object)">
+            <summary>
+            获取描述,使用System.ComponentModel.Description特性设置描述
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+            <param name="member">成员名、值、实例均可</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetDescription(System.Type,System.Object)">
+            <summary>
+            获取描述,使用System.ComponentModel.Description特性设置描述
+            </summary>
+            <param name="type">枚举类型</param>
+            <param name="member">成员名、值、实例均可</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetItems``1">
+            <summary>
+            获取项集合,文本设置为Description，值为Value
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetItems(System.Type)">
+            <summary>
+            获取项集合,文本设置为Description，值为Value
+            </summary>
+            <param name="type">枚举类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Enum.AddItem(System.Type,System.Collections.Generic.ICollection{Meow.Models.Item},System.Reflection.FieldInfo)">
+            <summary>
+            添加描述项
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetNames``1">
+            <summary>
+            获取名称集合
+            </summary>
+            <typeparam name="TEnum">枚举类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Enum.GetNames(System.Type)">
+            <summary>
+            获取名称集合
+            </summary>
+            <param name="type">枚举类型</param>
+        </member>
+        <member name="T:Meow.Helpers.Expression">
+            <summary>
+            表达式操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetType(System.Linq.Expressions.Expression)">
+            <summary>
+            获取类型
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMember(System.Linq.Expressions.Expression)">
+            <summary>
+            获取成员
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMemberExpression(System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+            获取成员表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="right">取表达式右侧,(l,r) => l.id == r.id，设置为true,返回r.id表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMethodCallExpressionName(System.Linq.Expressions.Expression)">
+            <summary>
+            获取方法调用表达式的成员名称
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetName(System.Linq.Expressions.Expression)">
+            <summary>
+            获取成员名称，范例：t => t.A.Name,返回 A.Name
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMemberName(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            获取成员名称
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetNames``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object[]}})">
+            <summary>
+            获取名称列表，范例：t => new object[] { t.A.B, t.C },返回A.B,C
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetLastName(System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+            获取最后一级成员名称，范例：t => t.A.Name,返回 Name
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name</param>
+            <param name="right">取表达式右侧,(l,r) => l.LId == r.RId，设置为true,返回RId</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.IsValueExpression(System.Linq.Expressions.Expression)">
+            <summary>
+            是否值表达式
+            </summary>
+            <param name="expression">表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetLastNames``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object[]}})">
+            <summary>
+            获取最后一级成员名称列表，范例：t => new object[] { t.A.B, t.C },返回B,C
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetValue(System.Linq.Expressions.Expression)">
+            <summary>
+            获取值,范例：t => t.Name == "A",返回 A
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name == "A"</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.HasParameter(System.Linq.Expressions.Expression)">
+            <summary>
+            是否包含参数，用于检测是属性，而不是值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMethodCallExpressionValue(System.Linq.Expressions.Expression)">
+            <summary>
+            获取方法调用表达式的值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMemberValue(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            获取属性表达式的值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetConstantExpressionValue(System.Linq.Expressions.Expression)">
+            <summary>
+            获取常量表达式的值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetOperator(System.Linq.Expressions.Expression)">
+            <summary>
+            获取查询操作符,范例：t => t.Name == "A",返回 Operator.Equal
+            </summary>
+            <param name="expression">表达式,范例：t => t.Name == "A"</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetMethodCallExpressionOperator(System.Linq.Expressions.Expression)">
+            <summary>
+            获取方法调用表达式的值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetParameter(System.Linq.Expressions.Expression)">
+            <summary>
+            获取参数，范例：t.Name,返回 t
+            </summary>
+            <param name="expression">表达式，范例：t.Name</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetGroupPredicates(System.Linq.Expressions.Expression)">
+            <summary>
+            获取分组的谓词表达式，通过Or进行分组
+            </summary>
+            <param name="expression">谓词表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.CreateGroup(System.Collections.Generic.List{System.Collections.Generic.List{System.Linq.Expressions.Expression}})">
+            <summary>
+            创建分组
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.AddPredicates(System.Linq.Expressions.Expression,System.Collections.Generic.List{System.Collections.Generic.List{System.Linq.Expressions.Expression}},System.Collections.Generic.List{System.Linq.Expressions.Expression})">
+            <summary>
+            添加通过Or分割的谓词表达式
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetConditionCount(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            获取查询条件个数
+            </summary>
+            <param name="expression">谓词表达式,范例1：t => t.Name == "A" ，结果1。
+            范例2：t => t.Name == "A" &amp;&amp; t.Age =1 ，结果2。</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetAttribute``1(System.Linq.Expressions.Expression)">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="expression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetAttribute``3(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetAttribute``2(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            获取特性
+            </summary>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GetAttributes``3(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            获取特性列表
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <typeparam name="TProperty">属性类型</typeparam>
+            <typeparam name="TAttribute">特性类型</typeparam>
+            <param name="propertyExpression">属性表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Constant(System.Object,System.Linq.Expressions.Expression)">
+            <summary>
+            获取常量表达式
+            </summary>
+            <param name="value">值</param>
+            <param name="expression">表达式</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.CreateParameter``1">
+            <summary>
+            创建参数表达式
+            </summary>
+            <typeparam name="T">参数类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Equal``1(System.String,System.Object)">
+            <summary>
+            创建等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.NotEqual``1(System.String,System.Object)">
+            <summary>
+            创建不等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Greater``1(System.String,System.Object)">
+            <summary>
+            创建大于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GreaterEqual``1(System.String,System.Object)">
+            <summary>
+            创建大于等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Less``1(System.String,System.Object)">
+            <summary>
+            创建小于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.LessEqual``1(System.String,System.Object)">
+            <summary>
+            创建小于等于运算lambda表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Starts``1(System.String,System.Object)">
+            <summary>
+            调用StartsWith方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Ends``1(System.String,System.Object)">
+            <summary>
+            调用EndsWith方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Contains``1(System.String,System.Object)">
+            <summary>
+            调用Contains方法
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.ParsePredicate``1(System.String,System.Object,Meow.Maths.Operator)">
+            <summary>
+            解析为谓词表达式
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="propertyName">属性名</param>
+            <param name="value">值</param>
+            <param name="operator">运算符</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Property(System.Linq.Expressions.Expression,System.String)">
+            <summary>
+            创建属性表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="propertyName">属性名,支持多级属性名，用句点分隔，范例：Customer.Name</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Property(System.Linq.Expressions.Expression,System.Reflection.MemberInfo)">
+            <summary>
+            创建属性表达式
+            </summary>
+            <param name="expression">表达式</param>
+            <param name="member">属性</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.And(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            与操作表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            与操作表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Or(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            或操作表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            或操作表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Value``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取lambda表达式的值
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Equal(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Equal(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.NotEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建不等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.NotEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建不等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Greater(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建大于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Greater(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建大于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GreaterEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建大于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.GreaterEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建大于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Less(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建小于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Less(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建小于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.LessEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            创建小于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="right">右操作数</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.LessEqual(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            创建小于等于运算表达式
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.StartsWith(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            头匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.EndsWith(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            尾匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Contains(System.Linq.Expressions.Expression,System.Object)">
+            <summary>
+            模糊匹配
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Operation(System.Linq.Expressions.Expression,Meow.Maths.Operator,System.Object)">
+            <summary>
+            操作
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="operator">运算符</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Operation(System.Linq.Expressions.Expression,Meow.Maths.Operator,System.Linq.Expressions.Expression)">
+            <summary>
+            操作
+            </summary>
+            <param name="left">左操作数</param>
+            <param name="operator">运算符</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Call(System.Linq.Expressions.Expression,System.String,System.Linq.Expressions.Expression[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Call(System.Linq.Expressions.Expression,System.String,System.Object[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Call(System.Linq.Expressions.Expression,System.String,System.Type[],System.Object[])">
+            <summary>
+            创建调用方法表达式
+            </summary>
+            <param name="instance">调用的实例</param>
+            <param name="methodName">方法名</param>
+            <param name="paramTypes">参数类型列表</param>
+            <param name="values">参数值列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.Compose``1(System.Linq.Expressions.Expression{``0},System.Linq.Expressions.Expression{``0},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression})">
+            <summary>
+            组合表达式
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="first">左操作数</param>
+            <param name="second">右操作数</param>
+            <param name="merge">合并操作</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.ToLambda``1(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression[])">
+            <summary>
+            创建Lambda表达式
+            </summary>
+            <typeparam name="TDelegate">委托类型</typeparam>
+            <param name="body">表达式</param>
+            <param name="parameters">参数列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Expression.ToPredicate``1(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression[])">
+            <summary>
+            创建谓词表达式
+            </summary>
+            <typeparam name="T">委托类型</typeparam>
+            <param name="body">表达式</param>
+            <param name="parameters">参数列表</param>
+        </member>
+        <member name="T:Meow.Helpers.File">
+            <summary>
+            文件流操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.File.IsExistsFile(System.String)">
+            <summary>
+            判断是否存在文件
+            </summary>
+            <param name="path">文件绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.IsExistsDirectory(System.String)">
+            <summary>
+            判断是否存在目录
+            </summary>
+            <param name="path">目录绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.CreateDirectory(System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="path">文件或目录绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToString(System.String)">
+            <summary>
+            读取文件到字符串
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToString(System.String,System.Text.Encoding)">
+            <summary>
+            读取文件到字符串
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToStringAsync(System.String)">
+            <summary>
+            读取文件到字符串
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToStringAsync(System.String,System.Text.Encoding)">
+            <summary>
+            读取文件到字符串
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToStream(System.String)">
+            <summary>
+            读取文件流
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.ReadToBytes(System.String)">
+            <summary>
+            将文件读取到字节流中
+            </summary>
+            <param name="filePath">文件的绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.Write(System.String,System.String)">
+            <summary>
+            将字符串写入文件
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="M:Meow.Helpers.File.Write(System.String,System.Byte[])">
+            <summary>
+            将字节流写入文件
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="M:Meow.Helpers.File.WriteAsync(System.String,System.String)">
+            <summary>
+            将字符串写入文件
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="M:Meow.Helpers.File.WriteAsync(System.String,System.Byte[])">
+            <summary>
+            将字节流写入文件
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="M:Meow.Helpers.File.Delete(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            删除文件
+            </summary>
+            <param name="filePaths">文件绝对路径集合</param>
+        </member>
+        <member name="M:Meow.Helpers.File.Delete(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+        </member>
+        <member name="M:Meow.Helpers.File.GetAllFiles(System.String,System.String)">
+            <summary>
+            获取全部文件,包括所有子目录
+            </summary>
+            <param name="path">目录路径</param>
+            <param name="searchPattern">搜索模式</param>
+        </member>
+        <member name="T:Meow.Helpers.Html">
+            <summary>
+            html操作
+            </summary>
+        </member>
+        <member name="T:Meow.Helpers.Id">
+            <summary>
+            标识生成器
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.Id._id">
+            <summary>
+            标识
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Id.SetId(System.String)">
+            <summary>
+            设置标识
+            </summary>
+            <param name="id">标识</param>
+        </member>
+        <member name="M:Meow.Helpers.Id.Reset">
+            <summary>
+            重置标识
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Id.Create">
+            <summary>
+            使用去掉分隔符的Guid创建标识
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Id.CreateGuid">
+            <summary>
+            创建Guid标识
+            </summary>
+        </member>
+        <member name="T:Meow.Helpers.Json">
+            <summary>
+            Json操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToJson``1(``0,Meow.Options.JsonOptions)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">Json配置</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToJson``1(``0,System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">序列化配置</param>
+            <param name="removeQuotationMarks">是否移除双引号</param>
+            <param name="toSingleQuotes">是否将双引号转成单引号</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.GetToJsonOptions(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            获取对象转换为Json字符串的序列化配置
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToJsonAsync``1(``0,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为Json字符串
+            </summary>
+            <param name="value">目标对象</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToObject``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToObject(System.String,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+            <param name="returnType">序列化配置</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.GetToObjectOptions(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            获取Json字符串转换为对象的序列化配置
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToObjectAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken,System.Text.Encoding)">
+            <summary>
+            将Json字符串转换为对象
+            </summary>
+            <param name="json">Json字符串</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+            <param name="encoding">Json字符编码,默认UTF8</param>
+        </member>
+        <member name="M:Meow.Helpers.Json.ToObjectAsync``1(System.IO.Stream,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将Json流转换为对象
+            </summary>
+            <param name="json">Json流</param>
+            <param name="options">序列化配置</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="T:Meow.Helpers.List">
+            <summary>
+            集合操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.List.CamelCase(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            驼峰式命
+            </summary>
+            <param name="array">集合</param>
+            <returns>驼峰形式字符串</returns>
+        </member>
+        <member name="M:Meow.Helpers.List.Join``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            将集合连接为带分隔符的字符串
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
+            <param name="separator">分隔符，默认使用逗号分隔</param>
+        </member>
+        <member name="M:Meow.Helpers.List.Join``2(System.Collections.Generic.Dictionary{``0,``1},System.String,System.String)">
+            <summary>
+            将集合连接为带分隔符的字符串
+            </summary>
+            <typeparam name="TKey">字典键元素类型</typeparam>
+            <typeparam name="TValue">字典值元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
+            <param name="separator">分隔符，默认使用逗号分隔</param>
+        </member>
+        <member name="M:Meow.Helpers.List.ToLower(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为小写字符串集合
+            </summary>
+            <param name="array">集合</param>
+            <returns>小写字符串集合</returns>
+        </member>
+        <member name="M:Meow.Helpers.List.ToUpper(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            转换为大写字符串集合
+            </summary>
+            <param name="array">集合</param>
+            <returns>大写字符串集合</returns>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotNull``1(System.Collections.Generic.List{``0},``0)">
+            <summary>
+            添加不为null的值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotNull``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            添加不为null的值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotEmpty(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotEmpty(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotEmpty(System.Collections.Generic.List{System.Guid},System.Guid)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotEmpty(System.Collections.Generic.List{System.Guid},System.Collections.Generic.List{System.Guid})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}},System.Nullable{System.Guid})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}},System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotEmpty(System.Collections.Generic.List{System.DateTime},System.DateTime)">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotEmpty(System.Collections.Generic.List{System.DateTime},System.Collections.Generic.List{System.DateTime})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddNotEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}},System.Nullable{System.DateTime})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.AddRangeNotEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}},System.Collections.Generic.List{System.Nullable{System.DateTime}})">
+            <summary>
+            添加有效值
+            </summary>
+            <param name="array">集合</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.List.IsSequenceBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Int32)">
+            <summary>
+            是否不间断连续 判断类型是Int
+            </summary>
+            <typeparam name="TSource">集合元素类型</typeparam>
+            <typeparam name="TKey">键元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Helpers.List.IsSequence(System.Collections.Generic.IEnumerable{System.Nullable{System.Int32}},System.Int32)">
+            <summary>
+            是否不间断连续
+            </summary>
+            <param name="array">集合</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Helpers.List.IsSequence(System.Collections.Generic.IEnumerable{System.Int32},System.Int32)">
+            <summary>
+            是否不间断连续
+            </summary>
+            <param name="array">集合</param>
+            <param name="startNo">起始数</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveNull``1(System.Collections.Generic.List{``0})">
+            <summary>
+            移除null值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveNullBy``2(System.Collections.Generic.List{``0},System.Func{``0,``1})">
+            <summary>
+            根据条件移除null值
+            </summary>
+            <typeparam name="TSource">集合元素类型</typeparam>
+            <typeparam name="TKey">键元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmpty(System.Collections.Generic.List{System.String})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.String})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmpty(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Guid})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmpty(System.Collections.Generic.List{System.Nullable{System.Guid}})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Nullable{System.Guid}})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmpty(System.Collections.Generic.List{System.DateTime})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.DateTime})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmpty(System.Collections.Generic.List{System.Nullable{System.DateTime}})">
+            <summary>
+            移除空值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.List.RemoveEmptyBy``1(System.Collections.Generic.List{``0},System.Func{``0,System.Nullable{System.DateTime}})">
+            <summary>
+            根据条件移除空值
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+            <param name="keySelector">选择器</param>
+        </member>
+        <member name="T:Meow.Helpers.Random">
+            <summary>
+            随机数操作
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.Random._random">
+            <summary>
+            随机数
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Random.#ctor">
+            <summary>
+            初始化随机数
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Random.Next(System.Int32)">
+            <summary>
+            获取指定范围的随机整数
+            </summary>
+            <param name="max">最大值</param>
+        </member>
+        <member name="M:Meow.Helpers.Random.Next(System.Int32,System.Int32)">
+            <summary>
+            获取指定范围的随机整数，该范围包括最小值，但不包括最大值
+            </summary>
+            <param name="min">最小值</param>
+            <param name="max">最大值</param>
+        </member>
+        <member name="M:Meow.Helpers.Random.GetValue``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            从集合中随机获取值
+            </summary>
+            <param name="array">集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Random.Order``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            对集合随机排序
+            </summary>
+            <typeparam name="T">集合元素类型</typeparam>
+            <param name="array">集合</param>
+        </member>
+        <member name="T:Meow.Helpers.Reflection">
+            <summary>
+            反射操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDescription``1">
+            <summary>
+            获取类型描述，使用DescriptionAttribute设置描述
+            </summary>
+            <typeparam name="T">类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDescription``1(System.String)">
+            <summary>
+            获取类型成员描述，使用DescriptionAttribute设置描述
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="memberName">成员名称</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDescription(System.Type,System.String)">
+            <summary>
+            获取类型成员描述，使用DescriptionAttribute设置描述
+            </summary>
+            <param name="type">类型</param>
+            <param name="memberName">成员名称</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDescription(System.Reflection.MemberInfo)">
+            <summary>
+            获取类型成员描述，使用DescriptionAttribute设置描述
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDisplayName``1">
+            <summary>
+            获取显示名称，使用DisplayNameAttribute设置显示名称
+            </summary>
+            <typeparam name="T">类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDisplayName(System.Reflection.MemberInfo)">
+            <summary>
+            获取显示名称，使用DisplayAttribute或DisplayNameAttribute设置显示名称
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDisplayNameOrDescription``1">
+            <summary>
+            获取显示名称或描述,使用DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
+            </summary>
+            <typeparam name="T">类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDisplayNameOrDescription(System.Reflection.MemberInfo)">
+            <summary>
+            获取属性显示名称或描述,使用DisplayAttribute或DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.CreateInstance``1(System.Type,System.Object[])">
+            <summary>
+            动态创建实例
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="type">类型</param>
+            <param name="parameters">传递给构造函数的参数</param>        
+        </member>
+        <member name="M:Meow.Helpers.Reflection.FindImplementTypes``1(System.Reflection.Assembly[])">
+            <summary>
+            在指定的程序集中查找实现类型列表
+            </summary>
+            <typeparam name="TFind">查找类型</typeparam>
+            <param name="assemblies">待查找的程序集列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.FindImplementTypes(System.Type,System.Reflection.Assembly[])">
+            <summary>
+            在指定的程序集中查找实现类型列表
+            </summary>
+            <param name="findType">查找类型</param>
+            <param name="assemblies">待查找的程序集列表</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypes(System.Type,System.Reflection.Assembly)">
+            <summary>
+            获取类型列表
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.AddType(System.Collections.Generic.List{System.Type},System.Type,System.Type)">
+            <summary>
+            添加类型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.MatchGeneric(System.Type,System.Type)">
+            <summary>
+            泛型匹配
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDirectInterfaceTypes``1(System.Type[])">
+            <summary>
+            获取直接接口类型列表
+            </summary>
+            <typeparam name="T">在该类型上查找接口</typeparam>
+            <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetDirectInterfaceTypes(System.Type,System.Type[])">
+            <summary>
+            获取直接接口类型列表
+            </summary>
+            <param name="type">在该类型上查找接口</param>
+            <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsCollection(System.Type)">
+            <summary>
+            是否集合
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsGenericCollection(System.Type)">
+            <summary>
+            是否泛型集合
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsBool(System.Reflection.MemberInfo)">
+            <summary>
+            是否布尔类型
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsBool(System.Reflection.PropertyInfo)">
+            <summary>
+            是否布尔类型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsEnum(System.Reflection.MemberInfo)">
+            <summary>
+            是否枚举类型
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsEnum(System.Reflection.PropertyInfo)">
+            <summary>
+            是否枚举类型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsDate(System.Reflection.MemberInfo)">
+            <summary>
+            是否日期类型
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsDate(System.Reflection.PropertyInfo)">
+            <summary>
+            是否日期类型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsInt(System.Reflection.MemberInfo)">
+            <summary>
+            是否整型
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsInt(System.Reflection.PropertyInfo)">
+            <summary>
+            是否整型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsNumber(System.Reflection.MemberInfo)">
+            <summary>
+            是否浮点型
+            </summary>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsNumber(System.Reflection.PropertyInfo)">
+            <summary>
+            是否数值类型
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetElementType(System.Type)">
+            <summary>
+            获取元素类型，如果是集合，返回集合的元素类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTopBaseType``1">
+            <summary>
+            获取顶级基类
+            </summary>
+            <typeparam name="T">类型</typeparam>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTopBaseType(System.Type)">
+            <summary>
+            获取顶级基类
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypeEnum(System.Object)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypeEnumByType(System.Type)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypeEnumByMemberInfo(System.Reflection.MemberInfo)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="memberInfo">成员信息</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypeEnumByTypeInfo(System.Reflection.TypeInfo)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="typeInfo">类型信息</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.GetTypeEnumByPropertyInfo(System.Reflection.PropertyInfo)">
+            <summary>
+            获取类型枚举
+            </summary>
+            <param name="propertyInfo">属性信息</param>
+        </member>
+        <member name="M:Meow.Helpers.Reflection.IsObjects(System.Reflection.PropertyInfo)">
+            <summary>
+            是否对象类型
+            </summary>
+            <param name="propertyInfo">属性信息</param>
+        </member>
+        <member name="T:Meow.Helpers.Regex">
+            <summary>
+            正则操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Regex.GetValues(System.String,System.String,System.String[],System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取匹配值集合
+            </summary>
+            <param name="value">值</param>
+            <param name="pattern">模式字符串</param>
+            <param name="resultPatterns">结果模式字符串数组,范例：new[]{"$1","$2"}</param>
+            <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.AddResults(System.Collections.Generic.Dictionary{System.String,System.String},System.Text.RegularExpressions.Match,System.String[])">
+            <summary>
+            添加匹配结果
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Regex.GetValue(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取匹配值
+            </summary>
+            <param name="value">值</param>
+            <param name="pattern">模式字符串</param>
+            <param name="resultPattern">结果模式字符串,范例："$1"用来获取第一个()内的值</param>
+            <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Split(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            分割成字符串数组
+            </summary>
+            <param name="value">值</param>
+            <param name="pattern">模式字符串</param>
+            <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Replace(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            替换
+            </summary>
+            <param name="value">值</param>
+            <param name="pattern">模式字符串</param>
+            <param name="replacement">替换字符串</param>
+            <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.IsMatch(System.String,System.String)">
+            <summary>
+            验证输入与模式是否匹配
+            </summary>
+            <param name="value">值</param>
+            <param name="pattern">模式字符串</param>        
+        </member>
+        <member name="M:Meow.Helpers.Regex.IsMatch(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            验证输入与模式是否匹配
+            </summary>
+            <param name="value">输入的字符串</param>
+            <param name="pattern">模式字符串</param>
+            <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Match(System.String,System.String)">
+             <summary>
+            获取匹配结果
+             </summary>
+             <param name="value">值</param>
+             <param name="pattern">模式字符串</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Match(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+             <summary>
+            获取匹配结果
+             </summary>
+             <param name="value">值</param>
+             <param name="pattern">模式字符串</param>
+             <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Matches(System.String,System.String)">
+             <summary>
+            获取匹配结果集合
+             </summary>
+             <param name="value">值</param>
+             <param name="pattern">模式字符串</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Matches(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+             <summary>
+            获取匹配结果集合
+             </summary>
+             <param name="value">值</param>
+             <param name="pattern">模式字符串</param>
+             <param name="options">选项</param>
+        </member>
+        <member name="M:Meow.Helpers.Regex.Matches(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)">
+             <summary>
+            获取匹配结果集合
+             </summary>
+             <param name="value">值</param>
+             <param name="pattern">模式字符串</param>
+             <param name="options">选项</param>
+             <param name="matchTimeout">匹配超时间隔</param>
+        </member>
+        <member name="T:Meow.Helpers.Stream">
+            <summary>
+            流操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToBytes(System.IO.Stream)">
+            <summary>
+            流转换为字节数组
+            </summary>
+            <param name="stream">流</param>
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToBytes(System.String)">
+            <summary>
+            字符串转换成字节数组
+            </summary>
+            <param name="data">数据,默认字符编码utf-8</param>        
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            字符串转换成字节数组
+            </summary>
+            <param name="data">数据</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToBytesAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            流转换为字节数组
+            </summary>
+            <param name="stream">流</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToStream(System.String)">
+            <summary>
+            字符串转换成流
+            </summary>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Meow.Helpers.Stream.ToStream(System.String,System.Text.Encoding)">
+            <summary>
+            字符串转换成流
+            </summary>
+            <param name="data">数据</param>
+            <param name="encoding">字符编码</param>
+        </member>
+        <member name="T:Meow.Helpers.String">
+            <summary>
+            字符串操作
+            </summary>
+        </member>
+        <member name="P:Meow.Helpers.String.Empty">
+            <summary>
+            空字符串
+            </summary>
+        </member>
+        <member name="P:Meow.Helpers.String.Line">
+            <summary>
+            换行符
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.String.Unique">
+            <summary>
+            全局唯一值
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.String.FirstUpperCase(System.String)">
+            <summary>
+            首字母大写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.FirstLowerCase(System.String)">
+            <summary>
+            首字母小写
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveStart(System.String,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveStart(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveStart(System.IO.StringWriter,System.String)">
+            <summary>
+            移除起始字符串
+            </summary>
+            <param name="writer">字符串写入器</param>
+            <param name="start">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveEnd(System.String,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveEnd(System.Text.StringBuilder,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.RemoveEnd(System.IO.StringWriter,System.String)">
+            <summary>
+            移除末尾字符串
+            </summary>
+            <param name="writer">字符串写入器</param>
+            <param name="end">要移除的值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.Truncate(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            截断字符串
+            </summary>
+            <param name="value">值</param>
+            <param name="length">返回长度</param>
+            <param name="endCharCount">添加结束符号的个数，默认0，不添加</param>
+            <param name="endChar">结束符号，默认为省略号</param>
+            <returns>截断字符串</returns>
+        </member>
+        <member name="M:Meow.Helpers.String.Copy(System.String,System.Int32)">
+            <summary>
+            复制
+            </summary>
+            <param name="value">值</param>
+            <param name="count">复制次数</param>
+            <returns>复制好的字符串</returns>
+        </member>
+        <member name="M:Meow.Helpers.String.ToSbcCase(System.String)">
+            <summary>
+            转全角
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.ToDbcCase(System.String)">
+            <summary>
+            转半角
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.Distinct(System.String)">
+            <summary>
+            去除重复
+            </summary>
+            <param name="value">值，范例1："5555",返回"5",范例2："4545",返回"45"</param>
+        </member>
+        <member name="M:Meow.Helpers.String.IsNumber(System.String)">
+            <summary>
+            是否数字
+            </summary>
+            <param name="value">值</param>        
+        </member>
+        <member name="M:Meow.Helpers.String.IsContainsNumber(System.String)">
+            <summary>
+            是否包含数字
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.String.IsContainsCn(System.String)">
+            <summary>
+            是否包含中文
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="T:Meow.Helpers.Thread">
+            <summary>
+            线程操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Thread.WaitAll(System.Action[])">
+            <summary>
+            执行多个操作，等待所有操作完成
+            </summary>
+            <param name="actions">操作集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Thread.ParallelInvoke(System.Action[])">
+            <summary>
+            并发执行多个操作
+            </summary>
+            <param name="actions">操作集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Thread.ParallelFor(System.Action,System.Int32,System.Threading.Tasks.ParallelOptions)">
+            <summary>
+            循环并发执行操作
+            </summary>
+            <param name="action">操作</param>
+            <param name="count">执行次数</param>
+            <param name="options">并发执行配置</param>
+        </member>
+        <member name="M:Meow.Helpers.Thread.ParallelForAsync(System.Func{System.Threading.Tasks.ValueTask},System.Int32,System.Threading.Tasks.ParallelOptions)">
+            <summary>
+            循环并发执行操作
+            </summary>
+            <param name="action">操作</param>
+            <param name="count">执行次数</param>
+            <param name="options">并发执行配置</param>
+        </member>
+        <member name="T:Meow.Helpers.Time">
+            <summary>
+            时间操作
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.Time._dateTime">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="F:Meow.Helpers.Time._isUseUtc">
+            <summary>
+            是否使用Utc日期
+            </summary>
+        </member>
+        <member name="P:Meow.Helpers.Time.IsUseUtc">
+            <summary>
+            是否使用Utc日期
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Time.SetTime(System.Nullable{System.DateTime})">
+            <summary>
+            设置时间
+            </summary>
+            <param name="dateTime">时间</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.SetTime(System.String)">
+            <summary>
+            设置时间
+            </summary>
+            <param name="dateTime">时间</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.UseUtc(System.Nullable{System.Boolean})">
+            <summary>
+            设置使用Utc日期
+            </summary>
+            <param name="isUseUtc">是否使用Utc日期,默认值: true</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.Reset">
+            <summary>
+            重置时间和Utc标志
+            </summary>
+        </member>
+        <member name="P:Meow.Helpers.Time.Now">
+            <summary>
+            获取当前日期时间
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Time.Normalize(System.Nullable{System.DateTime})">
+            <summary>
+            转换为标准化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.Normalize(System.DateTime)">
+            <summary>
+            转换为标准化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.ToUniversalTime(System.DateTime)">
+            <summary>
+            转换为UTC日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.ToLocalTime(System.DateTime)">
+            <summary>
+            转换为本地化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.UtcToLocalTime(System.DateTime)">
+            <summary>
+            Utc日期转换为本地化日期
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetUnixTimestamp">
+            <summary>
+            获取Unix时间戳
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetUnixTimestamp(System.Nullable{System.DateTime})">
+            <summary>
+            获取Unix时间戳
+            </summary>
+            <param name="time">时间</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetUnixTimestamp(System.DateTime)">
+            <summary>
+            获取Unix时间戳
+            </summary>
+            <param name="time">时间</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetTimeFromUnixTimestamp(System.Nullable{System.Int64})">
+            <summary>
+            从Unix时间戳获取时间
+            </summary>
+            <param name="timestamp">Unix时间戳</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetTimeFromUnixTimestamp(System.Int64)">
+            <summary>
+            从Unix时间戳获取时间
+            </summary>
+            <param name="timestamp">Unix时间戳</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetNumberDayOfWeekByCn(System.Nullable{System.DateTime})">
+            <summary>
+            获取一周数字第几天 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetNumberDayOfWeekByCn(System.DateTime)">
+            <summary>
+            获取一周数字第几天 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetNumberDayOfWeekByEn(System.Nullable{System.DateTime})">
+            <summary>
+            获取一周数字第几天 - 国外：周日为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetNumberDayOfWeekByEn(System.DateTime)">
+            <summary>
+            获取一周数字第几天 - 国外：周日为第一天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekNameByZh(System.Nullable{System.DateTime})">
+            <summary>
+            获取中文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekNameByZh(System.DateTime)">
+            <summary>
+            获取中文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekNameByEn(System.Nullable{System.DateTime})">
+            <summary>
+            获取英文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekNameByEn(System.DateTime)">
+            <summary>
+            获取英文星期几
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetTwelveHoursTimeByZh(System.Nullable{System.DateTime})">
+            <summary>
+            获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetTwelveHoursTimeByZh(System.DateTime)">
+            <summary>
+            获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
+            </summary>
+            <param name="data">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffDays(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的天数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffDays(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的天数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffHours(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的小时数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffHours(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的小时数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffMinutes(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取两个日期之间相差的分钟数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDiffMinutes(System.DateTime,System.DateTime)">
+            <summary>
+            获取两个日期之间相差的分钟数
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取年有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfYear(System.DateTime)">
+            <summary>
+            获取年有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfYear(System.Int32)">
+            <summary>
+            获取本年有多少天
+            </summary>
+            <param name="year">年份</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfMonth(System.Nullable{System.DateTime})">
+            <summary>
+            获取月有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfMonth(System.DateTime)">
+            <summary>
+            获取月有多少天
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetDaysOfMonth(System.Int32,System.Int32)">
+            <summary>
+            获取月有多少天
+            </summary>
+            <param name="year">年</param>
+            <param name="month">月</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeeksOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取年有多少周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeeksOfYear(System.DateTime)">
+            <summary>
+            获取年有多少周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeeksOfYear(System.Int32)">
+            <summary>
+            获取年有多少周
+            </summary>
+            <param name="year">年份</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekOfYear(System.Nullable{System.DateTime})">
+            <summary>
+            获取某一日期是该年中的第几周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekOfYear(System.DateTime)">
+            <summary>
+            获取某一日期是该年中的第几周
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekRangeByCn(System.Nullable{System.DateTime},System.DateTime@,System.DateTime@)">
+            <summary>
+            根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+            <param name="firstDate">周开始日期</param>
+            <param name="lastDate">周结束日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekRangeByCn(System.DateTime,System.DateTime@,System.DateTime@)">
+            <summary>
+            根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+            </summary>
+            <param name="date">日期</param>
+            <param name="firstDate">周开始日期</param>
+            <param name="lastDate">周结束日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.GetWeekRangeByCn(System.Int32,System.Int32,System.DateTime@,System.DateTime@)">
+            <summary>
+            根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+            </summary>
+            <param name="year">某年</param>
+            <param name="week">第几周</param>
+            <param name="firstDate">周开始日期</param>
+            <param name="lastDate">周结束日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByCn(System.Nullable{System.DateTime}[])">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByCn(System.DateTime[])">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByCn(System.Collections.Generic.IEnumerable{System.Nullable{System.DateTime}})">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByCn(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByCn(System.DateTime,System.DateTime)">
+            <summary>
+            是否同一周 - 国内：周一为第一天
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByEn(System.Nullable{System.DateTime}[])">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByEn(System.DateTime[])">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByEn(System.Collections.Generic.IEnumerable{System.Nullable{System.DateTime}})">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByEn(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+            <param name="times">时间集合</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsSameWeekByEn(System.DateTime,System.DateTime)">
+            <summary>
+            是否同一周 - 国外：周日为第一天
+            </summary>
+            <param name="firstTime">第一个日期参数</param>
+            <param name="secondTime">第二个日期参数</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsLeapYear(System.Nullable{System.DateTime})">
+            <summary>
+            是否是闰年
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsLeapYear(System.DateTime)">
+            <summary>
+            是否是闰年
+            </summary>
+            <param name="date">日期</param>
+        </member>
+        <member name="M:Meow.Helpers.Time.IsLeapYear(System.Int32)">
+            <summary>
+            是否是闰年
+            </summary>
+            <param name="year">年</param>
+        </member>
+        <member name="T:Meow.Helpers.Url">
+            <summary>
+            Url操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Url.JoinPath(System.String[])">
+            <summary>
+            连接路径
+            </summary>
+            <param name="paths">路径列表</param>
+        </member>
+        <member name="T:Meow.Helpers.Validation">
+            <summary>
+            验证操作
+            </summary>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsNull(System.Object)">
+            <summary>
+            是否为null
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.CheckNull(System.Object,System.String)">
+            <summary>
+            检测对象是否为null,为null则抛出<see cref="T:System.ArgumentNullException"/>异常
+            </summary>
+            <param name="obj">对象</param>
+            <param name="parameterName">参数名</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty(System.String)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty(System.Guid)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty(System.Nullable{System.Guid})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty(System.DateTime)">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty(System.Nullable{System.DateTime})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Meow.Helpers.Validation.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            是否为空
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="T:Meow.Maths.Operator">
+            <summary>
+            查询操作符
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Equal">
+            <summary>
+            等于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.NotEqual">
+            <summary>
+            不等于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Greater">
+            <summary>
+            大于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.GreaterEqual">
+            <summary>
+            大于等于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Less">
+            <summary>
+            小于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.LessEqual">
+            <summary>
+            小于等于
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Starts">
+            <summary>
+            头匹配
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Ends">
+            <summary>
+            尾匹配
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.Contains">
+            <summary>
+            模糊匹配
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.In">
+            <summary>
+            In
+            </summary>
+        </member>
+        <member name="F:Meow.Maths.Operator.NotIn">
+            <summary>
+            Not In
+            </summary>
+        </member>
+        <member name="T:Meow.Models.Item">
+            <summary>
+            列表项
+            </summary>
+        </member>
+        <member name="M:Meow.Models.Item.#ctor(System.String,System.Object,System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            初始化
+            </summary>
+            <param name="text">文本</param>
+            <param name="value">值</param>
+            <param name="sortId">排序号</param>
+            <param name="group">组</param>
+            <param name="disabled">禁用</param>
+        </member>
+        <member name="P:Meow.Models.Item.Text">
+            <summary>
+            文本
+            </summary>
+        </member>
+        <member name="P:Meow.Models.Item.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Meow.Models.Item.SortId">
+            <summary>
+            排序号
+            </summary>
+        </member>
+        <member name="P:Meow.Models.Item.Group">
+            <summary>
+            组
+            </summary>
+        </member>
+        <member name="P:Meow.Models.Item.Disabled">
+            <summary>
+            禁用
+            </summary>
+        </member>
+        <member name="M:Meow.Models.Item.CompareTo(Meow.Models.Item)">
+            <summary>
+            比较
+            </summary>
+            <param name="other">其它列表项</param>
+        </member>
+        <member name="T:Meow.Models.ItemParent">
+            <summary>
+            列表父级项
+            </summary>
+        </member>
+        <member name="M:Meow.Models.ItemParent.#ctor(System.String,System.Object,System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},Meow.Models.ItemSubset)">
+            <summary>
+            初始化
+            </summary>
+            <param name="text">文本</param>
+            <param name="value">值</param>
+            <param name="sortId">排序号</param>
+            <param name="group">组</param>
+            <param name="disabled">禁用</param>
+            <param name="parent">父级</param>
+        </member>
+        <member name="P:Meow.Models.ItemParent.Parent">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="M:Meow.Models.ItemParent.CompareTo(Meow.Models.ItemParent)">
+            <summary>
+            比较
+            </summary>
+            <param name="other">其它列表项</param>
+        </member>
+        <member name="T:Meow.Models.ItemSubset">
+            <summary>
+            列表子集项
+            </summary>
+        </member>
+        <member name="M:Meow.Models.ItemSubset.#ctor(System.String,System.Object,System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Collections.Generic.List{Meow.Models.ItemSubset})">
+            <summary>
+            初始化
+            </summary>
+            <param name="text">文本</param>
+            <param name="value">值</param>
+            <param name="sortId">排序号</param>
+            <param name="group">组</param>
+            <param name="disabled">禁用</param>
+            <param name="subsets">子集</param>
+        </member>
+        <member name="P:Meow.Models.ItemSubset.Subsets">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="M:Meow.Models.ItemSubset.CompareTo(Meow.Models.ItemSubset)">
+            <summary>
+            比较
+            </summary>
+            <param name="other">其它列表项</param>
+        </member>
+        <member name="T:Meow.Options.JsonOptions">
+            <summary>
+            Json配置
+            </summary>
+        </member>
+        <member name="P:Meow.Options.JsonOptions.RemoveQuotationMarks">
+            <summary>
+            是否移除双引号,默认值: false
+            </summary>
+        </member>
+        <member name="P:Meow.Options.JsonOptions.ToSingleQuotes">
+            <summary>
+            是否将双引号转成单引号,默认值: false
+            </summary>
+        </member>
+        <member name="P:Meow.Options.JsonOptions.IgnoreNullValues">
+            <summary>
+            是否忽略null值,默认值: false
+            </summary>
+        </member>
+        <member name="T:Meow.Options.TimeOptions">
+            <summary>
+            时间配置
+            </summary>
+        </member>
+        <member name="P:Meow.Options.TimeOptions.IsUseUtc">
+            <summary>
+            是否使用Utc日期
+            </summary>
+        </member>
+        <member name="T:Meow.Types.TypeEnum">
+            <summary>
+            类型枚举
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Sbyte">
+            <summary>
+            类型：sbyte；
+            范围：-128 到 127；
+            大小：8 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Byte">
+            <summary>
+            类型：byte；
+            范围：0 到 255；
+            大小：无符号的 8 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Short">
+            <summary>
+            类型：short；
+            范围：-32,768 到 32,767；
+            大小：有符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Ushort">
+            <summary>
+            类型：ushort；
+            范围：0 到 65,535；
+            大小：无符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Int">
+            <summary>
+            类型：int；
+            范围：-2,147,483,648 到 2,147,483,647；
+            大小：带符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Uint">
+            <summary>
+            类型：uint；
+            范围：0 到 4,294,967,295；
+            大小：无符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Long">
+            <summary>
+            类型：long；
+            范围：-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807；
+            大小：64 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Ulong">
+            <summary>
+            类型：ulong；
+            范围：0 到 18,446,744,073,709,551,615；
+            大小：无符号 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Nint">
+            <summary>
+            类型：nint；
+            范围：取决于（在运行时计算的）平台；
+            大小：带符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Nuint">
+            <summary>
+            类型：nuint；
+            范围：取决于（在运行时计算的）平台；
+            大小：无符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Float">
+            <summary>
+            类型：float；
+            范围：±1.5 x 10−45 至 ±3.4 x 1038；
+            精度：大约 6-9 位数字；
+            大小：4 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Double">
+            <summary>
+            类型：double；
+            范围：±5.0 × 10−324 到 ±1.7 × 10308；
+            精度：大约 15-17 位数字；
+            大小：8 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Decimal">
+            <summary>
+            类型：decimal；
+            范围：±1.0 x 10-28 至 ±7.9228 x 1028；
+            精度：28-29 位；
+            大小：16 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Bool">
+            <summary>
+            类型：bool；
+            范围：true 或 false；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Char">
+            <summary>
+            类型：char ；
+            范围：U+0000 到 U+FFFF；
+            大小：16 位；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Guid">
+            <summary>
+            guid
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.DateTime">
+            <summary>
+            DateTime
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Enum">
+            <summary>
+            enum
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.Objects">
+            <summary>
+            objects
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeEnum.List">
+            <summary>
+            list
+            </summary>
+        </member>
+        <member name="T:Meow.Types.TypeFullName">
+            <summary>
+            类型全名
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Sbyte">
+            <summary>
+            类型：sbyte；
+            范围：-128 到 127；
+            大小：8 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Byte">
+            <summary>
+            类型：byte；
+            范围：0 到 255；
+            大小：无符号的 8 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Short">
+            <summary>
+            类型：short；
+            范围：-32,768 到 32,767；
+            大小：有符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Ushort">
+            <summary>
+            类型：ushort；
+            范围：0 到 65,535；
+            大小：无符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Int">
+            <summary>
+            类型：int；
+            范围：-2,147,483,648 到 2,147,483,647；
+            大小：带符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Uint">
+            <summary>
+            类型：uint；
+            范围：0 到 4,294,967,295；
+            大小：无符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Long">
+            <summary>
+            类型：long；
+            范围：-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807；
+            大小：64 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Ulong">
+            <summary>
+            类型：ulong；
+            范围：0 到 18,446,744,073,709,551,615；
+            大小：无符号 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Nint">
+            <summary>
+            类型：nint；
+            范围：取决于（在运行时计算的）平台；
+            大小：带符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Nuint">
+            <summary>
+            类型：nuint；
+            范围：取决于（在运行时计算的）平台；
+            大小：无符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Float">
+            <summary>
+            类型：float；
+            范围：±1.5 x 10−45 至 ±3.4 x 1038；
+            精度：大约 6-9 位数字；
+            大小：4 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Double">
+            <summary>
+            类型：double；
+            范围：±5.0 × 10−324 到 ±1.7 × 10308；
+            精度：大约 15-17 位数字；
+            大小：8 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Decimal">
+            <summary>
+            类型：decimal；
+            范围：±1.0 x 10-28 至 ±7.9228 x 1028；
+            精度：28-29 位；
+            大小：16 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Bool">
+            <summary>
+            类型：bool；
+            范围：true 或 false；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Char">
+            <summary>
+            类型：char ；
+            范围：U+0000 到 U+FFFF；
+            大小：16 位；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.Guid">
+            <summary>
+            guid
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeFullName.DateTime">
+            <summary>
+            DateTime
+            </summary>
+        </member>
+        <member name="T:Meow.Types.TypeName">
+            <summary>
+            类型名
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Sbyte">
+            <summary>
+            类型：sbyte；
+            范围：-128 到 127；
+            大小：8 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Byte">
+            <summary>
+            类型：byte；
+            范围：0 到 255；
+            大小：无符号的 8 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Short">
+            <summary>
+            类型：short；
+            范围：-32,768 到 32,767；
+            大小：有符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Ushort">
+            <summary>
+            类型：ushort；
+            范围：0 到 65,535；
+            大小：无符号 16 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Int">
+            <summary>
+            类型：int；
+            范围：-2,147,483,648 到 2,147,483,647；
+            大小：带符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Uint">
+            <summary>
+            类型：uint；
+            范围：0 到 4,294,967,295；
+            大小：无符号的 32 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Long">
+            <summary>
+            类型：long；
+            范围：-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807；
+            大小：64 位带符号整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Ulong">
+            <summary>
+            类型：ulong；
+            范围：0 到 18,446,744,073,709,551,615；
+            大小：无符号 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Nint">
+            <summary>
+            类型：nint；
+            范围：取决于（在运行时计算的）平台；
+            大小：带符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Nuint">
+            <summary>
+            类型：nuint；
+            范围：取决于（在运行时计算的）平台；
+            大小：无符号的 32 位或 64 位整数；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Float">
+            <summary>
+            类型：float；
+            范围：±1.5 x 10−45 至 ±3.4 x 1038；
+            精度：大约 6-9 位数字；
+            大小：4 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Double">
+            <summary>
+            类型：double；
+            范围：±5.0 × 10−324 到 ±1.7 × 10308；
+            精度：大约 15-17 位数字；
+            大小：8 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Decimal">
+            <summary>
+            类型：decimal；
+            范围：±1.0 x 10-28 至 ±7.9228 x 1028；
+            精度：28-29 位；
+            大小：16 个字节；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Bool">
+            <summary>
+            类型：bool；
+            范围：true 或 false；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Char">
+            <summary>
+            类型：char ；
+            范围：U+0000 到 U+FFFF；
+            大小：16 位；
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.Guid">
+            <summary>
+            guid
+            </summary>
+        </member>
+        <member name="F:Meow.Types.TypeName.DateTime">
+            <summary>
+            DateTime
+            </summary>
+        </member>
+    </members>
+</doc>

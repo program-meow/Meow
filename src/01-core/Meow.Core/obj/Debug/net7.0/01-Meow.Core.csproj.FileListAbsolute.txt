@@ -1,0 +1,13 @@
+G:\code\meow\src\01-core\Meow.Core\bin\Debug\net7.0\Meow.Core.deps.json
+G:\code\meow\src\01-core\Meow.Core\bin\Debug\net7.0\Meow.Core.dll
+G:\code\meow\src\01-core\Meow.Core\bin\Debug\net7.0\Meow.Core.pdb
+G:\code\meow\src\01-core\Meow.Core\bin\Debug\net7.0\Util.Core.xml
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\01-Meow.Core.csproj.AssemblyReference.cache
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\01-Meow.Core.GeneratedMSBuildEditorConfig.editorconfig
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\01-Meow.Core.AssemblyInfoInputs.cache
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\01-Meow.Core.AssemblyInfo.cs
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\01-Meow.Core.csproj.CoreCompileInputs.cache
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\Meow.Core.dll
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\refint\Meow.Core.dll
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\Meow.Core.pdb
+G:\code\meow\src\01-core\Meow.Core\obj\Debug\net7.0\ref\Meow.Core.dll

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Meow.Core/7.0.40": {
+        "runtime": {
+          "Meow.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Meow.Core/7.0.40": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
