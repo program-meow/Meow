@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "5bZA+7XJ1EvHecamXMrr6By+D7z573oMPqxFe01U3hhgjxEbxc5N5Jv2JlrWx/nEXLHUmC2xALvENHSnRbzgDQ==",
+  "dgSpecHash": "d/wBpWYijNqOZ/SQM3qLB80UQWaBTiD5U+qXl3q8YmDmzs8/8hYQivQildjSz+aYurBrTwUnoI/V7QW8IVgPYA==",
   "success": true,
   "projectFilePath": "G:\\code\\meow\\src\\01-core\\Meow.Core\\01-Meow.Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "C:\\Users\\meow\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
