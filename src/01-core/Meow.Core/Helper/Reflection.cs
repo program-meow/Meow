@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using Meow.Extension;
+using Meow.Type;
 
 namespace Meow.Helper
 {
@@ -42,7 +45,7 @@ namespace Meow.Helper
         {
             if (type == null)
                 return string.Empty;
-            if (Validation.IsEmpty(memberName))
+            if (memberName.IsEmpty())
                 return string.Empty;
             return GetDescription(type.GetTypeInfo().GetMember(memberName).FirstOrDefault());
         }
@@ -104,7 +107,7 @@ namespace Meow.Helper
         public static string GetDisplayNameOrDescription(MemberInfo member)
         {
             string result = GetDisplayName(member);
-            return Validation.IsEmpty(result) ? GetDescription(member) : result;
+            return result.IsEmpty() ? GetDescription(member) : result;
         }
 
         #endregion
@@ -267,7 +270,7 @@ namespace Meow.Helper
         {
             if (!type.IsGenericType)
                 return false;
-            var typeDefinition = type.GetGenericTypeDefinition();
+            System.Type typeDefinition = type.GetGenericTypeDefinition();
             return typeDefinition == typeof(IEnumerable<>)
                    || typeDefinition == typeof(IReadOnlyCollection<>)
                    || typeDefinition == typeof(IReadOnlyList<>)
@@ -335,7 +338,7 @@ namespace Meow.Helper
         {
             if (property.PropertyType.GetTypeInfo().IsEnum)
                 return true;
-            var value = Nullable.GetUnderlyingType(property.PropertyType);
+            System.Type value = Nullable.GetUnderlyingType(property.PropertyType);
             if (value == null)
                 return false;
             return value.GetTypeInfo().IsEnum;
@@ -533,8 +536,42 @@ namespace Meow.Helper
             if (type == null)
                 return null;
             if (IsCollection(type))
-                return Meow.Type.TypeEnum.List;
+                return GetCollectionType(type.Name);
             return GetTypeEnumByMemberInfo(type.GetTypeInfo());
+        }
+
+        #region 实现
+
+        #region 匹配类型枚举常量
+
+        /// <summary>
+        /// 匹配类型枚举数组常量
+        /// </summary>
+        private const string _matchTypeEnumArray = "[]";
+        /// <summary>
+        /// 匹配类型枚举字典常量
+        /// </summary>
+        private const string _matchTypeEnumDictionary = "Dictionary";
+        /// <summary>
+        /// 匹配类型枚举集合常量
+        /// </summary>
+        private static readonly string _matchTypeEnumList = "List";
+
+        #endregion
+
+        /// <summary>
+        /// 获取集合类型
+        /// </summary>
+        /// <param name="typeName">类型名称</param>
+        private static Meow.Type.TypeEnum? GetCollectionType(string typeName)
+        {
+            if (typeName.Contains(_matchTypeEnumArray))
+                return Meow.Type.TypeEnum.Array;
+            if (typeName.StartsWith(_matchTypeEnumDictionary))
+                return Meow.Type.TypeEnum.Dictionary;
+            if (typeName.StartsWith(_matchTypeEnumList))
+                return Meow.Type.TypeEnum.List;
+            return null;
         }
 
         /// <summary>
@@ -562,8 +599,6 @@ namespace Meow.Helper
         {
             if (typeInfo.IsEnum)
                 return Meow.Type.TypeEnum.Enum;
-            if (typeInfo.IsClass)
-                return Meow.Type.TypeEnum.Objects;
             switch (typeInfo.ToString())
             {
                 case Meow.Type.TypeFullName.Sbyte:
@@ -603,6 +638,8 @@ namespace Meow.Helper
                 case Meow.Type.TypeFullName.DateTime:
                     return Meow.Type.TypeEnum.DateTime;
                 default:
+                    if (typeInfo.IsClass)
+                        return Meow.Type.TypeEnum.Objects;
                     return null;
             }
         }
@@ -615,8 +652,6 @@ namespace Meow.Helper
         {
             if (IsEnum(propertyInfo))
                 return Meow.Type.TypeEnum.Enum;
-            if (IsObjects(propertyInfo))
-                return Meow.Type.TypeEnum.Objects;
             if (propertyInfo.PropertyType == typeof(sbyte) || propertyInfo.PropertyType == typeof(sbyte?))
                 return Meow.Type.TypeEnum.Sbyte;
             if (propertyInfo.PropertyType == typeof(byte) || propertyInfo.PropertyType == typeof(byte?))
@@ -653,6 +688,8 @@ namespace Meow.Helper
                 return Meow.Type.TypeEnum.Guid;
             if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
                 return Meow.Type.TypeEnum.DateTime;
+            if (IsObjects(propertyInfo))
+                return Meow.Type.TypeEnum.Objects;
             return null;
         }
 
@@ -671,5 +708,397 @@ namespace Meow.Helper
         }
 
         #endregion
+
+        #endregion
+
+        #region 解析对象
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="value">值</param>
+        public static TypeItem Analyzing(object value)
+        {
+            if (value == null)
+                return TypeItem.Default;
+            TypeItem result = AnalyzingByValue(value, null);
+            return result ?? TypeItem.Default;
+        }
+
+        #region 实现
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingByValue(object value, PropertyInfo parentProperty)
+        {
+            if (value == null)
+                return null;
+            TypeEnum? typeEnum = GetTypeEnum(value);
+            return AnalyzingByTypeEnum(typeEnum, value, parentProperty);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingByType(System.Type type, object value, PropertyInfo parentProperty)
+        {
+            if (type == null || value == null)
+                return null;
+            TypeEnum? typeEnum = GetTypeEnumByType(type);
+            return AnalyzingByTypeEnum(typeEnum, value, parentProperty);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingByTypeEnum(TypeEnum? type, object value, PropertyInfo parentProperty)
+        {
+            switch (type)
+            {
+                case TypeEnum.Sbyte:
+                case TypeEnum.Byte:
+                case TypeEnum.Short:
+                case TypeEnum.Ushort:
+                case TypeEnum.Int:
+                case TypeEnum.Uint:
+                case TypeEnum.Long:
+                case TypeEnum.Ulong:
+                case TypeEnum.Nint:
+                case TypeEnum.Nuint:
+                case TypeEnum.Float:
+                case TypeEnum.Double:
+                case TypeEnum.Decimal:
+                case TypeEnum.Bool:
+                case TypeEnum.Char:
+                case TypeEnum.String:
+                case TypeEnum.Guid:
+                case TypeEnum.DateTime:
+                case TypeEnum.Enum:
+                    return AnalyzingSingle(type, value, parentProperty);
+                case TypeEnum.Objects:
+                    return AnalyzingObjects(type, value, parentProperty);
+                case TypeEnum.Array:
+                    return AnalyzingList(type, value as IList, parentProperty);
+                case TypeEnum.Dictionary:
+                    return null;
+                case TypeEnum.List:
+                    return AnalyzingList(type, value as IList, parentProperty);
+                case null:
+                    return null;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type));
+            }
+        }
+
+        /// <summary>
+        /// 解析单类型：包含值类型和String类型
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingSingle(TypeEnum? type, object value, PropertyInfo parentProperty)
+        {
+            if (value.SafeString().IsEmpty())
+                return null;
+            return new TypeItem(parentProperty?.Name, type, value);
+        }
+
+        /// <summary>
+        /// 解析对象
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingObjects(TypeEnum? type, object value, PropertyInfo parentProperty)
+        {
+            if (value == null)
+                return null;
+            List<TypeItem> subsets = new List<TypeItem>();
+            PropertyInfo[] propertyList = value.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach (PropertyInfo property in propertyList)
+            {
+                object itemValue = property.GetValue(value, null);
+                if (itemValue == null)
+                    continue;
+                TypeItem subsetItem = AnalyzingByType(property.PropertyType, itemValue, property);
+                if (subsetItem == null)
+                    continue;
+                subsets.Add(subsetItem);
+            }
+            if (subsets.IsEmpty())
+                return null;
+            return new TypeItem(parentProperty?.Name, type, null, subsets);
+        }
+
+        /// <summary>
+        /// 解析List集合
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <param name="parentProperty">父属性信息</param>
+        private static TypeItem AnalyzingList(TypeEnum? type, IList value, PropertyInfo parentProperty)
+        {
+            if (value == null)
+                return null;
+            List<TypeItem> subsets = new List<TypeItem>();
+            foreach (object itemValue in value)
+            {
+                TypeItem subsetValue = AnalyzingByValue(itemValue, parentProperty);
+                if (subsetValue == null)
+                    continue;
+                subsets.Add(subsetValue);
+            }
+            if (subsets.IsEmpty())
+                return null;
+            return new TypeItem(parentProperty?.Name, type, null, subsets);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 解析对象到字典
+
+        /// <summary>
+        /// 解析对象到字典
+        /// </summary>
+        /// <param name="value">值</param>
+        public static Dictionary<string, object> AnalyzingToDictionary(object value)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            TypeItem objectTrees = AnalyzingByValue(value, null);
+
+            switch (objectTrees.Type)
+            {
+                case TypeEnum.Objects:
+                    foreach (TypeItem item in objectTrees.Data)
+                    {
+                        Dictionary<string, object> itemResult = AnalyzingToDictionary(item, IsSingleType(item.Type) ? null : item.Text);
+                        result.AddRange(itemResult);
+                    }
+                    break;
+                case TypeEnum.Array:
+                case TypeEnum.List:
+                    int count = 0;
+                    foreach (TypeItem item in objectTrees.Data)
+                    {
+                        Dictionary<string, object> itemResult = AnalyzingToDictionary(item, count);
+                        if (itemResult.IsEmpty())
+                            continue;
+                        result.AddRange(itemResult);
+                        count += 1;
+                    }
+                    break;
+                default:
+                    return result;
+            }
+            return result;
+        }
+
+        #region 实现
+
+        /// <summary>
+        /// 是否单类型：包含值类型和String类型
+        /// </summary>
+        /// <param name="type">类型枚举</param>
+        private static bool IsSingleType(TypeEnum? type)
+        {
+            switch (type)
+            {
+                case TypeEnum.Sbyte:
+                case TypeEnum.Byte:
+                case TypeEnum.Short:
+                case TypeEnum.Ushort:
+                case TypeEnum.Int:
+                case TypeEnum.Uint:
+                case TypeEnum.Long:
+                case TypeEnum.Ulong:
+                case TypeEnum.Nint:
+                case TypeEnum.Nuint:
+                case TypeEnum.Float:
+                case TypeEnum.Double:
+                case TypeEnum.Decimal:
+                case TypeEnum.Bool:
+                case TypeEnum.Char:
+                case TypeEnum.String:
+                case TypeEnum.Guid:
+                case TypeEnum.DateTime:
+                case TypeEnum.Enum:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// 解析集合对象到字典集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="count">计数</param>
+        private static Dictionary<string, object> AnalyzingToDictionary(TypeItem item, int count)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            foreach (TypeItem subset in item.Data)
+            {
+                TypeItem newSubset = new TypeItem($"{subset.Text}[{count}]", subset.Type, subset.Value, subset.Data);
+                Dictionary<string, object> subsetResult = AnalyzingToDictionary(newSubset, IsSingleType(newSubset.Type) ? null : newSubset.Text);
+                result.AddRange(subsetResult);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象到字典集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static Dictionary<string, object> AnalyzingToDictionary(TypeItem item, string parentName)
+        {
+            switch (item.Type)
+            {
+                case null:
+                    return null;
+                case TypeEnum.Objects:
+                    return AnalyzingToObjectDictionary(item.Data, parentName);
+                case TypeEnum.Array:
+                case TypeEnum.List:
+                    return AnalyzingToCollectionDictionary(item.Data, parentName);
+                default:
+                    return AnalyzingToSingleDictionary(item, parentName);
+            }
+        }
+
+        /// <summary>
+        /// 解析对象到集合字典集合
+        /// </summary>
+        /// <param name="list">集合</param>
+        /// <param name="parentName">父名称</param>
+        private static Dictionary<string, object> AnalyzingToCollectionDictionary(List<TypeItem> list, string parentName)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int count = 0;
+            foreach (TypeItem item in list)
+            {
+                Dictionary<string, object> itemResult = AnalyzingToCollectionDictionary(item, $"{parentName}[{count}]");
+                if (itemResult.IsEmpty())
+                    continue;
+                result.AddRange(itemResult);
+                count += 1;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象到集合字典集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="itemName">项名称</param>
+        private static Dictionary<string, object> AnalyzingToCollectionDictionary(TypeItem item, string itemName)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            switch (item.Type)
+            {
+                case null:
+                case TypeEnum.Dictionary:
+                    return new Dictionary<string, object>();
+                case TypeEnum.Sbyte:
+                case TypeEnum.Byte:
+                case TypeEnum.Short:
+                case TypeEnum.Ushort:
+                case TypeEnum.Int:
+                case TypeEnum.Uint:
+                case TypeEnum.Long:
+                case TypeEnum.Ulong:
+                case TypeEnum.Nint:
+                case TypeEnum.Nuint:
+                case TypeEnum.Float:
+                case TypeEnum.Double:
+                case TypeEnum.Decimal:
+                case TypeEnum.Bool:
+                case TypeEnum.Char:
+                case TypeEnum.String:
+                case TypeEnum.Guid:
+                case TypeEnum.DateTime:
+                case TypeEnum.Enum:
+                    result.Add(itemName, item.Value);
+                    break;
+                case TypeEnum.Objects:
+                    IEnumerable<KeyValuePair<string, object>> objectsResult = AnalyzingToDictionary(item, itemName).Where(t => !t.Value.SafeString().IsEmpty());
+                    result.AddRange(objectsResult);
+                    break;
+                case TypeEnum.Array:
+                case TypeEnum.List:
+                    IEnumerable<KeyValuePair<string, object>> collectionResult = AnalyzingToDictionary(item, itemName).Where(t => !t.Value.SafeString().IsEmpty());
+                    result.AddRange(collectionResult);
+                    break;
+                default:
+                    if (!item.Data.IsEmpty())
+                        if (!item.Data[0].Value.SafeString().IsEmpty())
+                            result.Add(itemName, item.Data[0].Value);
+                    break;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象到对象字典集合
+        /// </summary>
+        /// <param name="list">集合</param>
+        /// <param name="parentName">父名称</param>
+        private static Dictionary<string, object> AnalyzingToObjectDictionary(List<TypeItem> list, string parentName)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            foreach (TypeItem item in list)
+            {
+                TypeItem itemResult = AnalyzingToObjectItem(item, parentName);
+                if (item.Type != TypeEnum.Objects)
+                    result.Add(itemResult.Text, itemResult.Value);
+                if (IsSingleType(item.Type))
+                    continue;
+                Dictionary<string, object> subsets = AnalyzingToDictionary(item, itemResult.Text);
+                result.AddRangeNotNull(subsets);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析对象到对象
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static TypeItem AnalyzingToObjectItem(TypeItem item, string parentName)
+        {
+            string name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
+            return new TypeItem(name, item.Type, item.Value, item.Data);
+        }
+
+        /// <summary>
+        /// 解析对象到单类型字典集合
+        /// </summary>
+        /// <param name="item">项</param>
+        /// <param name="parentName">父名称</param>
+        private static Dictionary<string, object> AnalyzingToSingleDictionary(TypeItem item, string parentName)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            if (item.Value.SafeString().IsEmpty())
+                return result;
+            string name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
+            result.Add(name, item.Value);
+            return result;
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }

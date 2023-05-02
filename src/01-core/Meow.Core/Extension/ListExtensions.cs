@@ -31,19 +31,6 @@ namespace Meow.Extension
         }
 
         /// <summary>
-        /// 将集合连接为带分隔符的字符串
-        /// </summary>
-        /// <typeparam name="TKey">字典键元素类型</typeparam>
-        /// <typeparam name="TValue">字典值元素类型</typeparam>
-        /// <param name="array">集合</param>
-        /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
-        /// <param name="separator">分隔符，默认使用逗号分隔</param>
-        public static string Join<TKey, TValue>(this Dictionary<TKey, TValue> array, string quotes = "", string separator = ",")
-        {
-            return Meow.Helper.List.Join(array, quotes, separator);
-        }
-
-        /// <summary>
         /// 转换为小写字符串集合
         /// </summary>
         /// <param name="array">集合</param>
@@ -152,7 +139,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="array">集合</param>
         /// <param name="value">值</param>
-        public static List<DateTime> AddNotEmpty(List<DateTime> array, DateTime value)
+        public static List<DateTime> AddNotEmpty(this List<DateTime> array, DateTime value)
         {
             return Meow.Helper.List.AddNotEmpty(array, value);
         }
@@ -162,7 +149,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="array">集合</param>
         /// <param name="value">值</param>
-        public static List<DateTime> AddRangeNotEmpty(List<DateTime> array, List<DateTime> value)
+        public static List<DateTime> AddRangeNotEmpty(this List<DateTime> array, List<DateTime> value)
         {
             return Meow.Helper.List.AddRangeNotEmpty(array, value);
         }
@@ -172,7 +159,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="array">集合</param>
         /// <param name="value">值</param>
-        public static List<DateTime?> AddNotEmpty(List<DateTime?> array, DateTime? value)
+        public static List<DateTime?> AddNotEmpty(this List<DateTime?> array, DateTime? value)
         {
             return Meow.Helper.List.AddNotEmpty(array, value);
         }
@@ -182,7 +169,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="array">集合</param>
         /// <param name="value">值</param>
-        public static List<DateTime?> AddRangeNotEmpty(List<DateTime?> array, List<DateTime?> value)
+        public static List<DateTime?> AddRangeNotEmpty(this List<DateTime?> array, List<DateTime?> value)
         {
             return Meow.Helper.List.AddRangeNotEmpty(array, value);
         }
@@ -220,6 +207,27 @@ namespace Meow.Extension
         public static bool IsSequence(this IEnumerable<int> array, int startNo = 1)
         {
             return Meow.Helper.List.IsSequence(array, startNo);
+        }
+
+        /// <summary>
+        /// 值是否相等
+        /// </summary>
+        /// <typeparam name="TSource">集合元素类型</typeparam>
+        /// <typeparam name="TKey">键元素类型</typeparam>
+        /// <param name="array">集合</param>
+        /// <param name="keySelector">选择器</param>
+        public static bool IsEqualsBy<TSource, TKey>(this IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        {
+            return Meow.Helper.List.IsEqualsBy(array, keySelector);
+        }
+
+        /// <summary>
+        /// 值是否相等
+        /// </summary>
+        /// <param name="array">集合</param>
+        public static bool IsEquals<T>(this IEnumerable<T> array)
+        {
+            return Meow.Helper.List.IsEquals(array);
         }
 
         #region Remove  扩展

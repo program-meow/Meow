@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Meow.Extension;
 using SystemExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Helper
@@ -129,7 +130,7 @@ namespace Meow.Helper
             foreach (SystemExpression each in arrayExpression.Expressions)
             {
                 string name = GetName(each);
-                if (Validation.IsEmpty(name) == false)
+                if (!name.IsEmpty())
                     result.Add(name);
             }
             return result;

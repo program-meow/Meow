@@ -99,7 +99,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>        
         public static bool IsNumber(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.Number);
         }
@@ -110,7 +110,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>        
         public static bool IsPhone(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.Phone);
         }
@@ -121,7 +121,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>        
         public static bool IsLandline(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.Landline);
         }
@@ -132,7 +132,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>        
         public static bool IsEmail(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.Email);
         }
@@ -143,7 +143,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsContainsNumber(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.ContainsNumber);
         }
@@ -154,7 +154,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static bool IsContainsCn(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (IsEmpty(value))
                 return false;
             return Regex.IsMatch(value, Meow.Const.RegexPattern.ContainsCn);
         }

@@ -23,9 +23,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static string GetName(this System.Enum instance)
         {
-            if (instance == null)
-                return string.Empty;
-            return Meow.Helper.Enum.GetName(instance.GetType(), instance);
+            return Meow.Helper.Enum.GetName(instance);
         }
 
         /// <summary>
@@ -34,9 +32,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static int? GetValue(this System.Enum instance)
         {
-            if (instance == null)
-                return null;
-            return Meow.Helper.Enum.GetValue(instance.GetType(), instance);
+            return Meow.Helper.Enum.GetValue(instance);
         }
 
         /// <summary>
@@ -46,9 +42,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static TResult GetValue<TResult>(this System.Enum instance)
         {
-            if (instance == null)
-                return default;
-            return Meow.Helper.Convert.To<TResult>(GetValue(instance));
+            return Meow.Helper.Enum.GetValue<TResult>(instance);
         }
 
         /// <summary>
@@ -57,9 +51,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static string GetDescription(this System.Enum instance)
         {
-            if (instance == null)
-                return string.Empty;
-            return Meow.Helper.Enum.GetDescription(instance.GetType(), instance);
+            return Meow.Helper.Enum.GetDescription(instance);
         }
 
         /// <summary>
@@ -68,20 +60,16 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static List<Meow.Model.Item> ToItemsList(this System.Enum instance)
         {
-            if (instance == null)
-                return new List<Meow.Model.Item>();
-            return Meow.Helper.Enum.ToItemsList(instance.GetType());
+            return Meow.Helper.Enum.ToItemsList(instance);
         }
 
         /// <summary>
         /// 获取名称集合
         /// </summary>
         /// <param name="instance">枚举实例</param>
-        public static List<string> GetNames(this System.Enum instance)
+        public static List<string> ToNameList(this System.Enum instance)
         {
-            if (instance == null)
-                return new List<string>();
-            return Meow.Helper.Enum.GetNames(instance.GetType());
+            return Meow.Helper.Enum.ToNameList(instance);
         }
 
         /// <summary>
@@ -90,9 +78,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static Dictionary<int, string> ToDictionary(this System.Enum instance)
         {
-            if (instance == null)
-                return new Dictionary<int, string>();
-            return Meow.Helper.Enum.ToDictionary(instance.GetType());
+            return Meow.Helper.Enum.ToDictionary(instance);
         }
 
         /// <summary>
@@ -101,9 +87,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static List<Meow.Model.IdName<int?>> ToIdNameList(this System.Enum instance)
         {
-            if (instance == null)
-                return new List<Meow.Model.IdName<int?>>();
-            return Meow.Helper.Enum.ToIdNameList(instance.GetType());
+            return Meow.Helper.Enum.ToIdNameList(instance);
         }
 
         /// <summary>
@@ -112,9 +96,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList(this System.Enum instance)
         {
-            if (instance == null)
-                return new List<Meow.Model.IdNameDesc<int?>>();
-            return Meow.Helper.Enum.ToIdNameDescList(instance.GetType());
+            return Meow.Helper.Enum.ToIdNameDescList(instance);
         }
 
         /// <summary>
@@ -123,9 +105,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static Meow.Model.IdName<int?> ToIdName(this System.Enum instance)
         {
-            if (instance == null)
-                return new Meow.Model.IdName<int?>(null, string.Empty);
-            return Meow.Helper.Enum.ToIdName(instance.GetType(), instance);
+            return Meow.Helper.Enum.ToIdName(instance);
         }
 
         /// <summary>
@@ -134,9 +114,7 @@ namespace Meow.Extension
         /// <param name="instance">枚举实例</param>
         public static Meow.Model.IdNameDesc<int?> ToIdNameDesc(this System.Enum instance)
         {
-            if (instance == null)
-                return new Meow.Model.IdNameDesc<int?>(null, string.Empty, string.Empty);
-            return Meow.Helper.Enum.ToIdNameDesc(instance.GetType(), instance);
+            return Meow.Helper.Enum.ToIdNameDesc(instance);
         }
     }
 }

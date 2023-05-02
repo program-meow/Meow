@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -35,7 +36,7 @@ namespace Meow.Helper
         /// </summary>
         public static string Create()
         {
-            return Validation.IsEmpty(_id.Value) ? String.Unique() : _id.Value;
+            return _id.Value.IsEmpty() ? String.Unique() : _id.Value;
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace Meow.Helper
         /// </summary>
         public static Guid CreateGuid()
         {
-            return Validation.IsEmpty(_id.Value) ? System.Guid.NewGuid() : Convert.ToGuid(_id.Value);
+            return _id.Value.IsEmpty() ? System.Guid.NewGuid() : Convert.ToGuid(_id.Value);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -19,7 +20,7 @@ namespace Meow.Helper
         public static TEnum Parse<TEnum>(object member)
         {
             string value = Common.SafeString(member);
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
             {
                 if (typeof(TEnum).IsGenericType)
                     return default(TEnum);
@@ -36,6 +37,17 @@ namespace Meow.Helper
         public static string GetName<TEnum>(object member)
         {
             return GetName(Common.GetType<TEnum>(), member);
+        }
+
+        /// <summary>
+        /// 获取成员名
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static string GetName(System.Enum instance)
+        {
+            if (instance == null)
+                return string.Empty;
+            return GetName(instance.GetType(), instance);
         }
 
         /// <summary>
@@ -67,6 +79,29 @@ namespace Meow.Helper
         }
 
         /// <summary>
+        /// 获取枚举值
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static int? GetValue(System.Enum instance)
+        {
+            if (instance == null)
+                return null;
+            return GetValue(instance.GetType(), instance);
+        }
+
+        /// <summary>
+        /// 获取枚举值
+        /// </summary>
+        /// <typeparam name="TResult">返回值类型</typeparam>
+        /// <param name="instance">枚举实例</param>
+        public static TResult GetValue<TResult>(System.Enum instance)
+        {
+            if (instance == null)
+                return default;
+            return GetValue(instance).To<TResult>();
+        }
+
+        /// <summary>
         /// 获取成员值
         /// </summary>
         /// <param name="type">枚举类型</param>
@@ -74,7 +109,7 @@ namespace Meow.Helper
         public static int? GetValue(System.Type type, object member)
         {
             string value = Common.SafeString(member);
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return null;
             object result = System.Enum.Parse(type, value, true);
             return Convert.To<int?>(result);
@@ -91,6 +126,17 @@ namespace Meow.Helper
         }
 
         /// <summary>
+        /// 获取枚举描述,使用System.ComponentModel.Description特性设置描述
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static string GetDescription(System.Enum instance)
+        {
+            if (instance == null)
+                return string.Empty;
+            return GetDescription(instance.GetType(), instance);
+        }
+
+        /// <summary>
         /// 获取描述,使用System.ComponentModel.Description特性设置描述
         /// </summary>
         /// <param name="type">枚举类型</param>
@@ -104,9 +150,20 @@ namespace Meow.Helper
         /// 获取项集合,文本设置为Description，值为Value
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
-        public static List<Meow.Model.Item> GetItems<TEnum>()
+        public static List<Meow.Model.Item> ToItemsList<TEnum>()
         {
             return ToItemsList(typeof(TEnum));
+        }
+
+        /// <summary>
+        /// 转换项集合,文本设置为Description，值为Value
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static List<Meow.Model.Item> ToItemsList(System.Enum instance)
+        {
+            if (instance == null)
+                return new List<Meow.Model.Item>();
+            return ToItemsList(instance.GetType());
         }
 
         /// <summary>
@@ -140,16 +197,27 @@ namespace Meow.Helper
         /// 获取名称集合
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
-        public static List<string> GetNames<TEnum>()
+        public static List<string> ToNameList<TEnum>()
         {
-            return GetNames(typeof(TEnum));
+            return ToNameList(typeof(TEnum));
+        }
+
+        /// <summary>
+        /// 获取名称集合
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static List<string> ToNameList(System.Enum instance)
+        {
+            if (instance == null)
+                return new List<string>();
+            return ToNameList(instance.GetType());
         }
 
         /// <summary>
         /// 获取名称集合
         /// </summary>
         /// <param name="type">枚举类型</param>
-        public static List<string> GetNames(System.Type type)
+        public static List<string> ToNameList(System.Type type)
         {
             type = Common.GetType(type);
             if (type.IsEnum == false)
@@ -162,6 +230,17 @@ namespace Meow.Helper
                 result.Add(field.Name);
             }
             return result;
+        }
+
+        /// <summary>
+        /// 获取字典,文本设置为Description，Key为Value
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static Dictionary<int, string> ToDictionary(System.Enum instance)
+        {
+            if (instance == null)
+                return new Dictionary<int, string>();
+            return ToDictionary(instance.GetType());
         }
 
         /// <summary>
@@ -190,9 +269,20 @@ namespace Meow.Helper
         /// 获取（标识、名）集合
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
-        public static List<Meow.Model.IdName<int?>> GetIdNameList<TEnum>()
+        public static List<Meow.Model.IdName<int?>> ToIdNameList<TEnum>()
         {
             return ToIdNameList(typeof(TEnum));
+        }
+
+        /// <summary>
+        /// 转换（标识、名）集合
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static List<Meow.Model.IdName<int?>> ToIdNameList(System.Enum instance)
+        {
+            if (instance == null)
+                return new List<Meow.Model.IdName<int?>>();
+            return ToIdNameList(instance.GetType());
         }
 
         /// <summary>
@@ -234,6 +324,17 @@ namespace Meow.Helper
         /// <summary>
         /// 转换（标识、名、描述）集合
         /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList(System.Enum instance)
+        {
+            if (instance == null)
+                return new List<Meow.Model.IdNameDesc<int?>>();
+            return ToIdNameDescList(instance.GetType());
+        }
+
+        /// <summary>
+        /// 转换（标识、名、描述）集合
+        /// </summary>
         /// <param name="type">枚举类型</param>
         public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList(System.Type type)
         {
@@ -262,6 +363,17 @@ namespace Meow.Helper
         /// <summary>
         /// 转换（标识、名）
         /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static Meow.Model.IdName<int?> ToIdName(System.Enum instance)
+        {
+            if (instance == null)
+                return new Meow.Model.IdName<int?>(null, string.Empty);
+            return ToIdName(instance.GetType(), instance);
+        }
+
+        /// <summary>
+        /// 转换（标识、名）
+        /// </summary>
         /// <param name="type">枚举类型</param>
         /// <param name="member">成员名、值、实例均可</param>
         public static Meow.Model.IdName<int?> ToIdName(System.Type type, object member)
@@ -269,6 +381,17 @@ namespace Meow.Helper
             var value = GetValue(type, member);
             var name = GetName(type, member);
             return new Meow.Model.IdName<int?>(value, name);
+        }
+
+        /// <summary>
+        /// 转换（标识、名、描述）
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        public static Meow.Model.IdNameDesc<int?> ToIdNameDesc(System.Enum instance)
+        {
+            if (instance == null)
+                return new Meow.Model.IdNameDesc<int?>(null, string.Empty, string.Empty);
+            return ToIdNameDesc(instance.GetType(), instance);
         }
 
         /// <summary>

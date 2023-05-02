@@ -9,14 +9,7 @@ namespace Meow.Extension
     /// </summary>
     public static class ConvertExtensions
     {
-        /// <summary>
-        /// 转换可空集合
-        /// </summary>
-        /// <param name="array">集合</param>
-        public static List<T?> ToOrNull<T>(this IEnumerable<T> array) where T : struct
-        {
-            return Meow.Helper.Common.ToOrNull(array);
-        }
+        #region To  [通用泛型转换]
 
         /// <summary>
         /// 通用泛型转换
@@ -27,6 +20,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.Convert.To<T>(value);
         }
+
+        #endregion
+
+        #region ToList  [泛型集合转换]
 
         /// <summary>
         /// 通用泛型转换
@@ -49,6 +46,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToList<T>(value, separator);
         }
 
+        #endregion
+
+        #region ToInt & ToIntOrNull  [转换为32位整型&可空整型] 
+
         /// <summary>
         /// 转换为32位整型
         /// </summary>
@@ -66,6 +67,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.Convert.ToIntOrNull(value);
         }
+
+        #endregion
+
+        #region ToFloat & ToFloatOrNull  [转换为32位浮点型 & 可空浮点型]
 
         /// <summary>
         /// 转换为32位浮点型,并按指定小数位舍入
@@ -87,6 +92,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToFloatOrNull(value, digits);
         }
 
+        #endregion
+
+        #region ToDouble & ToDoubleOrNull  [转换为64位浮点型 & 可空浮点型]
+
         /// <summary>
         /// 转换为64位浮点型,并按指定小数位舍入
         /// </summary>
@@ -107,6 +116,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToDoubleOrNull(value, digits);
         }
 
+        #endregion
+
+        #region ToLong & ToLongOrNull  [转换为64位整型 & 可空整型]
+
         /// <summary>
         /// 转换为64位整型
         /// </summary>
@@ -124,6 +137,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.Convert.ToLongOrNull(value);
         }
+
+        #endregion
+
+        #region ToDecimal & ToDecimalOrNull  [转换为128位浮点型 & 可空浮点型] 
 
         /// <summary>
         /// 转换为128位浮点型,并按指定小数位舍入
@@ -145,6 +162,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToDecimalOrNull(value, digits);
         }
 
+        #endregion
+
+        #region ToDateTime & ToDateTimeOrNull  [转换为日期 & 可空日期] 
+
         /// <summary>
         /// 转换为日期
         /// </summary>
@@ -162,6 +183,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.Convert.ToDateTimeOrNull(value);
         }
+
+        #endregion
+
+        #region ToBool & ToBoolOrNull  [转换为布尔值 & 可空布尔值] 
 
         /// <summary>
         /// 转换为布尔值
@@ -181,6 +206,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToBoolOrNull(value);
         }
 
+        #endregion
+
+        #region ToGuid & ToGuidOrNull  [转换为Guid & 可空Guid]
+
         /// <summary>
         /// 转换为Guid
         /// </summary>
@@ -198,6 +227,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.Convert.ToGuidOrNull(value);
         }
+
+        #endregion
+
+        #region ToGuidList  [转换为Guid集合] 
 
         /// <summary>
         /// 转换为Guid集合
@@ -218,6 +251,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToGuidList(array);
         }
 
+        #endregion
+
+        #region ToBytes  [转换为字节数组] 
+
         /// <summary>
         /// 转换为字节数组
         /// </summary>
@@ -237,6 +274,10 @@ namespace Meow.Extension
             return Meow.Helper.Convert.ToBytes(value, encoding);
         }
 
+        #endregion
+
+        #region ToDictionary [对象转换为属性名值对] 
+
         /// <summary>
         /// 对象转换为属性名值对
         /// </summary>
@@ -247,22 +288,15 @@ namespace Meow.Extension
         }
 
         /// <summary>
-        /// 转全角
+        /// 对象转换为属性名值对
         /// </summary>
-        /// <param name="value">值</param>
-        public static string ToSbcCase(this string value)
+        /// <typeparam name="TValue">键值对值元素类型</typeparam>
+        /// <param name="data">对象</param>
+        public static IDictionary<string, TValue> ToDictionary<TValue>(this object data)
         {
-            return Meow.Helper.Convert.ToSbcCase(value);
+            return Meow.Helper.Convert.ToDictionary<TValue>(data);
         }
 
-        /// <summary>
-        /// 转半角
-        /// </summary>
-        /// <param name="value">值</param>
-        public static string ToDbcCase(this string value)
-        {
-            return Meow.Helper.Convert.ToDbcCase(value);
-        }
-
+        #endregion
     }
 }

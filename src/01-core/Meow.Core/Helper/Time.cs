@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Meow.Helper
 {
@@ -610,12 +611,27 @@ namespace Meow.Helper
 
         #endregion
 
+        #region GetTimeSpanBySecond  [秒获取时间差]
 
+        /// <summary>
+        /// 秒获取时间差
+        /// </summary>
+        /// <param name="second">秒</param>
+        public static TimeSpan GetTimeSpanBySecond(int? second)
+        {
+            return GetTimeSpanBySecond(Common.SafeValue(second));
+        }
 
+        /// <summary>
+        /// 秒获取时间差
+        /// </summary>
+        /// <param name="second">秒</param>
+        public static TimeSpan GetTimeSpanBySecond(int second)
+        {
+            return new TimeSpan(0, 0, second);
+        }
 
-
-
-
+        #endregion
 
         #endregion
 

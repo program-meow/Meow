@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -45,7 +46,7 @@ namespace Meow.Helper
         /// <param name="path">文件或目录绝对路径</param>
         public static void CreateDirectory(string path)
         {
-            if (Validation.IsEmpty(path))
+            if (path.IsEmpty())
                 return;
             var file = new FileInfo(path);
             var directoryPath = file.Directory?.FullName;
@@ -157,7 +158,7 @@ namespace Meow.Helper
         /// <param name="content">内容</param>
         public static void Write(string filePath, byte[] content)
         {
-            if (Validation.IsEmpty(filePath))
+            if (filePath.IsEmpty())
                 return;
             if (content == null)
                 return;
@@ -186,7 +187,7 @@ namespace Meow.Helper
         /// <param name="content">内容</param>
         public static async Task WriteAsync(string filePath, byte[] content)
         {
-            if (Validation.IsEmpty(filePath))
+            if (filePath.IsEmpty())
                 return;
             if (content == null)
                 return;
@@ -214,7 +215,7 @@ namespace Meow.Helper
         /// <param name="filePath">文件绝对路径</param>
         public static void Delete(string filePath)
         {
-            if (Validation.IsEmpty(filePath))
+            if (filePath.IsEmpty())
                 return;
             if (System.IO.File.Exists(filePath))
                 System.IO.File.Delete(filePath);

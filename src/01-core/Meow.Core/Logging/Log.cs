@@ -76,7 +76,10 @@ namespace Meow.Logging
 
         #region EventId  [设置日志事件标识]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 设置日志事件标识
+        /// </summary>
+        /// <param name="eventId">日志事件标识</param>
         public virtual ILog EventId(EventId eventId)
         {
             LogEventId = eventId;
@@ -87,7 +90,10 @@ namespace Meow.Logging
 
         #region Exception  [设置异常]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 设置异常
+        /// </summary>
+        /// <param name="exception">异常</param>
         public virtual ILog Exception(Exception exception)
         {
             LogException = exception;
@@ -98,10 +104,14 @@ namespace Meow.Logging
 
         #region Property  [设置自定义扩展属性]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 设置自定义扩展属性
+        /// </summary>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="propertyValue">属性值</param>
         public virtual ILog Property(string propertyName, string propertyValue)
         {
-            if (Meow.Helper.Validation.IsEmail(propertyName))
+            if (propertyName.IsEmpty())
                 return this;
             if (LogProperties.ContainsKey(propertyName))
             {
@@ -116,7 +126,10 @@ namespace Meow.Logging
 
         #region State  [设置日志状态对象]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 设置日志状态对象
+        /// </summary>
+        /// <param name="state">状态对象</param>
         public virtual ILog State(object state)
         {
             LogState = state;
@@ -127,7 +140,11 @@ namespace Meow.Logging
 
         #region Message  [设置日志消息]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 设置日志消息
+        /// </summary>
+        /// <param name="message">日志消息</param>
+        /// <param name="args">日志消息参数</param>
         public virtual ILog Message(string message, params object[] args)
         {
             LogMessage.Append(message);
@@ -139,7 +156,10 @@ namespace Meow.Logging
 
         #region IsEnabled  [是否启用]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        /// <param name="logLevel">日志级别</param>
         public virtual bool IsEnabled(LogLevel logLevel)
         {
             return Logger.IsEnabled(logLevel);
@@ -149,7 +169,11 @@ namespace Meow.Logging
 
         #region BeginScope  [开启日志范围]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 开启日志范围
+        /// </summary>
+        /// <typeparam name="TState">日志状态类型</typeparam>
+        /// <param name="state">日志状态</param>
         public virtual IDisposable BeginScope<TState>(TState state)
         {
             return Logger.BeginScope(state);
@@ -159,7 +183,9 @@ namespace Meow.Logging
 
         #region LogTrace  [写跟踪日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写跟踪日志
+        /// </summary>
         public virtual ILog LogTrace()
         {
             try
@@ -183,7 +209,9 @@ namespace Meow.Logging
 
         #region LogDebug  [写调试日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写调试日志
+        /// </summary>
         public virtual ILog LogDebug()
         {
             try
@@ -207,7 +235,9 @@ namespace Meow.Logging
 
         #region LogInformation  [写信息日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写信息日志
+        /// </summary>
         public virtual ILog LogInformation()
         {
             try
@@ -231,7 +261,9 @@ namespace Meow.Logging
 
         #region LogWarning  [写警告日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写警告日志
+        /// </summary>
         public virtual ILog LogWarning()
         {
             try
@@ -255,7 +287,9 @@ namespace Meow.Logging
 
         #region LogError  [写错误日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写错误日志
+        /// </summary>
         public virtual ILog LogError()
         {
             try
@@ -279,7 +313,9 @@ namespace Meow.Logging
 
         #region LogCritical  [写致命日志]
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 写致命日志
+        /// </summary>
         public virtual ILog LogCritical()
         {
             try
@@ -318,11 +354,11 @@ namespace Meow.Logging
         {
             if (LogState == null)
                 return;
-            var state = Meow.Helper.Convert.ToDictionary(LogState);
+            var state = LogState.ToDictionary();
             foreach (var item in state)
             {
-                var str = Meow.Helper.Common.SafeString(item.Value);
-                if (Meow.Helper.Validation.IsEmpty(str))
+                var str = item.Value.SafeString();
+                if (str.IsEmpty())
                     continue;
                 LogProperties.Add(item);
             }

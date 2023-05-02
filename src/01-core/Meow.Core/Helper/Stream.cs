@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -40,7 +41,7 @@ namespace Meow.Helper
         /// <param name="encoding">字符编码</param>
         public static byte[] ToBytes(string data, Encoding encoding)
         {
-            if (Validation.IsEmpty(data))
+            if (data.IsEmpty())
                 return new byte[] { };
             return encoding.GetBytes(data);
         }
@@ -82,7 +83,7 @@ namespace Meow.Helper
         /// <param name="encoding">字符编码</param>
         public static System.IO.Stream ToStream(string data, Encoding encoding)
         {
-            if (Validation.IsEmpty(data))
+            if (data.IsEmpty())
                 return System.IO.Stream.Null;
             return new MemoryStream(ToBytes(data, encoding));
         }

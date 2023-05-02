@@ -192,9 +192,9 @@ namespace Meow.Extension
         /// 创建等于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Equal<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Equal<T>(this object value, string propertyName)
         {
             return Helper.Expression.Equal<T>(propertyName, value);
         }
@@ -203,9 +203,9 @@ namespace Meow.Extension
         /// 创建不等于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> NotEqual<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> NotEqual<T>(this object value, string propertyName)
         {
             return Helper.Expression.NotEqual<T>(propertyName, value);
 
@@ -215,9 +215,9 @@ namespace Meow.Extension
         /// 创建大于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Greater<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Greater<T>(this object value, string propertyName)
         {
             return Helper.Expression.Greater<T>(propertyName, value);
         }
@@ -226,9 +226,9 @@ namespace Meow.Extension
         /// 创建大于等于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> GreaterEqual<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> GreaterEqual<T>(this object value, string propertyName)
         {
             return Helper.Expression.GreaterEqual<T>(propertyName, value);
         }
@@ -237,9 +237,9 @@ namespace Meow.Extension
         /// 创建小于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Less<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Less<T>(this object value, string propertyName)
         {
             return Helper.Expression.Less<T>(propertyName, value);
         }
@@ -248,9 +248,9 @@ namespace Meow.Extension
         /// 创建小于等于运算lambda表达式
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> LessEqual<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> LessEqual<T>(this object value, string propertyName)
         {
             return Helper.Expression.LessEqual<T>(propertyName, value);
         }
@@ -259,9 +259,9 @@ namespace Meow.Extension
         /// 调用StartsWith方法
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Starts<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Starts<T>(this object value, string propertyName)
         {
             return Helper.Expression.Starts<T>(propertyName, value);
         }
@@ -270,9 +270,9 @@ namespace Meow.Extension
         /// 调用EndsWith方法
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Ends<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Ends<T>(this object value, string propertyName)
         {
             return Helper.Expression.Ends<T>(propertyName, value);
         }
@@ -281,9 +281,9 @@ namespace Meow.Extension
         /// 调用Contains方法
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> Contains<T>(this string propertyName, object value)
+        /// <param name="propertyName">属性名</param>
+        public static System.Linq.Expressions.Expression<Func<T, bool>> Contains<T>(this object value, string propertyName)
         {
             return Helper.Expression.Contains<T>(propertyName, value);
         }
@@ -292,10 +292,10 @@ namespace Meow.Extension
         /// 解析为谓词表达式
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="propertyName">属性名</param>
         /// <param name="value">值</param>
+        /// <param name="propertyName">属性名</param>
         /// <param name="operator">运算符</param>
-        public static System.Linq.Expressions.Expression<Func<T, bool>> ParsePredicate<T>(this string propertyName, object value, Meow.Math.Operator @operator)
+        public static System.Linq.Expressions.Expression<Func<T, bool>> ParsePredicate<T>(this object value, string propertyName, Meow.Math.Operator @operator)
         {
             return Helper.Expression.ParsePredicate<T>(propertyName, value, @operator);
         }

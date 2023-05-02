@@ -140,9 +140,19 @@ namespace Meow.Type
         [Description("objects")]
         Objects = 20,
         /// <summary>
+        /// array
+        /// </summary>
+        [Description("array")]
+        Array = 21,
+        /// <summary>
+        /// dictionary
+        /// </summary>
+        [Description("dictionary")]
+        Dictionary = 22,
+        /// <summary>
         /// list
         /// </summary>
         [Description("list")]
-        List = 21,
+        List = 23,
     }
 }

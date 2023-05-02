@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -19,7 +20,7 @@ namespace Meow.Helper
         public static Dictionary<string, string> GetValues(string value, string pattern, string[] resultPatterns, RegexOptions options = RegexOptions.IgnoreCase)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return result;
             Match match = System.Text.RegularExpressions.Regex.Match(value, pattern, options);
             if (match.Success == false)
@@ -51,12 +52,12 @@ namespace Meow.Helper
         /// <param name="options">选项</param>
         public static string GetValue(string value, string pattern, string resultPattern = "", RegexOptions options = RegexOptions.IgnoreCase)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             Match match = System.Text.RegularExpressions.Regex.Match(value, pattern, options);
             if (match.Success == false)
                 return string.Empty;
-            return Validation.IsEmpty(resultPattern) ? match.Value : match.Result(resultPattern);
+            return resultPattern.IsEmpty() ? match.Value : match.Result(resultPattern);
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Meow.Helper
         /// <param name="options">选项</param>
         public static string[] Split(string value, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return new string[] { };
             return System.Text.RegularExpressions.Regex.Split(value, pattern, options);
         }
@@ -81,7 +82,7 @@ namespace Meow.Helper
         /// <param name="options">选项</param>
         public static string Replace(string value, string pattern, string replacement, RegexOptions options = RegexOptions.IgnoreCase)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             return System.Text.RegularExpressions.Regex.Replace(value, pattern, replacement, options);
         }

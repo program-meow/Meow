@@ -35,7 +35,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="guid">Guid值</param>
-        public static string ToEncodeByBase36(Guid? guid)
+        public static string ToEncodeByBase36(this Guid? guid)
         {
             return Meow.Helper.EncodeByBase36.Encode(guid);
         }
@@ -44,7 +44,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="guid">Guid值</param>
-        public static string ToEncodeByBase36(Guid guid)
+        public static string ToEncodeByBase36(this Guid guid)
         {
             return Meow.Helper.EncodeByBase36.Encode(guid);
         }
@@ -53,7 +53,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="value">值</param>
-        public static string ToEncodeByBase36(string value)
+        public static string ToEncodeByBase36(this string value)
         {
             return Meow.Helper.EncodeByBase36.Encode(value);
         }
@@ -62,7 +62,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="num">长整型值</param>
-        public static string ToEncodeByBase36(long? num)
+        public static string ToEncodeByBase36(this long? num)
         {
             return Meow.Helper.EncodeByBase36.Encode(num);
         }
@@ -71,7 +71,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="num">长整型值</param>
-        public static string ToEncodeByBase36(long num)
+        public static string ToEncodeByBase36(this long num)
         {
             return Meow.Helper.EncodeByBase36.Encode(num);
         }
@@ -80,7 +80,7 @@ namespace Meow.Extension
         /// 解码成字符串
         /// </summary>
         /// <param name="value">值</param>
-        public static string ToDecodeToStringByBase36(string value)
+        public static string ToDecodeToStringByBase36(this string value)
         {
             return Meow.Helper.EncodeByBase36.DecodeToString(value);
         }
@@ -89,7 +89,7 @@ namespace Meow.Extension
         /// 解码成Guid
         /// </summary>
         /// <param name="value">值</param>
-        public static Guid? ToDecodeToGuidByBase36(string value)
+        public static Guid? ToDecodeToGuidByBase36(this string value)
         {
             return Meow.Helper.EncodeByBase36.DecodeToGuid(value);
         }
@@ -98,7 +98,7 @@ namespace Meow.Extension
         /// 解码成长整型
         /// </summary>
         /// <param name="value">值</param>
-        public static long? ToDecodeToLongByBase36(string value)
+        public static long? ToDecodeToLongByBase36(this string value)
         {
             return Meow.Helper.EncodeByBase36.DecodeToLong(value);
         }
@@ -111,7 +111,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="guid">Guid值</param>
-        public static string ToEncodeByBase62(Guid? guid)
+        public static string ToEncodeByBase62(this Guid? guid)
         {
             return Meow.Helper.EncodeByBase62.Encode(guid);
         }
@@ -120,7 +120,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="guid">Guid值</param>
-        public static string ToEncodeByBase62(Guid guid)
+        public static string ToEncodeByBase62(this Guid guid)
         {
             return Meow.Helper.EncodeByBase62.Encode(guid);
         }
@@ -129,7 +129,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="value">值</param>
-        public static string ToEncodeByBase62(string value)
+        public static string ToEncodeByBase62(this string value)
         {
             return Meow.Helper.EncodeByBase62.Encode(value);
         }
@@ -138,7 +138,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="num">长整型值</param>
-        public static string ToEncodeByBase62(long? num)
+        public static string ToEncodeByBase62(this long? num)
         {
             return Meow.Helper.EncodeByBase62.Encode(num);
         }
@@ -147,7 +147,7 @@ namespace Meow.Extension
         /// 编码
         /// </summary>
         /// <param name="num">长整型值</param>
-        public static string ToEncodeByBase62(long num)
+        public static string ToEncodeByBase62(this long num)
         {
             return Meow.Helper.EncodeByBase62.Encode(num);
         }
@@ -156,7 +156,7 @@ namespace Meow.Extension
         /// 解码成字符串
         /// </summary>
         /// <param name="value">值</param>
-        public static string ToDecodeToStringByBase62(string value)
+        public static string ToDecodeToStringByBase62(this string value)
         {
             return Meow.Helper.EncodeByBase62.DecodeToString(value);
         }
@@ -165,7 +165,7 @@ namespace Meow.Extension
         /// 解码成Guid
         /// </summary>
         /// <param name="value">值</param>
-        public static Guid? ToDecodeToGuidByBase62(string value)
+        public static Guid? ToDecodeToGuidByBase62(this string value)
         {
             return Meow.Helper.EncodeByBase62.DecodeToGuid(value);
         }
@@ -174,7 +174,7 @@ namespace Meow.Extension
         /// 解码成长整型
         /// </summary>
         /// <param name="value">值</param>
-        public static long? ToDecodeToLongByBase62(string value)
+        public static long? ToDecodeToLongByBase62(this string value)
         {
             return Meow.Helper.EncodeByBase62.DecodeToLong(value);
         }
@@ -191,7 +191,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="value">要编码的字符串</param>
         /// <returns>Base 64 Url 的 UTF8 字节编码</returns>
-        public static string ToEncodeByBase64Url(string value)
+        public static string ToEncodeByBase64Url(this string value)
         {
             return Meow.Helper.EncodeByBase64Url.Encode(value);
         }
@@ -204,7 +204,7 @@ namespace Meow.Extension
         /// <param name="length">inArray 中的偏移量</param>
         /// <param name="offset">要转换的 inArray 元素的数量</param>
         /// <returns>inArray 的长度元素的 base64 url编码的字符串表示形式，从位置偏移开始</returns>
-        public static string ToEncodeByBase64Url(byte[] inArray, int offset, int length)
+        public static string ToEncodeByBase64Url(this byte[] inArray, int offset, int length)
         {
             return Meow.Helper.EncodeByBase64Url.Encode(inArray, offset, length);
         }
@@ -215,7 +215,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="inArray">由8位无符号整数组成的数组</param>
         /// <returns>inArray 的长度元素的64进制 url 编码的字符串表示形式，从位置偏移开始</returns>
-        public static string ToEncodeByBase64Url(byte[] inArray)
+        public static string ToEncodeByBase64Url(this byte[] inArray)
         {
             return Meow.Helper.EncodeByBase64Url.Encode(inArray);
         }
@@ -225,7 +225,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="value">base64Url 编码字符串</param>
         /// <returns>UTF8 bytes</returns>
-        public static byte[] ToDecodeToBytesByBase64Url(string value)
+        public static byte[] ToDecodeToBytesByBase64Url(this string value)
         {
             return Meow.Helper.EncodeByBase64Url.DecodeToBytes(value);
         }
@@ -235,7 +235,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="value">要解码的字符串</param>
         /// <returns>UTF8 字符串</returns>
-        public static string ToDecodeByBase64Url(string value)
+        public static string ToDecodeByBase64Url(this string value)
         {
             return Meow.Helper.EncodeByBase64Url.Decode(value);
         }

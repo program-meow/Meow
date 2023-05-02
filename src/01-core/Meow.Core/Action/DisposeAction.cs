@@ -1,4 +1,5 @@
 ﻿using System;
+using Meow.Extension;
 
 namespace Meow.Action
 {
@@ -18,7 +19,7 @@ namespace Meow.Action
         /// <param name="action">操作</param>
         public DisposeAction(System.Action action)
         {
-            Meow.Helper.Validation.CheckNull(action, nameof(action));
+            action.CheckNull(nameof(action));
             _action = action;
         }
 

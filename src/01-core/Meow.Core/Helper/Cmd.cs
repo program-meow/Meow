@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -15,7 +16,7 @@ namespace Meow.Helper
         public static string Run(string command)
         {
             string result = string.Empty;
-            if (Validation.IsEmpty(command))
+            if (command.IsEmpty())
                 return result;
             ProcessStartInfo startInfo = new ProcessStartInfo("cmd", "/c " + command)
             {

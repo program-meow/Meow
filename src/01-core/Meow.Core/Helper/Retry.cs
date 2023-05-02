@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
 using System;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -20,7 +21,7 @@ namespace Meow.Helper
         /// <param name="delayFunc">延迟函数</param>
         public static bool TryInvoke(System.Action action, int maxRetryTimes = 3, Action<int, TimeSpan, Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
         {
-            Meow.Helper.Validation.CheckNull(action, nameof(action));
+            action.CheckNull(nameof(action));
             int time = 0;
             do
             {
@@ -50,7 +51,7 @@ namespace Meow.Helper
         /// <param name="delayFunc">延迟函数</param>
         public static bool TryInvoke(Func<bool> func, int maxRetryTimes = 3, Action<int, TimeSpan, Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
         {
-            Meow.Helper.Validation.CheckNull(func, nameof(func));
+            func.CheckNull(nameof(func));
 
             bool result = false;
             int time = 0;
@@ -244,7 +245,7 @@ namespace Meow.Helper
         /// <param name="cancellationToken">取消token</param>
         public static async Task<bool> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null, CancellationToken cancellationToken = default)
         {
-            Meow.Helper.Validation.CheckNull(action, nameof(action));
+            action.CheckNull(nameof(action));
             int time = 0;
             do
             {
@@ -275,7 +276,7 @@ namespace Meow.Helper
         /// <param name="cancellationToken">取消token</param>
         public static async Task<bool> TryInvokeAsync(Func<Task<bool>> func, int maxRetryTimes = 3, Action<int, TimeSpan, Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null, CancellationToken cancellationToken = default)
         {
-            Meow.Helper.Validation.CheckNull(func, nameof(func));
+            func.CheckNull(nameof(func));
             bool result = false;
             int time = 0;
             Exception exception = default(Exception);

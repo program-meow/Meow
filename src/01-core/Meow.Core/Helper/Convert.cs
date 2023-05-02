@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -24,22 +25,22 @@ namespace Meow.Helper
         {
             if (value == null)
                 return default;
-            if (value is string && Validation.IsEmpty(Common.SafeString(value)))
+            if (value is string && value.SafeString().IsEmpty())
                 return default;
-            System.Type type = Common.GetType<T>();
+            System.Type type = Meow.Helper.Common.GetType<T>();
             string typeName = type.Name.ToUpperInvariant();
             try
             {
                 if (typeName == Meow.Type.TypeName.String.ToLower() || typeName == Meow.Type.TypeName.Guid.ToLower())
-                    return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(Common.SafeString(value));
+                    return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(value.SafeString());
                 if (type.IsEnum)
-                    return Enum.Parse<T>(value);
+                    return Meow.Helper.Enum.Parse<T>(value);
                 if (value is IConvertible)
                     return (T)System.Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
                 if (value is JsonElement element)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    return Json.ToObject<T>(element.GetRawText(), options);
+                    return element.GetRawText().ToJsonObject<T>(options);
                 }
                 return (T)value;
             }
@@ -61,7 +62,7 @@ namespace Meow.Helper
         public static List<T> ToList<T>(IEnumerable<object> array)
         {
             List<T> result = new List<T>();
-            if (Validation.IsEmpty(array))
+            if (array.IsEmpty())
                 return result;
             result.AddRange(array.Select(To<T>));
             return result;
@@ -76,16 +77,16 @@ namespace Meow.Helper
         public static List<T> ToList<T>(string value, string separator = ",")
         {
             List<T> result = new List<T>();
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return result;
             string[] array = value.Split(separator);
-            result.AddRange(from each in array where !Validation.IsEmpty(each) select To<T>(each));
+            result.AddRange(from each in array where !each.IsEmpty() select To<T>(each));
             return result;
         }
 
         #endregion
 
-        #region ToInt  [转换为32位整型]
+        #region ToInt & ToIntOrNull  [转换为32位整型 & 可空整型]
 
         /// <summary>
         /// 转换为32位整型
@@ -96,17 +97,13 @@ namespace Meow.Helper
             return ToIntOrNull(value) ?? 0;
         }
 
-        #endregion
-
-        #region ToIntOrNull  [转换为32位可空整型]
-
         /// <summary>
         /// 转换为32位可空整型
         /// </summary>
         /// <param name="value">值</param>
         public static int? ToIntOrNull(object value)
         {
-            bool success = int.TryParse(Common.SafeString(value), out int result);
+            bool success = int.TryParse(value.SafeString(), out int result);
             if (success)
                 return result;
             try
@@ -124,7 +121,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToFloat  [转换为32位浮点型]
+        #region ToFloat & ToFloatOrNull  [转换为32位浮点型 & 可空浮点型]
 
         /// <summary>
         /// 转换为32位浮点型,并按指定小数位舍入
@@ -136,10 +133,6 @@ namespace Meow.Helper
             return ToFloatOrNull(value, digits) ?? 0;
         }
 
-        #endregion
-
-        #region ToFloatOrNull  [转换为32位可空浮点型]
-
         /// <summary>
         /// 转换为32位可空浮点型,并按指定小数位舍入
         /// </summary>
@@ -147,7 +140,7 @@ namespace Meow.Helper
         /// <param name="digits">小数位数</param>
         public static float? ToFloatOrNull(object value, int? digits = null)
         {
-            bool success = float.TryParse(Common.SafeString(value), out Single result);
+            bool success = float.TryParse(value.SafeString(), out Single result);
             if (!success)
                 return null;
             if (digits == null)
@@ -157,7 +150,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToDouble  [转换为64位浮点型]
+        #region ToDouble & ToDoubleOrNull  [转换为64位浮点型 & 可空浮点型]
 
         /// <summary>
         /// 转换为64位浮点型,并按指定小数位舍入
@@ -169,10 +162,6 @@ namespace Meow.Helper
             return ToDoubleOrNull(value, digits) ?? 0;
         }
 
-        #endregion
-
-        #region ToDoubleOrNull  [转换为64位可空浮点型]
-
         /// <summary>
         /// 转换为64位可空浮点型,并按指定小数位舍入
         /// </summary>
@@ -180,7 +169,7 @@ namespace Meow.Helper
         /// <param name="digits">小数位数</param>
         public static double? ToDoubleOrNull(object value, int? digits = null)
         {
-            bool success = double.TryParse(Common.SafeString(value), out double result);
+            bool success = double.TryParse(value.SafeString(), out double result);
             if (!success)
                 return null;
             if (digits == null)
@@ -190,7 +179,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToLong  [转换为64位整型]
+        #region ToLong & ToLongOrNull  [转换为64位整型 & 可空整型]
 
         /// <summary>
         /// 转换为64位整型
@@ -201,17 +190,13 @@ namespace Meow.Helper
             return ToLongOrNull(value) ?? 0;
         }
 
-        #endregion
-
-        #region ToLongOrNull  [转换为64位可空整型]
-
         /// <summary>
         /// 转换为64位可空整型
         /// </summary>
         /// <param name="value">值</param>
         public static long? ToLongOrNull(object value)
         {
-            bool success = long.TryParse(Common.SafeString(value), out long result);
+            bool success = long.TryParse(value.SafeString(), out long result);
             if (success)
                 return result;
             try
@@ -229,7 +214,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToDecimal  [转换为128位浮点型]
+        #region ToDecimal & ToDecimalOrNull  [转换为128位浮点型 & 可空浮点型]
 
         /// <summary>
         /// 转换为128位浮点型,并按指定小数位舍入
@@ -241,10 +226,6 @@ namespace Meow.Helper
             return ToDecimalOrNull(value, digits) ?? 0;
         }
 
-        #endregion
-
-        #region ToDecimalOrNull  [转换为128位可空浮点型]
-
         /// <summary>
         /// 转换为128位可空浮点型,并按指定小数位舍入
         /// </summary>
@@ -252,7 +233,7 @@ namespace Meow.Helper
         /// <param name="digits">小数位数</param>
         public static decimal? ToDecimalOrNull(object value, int? digits = null)
         {
-            bool success = decimal.TryParse(Common.SafeString(value), out decimal result);
+            bool success = decimal.TryParse(value.SafeString(), out decimal result);
             if (!success)
                 return null;
             if (digits == null)
@@ -262,7 +243,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToDateTime  [转换为日期]
+        #region ToDateTime & ToDateTimeOrNull  [转换为日期 & 可空日期]
 
         /// <summary>
         /// 转换为日期
@@ -273,17 +254,13 @@ namespace Meow.Helper
             return ToDateTimeOrNull(value) ?? DateTime.MinValue;
         }
 
-        #endregion
-
-        #region ToDateTimeOrNull  [转换为可空日期]
-
         /// <summary>
         /// 转换为可空日期
         /// </summary>
         /// <param name="value">值</param>
         public static DateTime? ToDateTimeOrNull(object value)
         {
-            bool success = DateTime.TryParse(Common.SafeString(value), out DateTime result);
+            bool success = DateTime.TryParse(value.SafeString(), out DateTime result);
             if (success == false)
                 return null;
             return result;
@@ -291,7 +268,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToBool  [转换为布尔值]
+        #region ToBool & ToBoolOrNull  [转换为布尔值 & 可空布尔值]
 
         /// <summary>
         /// 转换为布尔值
@@ -302,17 +279,13 @@ namespace Meow.Helper
             return ToBoolOrNull(value) ?? false;
         }
 
-        #endregion
-
-        #region ToBoolOrNull  [转换为可空布尔值]
-
         /// <summary>
         /// 转换为可空布尔值
         /// </summary>
         /// <param name="value">输入值</param>
         public static bool? ToBoolOrNull(object value)
         {
-            string strValue = Common.SafeString(value);
+            string strValue = value.SafeString();
             switch (strValue)
             {
                 case "1":
@@ -325,7 +298,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToGuid  [转换为Guid]
+        #region ToGuid & ToGuidOrNull  [转换为Guid & 可空Guid]
 
         /// <summary>
         /// 转换为Guid
@@ -336,17 +309,13 @@ namespace Meow.Helper
             return ToGuidOrNull(value) ?? Guid.Empty;
         }
 
-        #endregion
-
-        #region ToGuidOrNull  [转换为可空Guid]
-
         /// <summary>
         /// 转换为可空Guid
         /// </summary>
         /// <param name="value">值</param>
         public static Guid? ToGuidOrNull(object value)
         {
-            return Guid.TryParse(Common.SafeString(value), out Guid result) ? result : null;
+            return Guid.TryParse(value.SafeString(), out Guid result) ? result : null;
         }
 
         #endregion
@@ -394,7 +363,7 @@ namespace Meow.Helper
         /// <param name="encoding">字符编码</param>
         public static byte[] ToBytes(string value, Encoding encoding)
         {
-            return Validation.IsEmpty(value) ? new byte[] { } : encoding.GetBytes(value);
+            return value.IsEmpty() ? new byte[] { } : encoding.GetBytes(value);
         }
 
         #endregion
@@ -420,50 +389,23 @@ namespace Meow.Helper
             return result;
         }
 
-        #endregion
-
-        #region 全角 & 半角
-
         /// <summary>
-        /// 转全角(SBC case)
+        /// 对象转换为属性名值对
         /// </summary>
-        /// <param name="value">值</param>
-        public static string ToSbcCase(string value)
+        /// <typeparam name="TValue">值元素类型</typeparam>
+        /// <param name="data">对象</param>
+        public static IDictionary<string, TValue> ToDictionary<TValue>(object data)
         {
-            char[] c = value.ToCharArray();
-            for (int i = 0; i < c.Length; i++)
-            {
-                if (c[i] == 32)
-                {
-                    c[i] = (char)12288;
-                    continue;
-                }
-                if (c[i] < 127)
-                    c[i] = (char)(c[i] + 65248);
-            }
-            return new string(c);
-        }
-
-        /// <summary>
-        /// 转半角
-        /// </summary>
-        /// <param name="value">值</param>
-        public static string ToDbcCase(string value)
-        {
-            char[] c = value.ToCharArray();
-            for (int i = 0; i < c.Length; i++)
-            {
-                if (c[i] == 12288)
-                {
-                    c[i] = (char)32;
-                    continue;
-                }
-                if (c[i] > 65280 && c[i] < 65375)
-                    c[i] = (char)(c[i] - 65248);
-            }
-            return new string(c);
+            var result = new Dictionary<string, TValue>();
+            var dictionary = ToDictionary(data);
+            if (dictionary.IsEmpty())
+                return result;
+            foreach (var each in dictionary)
+                result.Add(each.Key, To<TValue>(each.Value));
+            return result;
         }
 
         #endregion
+
     }
 }

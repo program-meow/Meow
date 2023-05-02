@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -22,7 +23,7 @@ namespace Meow.Helper
         /// <param name="guid">Guid值</param>
         public static string Encode(Guid? guid)
         {
-            if (Validation.IsEmpty(guid))
+            if (guid.IsEmpty())
                 return string.Empty;
             return Encode(Common.SafeValue(guid));
         }
@@ -47,7 +48,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static string Encode(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             byte[] bytes = Encoding.ASCII.GetBytes(value.ToUpper());
             if (BitConverter.IsLittleEndian)
@@ -87,7 +88,7 @@ namespace Meow.Helper
         private static string Encode(byte[] bytes)
         {
             string result = string.Empty;
-            if (Validation.IsEmpty(bytes))
+            if (bytes.IsEmpty())
                 return result;
             BigInteger bi = new BigInteger(bytes);
             do
@@ -104,7 +105,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static string DecodeToString(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             byte[] bytes = Decode(value);
             if (BitConverter.IsLittleEndian)
@@ -118,7 +119,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static Guid? DecodeToGuid(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return null;
             List<byte> bytes = Decode(value).ToList();
             if (bytes.Count > 16)
@@ -139,7 +140,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static long? DecodeToLong(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return null;
             List<byte> bytes = Decode(value).ToList();
             if (bytes.Count > 8)
@@ -160,7 +161,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         private static byte[] Decode(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return Array.Empty<byte>();
             BigInteger result = new BigInteger(0);
             int len = value.Length;

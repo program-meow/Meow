@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -25,7 +26,7 @@ namespace Meow.Helper
         /// <returns>Base 64 Url 的 UTF8 字节编码</returns>
         public static string Encode(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             byte[] inArray = Encoding.UTF8.GetBytes(value);
             return Encode(inArray);
@@ -41,7 +42,7 @@ namespace Meow.Helper
         /// <returns>inArray 的长度元素的 base64 url编码的字符串表示形式，从位置偏移开始</returns>
         public static string Encode(byte[] inArray, int offset, int length)
         {
-            if (Validation.IsEmpty(inArray))
+            if (inArray.IsEmpty())
                 return string.Empty;
             return System.Convert.ToBase64String(inArray, offset, length)
                 .Split(Base64PadCharacter)[0]
@@ -57,7 +58,7 @@ namespace Meow.Helper
         /// <returns>inArray 的长度元素的64进制 url 编码的字符串表示形式，从位置偏移开始</returns>
         public static string Encode(byte[] inArray)
         {
-            if (Validation.IsEmpty(inArray))
+            if (inArray.IsEmpty())
                 return string.Empty;
             return System.Convert.ToBase64String(inArray, 0, inArray.Length)
                 .Split(Base64PadCharacter)[0]
@@ -72,7 +73,7 @@ namespace Meow.Helper
         /// <returns>UTF8 bytes</returns>
         public static byte[] DecodeToBytes(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return Array.Empty<byte>();
             value = value.Replace(Base64UrlCharacter62, Base64Character62);
             value = value.Replace(Base64UrlCharacter63, Base64Character63);
@@ -98,7 +99,7 @@ namespace Meow.Helper
         /// <returns>UTF8 字符串</returns>
         public static string Decode(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             return Encoding.UTF8.GetString(DecodeToBytes(value));
         }

@@ -1,6 +1,11 @@
 /.vs
+/output
 
+/src/01-core/Meow.Core/bin
+/src/01-core/Meow.Core/obj
 
+/test/00-common/Meow.Common.Test/bin
+/test/00-common/Meow.Common.Test/obj
 
-/04-output
-
+/test/01-core/Meow.Core.Test/bin
+/test/01-core/Meow.Core.Test/obj

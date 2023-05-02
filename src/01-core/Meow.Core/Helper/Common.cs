@@ -96,5 +96,18 @@ namespace Meow.Helper
             return Nullable.GetUnderlyingType(type) ?? type;
         }
 
+        /// <summary>
+        /// 不为null及赋值
+        /// </summary>
+        /// <param name="target">目标值</param>
+        /// <param name="value">空值</param>
+        public static T AssignNotNull<T>(T target, T value) where T : class
+        {
+            if (value == null)
+                return target;
+            target = value;
+            return target;
+        }
+
     }
 }

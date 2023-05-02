@@ -200,7 +200,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="firstTime">第一个日期参数</param>
         /// <param name="secondTime">第二个日期参数</param>
-        public static int GetDiffDays(DateTime? firstTime, DateTime? secondTime)
+        public static int GetDiffDays(this DateTime? firstTime, DateTime? secondTime)
         {
             return Meow.Helper.Time.GetDiffDays(firstTime, secondTime);
         }
@@ -210,7 +210,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="firstTime">第一个日期参数</param>
         /// <param name="secondTime">第二个日期参数</param>
-        public static int GetDiffDays(DateTime firstTime, DateTime secondTime)
+        public static int GetDiffDays(this DateTime firstTime, DateTime secondTime)
         {
             return Meow.Helper.Time.GetDiffDays(firstTime, secondTime);
         }
@@ -224,7 +224,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="firstTime">第一个日期参数</param>
         /// <param name="secondTime">第二个日期参数</param>
-        public static int GetDiffHours(DateTime? firstTime, DateTime? secondTime)
+        public static int GetDiffHours(this DateTime? firstTime, DateTime? secondTime)
         {
             return Meow.Helper.Time.GetDiffHours(firstTime, secondTime);
         }
@@ -234,7 +234,7 @@ namespace Meow.Extension
         /// </summary>
         /// <param name="firstTime">第一个日期参数</param>
         /// <param name="secondTime">第二个日期参数</param>
-        public static int GetDiffHours(DateTime firstTime, DateTime secondTime)
+        public static int GetDiffHours(this DateTime firstTime, DateTime secondTime)
         {
             return Meow.Helper.Time.GetDiffHours(firstTime, secondTime);
         }
@@ -372,9 +372,31 @@ namespace Meow.Extension
         /// <param name="date">日期</param>
         /// <param name="firstDate">周开始日期</param>
         /// <param name="lastDate">周结束日期</param>
-        public static void GetWeekRangeByCn(DateTime date, out DateTime firstDate, out DateTime lastDate)
+        public static void GetWeekRangeByCn(this DateTime date, out DateTime firstDate, out DateTime lastDate)
         {
             Meow.Helper.Time.GetWeekRangeByCn(date, out firstDate, out lastDate);
+        }
+
+        #endregion
+
+        #region GetTimeSpanBySecond  [秒获取时间差]
+
+        /// <summary>
+        /// 秒获取时间差
+        /// </summary>
+        /// <param name="second">秒</param>
+        public static TimeSpan GetTimeSpanBySecond(this int? second)
+        {
+            return Meow.Helper.Time.GetTimeSpanBySecond(second);
+        }
+
+        /// <summary>
+        /// 秒获取时间差
+        /// </summary>
+        /// <param name="second">秒</param>
+        public static TimeSpan GetTimeSpanBySecond(this int second)
+        {
+            return Meow.Helper.Time.GetTimeSpanBySecond(second);
         }
 
         #endregion

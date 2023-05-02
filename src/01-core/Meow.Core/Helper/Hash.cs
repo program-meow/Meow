@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -56,9 +57,9 @@ namespace Meow.Helper
         /// <returns>哈希算法处理之后的字符串</returns>
         public static string ToString(HashType type, string str, string key, Encoding encoding, bool isLower = false)
         {
-            if (Validation.IsEmpty(str))
+            if (str.IsEmpty())
                 return string.Empty;
-            return ToString(type, encoding.GetBytes(str), Validation.IsEmpty(key)
+            return ToString(type, encoding.GetBytes(str), key.IsEmpty()
                     ? null
                     : encoding.GetBytes(key!), isLower);
         }
@@ -90,7 +91,7 @@ namespace Meow.Helper
         /// <returns>哈希算法处理之后的字符串</returns>
         public static string ToString(HashType type, byte[] source, byte[] key, bool isLower = false)
         {
-            if (Validation.IsEmpty(source))
+            if (source.IsEmpty())
                 return string.Empty;
             byte[] hashedBytes = ToBytes(type, source, key);
             StringBuilder sbText = new StringBuilder();
@@ -124,7 +125,7 @@ namespace Meow.Helper
         /// <returns>hash过的字节数组</returns>
         public static byte[] ToBytes(HashType type, string str, Encoding encoding)
         {
-            if (Validation.IsEmpty(str))
+            if (str.IsEmpty())
                 return Array.Empty<byte>();
             byte[] bytes = encoding.GetBytes(str);
             return ToBytes(type, bytes);
@@ -147,7 +148,7 @@ namespace Meow.Helper
         /// <returns></returns>
         public static byte[] ToBytes(HashType type, byte[] bytes, byte[] key)
         {
-            if (Validation.IsEmpty(bytes))
+            if (bytes.IsEmpty())
                 return Array.Empty<byte>();
             HashAlgorithm algorithm = null;
             try

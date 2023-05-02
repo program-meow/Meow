@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -143,7 +144,7 @@ namespace Meow.Helper
         /// </summary>
         private ProcessStartInfo CreateProcessStartInfo()
         {
-            if (Validation.IsEmpty(_command))
+            if (_command.IsEmpty())
                 throw new ArgumentException("命令未设置");
             return new ProcessStartInfo(_command, _arguments)
             {

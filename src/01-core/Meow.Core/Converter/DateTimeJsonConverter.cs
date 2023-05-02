@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Meow.Extension;
 
 namespace Meow.Converter
 {
@@ -36,9 +37,9 @@ namespace Meow.Converter
         public override DateTime Read(ref Utf8JsonReader reader, System.Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.String)
-                return Meow.Helper.Time.ToLocalTime(Meow.Helper.Convert.ToDateTime(reader.GetString()));
+                return reader.GetString().SafeString().ToDateTime().ToLocalTime();
             if (reader.TryGetDateTime(out var date))
-                return Meow.Helper.Time.ToLocalTime(date);
+                return date.ToLocalTime();
             return DateTime.MinValue;
         }
 
@@ -47,7 +48,7 @@ namespace Meow.Converter
         /// </summary>
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            string date = Meow.Helper.Time.ToLocalTime(value).ToString(_format);
+            string date = value.ToLocalTime().ToString(_format);
             writer.WriteStringValue(date);
         }
     }

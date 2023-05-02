@@ -168,6 +168,22 @@ namespace Meow.Extension
 
         #endregion
 
+        /// <summary>
+        /// 转全角
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string ToSbcCase(this string value)
+        {
+            return Meow.Helper.String.ToSbcCase(value);
+        }
 
+        /// <summary>
+        /// 转半角
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string ToDbcCase(this string value)
+        {
+            return Meow.Helper.String.ToDbcCase(value);
+        }
     }
 }

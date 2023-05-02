@@ -3,6 +3,7 @@ using System.Buffers;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -41,7 +42,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static string FirstUpperCase(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return Empty;
             OperationStatus result = Rune.DecodeFromUtf16(value, out Rune rune, out int charsConsumed);
             if (result != OperationStatus.Done || Rune.IsUpper(rune))
@@ -59,7 +60,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static string FirstLowerCase(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return Empty;
             OperationStatus result = Rune.DecodeFromUtf16(value, out Rune rune, out int charsConsumed);
             if (result != OperationStatus.Done || Rune.IsLower(rune))
@@ -194,7 +195,7 @@ namespace Meow.Helper
         /// <returns>截断字符串</returns>
         public static string Truncate(string value, int length, int endCharCount = 0, string endChar = ".")
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return String.Empty;
             if (value.Length < length)
                 return value;
@@ -218,7 +219,7 @@ namespace Meow.Helper
         /// <returns>复制好的字符串</returns>
         public static string Copy(string value, int count)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return String.Empty;
             if (count <= 1)
                 return value;
@@ -329,7 +330,7 @@ namespace Meow.Helper
         /// <param name="basedOnLeft">当长度异常时，是否显示左边 ，true显示左边，false显示右边 </param>
         public static string HideSensitiveInfo(string info, int left, int right, int placeholderCount = 4, char placeholder = '*', bool basedOnLeft = true)
         {
-            if (Validation.IsEmpty(info))
+            if (info.IsEmpty())
                 return string.Empty;
 
             if (right < 0) right = 0;
@@ -369,9 +370,9 @@ namespace Meow.Helper
         /// <param name="left">邮箱地址头保留字符个数，默认值设置为3</param>
         public static string HideEmailDetail(string email, int left = 3)
         {
-            if (Validation.IsEmpty(email))
+            if (email.IsEmpty())
                 return string.Empty;
-            if (!Validation.IsEmail(email))
+            if (!email.IsEmail())
                 return HideSensitiveInfo(email, left, 0);
             var suffixLen = email!.Length - email.LastIndexOf('@');
             return HideSensitiveInfo(email, left, suffixLen, basedOnLeft: false);
@@ -379,5 +380,48 @@ namespace Meow.Helper
 
         #endregion
 
+        #region 全角 & 半角
+
+        /// <summary>
+        /// 转全角(SBC case)
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string ToSbcCase(string value)
+        {
+            char[] c = value.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 32)
+                {
+                    c[i] = (char)12288;
+                    continue;
+                }
+                if (c[i] < 127)
+                    c[i] = (char)(c[i] + 65248);
+            }
+            return new string(c);
+        }
+
+        /// <summary>
+        /// 转半角
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string ToDbcCase(string value)
+        {
+            char[] c = value.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 12288)
+                {
+                    c[i] = (char)32;
+                    continue;
+                }
+                if (c[i] > 65280 && c[i] < 65375)
+                    c[i] = (char)(c[i] - 65248);
+            }
+            return new string(c);
+        }
+
+        #endregion
     }
 }

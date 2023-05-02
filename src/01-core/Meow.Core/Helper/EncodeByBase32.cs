@@ -1,4 +1,5 @@
 ﻿using System;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -13,7 +14,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static byte[] Encode(string value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return Array.Empty<byte>();
             value = value.TrimEnd('=');
             int byteCount = value.Length * 5 / 8;
@@ -51,7 +52,7 @@ namespace Meow.Helper
         /// <param name="value">值</param>
         public static string Decode(byte[] value)
         {
-            if (Validation.IsEmpty(value))
+            if (value.IsEmpty())
                 return string.Empty;
             int charCount = (int)System.Math.Ceiling(value.Length / 5d) * 8;
             char[] returnArray = new char[charCount];
