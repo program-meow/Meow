@@ -13,17 +13,17 @@ namespace Meow.Helper
         #region 默认配置
 
         /// <summary>
-        /// 结果验证重试默认函数
+        /// 校验bool值结果默认方法
         /// </summary>
-        private static Func<bool?, bool> _validBoolRetryDefaultAction() => ((result) => result.SafeValue());
+        private static Func<bool?, bool> _validateBoolDefaultFunc() => ((result) => result.SafeValue());
         /// <summary>
-        /// 结果验证重试默认函数
+        /// 校验结果默认方法
         /// </summary>
-        private static Func<TResult, bool> _validRetryDefaultAction<TResult>() => ((result) => result != null);
+        private static Func<TResult, bool> _validateDefaultFunc<TResult>() => ((result) => result != null);
         /// <summary>
-        /// 延迟重试默认函数
+        /// 设置延迟时间默认方法
         /// </summary>
-        private static Func<int, TimeSpan> _delayRetryDefaultAction() => ((time) => new TimeSpan(0, 0, 0, 0, 1000));
+        private static Func<int, TimeSpan> _delayDefaultAction() => ((time) => new TimeSpan(0, 0, 0, 0, 1000));
 
         #endregion
 
@@ -34,15 +34,15 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="action">委托方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<bool> TryInvoke(System.Action action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<bool> TryInvoke(System.Action action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             action.CheckNull(nameof(action));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            delayFunc ??= _delayRetryDefaultAction();
+            delayFunc ??= _delayDefaultAction();
 
             int time = 0;
             do
@@ -63,7 +63,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -76,18 +76,18 @@ namespace Meow.Helper
         /// 试着调用
         /// </summary>
         /// <param name="func">委托方法</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<bool?> TryInvoke(Func<bool> func, Func<bool?, bool> validFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<bool?> TryInvoke(Func<bool> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validBoolRetryDefaultAction();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateBoolDefaultFunc();
+            delayFunc ??= _delayDefaultAction();
 
             bool? result;
 
@@ -101,7 +101,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -113,7 +113,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -126,18 +126,18 @@ namespace Meow.Helper
         /// 试着调用
         /// </summary>
         /// <param name="func">委托方法</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<TResult> TryInvoke<TResult>(Func<TResult> func, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<TResult> TryInvoke<TResult>(Func<TResult> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -151,7 +151,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -163,7 +163,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -177,18 +177,18 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="func">委托方法</param>
         /// <param name="t1">第一个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<TResult> TryInvoke<T1, TResult>(Func<T1, TResult> func, T1 t1, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<TResult> TryInvoke<T1, TResult>(Func<T1, TResult> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -202,7 +202,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -214,7 +214,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -229,18 +229,18 @@ namespace Meow.Helper
         /// <param name="func">委托方法</param>
         /// <param name="t1">第一个参数</param>
         /// <param name="t2">第二个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<TResult> TryInvoke<T1, T2, TResult>(Func<T1, T2, TResult> func, T1 t1, T2 t2, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<TResult> TryInvoke<T1, T2, TResult>(Func<T1, T2, TResult> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -254,7 +254,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -266,7 +266,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -282,18 +282,18 @@ namespace Meow.Helper
         /// <param name="t1">第一个参数</param>
         /// <param name="t2">第二个参数</param>
         /// <param name="t3">第三个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<TResult> TryInvoke<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<TResult> TryInvoke<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -307,7 +307,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -319,7 +319,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -336,18 +336,18 @@ namespace Meow.Helper
         /// <param name="t2">第二个参数</param>
         /// <param name="t3">第三个参数</param>
         /// <param name="t4">第四个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -361,7 +361,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -373,7 +373,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -391,15 +391,15 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="action">委托方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<bool>> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<bool>> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             action.CheckNull(nameof(action));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            delayFunc ??= _delayRetryDefaultAction();
+            delayFunc ??= _delayDefaultAction();
 
             int time = 0;
             do
@@ -420,7 +420,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -433,18 +433,18 @@ namespace Meow.Helper
         /// 试着调用
         /// </summary>
         /// <param name="func">委托方法</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<bool?>> TryInvokeAsync(Func<Task<bool>> func, Func<bool?, bool> validFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<bool?>> TryInvokeAsync(Func<Task<bool>> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validBoolRetryDefaultAction();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateBoolDefaultFunc();
+            delayFunc ??= _delayDefaultAction();
 
             bool? result;
 
@@ -458,7 +458,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -470,7 +470,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -483,18 +483,18 @@ namespace Meow.Helper
         /// 试着调用
         /// </summary>
         /// <param name="func">委托方法</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<TResult>> TryInvokeAsync<TResult>(Func<Task<TResult>> func, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<TResult>> TryInvokeAsync<TResult>(Func<Task<TResult>> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -508,7 +508,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -520,7 +520,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -534,18 +534,18 @@ namespace Meow.Helper
         /// </summary>
         /// <param name="func">委托方法</param>
         /// <param name="t1">第一个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>(Func<T1, Task<TResult>> func, T1 t1, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>(Func<T1, Task<TResult>> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -559,7 +559,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -571,7 +571,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -586,18 +586,18 @@ namespace Meow.Helper
         /// <param name="func">委托方法</param>
         /// <param name="t1">第一个参数</param>
         /// <param name="t2">第二个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> func, T1 t1, T2 t2, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -611,7 +611,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -623,7 +623,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -639,18 +639,18 @@ namespace Meow.Helper
         /// <param name="t1">第一个参数</param>
         /// <param name="t2">第二个参数</param>
         /// <param name="t3">第三个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -664,7 +664,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -676,7 +676,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }
@@ -693,18 +693,18 @@ namespace Meow.Helper
         /// <param name="t2">第二个参数</param>
         /// <param name="t3">第三个参数</param>
         /// <param name="t4">第四个参数</param>
-        /// <param name="validFunc">验证方法</param>
+        /// <param name="validateResultFunc">校验结果方法</param>
         /// <param name="maxRetryTimes">最大重试次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayFunc">设置延迟方法</param>
-        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayFunc = null)
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
         {
             func.CheckNull(nameof(func));
 
             ResultStatusCode statusCode;
             System.Exception exception;
-            validFunc ??= _validRetryDefaultAction<TResult>();
-            delayFunc ??= _delayRetryDefaultAction();
+            validateResultFunc ??= _validateDefaultFunc<TResult>();
+            delayFunc ??= _delayDefaultAction();
 
             TResult result;
 
@@ -718,7 +718,7 @@ namespace Meow.Helper
                     statusCode = ResultStatusCode.Ok;
                     exception = null;
 
-                    if (validFunc(result))
+                    if (validateResultFunc(result))
                         return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
                 }
                 catch (System.Exception ex)
@@ -730,7 +730,7 @@ namespace Meow.Helper
 
                     time++;
                     TimeSpan? delay = delayFunc?.Invoke(time);
-                    onRetry?.Invoke(time, delay.GetValueOrDefault(), ex);
+                    listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
                     if (delay.HasValue)
                         System.Threading.Thread.Sleep(delay.Value);
                 }

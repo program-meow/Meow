@@ -112,11 +112,11 @@ namespace Meow.Http
         /// <summary>
         /// 设置失败重试次数
         /// </summary>
-        /// <param name="validResult">验证结果函数</param>
-        /// <param name="times">重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
-        /// <param name="onRetry">重试状态获取方法</param>
-        /// <param name="delayRetry">延迟重试函数</param>
-        IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validResult = null, int times = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayRetry = null);
+        /// <param name="validateResultFunc">校验结果方法</param>
+        /// <param name="maxTimes">最大重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        /// <param name="delayFunc">设置延迟时间方法</param>
+        IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validateResultFunc = null, int maxTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null);
 
         #endregion
 
@@ -368,19 +368,19 @@ namespace Meow.Http
         /// <summary>
         /// 获取结果
         /// </summary>
-        /// <param name="checkException">检查异常</param>
-        Task<Result<TResult>> GetResultAsync(Action<System.Exception> checkException = null);
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        Task<Result<TResult>> GetResultAsync(Action<System.Exception> listenerExceptionFunc = null);
         /// <summary>
         /// 获取流
         /// </summary>
-        /// <param name="checkException">检查异常</param>
-        Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> checkException = null);
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> listenerExceptionFunc = null);
         /// <summary>
         /// 写入文件
         /// </summary>
         /// <param name="filePath">文件绝对路径</param>
-        /// <param name="checkException">检查异常</param>
-        Task<Result> WriteAsync(string filePath, Action<System.Exception> checkException = null);
+        /// <param name="listenerExceptionFunc">监听异常方法</param>
+        Task<Result> WriteAsync(string filePath, Action<System.Exception> listenerExceptionFunc = null);
 
         #endregion
     }
