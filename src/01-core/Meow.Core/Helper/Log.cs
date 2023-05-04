@@ -1,4 +1,5 @@
 ﻿using Meow.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Meow.Helper
 {
@@ -8,10 +9,10 @@ namespace Meow.Helper
     public static class Log
     {
         /// <summary>
-        /// 创建日志操作
+        /// 创建日志操作服务
         /// </summary>
         /// <param name="type">日志类别类型</param>
-        public static ILog Create(System.Type type)
+        public static ILog CreateService(System.Type type)
         {
             try
             {
@@ -24,5 +25,14 @@ namespace Meow.Helper
             }
         }
 
+        /// <summary>
+        /// 创建日志操作
+        /// </summary>
+        /// <param name="type">日志类别类型</param>
+        public static ILog Create(System.Type type)
+        {
+            var logFactory = new LogFactory(new LoggerFactory());
+            return logFactory.CreateLog(type);
+        }
     }
 }

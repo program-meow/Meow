@@ -10,6 +10,9 @@ using System.Text.Json.Serialization;
 using Meow.Authentication;
 using Meow.Extension;
 using Meow.Http.Extension;
+using System.IO;
+using System.Net;
+using Meow.Response;
 
 namespace Meow.Http
 {
@@ -28,9 +31,9 @@ namespace Meow.Http
         /// </summary>
         private readonly IHttpClientFactory _httpClientFactory;
         /// <summary>
-        /// Http客户端
+        /// Http客户端处理器
         /// </summary>
-        private readonly HttpClient _httpClient;
+        private readonly HttpClientHandler _httpClientHandler;
         /// <summary>
         /// Http方法
         /// </summary>
@@ -71,6 +74,28 @@ namespace Meow.Http
 
         #endregion
 
+        #region 重试
+
+        /// <summary>
+        /// 结果验证重试函数
+        /// </summary>
+        private Func<TResult, bool> _validRetryAction;
+        /// <summary>
+        /// 最大重试次数
+        /// </summary>
+
+        private int _maxRetryTimes;
+        /// <summary>
+        /// 重试状态获取方法
+        /// </summary>
+        private Action<int, TimeSpan, System.Exception> _onRetryAction;
+        /// <summary>
+        /// 延迟重试函数
+        /// </summary>
+        private Func<int, TimeSpan> _delayRetryAction;
+
+        #endregion
+
         #region 凭证
 
         /// <summary>
@@ -81,6 +106,15 @@ namespace Meow.Http
         /// 租户凭证
         /// </summary>
         protected (string, string) TenantParam { get; private set; }
+
+        #endregion
+
+        #region Cookie
+
+        /// <summary>
+        /// Cookie容器
+        /// </summary>
+        protected CookieContainer CookieContainer { get; private set; }
 
         #endregion
 
@@ -112,6 +146,14 @@ namespace Meow.Http
         /// 内容对象
         /// </summary>
         protected object ContentObject { get; private set; }
+        /// <summary>
+        /// 文件对象集合
+        /// </summary>
+        protected List<(string, byte[], string)> FileObjects { get; private set; }
+        /// <summary>
+        /// 文件表单参数
+        /// </summary>
+        protected IDictionary<string, string> FileFormFields { get; private set; }
 
         #endregion
 
@@ -152,12 +194,12 @@ namespace Meow.Http
         /// 初始化Http请求
         /// </summary>
         /// <param name="httpClientFactory">Http客户端工厂</param>
-        /// <param name="httpClient">Http客户端工厂</param>
+        /// <param name="httpClientHandler">Http客户端处理器</param>
         /// <param name="httpMethod">Http方法</param>
         /// <param name="url">服务地址</param>
-        public HttpRequest(IHttpClientFactory httpClientFactory, HttpClient httpClient, HttpMethod httpMethod, string url)
+        public HttpRequest(IHttpClientFactory httpClientFactory, HttpClientHandler httpClientHandler, HttpMethod httpMethod, string url)
         {
-            if (httpClientFactory == null && httpClient == null)
+            if (httpClientFactory == null && httpClientHandler == null)
                 throw new ArgumentNullException(nameof(httpClientFactory));
             if (url.IsEmpty())
                 throw new ArgumentNullException(nameof(url));
@@ -165,7 +207,7 @@ namespace Meow.Http
             #region 核心
 
             _httpClientFactory = httpClientFactory;
-            _httpClient = httpClient;
+            _httpClientHandler = httpClientHandler;
             _httpMethod = httpMethod;
             _url = url;
 
@@ -182,10 +224,25 @@ namespace Meow.Http
 
             #endregion
 
+            #region 重试
+
+            _validRetryAction = null;
+            _maxRetryTimes = 0;
+            _onRetryAction = null;
+            _delayRetryAction = null;
+
+            #endregion
+
             #region 凭证
 
             AuthorizationParam = null;
             TenantParam = (null, null);
+
+            #endregion
+
+            #region Cookie
+
+            CookieContainer = new CookieContainer();
 
             #endregion
 
@@ -201,6 +258,8 @@ namespace Meow.Http
             QueryParams = new Dictionary<string, object>();
             ContentParams = new Dictionary<string, object>();
             ContentObject = null;
+            FileObjects = new List<(string, byte[], string)>();
+            FileFormFields = new Dictionary<string, string>();
 
             #endregion
 
@@ -320,6 +379,45 @@ namespace Meow.Http
 
         #endregion
 
+        #region UseAnalyzingParam  [使用全解析参数]
+
+        /// <summary>
+        /// 使用全解析参数
+        /// </summary>
+        public IHttpRequest<TResult> UseAnalyzingParam()
+        {
+            _isEasyAnalyzingParam = false;
+            return this;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 重试
+
+        #region RetryTimes  [设置失败重试次数]
+
+        /// <summary>
+        /// 设置失败重试次数
+        /// </summary>
+        /// <param name="validResult">验证结果函数</param>
+        /// <param name="times">重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
+        /// <param name="onRetry">重试状态获取方法</param>
+        /// <param name="delayRetry">延迟重试函数</param>
+        public IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validResult = null, int times = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayRetry = null)
+        {
+            if (times < 0)
+                return this;
+            _validRetryAction = validResult;
+            _maxRetryTimes = times;
+            _onRetryAction = onRetry;
+            _delayRetryAction = delayRetry;
+            return this;
+        }
+
+        #endregion
+
         #endregion
 
         #region 凭证
@@ -357,6 +455,76 @@ namespace Meow.Http
             if (tenant.IsEmpty())
                 return this;
             TenantParam = (tenant, key);
+            return this;
+        }
+
+        #endregion
+
+        #region Cookie
+
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param>
+        /// <param name="url">地址</param>
+        public IHttpRequest<TResult> Cookie(string name, string value, string url = "")
+        {
+            if (name.IsEmpty() || value.IsEmpty())
+                return this;
+            return Cookie(new Cookie(name, value), url);
+        }
+
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookie">cookie</param>
+        /// <param name="url">地址</param>
+        public IHttpRequest<TResult> Cookie(Cookie cookie, string url = "")
+        {
+            if (cookie == null)
+                return this;
+            if (cookie.Name.IsEmpty() || cookie.Value.IsEmpty())
+                return this;
+            if (url.IsEmpty())
+                CookieContainer.Add(cookie);
+            else
+                CookieContainer.Add(new Uri(url), cookie);
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookies">cookie键值对</param>
+        /// <param name="url">地址</param>
+        public IHttpRequest<TResult> Cookie(IDictionary<string, string> cookies, string url = "")
+        {
+            if (cookies.IsEmpty())
+                return this;
+            CookieCollection cookieCollection = new CookieCollection();
+            foreach (KeyValuePair<string, string> each in cookies)
+            {
+                if (each.Key.IsEmpty() || each.Value.IsEmpty())
+                    continue;
+                cookieCollection.Add(new Cookie(each.Key, each.Value));
+            }
+            return Cookie(cookieCollection, url);
+        }
+
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookies">cookie容器</param>
+        /// <param name="url">地址</param>
+        public IHttpRequest<TResult> Cookie(CookieCollection cookies, string url = "")
+        {
+            if (cookies.IsEmpty())
+                return this;
+            if (url.IsEmpty())
+                CookieContainer.Add(cookies);
+            else
+                CookieContainer.Add(new Uri(url), cookies);
             return this;
         }
 
@@ -521,7 +689,7 @@ namespace Meow.Http
         #region ContentByXml  [添加Xml参数]
 
         /// <summary>
-        /// 添加内容类型为 text/xml 的参数
+        /// 添加内容类型为 application/xml 的参数
         /// </summary>
         /// <param name="value">值</param>
         public IHttpRequest<TResult> ContentByXml(string value)
@@ -530,6 +698,104 @@ namespace Meow.Http
                 return this;
             ContentType(Http.HttpContentTypeEnum.Xml);
             ContentObject = value;
+            return this;
+        }
+
+        #endregion
+
+        #region ContentByFile  [添加文件参数]
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="fileKey">文件键</param>
+        /// <param name="formFields">表单字段</param>
+        public IHttpRequest<TResult> ContentByFile(string filePath, string fileKey = "file", IDictionary<string, string> formFields = null)
+        {
+            if (filePath.IsEmpty())
+                return this;
+            return ContentByFile(Path.GetFileName(filePath), File.ReadAllBytes(filePath), fileKey, formFields);
+        }
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileBytes">文件流</param>
+        /// <param name="fileKey">文件键</param>
+        /// <param name="formFields">表单字段</param>
+        public IHttpRequest<TResult> ContentByFile(string fileName, byte[] fileBytes, string fileKey = "file", IDictionary<string, string> formFields = null)
+        {
+            if (fileBytes.IsEmpty())
+                return this;
+            if (FileObjects.Exists(t => t.Item3.Contains(fileKey)))
+                return this;
+            ContentType(Http.HttpContentTypeEnum.FormFile);
+            FileObjects.Add((fileName.IsEmpty() ? Guid.NewGuid().SafeString() : fileName, fileBytes, fileKey));
+            FileFormFields.AddRangeNotEmpty(formFields);
+            return this;
+        }
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePaths">文件路径集合。文件key自动赋不重复值</param>
+        /// <param name="formFields">表单字段</param>
+        public IHttpRequest<TResult> ContentByFile(IEnumerable<string> filePaths, IDictionary<string, string> formFields = null)
+        {
+            if (filePaths.IsEmpty())
+                return this;
+            ContentType(Http.HttpContentTypeEnum.FormFile);
+            foreach (string file in filePaths)
+                FileObjects.Add((Path.GetFileName(file) ?? Guid.NewGuid().SafeString(), File.ReadAllBytes(file), Guid.NewGuid().SafeString()));
+            FileFormFields.AddRangeNotEmpty(formFields);
+            return this;
+        }
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePaths">文件路径集合：key为文件路径，value为文件key（key可为null,若为null则自动赋不重复值）</param>
+        /// <param name="formFields">表单字段</param>
+        public IHttpRequest<TResult> ContentByFile(IDictionary<string, string> filePaths, IDictionary<string, string> formFields = null)
+        {
+            if (filePaths.IsEmpty())
+                return this;
+            ContentType(Http.HttpContentTypeEnum.FormFile);
+            foreach (KeyValuePair<string, string> file in filePaths)
+            {
+                if (file.Key.IsEmpty())
+                    continue;
+                if (!file.Value.IsEmpty())
+                    if (FileObjects.Exists(t => t.Item3.Contains(file.Value)))
+                        continue;
+                FileObjects.Add((Path.GetFileName(file.Key) ?? Guid.NewGuid().SafeString(), File.ReadAllBytes(file.Key), file.Value.IsEmpty() ? Guid.NewGuid().SafeString() : file.Value));
+            }
+            FileFormFields.AddRangeNotEmpty(formFields);
+            return this;
+        }
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="files">文件集合：第一个参数为文件名；第二参数为文件流，第三个参数为文件key（key可为null,若为null则自动赋不重复值）</param>
+        /// <param name="formFields">表单字段</param>
+        public IHttpRequest<TResult> ContentByFile(IEnumerable<(string, byte[], string)> files, IDictionary<string, string> formFields = null)
+        {
+            if (files.IsEmpty())
+                return this;
+            ContentType(Http.HttpContentTypeEnum.FormFile);
+            foreach ((string, byte[], string) file in files)
+            {
+                if (file.Item2.IsEmpty())
+                    continue;
+                if (!file.Item3.IsEmpty())
+                    if (FileObjects.Exists(t => t.Item3.Contains(file.Item3)))
+                        continue;
+                FileObjects.Add((file.Item1.IsEmpty() ? Guid.NewGuid().SafeString() : file.Item1, file.Item2, file.Item3.IsEmpty() ? Guid.NewGuid().SafeString() : file.Item3));
+            }
+            FileFormFields.AddRangeNotEmpty(formFields);
             return this;
         }
 
@@ -624,7 +890,27 @@ namespace Meow.Http
         /// <summary>
         /// 获取结果
         /// </summary>
-        public async Task<TResult> GetResultAsync()
+        /// <param name="checkException">检查异常</param>
+        public async Task<Result<TResult>> GetResultAsync(Action<System.Exception> checkException = null)
+        {
+            if (_maxRetryTimes > 0)
+                return await Meow.Helper.Retry.TryInvokeAsync(RunResultAsync, _validRetryAction, _maxRetryTimes, _onRetryAction, _delayRetryAction);
+            try
+            {
+                var result = await RunResultAsync();
+                return new Result<TResult>(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription(), result);
+            }
+            catch (System.Exception ex)
+            {
+                checkException?.Invoke(ex);
+                return new Result<TResult>(ResultStatusCode.Error, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 执行结果
+        /// </summary>
+        protected virtual async Task<TResult> RunResultAsync()
         {
             HttpRequestMessage message = CreateMessage();
             if (SendBefore(message) == false)
@@ -640,12 +926,32 @@ namespace Meow.Http
         /// <summary>
         /// 获取流
         /// </summary>
-        public async Task<byte[]> GetStreamAsync()
+        /// <param name="checkException">检查异常</param>
+        public async Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> checkException = null)
         {
-            var message = CreateMessage();
+            if (_maxRetryTimes > 0)
+                return await Meow.Helper.Retry.TryInvokeAsync(RunStreamAsync, ((result) => result != null), _maxRetryTimes, _onRetryAction, _delayRetryAction);
+            try
+            {
+                var result = await RunStreamAsync();
+                return new Result<byte[]>(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription(), result);
+            }
+            catch (System.Exception ex)
+            {
+                checkException?.Invoke(ex);
+                return new Result<byte[]>(ResultStatusCode.Error, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取流
+        /// </summary>
+        public virtual async Task<byte[]> RunStreamAsync()
+        {
+            HttpRequestMessage message = CreateMessage();
             if (SendBefore(message) == false)
                 return default;
-            var response = await SendAsync(message);
+            HttpResponseMessage response = await SendAsync(message);
             return await GetStream(response);
         }
 
@@ -678,10 +984,22 @@ namespace Meow.Http
         /// 写入文件
         /// </summary>
         /// <param name="filePath">文件绝对路径</param>
-        public async Task WriteAsync(string filePath)
+        /// <param name="checkException">检查异常</param>
+        public async Task<Result> WriteAsync(string filePath, Action<System.Exception> checkException = null)
         {
-            byte[] bytes = await GetStreamAsync();
-            await bytes.FileWriteAsync(filePath);
+            Result<byte[]> result = await GetStreamAsync(checkException);
+            if (!result.IsOk)
+                return new Result(result.Code, result.Message, null);
+            try
+            {
+                await result.Data.FileWriteAsync(filePath);
+                return new Result(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription());
+            }
+            catch (System.Exception ex)
+            {
+                checkException?.Invoke(ex);
+                return new Result(ResultStatusCode.Error, ex.Message);
+            }
         }
 
         #endregion
@@ -720,12 +1038,14 @@ namespace Meow.Http
             string contentType = HttpContentType.SafeString().ToLower();
             switch (contentType)
             {
-                case HttpContentTypeConst.Form:
+                case HttpContentTypeCode.FormData:
                     return CreateFormContent();
-                case HttpContentTypeConst.Json:
+                case HttpContentTypeCode.Json:
                     return CreateJsonContent();
-                case HttpContentTypeConst.Xml:
+                case HttpContentTypeCode.Xml:
                     return CreateXmlContent();
+                case HttpContentTypeCode.FormFile:
+                    return CreateFileContent();
             }
             return null;
         }
@@ -737,6 +1057,15 @@ namespace Meow.Http
         /// </summary>
         protected virtual HttpContent CreateFormContent()
         {
+            Dictionary<string, string> contentParams = GetContentParams();
+            return new FormUrlEncodedContent(contentParams);
+        }
+
+        /// <summary>
+        /// 获取内容参数
+        /// </summary>
+        private Dictionary<string, string> GetContentParams()
+        {
             Dictionary<string, string> content = new Dictionary<string, string>();
             foreach (KeyValuePair<string, object> param in ContentParams)
             {
@@ -745,7 +1074,7 @@ namespace Meow.Http
                     continue;
                 content.Add(param.Key, value);
             }
-            return new FormUrlEncodedContent(content);
+            return content;
         }
 
         #endregion
@@ -757,10 +1086,10 @@ namespace Meow.Http
         /// </summary>
         protected virtual HttpContent CreateJsonContent()
         {
-            var content = GetJsonContentValue();
+            string content = GetJsonContentValue();
             if (content.IsEmpty())
                 return null;
-            return new StringContent(content, CharacterEncoding, HttpContentTypeConst.Json);
+            return new StringContent(content, CharacterEncoding, HttpContentTypeCode.Json);
         }
 
         /// <summary>
@@ -768,7 +1097,7 @@ namespace Meow.Http
         /// </summary>
         private string GetJsonContentValue()
         {
-            var options = GetJsonSerializerOptions();
+            JsonSerializerOptions options = GetJsonSerializerOptions();
             if (ContentObject != null && ContentParams.Count > 0)
                 return GetParameters().ToJson(options);
             if (ContentObject != null)
@@ -817,7 +1146,66 @@ namespace Meow.Http
         /// </summary>
         protected virtual HttpContent CreateXmlContent()
         {
-            return new StringContent(ContentObject.SafeString(), CharacterEncoding, HttpContentTypeConst.Xml);
+            return new StringContent(ContentObject.SafeString(), CharacterEncoding, HttpContentTypeCode.Xml);
+        }
+
+        #endregion
+
+        #region 创建文件类型
+
+        /// <summary>
+        /// Upload file File header format
+        /// 0:fileKey
+        /// 1:fileName
+        /// </summary>
+        private const string _fileHeaderFormat =
+            "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n" +
+            "Content-Type: application/octet-stream\r\n\r\n";
+
+        /// <summary>
+        /// FileFormDataFormat
+        /// 0:key
+        /// 1:value
+        /// 2:boundary
+        /// </summary>
+        private const string _fileFormDataFormat = "\r\n--{2}\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
+
+        /// <summary>
+        /// 创建文件内容
+        /// </summary>
+        protected virtual HttpContent CreateFileContent()
+        {
+            if (FileObjects.IsEmpty())
+                throw new ArgumentNullException(nameof(FileObjects));
+
+            string boundary = $"----------------------------{Meow.Helper.Time.Now.Ticks:X}";
+
+            MultipartFormDataContent content = new MultipartFormDataContent(boundary);
+            Dictionary<string, string> contentParams = GetContentParams();
+            foreach (KeyValuePair<string, string> param in contentParams)
+                content.Add(new StringContent(param.Value), param.Key);
+
+            byte[] boundaryBytes = System.Text.Encoding.ASCII.GetBytes($"\r\n--{boundary}\r\n");
+            byte[] endBoundaryBytes = System.Text.Encoding.ASCII.GetBytes($"\r\n--{boundary}--");
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                if (!FileFormFields.IsEmpty())
+                    foreach (KeyValuePair<string, string> pair in FileFormFields)
+                        memStream.Write(CharacterEncoding.GetBytes(string.Format(_fileFormDataFormat, pair.Key, pair.Value, boundary)));
+
+                foreach ((string, byte[], string) file in FileObjects)
+                {
+                    if (file.Item1.IsEmpty() || file.Item2.IsEmpty() | file.Item3.IsEmpty())
+                        throw new ArgumentNullException(nameof(file));
+
+                    memStream.Write(boundaryBytes);
+                    memStream.Write(CharacterEncoding.GetBytes(string.Format(_fileHeaderFormat, file.Item3, file.Item1)));
+                    memStream.Write(file.Item2);
+                }
+                memStream.Write(endBoundaryBytes);
+                content.Add(new ByteArrayContent(memStream.ToArray()));
+            }
+            return content;
         }
 
         #endregion
@@ -888,8 +1276,11 @@ namespace Meow.Http
         /// </summary>
         protected HttpClient GetHttpClient()
         {
-            if (_httpClient != null)
-                return _httpClient;
+            if (_httpClientHandler != null)
+            {
+                InitHttpClientHandler(_httpClientHandler);
+                return new HttpClient(_httpClientHandler);
+            }
             HttpClientHandler clientHandler = CreateHttpClientHandler();
             InitHttpClientHandler(clientHandler);
             return _httpClientFactory.CreateClient();
@@ -916,6 +1307,7 @@ namespace Meow.Http
         protected virtual void InitHttpClientHandler(HttpClientHandler handler)
         {
             InitCertificate(handler);
+            InitCookie(handler);
         }
 
         #endregion
@@ -931,6 +1323,25 @@ namespace Meow.Http
                 return;
             X509Certificate2 certificate = new X509Certificate2(CertificateParam.Item1, CertificateParam.Item2, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
             handler.ClientCertificates.Add(certificate);
+        }
+
+        #endregion
+
+        #region InitCookie  [初始化Cookie]
+
+        /// <summary>
+        /// 初始化Cookie
+        /// </summary>
+        protected void InitCookie(HttpClientHandler handler)
+        {
+            CookieContainer ??= new CookieContainer();
+            if (CookieContainer?.Count == 0)
+            {
+                handler.UseCookies = false;
+                return;
+            }
+            handler.UseCookies = true;
+            handler.CookieContainer = CookieContainer;
         }
 
         #endregion
@@ -988,9 +1399,9 @@ namespace Meow.Http
                 return ConvertAction(content);
             if (typeof(TResult) == typeof(string))
                 return (TResult)(object)content;
-            if (contentType.SafeString().ToLower() == HttpContentTypeConst.Json)
+            if (contentType.SafeString().ToLower() == HttpContentTypeCode.Json)
             {
-                var options = new JsonSerializerOptions
+                JsonSerializerOptions options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
                     Converters = {
@@ -1112,13 +1523,5 @@ namespace Meow.Http
         #endregion
 
         #endregion
-
-
-
-
-
-
-
-
     }
 }

@@ -54,7 +54,7 @@ namespace Meow.Logging
         /// <summary>
         /// 日志异常
         /// </summary>
-        protected Exception LogException { get; set; }
+        protected System.Exception LogException { get; set; }
         /// <summary>
         /// 日志属性集合
         /// </summary>
@@ -94,7 +94,7 @@ namespace Meow.Logging
         /// 设置异常
         /// </summary>
         /// <param name="exception">异常</param>
-        public virtual ILog Exception(Exception exception)
+        public virtual ILog Exception(System.Exception exception)
         {
             LogException = exception;
             return this;
@@ -421,7 +421,7 @@ namespace Meow.Logging
         /// <summary>
         /// 获取格式化消息
         /// </summary>
-        protected virtual string GetFormatMessage(IDictionary<string, object> content, Exception exception)
+        protected virtual string GetFormatMessage(IDictionary<string, object> content, System.Exception exception)
         {
             if (exception != null)
                 return exception.Message;

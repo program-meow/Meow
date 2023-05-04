@@ -1,6 +1,8 @@
 ﻿using Meow.Authentication;
+using Meow.Response;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -92,6 +94,32 @@ namespace Meow.Http
 
         #endregion
 
+        #region UseAnalyzingParam  [使用全解析参数]
+
+        /// <summary>
+        /// 使用全解析参数
+        /// </summary>
+        IHttpRequest<TResult> UseAnalyzingParam();
+
+        #endregion
+
+        #endregion
+
+        #region 重试
+
+        #region RetryTimes  [设置失败重试次数]
+
+        /// <summary>
+        /// 设置失败重试次数
+        /// </summary>
+        /// <param name="validResult">验证结果函数</param>
+        /// <param name="times">重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
+        /// <param name="onRetry">重试状态获取方法</param>
+        /// <param name="delayRetry">延迟重试函数</param>
+        IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validResult = null, int times = 3, Action<int, TimeSpan, System.Exception> onRetry = null, Func<int, TimeSpan> delayRetry = null);
+
+        #endregion
+
         #endregion
 
         #region 凭证
@@ -114,6 +142,36 @@ namespace Meow.Http
         /// <param name="tenant">租户凭证</param>
         /// <param name="key">键</param>
         IHttpRequest<TResult> Tenant(string tenant, string key = "Tenant");
+
+        #endregion
+
+        #region Cookie
+
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param>
+        /// <param name="url">地址</param>
+        IHttpRequest<TResult> Cookie(string name, string value, string url = "");
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookie">cookie</param>
+        /// <param name="url">地址</param>
+        IHttpRequest<TResult> Cookie(Cookie cookie, string url = "");
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookies">cookie键值对</param>
+        /// <param name="url">地址</param>
+        IHttpRequest<TResult> Cookie(IDictionary<string, string> cookies, string url = "");
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
+        /// <param name="cookies">cookie容器</param>
+        /// <param name="url">地址</param>
+        IHttpRequest<TResult> Cookie(CookieCollection cookies, string url = "");
 
         #endregion
 
@@ -202,10 +260,48 @@ namespace Meow.Http
         #region ContentByXml  [添加Xml参数]
 
         /// <summary>
-        /// 添加内容类型为 text/xml 的参数
+        /// 添加内容类型为 application/xml 的参数
         /// </summary>
         /// <param name="value">值</param>
         IHttpRequest<TResult> ContentByXml(string value);
+
+        #endregion
+
+        #region ContentByFile  [添加文件参数]
+
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="fileKey">文件键</param>
+        /// <param name="formFields">表单字段</param>
+        IHttpRequest<TResult> ContentByFile(string filePath, string fileKey = "file", IDictionary<string, string> formFields = null);
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileBytes">文件流</param>
+        /// <param name="fileKey">文件键</param>
+        /// <param name="formFields">表单字段</param>
+        IHttpRequest<TResult> ContentByFile(string fileName, byte[] fileBytes, string fileKey = "file", IDictionary<string, string> formFields = null);
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePaths">文件路径集合。文件key自动赋不重复值</param>
+        /// <param name="formFields">表单字段</param>
+        IHttpRequest<TResult> ContentByFile(IEnumerable<string> filePaths, IDictionary<string, string> formFields = null);
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="filePaths">文件路径集合：key为文件路径，value为文件key（key可为null,若为null则自动赋不重复值）</param>
+        /// <param name="formFields">表单字段</param>
+        IHttpRequest<TResult> ContentByFile(IDictionary<string, string> filePaths, IDictionary<string, string> formFields = null);
+        /// <summary>
+        /// 添加内容类型为 multipart/form-data 的参数
+        /// </summary>
+        /// <param name="files">文件集合：第一个参数为文件名；第二参数为文件流，第三个参数为文件key（key可为null,若为null则自动赋不重复值）</param>
+        /// <param name="formFields">表单字段</param>
+        IHttpRequest<TResult> ContentByFile(IEnumerable<(string, byte[], string)> files, IDictionary<string, string> formFields = null);
 
         #endregion
 
@@ -272,16 +368,19 @@ namespace Meow.Http
         /// <summary>
         /// 获取结果
         /// </summary>
-        Task<TResult> GetResultAsync();
+        /// <param name="checkException">检查异常</param>
+        Task<Result<TResult>> GetResultAsync(Action<System.Exception> checkException = null);
         /// <summary>
         /// 获取流
         /// </summary>
-        Task<byte[]> GetStreamAsync();
+        /// <param name="checkException">检查异常</param>
+        Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> checkException = null);
         /// <summary>
         /// 写入文件
         /// </summary>
         /// <param name="filePath">文件绝对路径</param>
-        Task WriteAsync(string filePath);
+        /// <param name="checkException">检查异常</param>
+        Task<Result> WriteAsync(string filePath, Action<System.Exception> checkException = null);
 
         #endregion
     }

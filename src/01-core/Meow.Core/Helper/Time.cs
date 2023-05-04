@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Meow.Helper
 {

@@ -285,13 +285,29 @@ namespace Meow.Helper
         /// <param name="value">输入值</param>
         public static bool? ToBoolOrNull(object value)
         {
-            string strValue = value.SafeString();
+            string strValue = value.SafeString().ToLower();
             switch (strValue)
             {
-                case "1":
-                    return true;
+                //false
                 case "0":
                     return false;
+                case "否":
+                    return false;
+                case "不":
+                    return false;
+                case "no":
+                    return false;
+                case "fail":
+                    return false;
+                //true
+                case "1":
+                    return true;
+                case "是":
+                    return true;
+                case "ok":
+                    return true;
+                case "yes":
+                    return true;
             }
             return bool.TryParse(strValue, out bool result) ? result : null;
         }

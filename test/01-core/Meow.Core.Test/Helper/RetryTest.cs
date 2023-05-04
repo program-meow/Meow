@@ -14,8 +14,8 @@ namespace Meow.Core.Test.Helper
         [Fact]
         public void TryInvokeTest()
         {
-            Assert.False(Meow.Helper.Retry.TryInvoke(FunctionError.Void));
-            Assert.False(Meow.Helper.Retry.TryInvoke(FunctionError.ReturnBool));
+            Assert.False(Meow.Helper.Retry.TryInvoke(FunctionError.Void).Data);
+            Assert.False(Meow.Helper.Retry.TryInvoke(FunctionError.ReturnBool).Data);
         }
     }
 }

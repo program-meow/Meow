@@ -22,7 +22,7 @@ namespace Meow.Logging {
         /// 设置异常
         /// </summary>
         /// <param name="exception">异常</param>
-        ILog Exception( Exception exception );
+        ILog Exception( System.Exception exception );
         /// <summary>
         /// 设置自定义扩展属性
         /// </summary>

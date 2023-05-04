@@ -18,7 +18,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="formatter">消息格式化操作</param>
         /// <typeparam name="TState">日志状态类型</typeparam>
-        void Log<TState>( LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter );
+        void Log<TState>( LogLevel logLevel, EventId eventId, TState state, System.Exception exception, Func<TState, System.Exception, string> formatter );
         /// <summary>
         /// 创建日志范围
         /// </summary>
@@ -32,7 +32,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogTrace( EventId eventId, Exception exception, string message, params object[] args );
+        void LogTrace( EventId eventId, System.Exception exception, string message, params object[] args );
         /// <summary>
         /// 写调试日志
         /// </summary>
@@ -40,7 +40,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogDebug( EventId eventId, Exception exception, string message, params object[] args );
+        void LogDebug( EventId eventId, System.Exception exception, string message, params object[] args );
         /// <summary>
         /// 写信息日志
         /// </summary>
@@ -48,7 +48,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogInformation( EventId eventId, Exception exception, string message, params object[] args );
+        void LogInformation( EventId eventId, System.Exception exception, string message, params object[] args );
         /// <summary>
         /// 写警告日志
         /// </summary>
@@ -56,7 +56,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogWarning( EventId eventId, Exception exception, string message, params object[] args );
+        void LogWarning( EventId eventId, System.Exception exception, string message, params object[] args );
         /// <summary>
         /// 写错误日志
         /// </summary>
@@ -64,7 +64,7 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogError( EventId eventId, Exception exception, string message, params object[] args );
+        void LogError( EventId eventId, System.Exception exception, string message, params object[] args );
         /// <summary>
         /// 写致命日志
         /// </summary>
@@ -72,6 +72,6 @@ namespace Meow.Logging {
         /// <param name="exception">异常</param>
         /// <param name="message">日志消息</param>
         /// <param name="args">日志消息参数</param>
-        void LogCritical( EventId eventId, Exception exception, string message, params object[] args );
+        void LogCritical( EventId eventId, System.Exception exception, string message, params object[] args );
     }
 }

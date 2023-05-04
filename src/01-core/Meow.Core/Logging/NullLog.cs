@@ -24,7 +24,7 @@ namespace Meow.Logging {
         /// 设置异常
         /// </summary>
         /// <param name="exception">异常</param>
-        public ILog Exception( Exception exception ) {
+        public ILog Exception( System.Exception exception ) {
             return this;
         }
 
@@ -135,7 +135,7 @@ namespace Meow.Logging {
         /// 设置异常
         /// </summary>
         /// <param name="exception">异常</param>
-        public ILog Exception( Exception exception ) {
+        public ILog Exception( System.Exception exception ) {
             return this;
         }
 

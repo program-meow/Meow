@@ -41,6 +41,7 @@ namespace Meow.Helper
         /// <summary>
         /// 安全获取值，当值为null时，不会抛出异常
         /// </summary>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="value">可空值</param>
         public static T SafeValue<T>(T? value) where T : struct
         {
@@ -50,6 +51,7 @@ namespace Meow.Helper
         /// <summary>
         /// 安全获取值，当值为null时，不会抛出异常
         /// </summary>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="array">集合</param>
         public static List<T> SafeValue<T>(IEnumerable<T?> array) where T : struct
         {
@@ -61,6 +63,7 @@ namespace Meow.Helper
         /// <summary>
         /// 转换可空集合
         /// </summary>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="array">集合</param>
         public static List<T?> ToOrNull<T>(IEnumerable<T> array) where T : struct
         {
@@ -72,6 +75,7 @@ namespace Meow.Helper
         /// <summary>
         /// 安全获取值，当值为null时，不会抛出异常
         /// </summary>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="value">可空值</param>
         public static T SafeValue<T>(T value) where T : new()
         {
@@ -99,6 +103,7 @@ namespace Meow.Helper
         /// <summary>
         /// 不为null及赋值
         /// </summary>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="target">目标值</param>
         /// <param name="value">空值</param>
         public static T AssignNotNull<T>(T target, T value) where T : class
@@ -109,5 +114,15 @@ namespace Meow.Helper
             return target;
         }
 
+        /// <summary>
+        /// 复制新值。解除引用类型
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="value">值</param>
+        public static T CopyNew<T>(T value)
+        {
+            var json = Meow.Helper.Json.ToJson(value);
+            return Meow.Helper.Json.ToObject<T>(json);
+        }
     }
 }

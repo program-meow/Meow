@@ -12,18 +12,24 @@ namespace Meow.Http
         /// application/x-www-form-urlencoded
         /// </summary>
         [Description("application/x-www-form-urlencoded")]
-        FormUrlEncoded,
+        FormData = 1,
         /// <summary>
         /// JSON数据格式；
         /// application/json
         /// </summary>
         [Description("application/json")]
-        Json,
+        Json = 2,
         /// <summary>
         /// XML数据格式；
         /// application/xml
         /// </summary>
         [Description("application/xml")]
-        Xml
+        Xml = 3,
+        /// <summary>
+        /// File数据格式；
+        /// multipart/form-data
+        /// </summary>
+        [Description("multipart/form-data")]
+        FormFile = 4,
     }
 }
