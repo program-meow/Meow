@@ -251,14 +251,14 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 计算匹配率/相似度
+        #region GetSimilarityRate  [计算匹配率/相似度]
 
         /// <summary>
         /// 计算相似度
         /// </summary>
         /// <param name="firstValue">第一个值</param>
         /// <param name="secondValue">第二个值</param>
-        public static SimilarityRateResult SimilarityRate(string firstValue, string secondValue)
+        public static SimilarityRateResult GetSimilarityRate(string firstValue, string secondValue)
         {
             SimilarityRateResult result = new SimilarityRateResult();
             char[] firstArrChar = firstValue.ToCharArray();
@@ -317,7 +317,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 隐藏敏感信息
+        #region HideSensitiveInfo  [隐藏敏感信息]
 
         /// <summary>
         /// 隐藏敏感信息
@@ -380,7 +380,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 全角 & 半角
+        #region ToSbcCase & ToDbcCase  [全角 & 半角]
 
         /// <summary>
         /// 转全角(SBC case)
@@ -423,5 +423,28 @@ namespace Meow.Helper
         }
 
         #endregion
+
+        #region GetRepeatCount  [获取重复次数]
+
+        /// <summary>
+        /// 获取重复次数
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="repeatValue">重复值</param>
+        /// <param name="isFuzzy">是否模糊大小写</param>
+        public static int GetRepeatCount(string value, string repeatValue, bool isFuzzy = false)
+        {
+            if (value.IsEmpty() || repeatValue.IsEmpty())
+                return 0;
+            value = isFuzzy ? value.ToLower() : value;
+            repeatValue = isFuzzy ? repeatValue.ToLower() : repeatValue;
+            if (!value.Contains(repeatValue))
+                return 0;
+            var replace = value.Replace(repeatValue, "");
+            return (value.Length - replace.Length) / repeatValue.Length;
+        }
+
+        #endregion
+
     }
 }

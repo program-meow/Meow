@@ -36,6 +36,31 @@ namespace Meow.Extension
         }
 
         /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="TSource">集合元素类型</typeparam>
+        /// <typeparam name="TKey">键元素类型</typeparam>
+        /// <param name="array">集合</param>
+        /// <param name="keySelector">选择器</param>
+        public static List<TKey> ToListBy<TSource, TKey>(this IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        {
+            return Meow.Helper.Convert.ToListBy(array, keySelector);
+        }
+
+        /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="TSource">集合元素类型</typeparam>
+        /// <typeparam name="TKey">键元素类型</typeparam>
+        /// <typeparam name="TOut">返回元素类型</typeparam>
+        /// <param name="array">集合</param>
+        /// <param name="keySelector">选择器</param>
+        public static List<TOut> ToListBy<TSource, TKey, TOut>(this IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        {
+            return Meow.Helper.Convert.ToListBy<TSource, TKey, TOut>(array, keySelector);
+        }
+
+        /// <summary>
         /// 泛型集合转换
         /// </summary>
         /// <typeparam name="T">目标元素类型</typeparam>
@@ -230,12 +255,12 @@ namespace Meow.Extension
 
         #endregion
 
-        #region ToGuidList  [转换为Guid集合] 
+        #region ToGuidList & ToGuidOrNullList  [转换为Guid集合 & 可空Guid集合]
 
         /// <summary>
         /// 转换为Guid集合
         /// </summary>
-        /// <param name="value">以逗号分隔的Guid集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+        /// <param name="value">以逗号分隔的Guid集合字符串</param>
         /// <param name="separator">分隔符，默认逗号作为分隔符</param>
         public static List<Guid> ToGuidList(this string value, string separator = ",")
         {
@@ -249,6 +274,25 @@ namespace Meow.Extension
         public static List<Guid> ToGuidList(this IEnumerable<string> array)
         {
             return Meow.Helper.Convert.ToGuidList(array);
+        }
+
+        /// <summary>
+        /// 转换为可空Guid集合
+        /// </summary>
+        /// <param name="value">以逗号分隔的Guid集合字符串</param>
+        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
+        public static List<Guid?> ToGuidOrNullList(this string value, string separator = ",")
+        {
+            return Meow.Helper.Convert.ToGuidOrNullList(value, separator);
+        }
+
+        /// <summary>
+        /// 转换为可空Guid集合
+        /// </summary>
+        /// <param name="array">字符串集合</param>
+        public static List<Guid?> ToGuidOrNullList(this IEnumerable<string> array)
+        {
+            return Meow.Helper.Convert.ToGuidOrNullList(array);
         }
 
         #endregion

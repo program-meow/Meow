@@ -8,6 +8,8 @@ namespace Meow.Extension
     /// </summary>
     public static class StringExtensions
     {
+        #region FirstUpperCase  [首字母大写]
+
         /// <summary>
         /// 首字母大写
         /// </summary>
@@ -17,6 +19,10 @@ namespace Meow.Extension
             return Meow.Helper.String.FirstUpperCase(value);
         }
 
+        #endregion
+
+        #region FirstLowerCase  [首字母小写]
+
         /// <summary>
         /// 首字母小写
         /// </summary>
@@ -25,6 +31,10 @@ namespace Meow.Extension
         {
             return Meow.Helper.String.FirstLowerCase(value);
         }
+
+        #endregion
+
+        #region RemoveStart  [移除起始字符串]
 
         /// <summary>
         /// 移除起始字符串
@@ -56,6 +66,10 @@ namespace Meow.Extension
             return Meow.Helper.String.RemoveStart(writer, start);
         }
 
+        #endregion
+
+        #region RemoveEnd  [移除末尾字符串]
+
         /// <summary>
         /// 移除末尾字符串
         /// </summary>
@@ -86,6 +100,10 @@ namespace Meow.Extension
             return Meow.Helper.String.RemoveEnd(writer, end);
         }
 
+        #endregion
+
+        #region Truncate  [截断字符串]
+
         /// <summary>
         /// 截断字符串
         /// </summary>
@@ -99,6 +117,10 @@ namespace Meow.Extension
             return Meow.Helper.String.Truncate(value, length, endCharCount, endChar);
         }
 
+        #endregion
+
+        #region Copy  [复制]
+
         /// <summary>
         /// 复制
         /// </summary>
@@ -110,6 +132,10 @@ namespace Meow.Extension
             return Meow.Helper.String.Copy(value, count);
         }
 
+        #endregion
+
+        #region Distinct  [去除重复]
+
         /// <summary>
         /// 去除重复
         /// </summary>
@@ -119,17 +145,23 @@ namespace Meow.Extension
             return Meow.Helper.String.Distinct(value);
         }
 
+        #endregion
+
+        #region GetSimilarityRate  [计算匹配率/相似度]
+
         /// <summary>
         /// 计算相似度
         /// </summary>
         /// <param name="firstValue">第一个值</param>
         /// <param name="secondValue">第二个值</param>
-        public static Meow.Helper.String.SimilarityRateResult SimilarityRate(this string firstValue, string secondValue)
+        public static Meow.Helper.String.SimilarityRateResult GetSimilarityRate(this string firstValue, string secondValue)
         {
-            return Meow.Helper.String.SimilarityRate(firstValue, secondValue);
+            return Meow.Helper.String.GetSimilarityRate(firstValue, secondValue);
         }
 
-        #region 隐藏敏感信息
+        #endregion
+
+        #region HideSensitiveInfo  [隐藏敏感信息]
 
         /// <summary>
         /// 隐藏敏感信息
@@ -168,6 +200,8 @@ namespace Meow.Extension
 
         #endregion
 
+        #region ToSbcCase & ToDbcCase  [全角 & 半角]
+
         /// <summary>
         /// 转全角
         /// </summary>
@@ -185,5 +219,23 @@ namespace Meow.Extension
         {
             return Meow.Helper.String.ToDbcCase(value);
         }
+
+        #endregion
+
+        #region GetRepeatCount  [获取重复次数]
+
+        /// <summary>
+        /// 获取重复次数
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="repeatValue">重复值</param>
+        /// <param name="isFuzzy">是否模糊大小写</param>
+        public static int GetRepeatCount(string value, string repeatValue, bool isFuzzy = false)
+        {
+            return Meow.Helper.String.GetRepeatCount(value, repeatValue, isFuzzy);
+        }
+
+        #endregion
+
     }
 }

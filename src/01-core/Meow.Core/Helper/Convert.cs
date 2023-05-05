@@ -61,11 +61,39 @@ namespace Meow.Helper
         /// <param name="array">集合</param>
         public static List<T> ToList<T>(IEnumerable<object> array)
         {
-            List<T> result = new List<T>();
             if (array.IsEmpty())
-                return result;
-            result.AddRange(array.Select(To<T>));
-            return result;
+                return new List<T>(); ;
+            return array.Select(To<T>).ToList();
+        }
+
+        /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="TSource">集合元素类型</typeparam>
+        /// <typeparam name="TKey">键元素类型</typeparam>
+        /// <param name="array">集合</param>
+        /// <param name="keySelector">选择器</param>
+        public static List<TKey> ToListBy<TSource, TKey>(IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        {
+            if (array.IsEmpty())
+                return new List<TKey>();
+            return array.Select(keySelector).ToList();
+        }
+
+        /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="TSource">集合元素类型</typeparam>
+        /// <typeparam name="TKey">键元素类型</typeparam>
+        /// <typeparam name="TOut">返回元素类型</typeparam>
+        /// <param name="array">集合</param>
+        /// <param name="keySelector">选择器</param>
+        public static List<TOut> ToListBy<TSource, TKey, TOut>(IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        {
+            if (array.IsEmpty())
+                return new List<TOut>();
+            List<TKey> values = ToListBy(array, keySelector);
+            return values.Select(t => To<TOut>(t)).ToList();
         }
 
         /// <summary>
@@ -336,16 +364,17 @@ namespace Meow.Helper
 
         #endregion
 
-        #region ToGuidList  [转换为Guid集合]
+        #region ToGuidList & ToGuidOrNullList  [转换为Guid集合 & 可空Guid集合]
 
         /// <summary>
         /// 转换为Guid集合
         /// </summary>
-        /// <param name="value">以逗号分隔的Guid集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+        /// <param name="value">以逗号分隔的Guid集合字符串</param>
         /// <param name="separator">分隔符，默认逗号作为分隔符</param>
         public static List<Guid> ToGuidList(string value, string separator = ",")
         {
-            return ToList<Guid>(value, separator);
+            string[] array = value.Split(separator);
+            return ToGuidList(array);
         }
 
         /// <summary>
@@ -357,6 +386,28 @@ namespace Meow.Helper
             if (array == null)
                 return new List<Guid>();
             return array.Select(ToGuid).ToList();
+        }
+
+        /// <summary>
+        /// 转换为可空Guid集合
+        /// </summary>
+        /// <param name="value">以逗号分隔的Guid集合字符串</param>
+        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
+        public static List<Guid?> ToGuidOrNullList(string value, string separator = ",")
+        {
+            string[] array = value.Split(separator);
+            return ToGuidOrNullList(array);
+        }
+
+        /// <summary>
+        /// 转换为可空Guid集合
+        /// </summary>
+        /// <param name="array">字符串集合</param>
+        public static List<Guid?> ToGuidOrNullList(IEnumerable<string> array)
+        {
+            if (array == null)
+                return new List<Guid?>();
+            return array.Select(ToGuidOrNull).ToList();
         }
 
         #endregion
@@ -412,16 +463,15 @@ namespace Meow.Helper
         /// <param name="data">对象</param>
         public static IDictionary<string, TValue> ToDictionary<TValue>(object data)
         {
-            var result = new Dictionary<string, TValue>();
-            var dictionary = ToDictionary(data);
+            Dictionary<string, TValue> result = new Dictionary<string, TValue>();
+            IDictionary<string, object> dictionary = ToDictionary(data);
             if (dictionary.IsEmpty())
                 return result;
-            foreach (var each in dictionary)
+            foreach (KeyValuePair<string, object> each in dictionary)
                 result.Add(each.Key, To<TValue>(each.Value));
             return result;
         }
 
         #endregion
-
     }
 }

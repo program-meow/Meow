@@ -122,7 +122,7 @@ namespace Meow.Model
         /// 数据
         /// </summary>
         [JsonPropertyName("data")]
-        public TData Data { get; set; }
+        public TData Data { get; }
 
         /// <summary>
         /// 比较

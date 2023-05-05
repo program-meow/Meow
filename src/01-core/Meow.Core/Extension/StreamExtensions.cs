@@ -66,5 +66,44 @@ namespace Meow.Extension
         {
             return Helper.Stream.ToStream(data, encoding);
         }
+
+        #region ToString  [流转换成字符串]
+
+        /// <summary>
+        /// 流转换成字符串
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="encoding">字符编码。默认：UTF8</param>
+        /// <param name="bufferSize">缓冲区大小</param>
+        /// <param name="isCloseStream">读取完成是否释放流，默认为true</param>
+        public static string ToString(this Stream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
+        {
+            return Helper.Stream.ToString(stream, encoding, bufferSize, isCloseStream);
+        }
+
+        /// <summary>
+        /// 流转换成字符串
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="encoding">字符编码。默认：UTF8</param>
+        /// <param name="bufferSize">缓冲区大小</param>
+        /// <param name="isCloseStream">读取完成是否释放流，默认为true</param>
+        public static async Task<string> ToStringAsync(this Stream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
+        {
+            return await Helper.Stream.ToStringAsync(stream, encoding, bufferSize, isCloseStream);
+        }
+
+        /// <summary>
+        /// 复制流并转换成字符串
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="encoding">字符编码。默认：UTF8</param>
+        public static async Task<string> CopyToStringAsync(this Stream stream, Encoding encoding = null)
+        {
+            return await Helper.Stream.CopyToStringAsync(stream, encoding);
+        }
+
+        #endregion
+
     }
 }
