@@ -237,5 +237,18 @@ namespace Meow.Extension
 
         #endregion
 
+        #region Reverse  [翻转]
+
+        /// <summary>
+        /// 翻转
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Reverse(this string value)
+        {
+            return Meow.Helper.String.Reverse(value);
+        }
+
+        #endregion
+
     }
 }

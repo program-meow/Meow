@@ -176,6 +176,8 @@ namespace Meow.Extension
 
         #endregion
 
+        #region IsSequence  [是否不间断连续 判断类型是Int]
+
         /// <summary>
         /// 是否不间断连续 判断类型是Int
         /// </summary>
@@ -220,6 +222,8 @@ namespace Meow.Extension
         {
             return Meow.Helper.List.IsEqualsBy(array, keySelector);
         }
+
+        #endregion
 
         /// <summary>
         /// 值是否相等
@@ -355,6 +359,5 @@ namespace Meow.Extension
         }
 
         #endregion
-
     }
 }

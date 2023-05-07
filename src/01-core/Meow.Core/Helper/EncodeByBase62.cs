@@ -25,7 +25,7 @@ namespace Meow.Helper
         {
             if (guid.IsEmpty())
                 return string.Empty;
-            return Encode(Common.SafeValue(guid));
+            return Encode(guid.SafeValue());
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Meow.Helper
         {
             if (num == null)
                 return string.Empty;
-            return Encode(Common.SafeValue(num));
+            return Encode(num.SafeValue());
         }
 
         /// <summary>

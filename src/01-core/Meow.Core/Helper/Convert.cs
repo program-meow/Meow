@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using Meow.Enum;
 using Meow.Extension;
 
 namespace Meow.Helper
@@ -55,6 +56,18 @@ namespace Meow.Helper
         #region ToList  [泛型集合转换]
 
         /// <summary>
+        /// 通用泛型转换 - 字符串集合
+        /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
+        /// <param name="array">集合</param>
+        public static List<string> ToListString<T>(IEnumerable<T> array)
+        {
+            if (array.IsEmpty())
+                return new List<string>();
+            return array.Select(t => t.SafeString()).ToList();
+        }
+
+        /// <summary>
         /// 通用泛型转换
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
@@ -62,12 +75,28 @@ namespace Meow.Helper
         public static List<T> ToList<T>(IEnumerable<object> array)
         {
             if (array.IsEmpty())
-                return new List<T>(); ;
+                return new List<T>();
             return array.Select(To<T>).ToList();
         }
 
         /// <summary>
-        /// 通用泛型转换
+        /// 泛型集合转换
+        /// </summary>
+        /// <typeparam name="T">目标元素类型</typeparam>
+        /// <param name="value">以字符分隔的元素集合字符串</param>
+        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
+        public static List<T> ToList<T>(string value, string separator = ",")
+        {
+            List<T> result = new List<T>();
+            if (value.IsEmpty())
+                return result;
+            string[] array = value.Split(separator);
+            result.AddRange(from each in array where !each.IsEmpty() select To<T>(each));
+            return result;
+        }
+
+        /// <summary>
+        /// 提取集合
         /// </summary>
         /// <typeparam name="TSource">集合元素类型</typeparam>
         /// <typeparam name="TKey">键元素类型</typeparam>
@@ -81,34 +110,20 @@ namespace Meow.Helper
         }
 
         /// <summary>
-        /// 通用泛型转换
+        /// 提取并合并集合
         /// </summary>
         /// <typeparam name="TSource">集合元素类型</typeparam>
         /// <typeparam name="TKey">键元素类型</typeparam>
-        /// <typeparam name="TOut">返回元素类型</typeparam>
         /// <param name="array">集合</param>
         /// <param name="keySelector">选择器</param>
-        public static List<TOut> ToListBy<TSource, TKey, TOut>(IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        public static List<TKey> ToListRangeBy<TSource, TKey>(IEnumerable<TSource> array, Func<TSource, IEnumerable<TKey>> keySelector)
         {
+            List<TKey> result = new List<TKey>();
             if (array.IsEmpty())
-                return new List<TOut>();
-            List<TKey> values = ToListBy(array, keySelector);
-            return values.Select(t => To<TOut>(t)).ToList();
-        }
-
-        /// <summary>
-        /// 泛型集合转换
-        /// </summary>
-        /// <typeparam name="T">目标元素类型</typeparam>
-        /// <param name="value">以字符分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
-        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
-        public static List<T> ToList<T>(string value, string separator = ",")
-        {
-            List<T> result = new List<T>();
-            if (value.IsEmpty())
                 return result;
-            string[] array = value.Split(separator);
-            result.AddRange(from each in array where !each.IsEmpty() select To<T>(each));
+            List<IEnumerable<TKey>> list = ToListBy(array, keySelector);
+            foreach (IEnumerable<TKey> each in list)
+                result.AddRange(each);
             return result;
         }
 
@@ -470,6 +485,82 @@ namespace Meow.Helper
             foreach (KeyValuePair<string, object> each in dictionary)
                 result.Add(each.Key, To<TValue>(each.Value));
             return result;
+        }
+
+        #endregion
+
+        #region ToRmbByCn  [转换为大写人民币]
+
+        /// <summary>
+        /// 转换为大写人民币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByRmbCn(decimal? money, bool isIgnoreSgn = true)
+        {
+            return ToMoneyByRmbCn(money.SafeValue(), isIgnoreSgn);
+        }
+
+        /// <summary>
+        /// 转换为大写人民币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByRmbCn(decimal money, bool isIgnoreSgn = true)
+        {
+            if (money == 0)
+                return "零元整";
+            string head = isIgnoreSgn ? "" : money > 0 ? "正 " : "负 ";
+            string format = money.ToString("#L#E#D#C#K#E#D#C#J#E#D#C#I#E#D#C#H#E#D#C#G#E#D#C#F#E#D#C#.0B0A").Replace("0B0A", "@");
+            string simplify = System.Text.RegularExpressions.Regex.Replace(format, @"((?<=-|^)[^1-9]*)|((?'z'0)[0A-E]*((?=[1-9])|(?'-z'(?=[F-L\.]|$))))|((?'b'[F-L])(?'z'0)[0A-L]*((?=[1-9])|(?'-z'(?=[\.]|$))))", "${b}${z}");
+            string result = System.Text.RegularExpressions.Regex.Replace(simplify, ".", match => "负元空零壹贰叁肆伍陆柒捌玖空空空空空空整分角拾佰仟万亿兆京垓秭穰"[match.Value[0] - '-'].ToString());
+            return $"{head}{result}";
+        }
+
+        #endregion
+
+        #region ToMoneyByNum  [转换为数字货币]
+
+        /// <summary>
+        /// 转换为数字货币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByNum(decimal? money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
+        {
+            return ToMoneyByNum(money.SafeValue(), moneyType, isIgnoreSgn);
+        }
+
+        /// <summary>
+        /// 转换为数字货币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByNum(decimal money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
+        {
+            string moneyDescription = moneyType == null ? "" : $"{moneyType.GetDescription()} ";
+            if (money == 0)
+                return $"{moneyDescription}{money.SafeString()}";
+            string sign = isIgnoreSgn ? "" : money > 0 ? "+" : "-";
+            string moneyStr = money.SafeString().RemoveStart("+").RemoveStart("-");
+            string[] moneyArray = moneyStr.Split('.');
+            char[] moneyIntegerChar = moneyArray[0].ToCharArray();
+            StringBuilder stringBuilder = new StringBuilder();
+            int count = 0;
+            for (int i = moneyIntegerChar.Length; i > 0; i--)
+            {
+                count += 1;
+                stringBuilder.Append(moneyIntegerChar[i - 1]);
+                if (count != 3)
+                    continue;
+                count = 0;
+                stringBuilder.Append(",");
+            }
+            string result = stringBuilder.ToString().RemoveEnd(",").Reverse();
+            string resultEnd = moneyArray.Length > 1 ? $".{moneyArray[1]}" : "";
+            return $"{moneyDescription}{sign}{result}{resultEnd}";
         }
 
         #endregion

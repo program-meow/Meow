@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meow.Enum;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,6 +27,16 @@ namespace Meow.Extension
         #region ToList  [泛型集合转换]
 
         /// <summary>
+        /// 通用泛型转换 - 字符串集合
+        /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
+        /// <param name="array">集合</param>
+        public static List<string> ToListString<T>(this IEnumerable<T> array)
+        {
+            return Meow.Helper.Convert.ToListString(array);
+        }
+
+        /// <summary>
         /// 通用泛型转换
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
@@ -36,7 +47,18 @@ namespace Meow.Extension
         }
 
         /// <summary>
-        /// 通用泛型转换
+        /// 泛型集合转换
+        /// </summary>
+        /// <typeparam name="T">目标元素类型</typeparam>
+        /// <param name="value">以字符分隔的元素集合字符串</param>
+        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
+        public static List<T> ToList<T>(this string value, string separator = ",")
+        {
+            return Meow.Helper.Convert.ToList<T>(value, separator);
+        }
+
+        /// <summary>
+        /// 提取集合
         /// </summary>
         /// <typeparam name="TSource">集合元素类型</typeparam>
         /// <typeparam name="TKey">键元素类型</typeparam>
@@ -48,27 +70,15 @@ namespace Meow.Extension
         }
 
         /// <summary>
-        /// 通用泛型转换
+        /// 提取并合并集合
         /// </summary>
         /// <typeparam name="TSource">集合元素类型</typeparam>
         /// <typeparam name="TKey">键元素类型</typeparam>
-        /// <typeparam name="TOut">返回元素类型</typeparam>
         /// <param name="array">集合</param>
         /// <param name="keySelector">选择器</param>
-        public static List<TOut> ToListBy<TSource, TKey, TOut>(this IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
+        public static List<TKey> ToListRangeBy<TSource, TKey>(this IEnumerable<TSource> array, Func<TSource, IEnumerable<TKey>> keySelector)
         {
-            return Meow.Helper.Convert.ToListBy<TSource, TKey, TOut>(array, keySelector);
-        }
-
-        /// <summary>
-        /// 泛型集合转换
-        /// </summary>
-        /// <typeparam name="T">目标元素类型</typeparam>
-        /// <param name="value">以字符分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
-        /// <param name="separator">分隔符，默认逗号作为分隔符</param>
-        public static List<T> ToList<T>(this string value, string separator = ",")
-        {
-            return Meow.Helper.Convert.ToList<T>(value, separator);
+            return Meow.Helper.Convert.ToListRangeBy(array, keySelector);
         }
 
         #endregion
@@ -339,6 +349,56 @@ namespace Meow.Extension
         public static IDictionary<string, TValue> ToDictionary<TValue>(this object data)
         {
             return Meow.Helper.Convert.ToDictionary<TValue>(data);
+        }
+
+        #endregion
+
+        #region ToMoneyByRmbCn  [转换为大写人民币]
+
+        /// <summary>
+        /// 转换为大写人民币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByRmbCn(decimal? money, bool isIgnoreSgn = true)
+        {
+            return Meow.Helper.Convert.ToMoneyByRmbCn(money, isIgnoreSgn);
+        }
+
+        /// <summary>
+        /// 转换为大写人民币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByRmbCn(this decimal money, bool isIgnoreSgn = true)
+        {
+            return Meow.Helper.Convert.ToMoneyByRmbCn(money, isIgnoreSgn);
+        }
+
+        #endregion
+
+        #region ToMoneyByNum  [转换为数字货币]
+
+        /// <summary>
+        /// 转换为数字货币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByNum(this decimal? money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
+        {
+            return Meow.Helper.Convert.ToMoneyByNum(money, moneyType, isIgnoreSgn);
+        }
+
+        /// <summary>
+        /// 转换为数字货币
+        /// </summary>
+        /// <param name="money">金额</param>
+        /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
+        /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
+        public static string ToMoneyByNum(this decimal money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
+        {
+            return Meow.Helper.Convert.ToMoneyByNum(money, moneyType, isIgnoreSgn);
         }
 
         #endregion

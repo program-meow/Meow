@@ -446,5 +446,20 @@ namespace Meow.Helper
 
         #endregion
 
+        #region Reverse  [翻转]
+
+        /// <summary>
+        /// 翻转
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string Reverse(string value)
+        {
+            if (value.IsEmpty())
+                return string.Empty;
+            return new string(value.ToCharArray().Reverse().ToArray());
+        }
+
+        #endregion
+
     }
 }

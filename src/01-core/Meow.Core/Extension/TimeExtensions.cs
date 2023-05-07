@@ -91,7 +91,7 @@ namespace Meow.Extension
             return Meow.Helper.Time.GetTimeFromUnixTimestamp(timestamp);
         }
 
-        #region 获取一周数字第几天
+        #region GetNumberDayOfWeekByCn  [获取一周数字第几天]
 
         /// <summary>
         /// 获取一周数字第几天 - 国内：周一为第一天
@@ -131,7 +131,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取星期几
+        #region GetWeekNameByZh  [获取星期几]
 
         /// <summary>
         /// 获取中文星期几
@@ -171,7 +171,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取12小时制的时间
+        #region GetTwelveHoursTimeByZh  [获取12小时制的时间]
 
         /// <summary>
         /// 获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
@@ -193,7 +193,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取两个日期之间相差的天数
+        #region GetDiffDays  [获取两个日期之间相差的天数]
 
         /// <summary>
         /// 获取两个日期之间相差的天数
@@ -217,7 +217,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取两个日期之间相差的小时数
+        #region GetDiffHours  [获取两个日期之间相差的小时数]
 
         /// <summary>
         /// 获取两个日期之间相差的小时数
@@ -241,7 +241,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取两个日期之间相差的分钟数
+        #region GetDiffMinutes  [获取两个日期之间相差的分钟数]
 
         /// <summary>
         /// 获取两个日期之间相差的分钟数
@@ -265,7 +265,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取年有多少天
+        #region GetDaysOfYear  [获取年有多少天]
 
         /// <summary>
         /// 获取年有多少天
@@ -287,7 +287,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取月有多少天
+        #region GetDaysOfMonth  [获取月有多少天]
 
         /// <summary>
         /// 获取月有多少天
@@ -309,7 +309,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取年有多少周
+        #region GetWeeksOfYear  [获取年有多少周]
 
         /// <summary>
         /// 获取年有多少周
@@ -331,7 +331,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 获取某一日期是该年中的第几周
+        #region GetWeekOfYear  [获取某一日期是该年中的第几周]
 
         /// <summary>
         /// 获取某一日期是该年中的第几周
@@ -353,7 +353,7 @@ namespace Meow.Extension
 
         #endregion
 
-        #region 根据年的第几周获取这周的起止日期
+        #region GetWeekRangeByCn  [根据年的第几周获取这周的起止日期]
 
         /// <summary>
         /// 根据年的第几周获取这周的起止日期 - 国内：周一为第一天
@@ -397,6 +397,28 @@ namespace Meow.Extension
         public static TimeSpan GetTimeSpanBySecond(this int second)
         {
             return Meow.Helper.Time.GetTimeSpanBySecond(second);
+        }
+
+        #endregion
+
+        #region GetTimeSpanByCn  [获取中文时间间隔]
+
+        /// <summary>
+        /// 获取中文时间间隔
+        /// </summary>
+        /// <param name="time">时间</param>
+        public static string GetTimeSpanByCn(this DateTime? time)
+        {
+            return Meow.Helper.Time.GetTimeSpanByCn(time);
+        }
+
+        /// <summary>
+        /// 获取中文时间间隔
+        /// </summary>
+        /// <param name="time">时间</param>
+        public static string GetTimeSpanByCn(this DateTime time)
+        {
+            return Meow.Helper.Time.GetTimeSpanByCn(time);
         }
 
         #endregion

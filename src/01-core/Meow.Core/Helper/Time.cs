@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using Meow.Extension;
 
 namespace Meow.Helper
 {
@@ -22,7 +23,7 @@ namespace Meow.Helper
         /// <summary>
         /// 是否使用Utc日期
         /// </summary>
-        private static bool IsUseUtc => _isUseUtc.Value != null ? Common.SafeValue(_isUseUtc.Value) : Meow.Option.TimeOptions.IsUseUtc;
+        private static bool IsUseUtc => _isUseUtc.Value != null ? _isUseUtc.Value.SafeValue() : Meow.Option.TimeOptions.IsUseUtc;
 
         /// <summary>
         /// 设置时间
@@ -166,7 +167,7 @@ namespace Meow.Helper
         /// <param name="time">时间</param>
         public static long GetUnixTimestamp(DateTime? time)
         {
-            return GetUnixTimestamp(Common.SafeValue(time));
+            return GetUnixTimestamp(time.SafeValue());
         }
 
         /// <summary>
@@ -186,7 +187,7 @@ namespace Meow.Helper
         /// <param name="timestamp">Unix时间戳</param>
         public static DateTime GetTimeFromUnixTimestamp(long? timestamp)
         {
-            return GetTimeFromUnixTimestamp(Common.SafeValue(timestamp));
+            return GetTimeFromUnixTimestamp(timestamp.SafeValue());
         }
 
         /// <summary>
@@ -200,7 +201,7 @@ namespace Meow.Helper
             return start.Add(span).Add(new TimeSpan(8, 0, 0));
         }
 
-        #region 获取一周数字第几天
+        #region GetNumberDayOfWeekByCn  [获取一周数字第几天]
 
         /// <summary>
         /// 获取一周数字第几天 - 国内：周一为第一天
@@ -208,7 +209,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetNumberDayOfWeekByCn(DateTime? date)
         {
-            return GetNumberDayOfWeekByCn(Common.SafeValue(date));
+            return GetNumberDayOfWeekByCn(date.SafeValue());
         }
 
         /// <summary>
@@ -230,7 +231,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetNumberDayOfWeekByEn(DateTime? date)
         {
-            return GetNumberDayOfWeekByEn(Common.SafeValue(date));
+            return GetNumberDayOfWeekByEn(date.SafeValue());
         }
 
         /// <summary>
@@ -245,7 +246,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取星期几
+        #region GetWeekNameByZh  [获取中文星期几]
 
         /// <summary>
         /// 获取中文星期几
@@ -253,7 +254,7 @@ namespace Meow.Helper
         /// <param name="data">日期</param>
         public static string GetWeekNameByZh(DateTime? data)
         {
-            return GetWeekNameByZh(Common.SafeValue(data));
+            return GetWeekNameByZh(data.SafeValue());
         }
 
         /// <summary>
@@ -289,7 +290,7 @@ namespace Meow.Helper
         /// <param name="data">日期</param>
         public static string GetWeekNameByEn(DateTime? data)
         {
-            return GetWeekNameByEn(Common.SafeValue(data));
+            return GetWeekNameByEn(data.SafeValue());
         }
 
         /// <summary>
@@ -303,7 +304,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取12小时制的时间
+        #region GetTwelveHoursTimeByZh  [获取12小时制的中文时间]
 
         /// <summary>
         /// 获取12小时制的中文时间。例：2023-04-22(星期六)  下午 11:22:24
@@ -311,7 +312,7 @@ namespace Meow.Helper
         /// <param name="data">日期</param>
         public static string GetTwelveHoursTimeByZh(DateTime? data)
         {
-            return GetTwelveHoursTimeByZh(Common.SafeValue(data));
+            return GetTwelveHoursTimeByZh(data.SafeValue());
         }
 
         /// <summary>
@@ -330,7 +331,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取两个日期之间相差的天数
+        #region GetDiffDays  [获取两个日期之间相差的天数]
 
         /// <summary>
         /// 获取两个日期之间相差的天数
@@ -339,7 +340,7 @@ namespace Meow.Helper
         /// <param name="secondTime">第二个日期参数</param>
         public static int GetDiffDays(DateTime? firstTime, DateTime? secondTime)
         {
-            return GetDiffDays(Common.SafeValue(firstTime), Common.SafeValue(secondTime));
+            return GetDiffDays(firstTime.SafeValue(), secondTime.SafeValue());
         }
 
         /// <summary>
@@ -355,7 +356,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取两个日期之间相差的小时数
+        #region GetDiffHours  [获取两个日期之间相差的小时数]
 
         /// <summary>
         /// 获取两个日期之间相差的小时数
@@ -364,7 +365,7 @@ namespace Meow.Helper
         /// <param name="secondTime">第二个日期参数</param>
         public static int GetDiffHours(DateTime? firstTime, DateTime? secondTime)
         {
-            return GetDiffHours(Common.SafeValue(firstTime), Common.SafeValue(secondTime));
+            return GetDiffHours(firstTime.SafeValue(), secondTime.SafeValue());
         }
 
         /// <summary>
@@ -380,7 +381,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取两个日期之间相差的分钟数
+        #region GetDiffMinutes  [获取两个日期之间相差的分钟数]
 
         /// <summary>
         /// 获取两个日期之间相差的分钟数
@@ -389,7 +390,7 @@ namespace Meow.Helper
         /// <param name="secondTime">第二个日期参数</param>
         public static int GetDiffMinutes(DateTime? firstTime, DateTime? secondTime)
         {
-            return GetDiffMinutes(Common.SafeValue(firstTime), Common.SafeValue(secondTime));
+            return GetDiffMinutes(firstTime.SafeValue(), secondTime.SafeValue());
         }
 
         /// <summary>
@@ -405,7 +406,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取年有多少天
+        #region GetDaysOfYear  [获取年有多少天]
 
         /// <summary>
         /// 获取年有多少天
@@ -413,7 +414,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetDaysOfYear(DateTime? date)
         {
-            return GetDaysOfYear(Common.SafeValue(date));
+            return GetDaysOfYear(date.SafeValue());
         }
 
         /// <summary>
@@ -436,7 +437,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取月有多少天
+        #region GetDaysOfMonth  [获取月有多少天]
 
         /// <summary>
         /// 获取月有多少天
@@ -444,7 +445,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetDaysOfMonth(DateTime? date)
         {
-            return GetDaysOfMonth(Common.SafeValue(date));
+            return GetDaysOfMonth(date.SafeValue());
         }
 
         /// <summary>
@@ -496,7 +497,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取年有多少周
+        #region GetWeeksOfYear  [获取年有多少周]
 
         /// <summary>
         /// 获取年有多少周
@@ -504,7 +505,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetWeeksOfYear(DateTime? date)
         {
-            return GetWeeksOfYear(Common.SafeValue(date));
+            return GetWeeksOfYear(date.SafeValue());
         }
 
         /// <summary>
@@ -531,7 +532,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 获取某一日期是该年中的第几周
+        #region GetWeekOfYear  [获取某一日期是该年中的第几周]
 
         /// <summary>
         /// 获取某一日期是该年中的第几周
@@ -539,7 +540,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static int GetWeekOfYear(DateTime? date)
         {
-            return GetWeekOfYear(Common.SafeValue(date));
+            return GetWeekOfYear(date.SafeValue());
         }
 
         /// <summary>
@@ -554,7 +555,7 @@ namespace Meow.Helper
 
         #endregion
 
-        #region 根据年的第几周获取这周的起止日期
+        #region GetWeekRangeByCn  [根据年的第几周获取这周的起止日期]
 
         /// <summary>
         /// 根据年的第几周获取这周的起止日期 - 国内：周一为第一天
@@ -564,7 +565,7 @@ namespace Meow.Helper
         /// <param name="lastDate">周结束日期</param>
         public static void GetWeekRangeByCn(DateTime? date, out DateTime firstDate, out DateTime lastDate)
         {
-            GetWeekRangeByCn(Common.SafeValue(date), out firstDate, out lastDate);
+            GetWeekRangeByCn(date.SafeValue(), out firstDate, out lastDate);
         }
 
         /// <summary>
@@ -618,7 +619,7 @@ namespace Meow.Helper
         /// <param name="second">秒</param>
         public static TimeSpan GetTimeSpanBySecond(int? second)
         {
-            return GetTimeSpanBySecond(Common.SafeValue(second));
+            return GetTimeSpanBySecond(second.SafeValue());
         }
 
         /// <summary>
@@ -628,6 +629,56 @@ namespace Meow.Helper
         public static TimeSpan GetTimeSpanBySecond(int second)
         {
             return new TimeSpan(0, 0, second);
+        }
+
+        #endregion
+
+        #region GetTimeSpanByCn  [获取中文时间间隔]
+
+        /// <summary>
+        /// 获取中文时间间隔
+        /// </summary>
+        /// <param name="time">时间</param>
+        public static string GetTimeSpanByCn(DateTime? time)
+        {
+            return GetTimeSpanByCn(time.SafeValue());
+        }
+
+        /// <summary>
+        /// 获取中文时间间隔
+        /// </summary>
+        /// <param name="time">时间</param>
+        public static string GetTimeSpanByCn(DateTime time)
+        {
+            var nowTime = Now;
+            var suffix = time > nowTime ? "后" : "前";
+            return GetTimeSpanByCn(time - nowTime, suffix);
+        }
+
+        /// <summary>
+        /// 获取中文时间间隔
+        /// </summary>
+        /// <param name="ts">时间间隔</param>
+        /// <param name="suffix">后缀</param>
+        private static string GetTimeSpanByCn(TimeSpan ts, string suffix)
+        {
+            var days = System.Math.Ceiling(System.Math.Abs(ts.TotalDays));
+            if (days > 365)
+                return $"{(int)(days / 365)}年{suffix}";
+            if (days > 30)
+                return $"{(int)(days / 30)}月{suffix}";
+            if (days > 1)
+                return $"{days}天{suffix}";
+            var hours = System.Math.Ceiling(System.Math.Abs(ts.TotalHours));
+            if (hours > 1)
+                return $"{hours}小时{suffix}";
+            var minutes = System.Math.Ceiling(System.Math.Abs(ts.TotalMinutes));
+            if (minutes > 1)
+                return $"{minutes}分钟{suffix}";
+            var seconds = System.Math.Ceiling(System.Math.Abs(ts.TotalSeconds));
+            if (seconds > 30)
+                return $"{seconds}秒前";
+            return "刚刚";
         }
 
         #endregion
@@ -646,7 +697,7 @@ namespace Meow.Helper
         {
             if (times == null)
                 return false;
-            return IsSameWeekByCn(Common.SafeValue(times));
+            return IsSameWeekByCn(times.SafeValue());
         }
 
         /// <summary>
@@ -668,7 +719,7 @@ namespace Meow.Helper
         {
             if (times == null)
                 return false;
-            return IsSameWeekByCn(Common.SafeValue(times));
+            return IsSameWeekByCn(times.SafeValue());
         }
 
         /// <summary>
@@ -721,7 +772,7 @@ namespace Meow.Helper
         {
             if (times == null)
                 return false;
-            return IsSameWeekByEn(Common.SafeValue(times));
+            return IsSameWeekByEn(times.SafeValue());
         }
 
         /// <summary>
@@ -743,7 +794,7 @@ namespace Meow.Helper
         {
             if (times == null)
                 return false;
-            return IsSameWeekByEn(Common.SafeValue(times));
+            return IsSameWeekByEn(times.SafeValue());
         }
 
         /// <summary>
@@ -796,7 +847,7 @@ namespace Meow.Helper
         /// <param name="date">日期</param>
         public static bool IsLeapYear(DateTime? date)
         {
-            return IsLeapYear(Common.SafeValue(date));
+            return IsLeapYear(date.SafeValue());
         }
 
         /// <summary>
@@ -818,10 +869,6 @@ namespace Meow.Helper
         }
 
         #endregion
-
-
-
-
 
         #endregion
 

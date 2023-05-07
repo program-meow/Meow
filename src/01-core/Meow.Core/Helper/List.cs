@@ -241,6 +241,8 @@ namespace Meow.Helper
 
         #endregion
 
+        #region IsSequence  [是否不间断连续 判断类型是Int]
+
         /// <summary>
         /// 是否不间断连续 判断类型是Int
         /// </summary>
@@ -276,7 +278,7 @@ namespace Meow.Helper
         /// <param name="startNo">起始数</param>
         public static bool IsSequence(IEnumerable<int?> array, int startNo = 1)
         {
-            return IsSequence(Common.SafeValue(array), startNo);
+            return IsSequence(array.SafeValue(), startNo);
         }
 
         /// <summary>
@@ -315,6 +317,8 @@ namespace Meow.Helper
             TKey contrastValue = keySelector(array.FirstOrDefault());
             return array.All(element => contrastValue.Equals(keySelector(element)));
         }
+
+        #endregion
 
         /// <summary>
         /// 值是否相等
