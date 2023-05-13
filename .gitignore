@@ -6,6 +6,12 @@
 
 /src/Meow.Core/bin
 /src/Meow.Core/obj
+/src/Meow.Aop.AspectCore/bin
+/src/Meow.Aop.AspectCore/obj
+/src/Meow.Validation/bin
+/src/Meow.Validation/obj
+/src/Meow.Data.Abstraction/bin
+/src/Meow.Data.Abstraction/obj
 
 /src/Meow.Logging/bin
 /src/Meow.Logging/obj
@@ -14,8 +20,11 @@
 /src/Meow.Logging.Serilog.Exceptionless/bin
 /src/Meow.Logging.Serilog.Exceptionless/obj
 
-/src/Meow.Events/bin
-/src/Meow.Events/obj
+/src/Meow.Event/bin
+/src/Meow.Event/obj
+
+/src/Meow.Domain/bin
+/src/Meow.Domain/obj
 
 
 

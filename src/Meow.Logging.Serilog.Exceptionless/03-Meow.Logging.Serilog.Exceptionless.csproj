@@ -3,10 +3,10 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Logging.Serilog.Exceptionless</AssemblyName>
-		<RootNamespace>Meow.Logging.Serilog.Exceptionless</RootNamespace>
+		<RootNamespace>Util.Logging.Serilog</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Logging.Serilog.Exceptionless是Meow应用框架集成封装Serilog日志操作类库,用于写入Exceptionless。
+			Meow.Logging.Serilog.Exceptionless 是 Meow 应用框架集成封装 Serilog 日志操作类库,用于写入 Exceptionless。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -27,6 +27,15 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Exceptionless.Extensions.Hosting" Version="6.0.1" />
+	  <PackageReference Include="Serilog.Sinks.Exceptionless" Version="4.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Logging.Serilog\02-Meow.Logging.Serilog.csproj" />
 	</ItemGroup>
 
 </Project>

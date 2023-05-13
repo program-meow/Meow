@@ -6,7 +6,7 @@
 		<RootNamespace>Meow</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Core是Meow应用框架的基础类库。
+			Meow.Core 是 Meow 应用框架的基础类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -30,8 +30,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>

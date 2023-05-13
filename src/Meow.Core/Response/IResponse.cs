@@ -1,9 +1,8 @@
-﻿namespace Meow.Response
+﻿namespace Meow.Response;
+
+/// <summary>
+/// 相应对象
+/// </summary>
+public interface IResponse
 {
-    /// <summary>
-    /// 相应对象
-    /// </summary>
-    public interface IResponse
-    {
-    }
 }

@@ -1,26 +1,25 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Enum
+namespace Meow.Enum;
+
+/// <summary>
+/// 邮箱协议
+/// </summary>
+public enum EmailAgreementEnum
 {
     /// <summary>
-    /// 邮箱协议
+    /// SMTP协议
     /// </summary>
-    public enum EmailAgreementEnum
-    {
-        /// <summary>
-        /// SMTP协议
-        /// </summary>
-        [Description("SMTP协议")]
-        Smtp = 1,
-        /// <summary>
-        /// POP3协议
-        /// </summary>
-        [Description("POP3协议")]
-        Pop3 = 2,
-        /// <summary>
-        /// IMAP协议
-        /// </summary>
-        [Description("IMAP协议")]
-        Imap = 3,
-    }
+    [Description("SMTP协议")]
+    SMTP = 1,
+    /// <summary>
+    /// POP3协议
+    /// </summary>
+    [Description("POP3协议")]
+    POP3 = 2,
+    /// <summary>
+    /// IMAP协议
+    /// </summary>
+    [Description("IMAP协议")]
+    IMAP = 3,
 }

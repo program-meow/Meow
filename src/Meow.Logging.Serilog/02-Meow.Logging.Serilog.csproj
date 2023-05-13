@@ -6,7 +6,7 @@
 		<RootNamespace>Meow.Logging.Serilog</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Logging.Serilog是Meow应用框架集成封装Serilog日志框架的核心类库,它包含了写入文件和Seq。
+			Meow.Logging.Serilog 是 Meow 应用框架集成封装 Serilog 日志框架的核心类库,它包含了写入 文件 和 Seq。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -27,6 +27,15 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+	  <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Logging\01-Meow.Logging.csproj" />
 	</ItemGroup>
 
 </Project>

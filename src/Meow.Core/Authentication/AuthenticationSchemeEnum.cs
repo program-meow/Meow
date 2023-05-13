@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Authentication
+namespace Meow.Authentication;
+
+/// <summary>
+/// 授权方案
+/// </summary>
+public enum AuthenticationSchemeEnum
 {
     /// <summary>
-    /// 授权方案
+    /// Basic
     /// </summary>
-    public enum AuthenticationSchemeEnum
-    {
-        /// <summary>
-        /// Basic
-        /// </summary>
-        [Description("Basic")]
-        Basic = 1,
-    }
+    [Description("Basic")]
+    Basic = 1,
 }

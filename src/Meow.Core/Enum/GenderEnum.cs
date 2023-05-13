@@ -1,21 +1,20 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Enum
+namespace Meow.Enum;
+
+/// <summary>
+/// 性别
+/// </summary>
+public enum GenderEnum
 {
     /// <summary>
-    /// 性别
+    /// 女
+    /// </summary>        
+    [Description("女")]
+    Female = 1,
+    /// <summary>
+    /// 男
     /// </summary>
-    public enum GenderEnum
-    {
-        /// <summary>
-        /// 女
-        /// </summary>        
-        [Description("女")]
-        Female = 1,
-        /// <summary>
-        /// 男
-        /// </summary>
-        [Description("男")]
-        Male = 2
-    }
+    [Description("男")]
+    Male = 2
 }
