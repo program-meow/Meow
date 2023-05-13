@@ -12,7 +12,6 @@
 		<RepositoryUrl>https://github.com/program-meow/Meow</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>
-			Meow应用框架以MIT开源发布，
 			$(Tips)
 		</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,7 +21,10 @@
 	<PropertyGroup>
 		<Tips>
 			个人学习使用。
-			原作者 何镇汐（https://github.com/dotnetcore/Util），请使用原作者版本。
+			来源
+			作者：何镇汐
+			地址：https://github.com/dotnetcore/Util
+			请使用原作者版本，尊重原作者劳动成果，谢谢！
 		</Tips>
 	</PropertyGroup>
 </Project>
