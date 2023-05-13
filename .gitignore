@@ -1,11 +1,27 @@
 /.vs
 /output
 
-/src/01-core/Meow.Core/bin
-/src/01-core/Meow.Core/obj
 
-/test/00-common/Meow.Common.Test/bin
-/test/00-common/Meow.Common.Test/obj
 
-/test/01-core/Meow.Core.Test/bin
-/test/01-core/Meow.Core.Test/obj
+
+/src/Meow.Core/bin
+/src/Meow.Core/obj
+
+/src/Meow.Logging/bin
+/src/Meow.Logging/obj
+/src/Meow.Logging.Serilog/bin
+/src/Meow.Logging.Serilog/obj
+/src/Meow.Logging.Serilog.Exceptionless/bin
+/src/Meow.Logging.Serilog.Exceptionless/obj
+
+/src/Meow.Events/bin
+/src/Meow.Events/obj
+
+
+
+
+/test/Meow.Common.Test/bin
+/test/Meow.Common.Test/obj
+
+/test/Meow.Core.Test/bin
+/test/Meow.Core.Test/obj

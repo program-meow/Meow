@@ -1,24 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
-		<RootNamespace>Meow</RootNamespace>
+		<AssemblyName>Meow.Logging</AssemblyName>
+		<RootNamespace>Meow.Logging</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Core是Meow应用框架的基础类库。
+			Meow.Logging是Meow应用框架的日志操作核心类库。
 			$(Tips)
 		</Description>
-		<AssemblyName>Meow.Core</AssemblyName>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\..\output\src\Debug\$(NetTargetFramework)\01-core\Util.Core.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Logging.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\..\output\src\Release\$(NetTargetFramework)\01-core\Util.Core.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Logging.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,11 +27,6 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>
