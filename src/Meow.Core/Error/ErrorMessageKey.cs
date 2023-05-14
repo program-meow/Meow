@@ -14,4 +14,13 @@ public static class ErrorMessageKey
     /// </summary>
 
     public const string InvalidIdCard = "InvalidIdCard";
+    /// <summary>
+    /// 标识不能为空
+    /// </summary>
+
+    public const string IdIsNotEmpty = "IdIsNotEmpty";
+    /// <summary>
+    /// 不允许将节点移动到自己或子节点下
+    /// </summary>
+    public const string NotSupportMoveToChildren = "NotSupportMoveToChildren";
 }
