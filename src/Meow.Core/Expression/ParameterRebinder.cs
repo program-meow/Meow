@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using SystemExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Expression;
 
@@ -27,7 +28,7 @@ public class ParameterRebind : ExpressionVisitor
     /// </summary>
     /// <param name="map">参数字典</param>
     /// <param name="exp">表达式</param>
-    public static System.Linq.Expressions.Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, System.Linq.Expressions.Expression exp)
+    public static SystemExpression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, SystemExpression exp)
     {
         return new ParameterRebind(map).Visit(exp);
     }
@@ -36,7 +37,7 @@ public class ParameterRebind : ExpressionVisitor
     /// 访问参数
     /// </summary>
     /// <param name="parameterExpression">参数</param>
-    protected override System.Linq.Expressions.Expression VisitParameter(ParameterExpression parameterExpression)
+    protected override SystemExpression VisitParameter(ParameterExpression parameterExpression)
     {
         if (_map.TryGetValue(parameterExpression, out ParameterExpression replacement))
             parameterExpression = replacement;

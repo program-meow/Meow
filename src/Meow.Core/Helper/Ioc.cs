@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -66,7 +67,7 @@ public static class Ioc
     /// </summary>
     /// <typeparam name="T">返回对象类型</typeparam>
     /// <param name="type">对象类型</param>
-    public static T Create<T>(System.Type type)
+    public static T Create<T>(SystemType type)
     {
         object service = Create(type);
         if (service == null)
@@ -78,7 +79,7 @@ public static class Ioc
     /// 创建对象
     /// </summary>
     /// <param name="type">对象类型</param>
-    public static object Create(System.Type type)
+    public static object Create(SystemType type)
     {
         if (type == null)
             return null;
@@ -100,9 +101,9 @@ public static class Ioc
     /// </summary>
     /// <typeparam name="T">返回类型</typeparam>
     /// <param name="type">对象类型</param>
-    public static List<T> CreateList<T>(System.Type type)
+    public static List<T> CreateList<T>(SystemType type)
     {
-        System.Type serviceType = typeof(IEnumerable<>).MakeGenericType(type);
+        SystemType serviceType = typeof(IEnumerable<>).MakeGenericType(type);
         object result = Create(serviceType);
         if (result == null)
             return new List<T>();

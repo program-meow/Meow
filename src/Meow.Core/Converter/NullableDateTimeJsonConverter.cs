@@ -2,6 +2,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using SystemType = System.Type;
 
 namespace Meow.Converter;
 
@@ -34,7 +35,7 @@ public class NullableDateTimeJsonConverter : JsonConverter<DateTime?>
     /// <summary>
     /// 读取数据
     /// </summary>
-    public override DateTime? Read(ref Utf8JsonReader reader, System.Type typeToConvert, JsonSerializerOptions options)
+    public override DateTime? Read(ref Utf8JsonReader reader, SystemType typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType == JsonTokenType.String)
             return reader.GetString().SafeString().ToDateTime().ToLocalTime();

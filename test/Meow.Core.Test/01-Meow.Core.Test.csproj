@@ -9,12 +9,12 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\test\Util.Core.Test.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\test\Meow.Core.Test.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\test\Util.Core.Test.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\test\Meow.Core.Test.xml</DocumentationFile>
 	</PropertyGroup>
 
 

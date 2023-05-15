@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SystemType = System.Type;
 
 namespace Meow.Reflection;
 
@@ -11,10 +12,10 @@ public interface ITypeFinder
     /// 查找类型列表
     /// </summary>
     /// <typeparam name="T">查找类型</typeparam>
-    List<System.Type> Find<T>();
+    List<SystemType> Find<T>();
     /// <summary>
     /// 查找类型列表
     /// </summary>
     /// <param name="findType">查找类型</param>
-    List<System.Type> Find(System.Type findType);
+    List<SystemType> Find(SystemType findType);
 }

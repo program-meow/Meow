@@ -6,6 +6,8 @@
 
 /src/Meow.Core/bin
 /src/Meow.Core/obj
+/src/Meow.ObjectMapping.AutoMapper/bin
+/src/Meow.ObjectMapping.AutoMapper/obj
 /src/Meow.Aop.AspectCore/bin
 /src/Meow.Aop.AspectCore/obj
 /src/Meow.Validation/bin
@@ -25,6 +27,13 @@
 
 /src/Meow.Domain/bin
 /src/Meow.Domain/obj
+
+/src/Meow.Data.Core/bin
+/src/Meow.Data.Core/obj
+/src/Meow.Data.Sql/bin
+/src/Meow.Data.Sql/obj
+/src/Meow.Data.Metadata/bin
+/src/Meow.Data.Metadata/obj
 
 
 

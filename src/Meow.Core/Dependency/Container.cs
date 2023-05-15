@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using SystemType = System.Type;
 
 namespace Meow.Dependency;
 
@@ -60,7 +61,7 @@ public class Container
     /// </summary>
     /// <typeparam name="T">返回对象类型</typeparam>
     /// <param name="type">对象类型</param>
-    public T GetService<T>(System.Type type)
+    public T GetService<T>(SystemType type)
     {
         object service = GetService(type);
         if (service == null)
@@ -72,7 +73,7 @@ public class Container
     /// 获取服务
     /// </summary>
     /// <param name="type">对象类型</param>
-    public object GetService(System.Type type)
+    public object GetService(SystemType type)
     {
         IServiceProvider provider = GetServiceProvider();
         return provider.GetService(type);

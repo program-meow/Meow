@@ -1,8 +1,6 @@
 ﻿using System;
 using Exceptionless;
 using Meow.Config;
-using Meow.Logging;
-using Meow.Logging.Serilog.Extension;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using SerilogLog = Serilog.Log;
 
-namespace Util.Logging.Serilog.Extension;
+namespace Meow.Logging.Serilog.Extension;
 
 /// <summary>
 /// Exceptionless日志操作配置扩展

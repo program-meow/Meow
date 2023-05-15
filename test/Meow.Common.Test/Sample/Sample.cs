@@ -110,11 +110,11 @@ namespace Meow.Common.Test.Sample {
         /// <summary>
         /// Enum值
         /// </summary>
-        public EnumSample EnumValue { get; set; }
+        public SampleEnum EnumValue { get; set; }
         /// <summary>
         /// 可空Enum值
         /// </summary>
-        public EnumSample? NullableEnumValue { get; set; }
+        public SampleEnum? NullableEnumValue { get; set; }
         /// <summary>
         /// DateTime值
         /// </summary>

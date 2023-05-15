@@ -3,6 +3,7 @@ using Meow.Infrastructure;
 using Meow.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SystemType = System.Type;
 
 namespace Meow.Event.Infrastructure;
 
@@ -54,11 +55,11 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar
     /// </summary>
     private void RegisterEventHandlers(IServiceCollection services, ITypeFinder finder)
     {
-        System.Type handlerType = typeof(IEventHandler<>);
-        System.Type[] handlerTypes = GetTypes(finder, handlerType);
-        foreach (System.Type handler in handlerTypes)
+        SystemType handlerType = typeof(IEventHandler<>);
+        SystemType[] handlerTypes = GetTypes(finder, handlerType);
+        foreach (SystemType handler in handlerTypes)
         {
-            System.Type[] serviceTypes = handler.FindInterfaces((filter, criteria) => criteria != null && filter.IsGenericType && ((System.Type)criteria).IsAssignableFrom(filter.GetGenericTypeDefinition()), handlerType);
+            SystemType[] serviceTypes = handler.FindInterfaces((filter, criteria) => criteria != null && filter.IsGenericType && ((SystemType)criteria).IsAssignableFrom(filter.GetGenericTypeDefinition()), handlerType);
             serviceTypes.ToList().ForEach(serviceType => services.AddScoped(serviceType, handler));
         }
     }
@@ -66,7 +67,7 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar
     /// <summary>
     /// 获取类型集合
     /// </summary>
-    private System.Type[] GetTypes(ITypeFinder finder, System.Type type)
+    private SystemType[] GetTypes(ITypeFinder finder, SystemType type)
     {
         return finder.Find(type).ToArray();
     }

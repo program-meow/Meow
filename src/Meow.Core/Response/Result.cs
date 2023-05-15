@@ -14,7 +14,7 @@ public class Result : Result<object>
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(ResultStatusCode code, string message, object data = default(object))
+    public Result(ResultStatusCodeEnum code, string message, object data = default(object))
         : this(code.GetValue().SafeString(), message, data)
     {
     }
@@ -53,7 +53,7 @@ public class Result<TResult> : IResult<TResult>
     /// <inheritdoc />
     public TResult Data { get; }
     /// <inheritdoc />
-    public bool IsOk => Code.SafeString() == ResultStatusCode.Ok.GetValue().SafeString();
+    public bool IsOk => Code.SafeString() == ResultStatusCodeEnum.Ok.GetValue().SafeString();
 
     /// <summary>
     /// 初始化结果
@@ -61,7 +61,7 @@ public class Result<TResult> : IResult<TResult>
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(ResultStatusCode code, string message, TResult data = default(TResult))
+    public Result(ResultStatusCodeEnum code, string message, TResult data = default(TResult))
         : this(code.GetValue().SafeString(), message, data)
     {
     }

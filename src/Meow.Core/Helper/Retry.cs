@@ -40,7 +40,7 @@ public static class Retry
     {
         action.CheckNull(nameof(action));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         delayFunc ??= _delayDefaultAction();
 
@@ -51,14 +51,14 @@ public static class Retry
             {
                 action();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 return new Result<bool>(statusCode, statusCode.GetDescription(), true);
             }
             catch (System.Exception ex)
             {
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -84,7 +84,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
@@ -98,7 +98,7 @@ public static class Retry
             {
                 result = func();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -108,7 +108,7 @@ public static class Retry
             {
                 result = null;
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -134,7 +134,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -148,7 +148,7 @@ public static class Retry
             {
                 result = func();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -158,7 +158,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -185,7 +185,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -199,7 +199,7 @@ public static class Retry
             {
                 result = func(t1);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -209,7 +209,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -237,7 +237,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -251,7 +251,7 @@ public static class Retry
             {
                 result = func(t1, t2);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -261,7 +261,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -290,7 +290,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -304,7 +304,7 @@ public static class Retry
             {
                 result = func(t1, t2, t3);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -314,7 +314,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -344,7 +344,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -358,7 +358,7 @@ public static class Retry
             {
                 result = func(t1, t2, t3, t4);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -368,7 +368,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -397,7 +397,7 @@ public static class Retry
     {
         action.CheckNull(nameof(action));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         delayFunc ??= _delayDefaultAction();
 
@@ -408,14 +408,14 @@ public static class Retry
             {
                 await action();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 return new Result<bool>(statusCode, statusCode.GetDescription(), true);
             }
             catch (System.Exception ex)
             {
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -441,7 +441,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
@@ -455,7 +455,7 @@ public static class Retry
             {
                 result = await func();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -465,7 +465,7 @@ public static class Retry
             {
                 result = null;
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -491,7 +491,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -505,7 +505,7 @@ public static class Retry
             {
                 result = await func();
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -515,7 +515,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -542,7 +542,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -556,7 +556,7 @@ public static class Retry
             {
                 result = await func(t1);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -566,7 +566,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -594,7 +594,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -608,7 +608,7 @@ public static class Retry
             {
                 result = await func(t1, t2);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -618,7 +618,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -647,7 +647,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -661,7 +661,7 @@ public static class Retry
             {
                 result = await func(t1, t2, t3);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -671,7 +671,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
@@ -701,7 +701,7 @@ public static class Retry
     {
         func.CheckNull(nameof(func));
 
-        ResultStatusCode statusCode;
+        ResultStatusCodeEnum statusCode;
         System.Exception exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -715,7 +715,7 @@ public static class Retry
             {
                 result = await func(t1, t2, t3, t4);
 
-                statusCode = ResultStatusCode.Ok;
+                statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
                 if (validateResultFunc(result))
@@ -725,7 +725,7 @@ public static class Retry
             {
                 result = default(TResult);
 
-                statusCode = ResultStatusCode.Error;
+                statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;

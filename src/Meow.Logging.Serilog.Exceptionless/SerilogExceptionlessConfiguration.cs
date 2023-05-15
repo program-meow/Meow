@@ -1,7 +1,7 @@
 ﻿using System;
 using Exceptionless;
 
-namespace Util.Logging.Serilog;
+namespace Meow.Logging.Serilog;
 
 /// <summary>
 /// Serilog Exceptionless日志配置

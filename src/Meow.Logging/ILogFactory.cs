@@ -1,4 +1,6 @@
-﻿namespace Meow.Logging;
+﻿using SystemType = System.Type;
+
+namespace Meow.Logging;
 
 /// <summary>
 /// 日志操作工厂
@@ -14,5 +16,5 @@ public interface ILogFactory
     /// 创建日志操作
     /// </summary>
     /// <param name="type">日志类别类型</param>
-    ILog CreateLog(System.Type type);
+    ILog CreateLog(SystemType type);
 }

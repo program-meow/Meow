@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using Meow.Enum;
 using Meow.Extension;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -28,7 +29,7 @@ public static class Convert
             return default;
         if (value is string && value.SafeString().IsEmpty())
             return default;
-        System.Type type = Meow.Helper.Common.GetType<T>();
+        SystemType type = Meow.Helper.Common.GetType<T>();
         string typeName = type.Name.ToUpperInvariant();
         try
         {

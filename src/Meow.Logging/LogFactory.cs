@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using SystemType = System.Type;
 
 namespace Meow.Logging;
 
@@ -38,7 +39,7 @@ public class LogFactory : ILogFactory
     /// 创建日志操作
     /// </summary>
     /// <param name="type">日志类别类型</param>
-    public ILog CreateLog(System.Type type)
+    public ILog CreateLog(SystemType type)
     {
         ILogger logger = _loggerFactory.CreateLogger(type);
         LoggerWrapper wrapper = new LoggerWrapper(logger);

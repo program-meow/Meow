@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using SystemExpression = System.Linq.Expressions.Expression;
+using SystemType = System.Type;
 
 namespace Meow.Extension;
 
@@ -15,7 +16,7 @@ public static class ExpressionExtension
     /// 获取类型
     /// </summary>
     /// <param name="expression">表达式,范例：t => t.Name</param>
-    public static System.Type GetType(this SystemExpression expression)
+    public static SystemType GetType(this SystemExpression expression)
     {
         return Helper.Expression.GetType(expression);
     }
@@ -61,7 +62,7 @@ public static class ExpressionExtension
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
-    public static List<string> GetNames<T>(this System.Linq.Expressions.Expression<Func<T, object[]>> expression)
+    public static List<string> GetNames<T>(this Expression<Func<T, object[]>> expression)
     {
         return Helper.Expression.GetNames<T>(expression);
 
@@ -82,7 +83,7 @@ public static class ExpressionExtension
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
-    public static List<string> GetLastNames<T>(this System.Linq.Expressions.Expression<Func<T, object[]>> expression)
+    public static List<string> GetLastNames<T>(this Expression<Func<T, object[]>> expression)
     {
         return Helper.Expression.GetLastNames<T>(expression);
     }
@@ -100,7 +101,7 @@ public static class ExpressionExtension
     /// 获取查询操作符,范例：t => t.Name == "A",返回 Operator.Equal
     /// </summary>
     /// <param name="expression">表达式,范例：t => t.Name == "A"</param>
-    public static Meow.Math.Operator? GetOperator(this SystemExpression expression)
+    public static Meow.Math.OperatorEnum? GetOperator(this SystemExpression expression)
     {
         return Helper.Expression.GetOperator(expression);
     }
@@ -150,7 +151,7 @@ public static class ExpressionExtension
     /// <typeparam name="TProperty">属性类型</typeparam>
     /// <typeparam name="TAttribute">特性类型</typeparam>
     /// <param name="propertyExpression">属性表达式</param>
-    public static TAttribute GetAttribute<TEntity, TProperty, TAttribute>(this System.Linq.Expressions.Expression<Func<TEntity, TProperty>> propertyExpression) where TAttribute : Attribute
+    public static TAttribute GetAttribute<TEntity, TProperty, TAttribute>(this Expression<Func<TEntity, TProperty>> propertyExpression) where TAttribute : Attribute
     {
         return Helper.Expression.GetAttribute<TEntity, TProperty, TAttribute>(propertyExpression);
     }
@@ -161,7 +162,7 @@ public static class ExpressionExtension
     /// <typeparam name="TProperty">属性类型</typeparam>
     /// <typeparam name="TAttribute">特性类型</typeparam>
     /// <param name="propertyExpression">属性表达式</param>
-    public static TAttribute GetAttribute<TProperty, TAttribute>(this System.Linq.Expressions.Expression<Func<TProperty>> propertyExpression) where TAttribute : Attribute
+    public static TAttribute GetAttribute<TProperty, TAttribute>(this Expression<Func<TProperty>> propertyExpression) where TAttribute : Attribute
     {
         return Helper.Expression.GetAttribute<TProperty, TAttribute>(propertyExpression);
     }
@@ -173,7 +174,7 @@ public static class ExpressionExtension
     /// <typeparam name="TProperty">属性类型</typeparam>
     /// <typeparam name="TAttribute">特性类型</typeparam>
     /// <param name="propertyExpression">属性表达式</param>
-    public static IEnumerable<TAttribute> GetAttributes<TEntity, TProperty, TAttribute>(this System.Linq.Expressions.Expression<Func<TEntity, TProperty>> propertyExpression) where TAttribute : Attribute
+    public static IEnumerable<TAttribute> GetAttributes<TEntity, TProperty, TAttribute>(this Expression<Func<TEntity, TProperty>> propertyExpression) where TAttribute : Attribute
     {
         return Helper.Expression.GetAttributes<TEntity, TProperty, TAttribute>(propertyExpression);
     }
@@ -194,7 +195,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Equal<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Equal<T>(this object value, string propertyName)
     {
         return Helper.Expression.Equal<T>(propertyName, value);
     }
@@ -205,7 +206,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> NotEqual<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> NotEqual<T>(this object value, string propertyName)
     {
         return Helper.Expression.NotEqual<T>(propertyName, value);
 
@@ -217,7 +218,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Greater<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Greater<T>(this object value, string propertyName)
     {
         return Helper.Expression.Greater<T>(propertyName, value);
     }
@@ -228,7 +229,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> GreaterEqual<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> GreaterEqual<T>(this object value, string propertyName)
     {
         return Helper.Expression.GreaterEqual<T>(propertyName, value);
     }
@@ -239,7 +240,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Less<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Less<T>(this object value, string propertyName)
     {
         return Helper.Expression.Less<T>(propertyName, value);
     }
@@ -250,7 +251,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> LessEqual<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> LessEqual<T>(this object value, string propertyName)
     {
         return Helper.Expression.LessEqual<T>(propertyName, value);
     }
@@ -261,7 +262,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Starts<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Starts<T>(this object value, string propertyName)
     {
         return Helper.Expression.Starts<T>(propertyName, value);
     }
@@ -272,7 +273,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Ends<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Ends<T>(this object value, string propertyName)
     {
         return Helper.Expression.Ends<T>(propertyName, value);
     }
@@ -283,7 +284,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Contains<T>(this object value, string propertyName)
+    public static Expression<Func<T, bool>> Contains<T>(this object value, string propertyName)
     {
         return Helper.Expression.Contains<T>(propertyName, value);
     }
@@ -295,7 +296,7 @@ public static class ExpressionExtension
     /// <param name="value">值</param>
     /// <param name="propertyName">属性名</param>
     /// <param name="operator">运算符</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> ParsePredicate<T>(this object value, string propertyName, Meow.Math.Operator @operator)
+    public static Expression<Func<T, bool>> ParsePredicate<T>(this object value, string propertyName, Meow.Math.OperatorEnum @operator)
     {
         return Helper.Expression.ParsePredicate<T>(propertyName, value, @operator);
     }
@@ -336,7 +337,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="left">左操作数</param>
     /// <param name="right">右操作数</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> And<T>(this System.Linq.Expressions.Expression<Func<T, bool>> left, System.Linq.Expressions.Expression<Func<T, bool>> right)
+    public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
     {
         return Helper.Expression.And<T>(left, right);
     }
@@ -357,7 +358,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">对象类型</typeparam>
     /// <param name="left">左操作数</param>
     /// <param name="right">右操作数</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> Or<T>(this System.Linq.Expressions.Expression<Func<T, bool>> left, System.Linq.Expressions.Expression<Func<T, bool>> right)
+    public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
     {
         return Helper.Expression.Or<T>(left, right);
     }
@@ -366,7 +367,7 @@ public static class ExpressionExtension
     /// 获取lambda表达式的值
     /// </summary>
     /// <typeparam name="T">对象类型</typeparam>
-    public static object Value<T>(this System.Linq.Expressions.Expression<Func<T, bool>> expression)
+    public static object Value<T>(this Expression<Func<T, bool>> expression)
     {
         return Helper.Expression.Value<T>(expression);
     }
@@ -527,7 +528,7 @@ public static class ExpressionExtension
     /// <param name="left">左操作数</param>
     /// <param name="operator">运算符</param>
     /// <param name="value">值</param>
-    public static SystemExpression Operation(this SystemExpression left, Meow.Math.Operator @operator, object value)
+    public static SystemExpression Operation(this SystemExpression left, Meow.Math.OperatorEnum @operator, object value)
     {
         return Helper.Expression.Operation(left, @operator, value);
     }
@@ -538,7 +539,7 @@ public static class ExpressionExtension
     /// <param name="left">左操作数</param>
     /// <param name="operator">运算符</param>
     /// <param name="value">值</param>
-    public static SystemExpression Operation(this SystemExpression left, Meow.Math.Operator @operator, SystemExpression value)
+    public static SystemExpression Operation(this SystemExpression left, Meow.Math.OperatorEnum @operator, SystemExpression value)
     {
         return Helper.Expression.Operation(left, @operator, value);
     }
@@ -572,7 +573,7 @@ public static class ExpressionExtension
     /// <param name="methodName">方法名</param>
     /// <param name="paramTypes">参数类型列表</param>
     /// <param name="values">参数值列表</param>
-    public static SystemExpression Call(this SystemExpression instance, string methodName, System.Type[] paramTypes, params object[] values)
+    public static SystemExpression Call(this SystemExpression instance, string methodName, SystemType[] paramTypes, params object[] values)
     {
         return Helper.Expression.Call(instance, methodName, paramTypes, values);
     }
@@ -584,9 +585,9 @@ public static class ExpressionExtension
     /// <param name="first">左操作数</param>
     /// <param name="second">右操作数</param>
     /// <param name="merge">合并操作</param>
-    internal static System.Linq.Expressions.Expression<T> Compose<T>(
-        this System.Linq.Expressions.Expression<T> first
-        , System.Linq.Expressions.Expression<T> second
+    internal static Expression<T> Compose<T>(
+        this Expression<T> first
+        , Expression<T> second
         , Func<
             SystemExpression
             , SystemExpression
@@ -601,7 +602,7 @@ public static class ExpressionExtension
     /// <typeparam name="TDelegate">委托类型</typeparam>
     /// <param name="body">表达式</param>
     /// <param name="parameters">参数列表</param>
-    public static System.Linq.Expressions.Expression<TDelegate> ToLambda<TDelegate>(this SystemExpression body, params ParameterExpression[] parameters)
+    public static Expression<TDelegate> ToLambda<TDelegate>(this SystemExpression body, params ParameterExpression[] parameters)
     {
         return Helper.Expression.ToLambda<TDelegate>(body, parameters);
     }
@@ -612,7 +613,7 @@ public static class ExpressionExtension
     /// <typeparam name="T">委托类型</typeparam>
     /// <param name="body">表达式</param>
     /// <param name="parameters">参数列表</param>
-    public static System.Linq.Expressions.Expression<Func<T, bool>> ToPredicate<T>(this SystemExpression body, params ParameterExpression[] parameters)
+    public static Expression<Func<T, bool>> ToPredicate<T>(this SystemExpression body, params ParameterExpression[] parameters)
     {
         return Helper.Expression.ToPredicate<T>(body, parameters);
     }

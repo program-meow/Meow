@@ -22,5 +22,5 @@ public interface IResult<out TResult> : IResponse
     /// <summary>
     /// 是否成功
     /// </summary>
-    bool IsOk => Code.SafeString() == ResultStatusCode.Ok.GetValue().SafeString();
+    bool IsOk => Code.SafeString() == ResultStatusCodeEnum.Ok.GetValue().SafeString();
 }

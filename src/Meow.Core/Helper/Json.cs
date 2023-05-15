@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Threading;
 using System.Threading.Tasks;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -102,7 +103,7 @@ public static class Json
     /// <param name="json">Json字符串</param>
     /// <param name="options">序列化配置</param>
     /// <param name="returnType">序列化配置</param>
-    public static object ToObject(string json, System.Type returnType, JsonSerializerOptions options = null)
+    public static object ToObject(string json, SystemType returnType, JsonSerializerOptions options = null)
     {
         if (string.IsNullOrWhiteSpace(json))
             return default;

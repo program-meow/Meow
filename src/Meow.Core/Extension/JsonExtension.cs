@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using SystemType = System.Type;
 
 namespace Meow.Extension;
 
@@ -59,7 +60,7 @@ public static class JsonExtension
     /// <param name="json">Json字符串</param>
     /// <param name="options">序列化配置</param>
     /// <param name="returnType">序列化配置</param>
-    public static object ToJsonObject(this string json, System.Type returnType, JsonSerializerOptions options = null)
+    public static object ToJsonObject(this string json, SystemType returnType, JsonSerializerOptions options = null)
     {
         return Meow.Helper.Json.ToObject(json, returnType, options);
     }

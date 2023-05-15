@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Meow.Extension;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -55,7 +56,7 @@ public static class Enum
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static string GetName(System.Type type, object member)
+    public static string GetName(SystemType type, object member)
     {
         if (type == null)
             return string.Empty;
@@ -106,7 +107,7 @@ public static class Enum
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static int? GetValue(System.Type type, object member)
+    public static int? GetValue(SystemType type, object member)
     {
         string value = Common.SafeString(member);
         if (value.IsEmpty())
@@ -141,7 +142,7 @@ public static class Enum
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static string GetDescription(System.Type type, object member)
+    public static string GetDescription(SystemType type, object member)
     {
         return Reflection.GetDescription(type, GetName(type, member));
     }
@@ -170,7 +171,7 @@ public static class Enum
     /// 获取项集合,文本设置为Description，值为Value
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<Meow.Model.Item> ToItemsList(System.Type type)
+    public static List<Meow.Model.Item> ToItemsList(SystemType type)
     {
         type = Common.GetType(type);
         if (type.IsEnum == false)
@@ -184,7 +185,7 @@ public static class Enum
     /// <summary>
     /// 添加描述项
     /// </summary>
-    private static void AddItem(System.Type type, ICollection<Meow.Model.Item> result, FieldInfo field)
+    private static void AddItem(SystemType type, ICollection<Meow.Model.Item> result, FieldInfo field)
     {
         if (!field.FieldType.IsEnum)
             return;
@@ -217,7 +218,7 @@ public static class Enum
     /// 获取名称集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<string> ToNameList(System.Type type)
+    public static List<string> ToNameList(SystemType type)
     {
         type = Common.GetType(type);
         if (type.IsEnum == false)
@@ -246,12 +247,12 @@ public static class Enum
     /// <summary>
     /// 获取字典
     /// </summary>
-    public static Dictionary<int, string> ToDictionary(System.Type type)
+    public static Dictionary<int, string> ToDictionary(SystemType type)
     {
         Dictionary<int, string> list = new Dictionary<int, string>();
         if (type.IsEnum == false)
             return list;
-        System.Type typeDescription = typeof(DescriptionAttribute);
+        SystemType typeDescription = typeof(DescriptionAttribute);
         System.Reflection.FieldInfo[] fields = type.GetFields();
         foreach (FieldInfo field in fields)
         {
@@ -289,7 +290,7 @@ public static class Enum
     /// 转换（标识、名）集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<Meow.Model.IdName<int?>> ToIdNameList(System.Type type)
+    public static List<Meow.Model.IdName<int?>> ToIdNameList(SystemType type)
     {
         type = Common.GetType(type);
         if (type.IsEnum == false)
@@ -303,7 +304,7 @@ public static class Enum
     /// <summary>
     /// 转换（标识、名）集合
     /// </summary>
-    private static void AddIdName(System.Type type, ICollection<Meow.Model.IdName<int?>> result, FieldInfo field)
+    private static void AddIdName(SystemType type, ICollection<Meow.Model.IdName<int?>> result, FieldInfo field)
     {
         if (!field.FieldType.IsEnum)
             return;
@@ -336,7 +337,7 @@ public static class Enum
     /// 转换（标识、名、描述）集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList(System.Type type)
+    public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList(SystemType type)
     {
         type = Common.GetType(type);
         if (type.IsEnum == false)
@@ -350,7 +351,7 @@ public static class Enum
     /// <summary>
     /// 添加描述项
     /// </summary>
-    private static void AddIdNameDesc(System.Type type, ICollection<Meow.Model.IdNameDesc<int?>> result, FieldInfo field)
+    private static void AddIdNameDesc(SystemType type, ICollection<Meow.Model.IdNameDesc<int?>> result, FieldInfo field)
     {
         if (!field.FieldType.IsEnum)
             return;
@@ -376,7 +377,7 @@ public static class Enum
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static Meow.Model.IdName<int?> ToIdName(System.Type type, object member)
+    public static Meow.Model.IdName<int?> ToIdName(SystemType type, object member)
     {
         var value = GetValue(type, member);
         var name = GetName(type, member);
@@ -399,7 +400,7 @@ public static class Enum
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static Meow.Model.IdNameDesc<int?> ToIdNameDesc(System.Type type, object member)
+    public static Meow.Model.IdNameDesc<int?> ToIdNameDesc(SystemType type, object member)
     {
         var value = GetValue(type, member);
         var name = GetName(type, member);

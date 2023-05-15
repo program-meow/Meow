@@ -27,4 +27,9 @@ public enum DatabaseEnum
     /// </summary>
     [Description("Oracle数据库")]
     Oracle = 4,
+    /// <summary>
+    /// Sqlite数据库
+    /// </summary>
+    [Description("Sqlite数据库")]
+    Sqlite = 5,
 }

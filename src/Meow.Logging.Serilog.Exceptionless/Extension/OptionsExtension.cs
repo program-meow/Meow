@@ -2,7 +2,7 @@
 using Meow.Config;
 using Meow.Extension;
 
-namespace Util.Logging.Serilog.Extension;
+namespace Meow.Logging.Serilog.Extension;
 
 /// <summary>
 /// Exceptionless日志操作扩展

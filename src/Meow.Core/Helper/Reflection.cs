@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Meow.Extension;
 using Meow.Type;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -41,7 +42,7 @@ public static class Reflection
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="memberName">成员名称</param>
-    public static string GetDescription(System.Type type, string memberName)
+    public static string GetDescription(SystemType type, string memberName)
     {
         if (type == null)
             return string.Empty;
@@ -120,7 +121,7 @@ public static class Reflection
     /// <typeparam name="T">目标类型</typeparam>
     /// <param name="type">类型</param>
     /// <param name="parameters">传递给构造函数的参数</param>        
-    public static T CreateInstance<T>(System.Type type, params object[] parameters)
+    public static T CreateInstance<T>(SystemType type, params object[] parameters)
     {
         return Convert.To<T>(Activator.CreateInstance(type, parameters));
     }
@@ -134,7 +135,7 @@ public static class Reflection
     /// </summary>
     /// <typeparam name="TFind">查找类型</typeparam>
     /// <param name="assemblies">待查找的程序集列表</param>
-    public static List<System.Type> FindImplementTypes<TFind>(params Assembly[] assemblies)
+    public static List<SystemType> FindImplementTypes<TFind>(params Assembly[] assemblies)
     {
         return FindImplementTypes(typeof(TFind), assemblies);
     }
@@ -144,9 +145,9 @@ public static class Reflection
     /// </summary>
     /// <param name="findType">查找类型</param>
     /// <param name="assemblies">待查找的程序集列表</param>
-    public static List<System.Type> FindImplementTypes(System.Type findType, params Assembly[] assemblies)
+    public static List<SystemType> FindImplementTypes(SystemType findType, params Assembly[] assemblies)
     {
-        List<System.Type> result = new List<System.Type>();
+        List<SystemType> result = new List<SystemType>();
         foreach (Assembly assembly in assemblies)
             result.AddRange(GetTypes(findType, assembly));
         return result.Distinct().ToList();
@@ -155,12 +156,12 @@ public static class Reflection
     /// <summary>
     /// 获取类型列表
     /// </summary>
-    private static List<System.Type> GetTypes(System.Type findType, Assembly assembly)
+    private static List<SystemType> GetTypes(SystemType findType, Assembly assembly)
     {
-        List<System.Type> result = new List<System.Type>();
+        List<SystemType> result = new List<SystemType>();
         if (assembly == null)
             return result;
-        System.Type[] types;
+        SystemType[] types;
         try
         {
             types = assembly.GetTypes();
@@ -169,7 +170,7 @@ public static class Reflection
         {
             return result;
         }
-        foreach (System.Type type in types)
+        foreach (SystemType type in types)
             AddType(result, findType, type);
         return result;
     }
@@ -177,7 +178,7 @@ public static class Reflection
     /// <summary>
     /// 添加类型
     /// </summary>
-    private static void AddType(List<System.Type> result, System.Type findType, System.Type type)
+    private static void AddType(List<SystemType> result, SystemType findType, SystemType type)
     {
         if (type.IsInterface || type.IsAbstract)
             return;
@@ -189,12 +190,12 @@ public static class Reflection
     /// <summary>
     /// 泛型匹配
     /// </summary>
-    private static bool MatchGeneric(System.Type findType, System.Type type)
+    private static bool MatchGeneric(SystemType findType, SystemType type)
     {
         if (findType.IsGenericTypeDefinition == false)
             return false;
-        System.Type definition = findType.GetGenericTypeDefinition();
-        foreach (System.Type implementedInterface in type.FindInterfaces((filter, criteria) => true, null))
+        SystemType definition = findType.GetGenericTypeDefinition();
+        foreach (SystemType implementedInterface in type.FindInterfaces((filter, criteria) => true, null))
         {
             if (implementedInterface.IsGenericType == false)
                 continue;
@@ -212,7 +213,7 @@ public static class Reflection
     /// </summary>
     /// <typeparam name="T">在该类型上查找接口</typeparam>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
-    public static List<System.Type> GetDirectInterfaceTypes<T>(params System.Type[] baseInterfaceTypes)
+    public static List<SystemType> GetDirectInterfaceTypes<T>(params SystemType[] baseInterfaceTypes)
     {
         return GetDirectInterfaceTypes(typeof(T), baseInterfaceTypes);
     }
@@ -222,14 +223,14 @@ public static class Reflection
     /// </summary>
     /// <param name="type">在该类型上查找接口</param>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
-    public static List<System.Type> GetDirectInterfaceTypes(System.Type type, params System.Type[] baseInterfaceTypes)
+    public static List<SystemType> GetDirectInterfaceTypes(SystemType type, params SystemType[] baseInterfaceTypes)
     {
-        System.Type[] interfaceTypes = type.GetInterfaces();
-        List<System.Type> directInterfaceTypes = interfaceTypes.Except(interfaceTypes.SelectMany(t => t.GetInterfaces())).ToList();
+        SystemType[] interfaceTypes = type.GetInterfaces();
+        List<SystemType> directInterfaceTypes = interfaceTypes.Except(interfaceTypes.SelectMany(t => t.GetInterfaces())).ToList();
         if (baseInterfaceTypes == null || baseInterfaceTypes.Length == 0)
             return directInterfaceTypes;
-        List<System.Type> result = new List<System.Type>();
-        foreach (System.Type interfaceType in directInterfaceTypes)
+        List<SystemType> result = new List<SystemType>();
+        foreach (SystemType interfaceType in directInterfaceTypes)
         {
             if (interfaceType.GetInterfaces().Any(baseInterfaceTypes.Contains) == false)
                 continue;
@@ -251,7 +252,7 @@ public static class Reflection
     /// 是否集合
     /// </summary>
     /// <param name="type">类型</param>
-    public static bool IsCollection(System.Type type)
+    public static bool IsCollection(SystemType type)
     {
         if (type.IsArray)
             return true;
@@ -266,11 +267,11 @@ public static class Reflection
     /// 是否泛型集合
     /// </summary>
     /// <param name="type">类型</param>
-    public static bool IsGenericCollection(System.Type type)
+    public static bool IsGenericCollection(SystemType type)
     {
         if (!type.IsGenericType)
             return false;
-        System.Type typeDefinition = type.GetGenericTypeDefinition();
+        SystemType typeDefinition = type.GetGenericTypeDefinition();
         return typeDefinition == typeof(IEnumerable<>)
                || typeDefinition == typeof(IReadOnlyCollection<>)
                || typeDefinition == typeof(IReadOnlyList<>)
@@ -338,7 +339,7 @@ public static class Reflection
     {
         if (property.PropertyType.GetTypeInfo().IsEnum)
             return true;
-        System.Type value = Nullable.GetUnderlyingType(property.PropertyType);
+        SystemType value = Nullable.GetUnderlyingType(property.PropertyType);
         if (value == null)
             return false;
         return value.GetTypeInfo().IsEnum;
@@ -472,13 +473,13 @@ public static class Reflection
     /// 获取元素类型，如果是集合，返回集合的元素类型
     /// </summary>
     /// <param name="type">类型</param>
-    public static System.Type GetElementType(System.Type type)
+    public static SystemType GetElementType(SystemType type)
     {
         if (IsCollection(type) == false)
             return type;
         if (type.IsArray)
             return type.GetElementType();
-        System.Type[] genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
+        SystemType[] genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
         if (genericArgumentsTypes == null || genericArgumentsTypes.Length == 0)
             throw new ArgumentException(nameof(genericArgumentsTypes));
         return genericArgumentsTypes[0];
@@ -492,7 +493,7 @@ public static class Reflection
     /// 获取顶级基类
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static System.Type GetTopBaseType<T>()
+    public static SystemType GetTopBaseType<T>()
     {
         return GetTopBaseType(typeof(T));
     }
@@ -501,7 +502,7 @@ public static class Reflection
     /// 获取顶级基类
     /// </summary>
     /// <param name="type">类型</param>
-    public static System.Type GetTopBaseType(System.Type type)
+    public static SystemType GetTopBaseType(SystemType type)
     {
         if (type == null)
             return null;
@@ -531,7 +532,7 @@ public static class Reflection
     /// 获取类型枚举
     /// </summary>
     /// <param name="type">类型</param>
-    public static Meow.Type.TypeEnum? GetTypeEnumByType(System.Type type)
+    public static Meow.Type.TypeEnum? GetTypeEnumByType(SystemType type)
     {
         if (type == null)
             return null;
@@ -701,7 +702,7 @@ public static class Reflection
     {
         if (propertyInfo.PropertyType.GetTypeInfo().IsClass)
             return true;
-        System.Type value = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+        SystemType value = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
         if (value == null)
             return false;
         return value.GetTypeInfo().IsClass;
@@ -746,7 +747,7 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingByType(System.Type type, object value, PropertyInfo parentProperty)
+    private static TypeItem AnalyzingByType(SystemType type, object value, PropertyInfo parentProperty)
     {
         if (type == null || value == null)
             return null;

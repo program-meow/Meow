@@ -898,12 +898,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
         try
         {
             var result = await RunResultAsync();
-            return new Result<TResult>(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription(), result);
+            return new Result<TResult>(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription(), result);
         }
         catch (System.Exception ex)
         {
             listenerExceptionFunc?.Invoke(ex);
-            return new Result<TResult>(ResultStatusCode.Error, ex.Message);
+            return new Result<TResult>(ResultStatusCodeEnum.Error, ex.Message);
         }
     }
 
@@ -934,12 +934,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
         try
         {
             var result = await RunStreamAsync();
-            return new Result<byte[]>(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription(), result);
+            return new Result<byte[]>(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription(), result);
         }
         catch (System.Exception ex)
         {
             listenerExceptionFunc?.Invoke(ex);
-            return new Result<byte[]>(ResultStatusCode.Error, ex.Message);
+            return new Result<byte[]>(ResultStatusCodeEnum.Error, ex.Message);
         }
     }
 
@@ -993,12 +993,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
         try
         {
             await result.Data.FileWriteAsync(filePath);
-            return new Result(ResultStatusCode.Ok, ResultStatusCode.Ok.GetDescription());
+            return new Result(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription());
         }
         catch (System.Exception ex)
         {
             listenerExceptionFunc?.Invoke(ex);
-            return new Result(ResultStatusCode.Error, ex.Message);
+            return new Result(ResultStatusCodeEnum.Error, ex.Message);
         }
     }
 

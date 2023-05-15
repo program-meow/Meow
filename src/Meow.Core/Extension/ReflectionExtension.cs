@@ -1,7 +1,7 @@
 ﻿using Meow.Type;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SystemType = System.Type;
 
 namespace Meow.Extension;
 
@@ -14,7 +14,7 @@ public static class ReflectionExtension
     /// 获取类型枚举
     /// </summary>
     /// <param name="type">类型</param>
-    public static Meow.Type.TypeEnum? GetTypeEnum(this System.Type type)
+    public static Meow.Type.TypeEnum? GetTypeEnum(this SystemType type)
     {
         return Meow.Helper.Reflection.GetTypeEnum(type);
     }

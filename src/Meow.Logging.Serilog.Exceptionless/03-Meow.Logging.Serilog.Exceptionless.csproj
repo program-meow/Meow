@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Logging.Serilog.Exceptionless</AssemblyName>
-		<RootNamespace>Util.Logging.Serilog</RootNamespace>
+		<RootNamespace>Meow.Logging.Serilog</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Logging.Serilog.Exceptionless 是 Meow 应用框架集成封装 Serilog 日志操作类库,用于写入 Exceptionless。

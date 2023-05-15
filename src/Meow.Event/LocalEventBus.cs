@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using SystemType = System.Type;
 
 namespace Meow.Event;
 
@@ -34,7 +35,7 @@ public class LocalEventBus : ILocalEventBus
     {
         if (@event == null)
             return;
-        System.Type eventType = @event.GetType();
+        SystemType eventType = @event.GetType();
         IEnumerable<IEventHandler> handlers = GetEventHandlers(eventType);
         if (handlers == null)
             return;
@@ -53,10 +54,10 @@ public class LocalEventBus : ILocalEventBus
     /// <summary>
     /// 获取事件处理器列表
     /// </summary>
-    private IEnumerable<IEventHandler> GetEventHandlers(System.Type eventType)
+    private IEnumerable<IEventHandler> GetEventHandlers(SystemType eventType)
     {
-        System.Type handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
-        System.Type serviceType = typeof(IEnumerable<>).MakeGenericType(handlerType);
+        SystemType handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
+        SystemType serviceType = typeof(IEnumerable<>).MakeGenericType(handlerType);
         object handlers = _serviceProvider.GetService(serviceType);
         return handlers as IEnumerable<IEventHandler>;
     }

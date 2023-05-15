@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -86,7 +87,7 @@ public static class Common
     /// 获取类型
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static System.Type GetType<T>()
+    public static SystemType GetType<T>()
     {
         return GetType(typeof(T));
     }
@@ -95,7 +96,7 @@ public static class Common
     /// 获取类型
     /// </summary>
     /// <param name="type">类型</param>
-    public static System.Type GetType(System.Type type)
+    public static SystemType GetType(SystemType type)
     {
         return Nullable.GetUnderlyingType(type) ?? type;
     }

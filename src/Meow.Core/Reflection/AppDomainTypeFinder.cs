@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SystemType = System.Type;
 
 namespace Meow.Reflection;
 
@@ -27,7 +28,7 @@ public class AppDomainTypeFinder : ITypeFinder
     /// 查找类型列表
     /// </summary>
     /// <typeparam name="T">查找类型</typeparam>
-    public List<System.Type> Find<T>()
+    public List<SystemType> Find<T>()
     {
         return Find(typeof(T));
     }
@@ -44,7 +45,7 @@ public class AppDomainTypeFinder : ITypeFinder
     /// 查找类型列表
     /// </summary>
     /// <param name="findType">查找类型</param>
-    public List<System.Type> Find(System.Type findType)
+    public List<SystemType> Find(SystemType findType)
     {
         return Meow.Helper.Reflection.FindImplementTypes(findType, GetAssemblies()?.ToArray());
     }
