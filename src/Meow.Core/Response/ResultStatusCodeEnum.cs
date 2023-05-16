@@ -17,4 +17,9 @@ public enum ResultStatusCodeEnum
     /// </summary>
     [Description("error")]
     Error = 500,
+    /// <summary>
+    /// 未授权
+    /// </summary>
+    [Description("meow.unauthorized")]
+    Unauthorized = 401,
 }

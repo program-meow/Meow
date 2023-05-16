@@ -12,6 +12,8 @@
 /src/Meow.Aop.AspectCore/obj
 /src/Meow.Validation/bin
 /src/Meow.Validation/obj
+/src/Meow.Authentication/bin
+/src/Meow.Authentication/obj
 /src/Meow.Data.Abstraction/bin
 /src/Meow.Data.Abstraction/obj
 
@@ -34,6 +36,19 @@
 /src/Meow.Data.Sql/obj
 /src/Meow.Data.Metadata/bin
 /src/Meow.Data.Metadata/obj
+
+/src/Meow.Data.EntityFramework.Core/bin
+/src/Meow.Data.EntityFramework.Core/obj
+/src/Meow.Data.EntityFramework.SqlServer/bin
+/src/Meow.Data.EntityFramework.SqlServer/obj
+/src/Meow.Data.EntityFramework.PostgreSql/bin
+/src/Meow.Data.EntityFramework.PostgreSql/obj
+/src/Meow.Data.EntityFramework.MySql/bin
+/src/Meow.Data.EntityFramework.MySql/obj
+/src/Meow.Data.EntityFramework.Sqlite/bin
+/src/Meow.Data.EntityFramework.Sqlite/obj
+/src/Meow.Data.EntityFramework.Oracle/bin
+/src/Meow.Data.EntityFramework.Oracle/obj
 
 
 

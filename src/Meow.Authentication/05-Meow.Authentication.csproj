@@ -2,23 +2,23 @@
 
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
-		<AssemblyName>Meow.Domain</AssemblyName>
-		<RootNamespace>Meow.Domain</RootNamespace>
+		<AssemblyName>Meow.Authentication</AssemblyName>
+		<RootNamespace>Meow.Authentication</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Domain 是 Meow 应用框架领域层基类库。
+			Meow.Authentication 是 Meow 应用框架的认证库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Domain.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Authentication.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Domain.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Authentication.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,9 +30,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Authentication.csproj" />
-	  <ProjectReference Include="..\Meow.Data.Abstraction\06-Meow.Data.Abstraction.csproj" />
-	  <ProjectReference Include="..\Meow.Event\01-Meow.Event.csproj" />
+	  <ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
 	</ItemGroup>
 
 </Project>
