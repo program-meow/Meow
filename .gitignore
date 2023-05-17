@@ -50,6 +50,17 @@
 /src/Meow.Data.EntityFramework.Oracle/bin
 /src/Meow.Data.EntityFramework.Oracle/obj
 
+/src/Meow.Data.Dapper.Core/bin
+/src/Meow.Data.Dapper.Core/obj
+/src/Meow.Data.Dapper.SqlServer/bin
+/src/Meow.Data.Dapper.SqlServer/obj
+/src/Meow.Data.Dapper.PostgreSql/bin
+/src/Meow.Data.Dapper.PostgreSql/obj
+/src/Meow.Data.Dapper.MySql/bin
+/src/Meow.Data.Dapper.MySql/obj
+/src/Meow.Data.Dapper.All/bin
+/src/Meow.Data.Dapper.All/obj
+
 
 
 

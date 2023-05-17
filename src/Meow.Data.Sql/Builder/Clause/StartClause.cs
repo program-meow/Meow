@@ -4,7 +4,6 @@ using System.Text;
 using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
-using Meow.Helper;
 
 namespace Meow.Data.Sql.Builder.Clause;
 
@@ -158,7 +157,7 @@ public class StartClause : ClauseBase, IStartClause
             item.Builder.AppendTo(builder);
             builder.AppendLine("),");
         }
-        builder.RemoveEnd($",{String.Line}");
+        builder.RemoveEnd($",{Meow.Helper.String.Line}");
     }
 
     /// <summary>

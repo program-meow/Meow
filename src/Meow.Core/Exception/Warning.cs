@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SystemException = System.Exception;
 
 namespace Meow.Exception;
 
 /// <summary>
 /// 应用程序异常
 /// </summary>
-public class Warning : System.Exception
+public class Warning : SystemException
 {
     /// <summary>
     /// 初始化应用程序异常
     /// </summary>
     /// <param name="exception">异常</param>
-    public Warning(System.Exception exception)
+    public Warning(SystemException exception)
         : this(null, exception)
     {
     }
@@ -25,7 +26,7 @@ public class Warning : System.Exception
     /// <param name="code">错误码</param>
     /// <param name="exception">异常</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public Warning(string message, System.Exception exception = null, string code = null, int? httpStatusCode = null)
+    public Warning(string message, SystemException exception = null, string code = null, int? httpStatusCode = null)
         : base(message ?? "", exception)
     {
         Code = code;
@@ -60,9 +61,9 @@ public class Warning : System.Exception
     /// <summary>
     /// 获取错误消息
     /// </summary>
-    public static string GetMessage(System.Exception ex)
+    public static string GetMessage(SystemException ex)
     {
-        var result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         var list = GetExceptions(ex);
         foreach (var exception in list)
             AppendMessage(result, exception);
@@ -72,7 +73,7 @@ public class Warning : System.Exception
     /// <summary>
     /// 添加异常消息
     /// </summary>
-    private static void AppendMessage(StringBuilder result, System.Exception exception)
+    private static void AppendMessage(StringBuilder result, SystemException exception)
     {
         if (exception == null)
             return;
@@ -82,7 +83,7 @@ public class Warning : System.Exception
     /// <summary>
     /// 获取异常列表
     /// </summary>
-    public IList<System.Exception> GetExceptions()
+    public IList<SystemException> GetExceptions()
     {
         return GetExceptions(this);
     }
@@ -91,9 +92,9 @@ public class Warning : System.Exception
     /// 获取异常列表
     /// </summary>
     /// <param name="ex">异常</param>
-    public static IList<System.Exception> GetExceptions(System.Exception ex)
+    public static IList<SystemException> GetExceptions(SystemException ex)
     {
-        var result = new List<System.Exception>();
+        var result = new List<SystemException>();
         AddException(result, ex);
         return result;
     }
@@ -101,7 +102,7 @@ public class Warning : System.Exception
     /// <summary>
     /// 添加内部异常
     /// </summary>
-    private static void AddException(List<System.Exception> result, System.Exception exception)
+    private static void AddException(List<SystemException> result, SystemException exception)
     {
         if (exception == null)
             return;

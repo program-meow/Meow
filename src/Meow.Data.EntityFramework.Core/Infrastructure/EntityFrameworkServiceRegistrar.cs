@@ -1,6 +1,7 @@
 ﻿using Meow.Data.EntityFramework.Filter;
 using Meow.Infrastructure;
 using Meow.Model;
+using SystemAction = System.Action;
 
 namespace Meow.Data.EntityFramework.Infrastructure;
 
@@ -28,7 +29,7 @@ public class EntityFrameworkServiceRegistrar : IServiceRegistrar
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public System.Action Register(ServiceContext serviceContext)
+    public SystemAction Register(ServiceContext serviceContext)
     {
         FilterManager.AddFilterType<IDelete>();
         return null;

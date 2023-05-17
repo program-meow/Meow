@@ -1,6 +1,7 @@
 ﻿using System;
 using Meow.Action;
 using Microsoft.Extensions.Logging;
+using SystemException = System.Exception;
 
 namespace Meow.Logging;
 
@@ -22,7 +23,7 @@ public class NullLog<TCategoryName> : ILog<TCategoryName>
     }
 
     /// <inheritdoc />
-    public ILog Exception(System.Exception exception)
+    public ILog Exception(SystemException exception)
     {
         return this;
     }
@@ -111,7 +112,7 @@ public class NullLog : ILog
     }
 
     /// <inheritdoc />
-    public ILog Exception(System.Exception exception)
+    public ILog Exception(SystemException exception)
     {
         return this;
     }

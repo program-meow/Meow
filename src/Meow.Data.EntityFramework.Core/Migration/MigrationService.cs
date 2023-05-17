@@ -7,6 +7,7 @@ using Meow.Data.EntityFramework.Extension;
 using Meow.Extension;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using SystemException = System.Exception;
 
 namespace Meow.Data.EntityFramework.Migration;
 
@@ -142,7 +143,7 @@ public class MigrationService : IMigrationService
                 .ExecuteResult();
             _logger.LogTrace($"迁移更新数据库: {result}");
             if (result.Contains("Exception"))
-                throw new System.Exception($"迁移更新数据库失败: {result}");
+                throw new SystemException($"迁移更新数据库失败: {result}");
             if (result.Contains("Applying migration"))
                 return;
             await Task.Delay(1000, cancellationToken);

@@ -39,7 +39,7 @@ public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         if (reader.TokenType == JsonTokenType.String)
             return reader.GetString().SafeString().ToDateTime().ToLocalTime();
-        if (reader.TryGetDateTime(out var date))
+        if (reader.TryGetDateTime(out DateTime date))
             return date.ToLocalTime();
         return DateTime.MinValue;
     }

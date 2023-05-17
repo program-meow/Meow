@@ -1,6 +1,5 @@
 ﻿using System;
 using Meow.Extension;
-using Meow.Helper;
 
 namespace Meow.Domain.Auditing;
 
@@ -48,43 +47,43 @@ public class CreationAuditedSetter
             return;
         if (_entity is ICreationAudited<Guid> entityByGuid)
         {
-            entityByGuid.CreationTime = Time.Now;
+            entityByGuid.CreationTime = Meow.Helper.Time.Now;
             entityByGuid.CreatorId = _userId.ToGuid();
             return;
         }
         if (_entity is ICreationAudited<Guid?> entityByGuidOrNull)
         {
-            entityByGuidOrNull.CreationTime = Time.Now;
+            entityByGuidOrNull.CreationTime = Meow.Helper.Time.Now;
             entityByGuidOrNull.CreatorId = _userId.ToGuidOrNull();
             return;
         }
         if (_entity is ICreationAudited<int> entityByInt)
         {
-            entityByInt.CreationTime = Time.Now;
+            entityByInt.CreationTime = Meow.Helper.Time.Now;
             entityByInt.CreatorId = _userId.ToInt();
             return;
         }
         if (_entity is ICreationAudited<int?> entityByIntOrNull)
         {
-            entityByIntOrNull.CreationTime = Time.Now;
+            entityByIntOrNull.CreationTime = Meow.Helper.Time.Now;
             entityByIntOrNull.CreatorId = _userId.ToIntOrNull();
             return;
         }
         if (_entity is ICreationAudited<string> entityByString)
         {
-            entityByString.CreationTime = Time.Now;
+            entityByString.CreationTime = Meow.Helper.Time.Now;
             entityByString.CreatorId = _userId.SafeString();
             return;
         }
         if (_entity is ICreationAudited<long> entityByLong)
         {
-            entityByLong.CreationTime = Time.Now;
+            entityByLong.CreationTime = Meow.Helper.Time.Now;
             entityByLong.CreatorId = _userId.ToLong();
             return;
         }
         if (_entity is ICreationAudited<long?> entityByLongOrNull)
         {
-            entityByLongOrNull.CreationTime = Time.Now;
+            entityByLongOrNull.CreationTime = Meow.Helper.Time.Now;
             entityByLongOrNull.CreatorId = _userId.ToLongOrNull();
             return;
         }

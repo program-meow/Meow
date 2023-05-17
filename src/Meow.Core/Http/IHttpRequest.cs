@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SystemException = System.Exception;
 
 namespace Meow.Http;
 
@@ -116,7 +117,7 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class
     /// <param name="maxTimes">最大重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validateResultFunc = null, int maxTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null);
+    IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validateResultFunc = null, int maxTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null);
 
     #endregion
 
@@ -369,18 +370,18 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class
     /// 获取结果
     /// </summary>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    Task<Result<TResult>> GetResultAsync(Action<System.Exception> listenerExceptionFunc = null);
+    Task<Result<TResult>> GetResultAsync(Action<SystemException> listenerExceptionFunc = null);
     /// <summary>
     /// 获取流
     /// </summary>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> listenerExceptionFunc = null);
+    Task<Result<byte[]>> GetStreamAsync(Action<SystemException> listenerExceptionFunc = null);
     /// <summary>
     /// 写入文件
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    Task<Result> WriteAsync(string filePath, Action<System.Exception> listenerExceptionFunc = null);
+    Task<Result> WriteAsync(string filePath, Action<SystemException> listenerExceptionFunc = null);
 
     #endregion
 }

@@ -14,7 +14,7 @@ namespace Meow.Aop.Extension;
 /// <summary>
 /// Aop配置项扩展
 /// </summary>
-public class AopOptionsExtension : OptionsExtensionBase
+public class AopOptionsExtension : OptionExtensionBase
 {
     /// <summary>
     /// Aop配置

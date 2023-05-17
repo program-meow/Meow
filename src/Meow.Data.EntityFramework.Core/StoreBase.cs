@@ -13,6 +13,7 @@ using Meow.Extension;
 using Meow.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SystemException = System.Exception;
 
 namespace Meow.Data.EntityFramework;
 
@@ -427,7 +428,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     private void ThrowConcurrencyException(TEntity entity)
     {
-        throw new ConcurrencyException(new System.Exception($"Type:{typeof(TEntity)},Id:{entity.Id}"));
+        throw new ConcurrencyException(new SystemException($"Type:{typeof(TEntity)},Id:{entity.Id}"));
     }
 
     /// <summary>

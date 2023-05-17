@@ -1,4 +1,5 @@
 ﻿namespace Meow.Infrastructure;
+using SystemAction = System.Action;
 
 /// <summary>
 /// 服务注册器
@@ -22,5 +23,5 @@ public interface IServiceRegistrar
     /// 注册服务,该操作在启动开始时执行,如果需要延迟执行某些操作,可在返回的Action中执行,它将在启动最后执行
     /// </summary>
     /// <param name="context">服务上下文</param>
-    System.Action Register(ServiceContext context);
+    SystemAction Register(ServiceContext context);
 }

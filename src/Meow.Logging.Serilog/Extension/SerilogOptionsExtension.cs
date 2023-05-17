@@ -11,7 +11,7 @@ namespace Meow.Logging.Serilog.Extension;
 /// <summary>
 /// Serilog日志操作配置扩展
 /// </summary>
-public class SerilogOptionsExtension : OptionsExtensionBase
+public class SerilogOptionsExtension : OptionExtensionBase
 {
     /// <summary>
     /// 是否清除日志提供程序

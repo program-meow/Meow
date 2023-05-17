@@ -1,7 +1,6 @@
 ﻿using System;
 using Meow.Domain.Extending;
 using Meow.Extension;
-using Meow.Helper;
 using Meow.Option;
 
 namespace Meow.Domain.Extension;
@@ -23,7 +22,7 @@ public static class ExtraPropertyDictionaryExtension
             return default;
         var value = source[name];
         if (value is DateTime dateValue && TimeOptions.IsUseUtc)
-            value = Time.UtcToLocalTime(dateValue);
+            value = Meow.Helper.Time.UtcToLocalTime(dateValue);
         return Helper.Convert.To<TProperty>(value);
     }
 
@@ -51,7 +50,7 @@ public static class ExtraPropertyDictionaryExtension
         if (value is string && source.IsTrimString)
             return value.SafeString();
         if (value is DateTime dateValue && TimeOptions.IsUseUtc)
-            return Time.Normalize(dateValue);
+            return Meow.Helper.Time.Normalize(dateValue);
         return value;
     }
 

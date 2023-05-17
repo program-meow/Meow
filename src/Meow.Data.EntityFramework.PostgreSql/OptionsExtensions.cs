@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.Common;
-using Meow.Config;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+using MeowOption = Meow.Config.Option;
 
 namespace Meow.Data.EntityFramework.PostgreSql;
 
@@ -20,7 +20,7 @@ public static class OptionsExtensions
     /// <param name="pgSqlSetupAction">PostgreSql配置操作</param>
     /// <param name="isEnableLegacyTimestampBehavior">是否启用传统时间戳行为</param>
     /// <param name="condition">条件,设置为false,跳过配置</param>
-    public static Options UsePgSqlUnitOfWork<TService, TImplementation>(this Options options, string connection, Action<DbContextOptionsBuilder> setupAction = null,
+    public static MeowOption UsePgSqlUnitOfWork<TService, TImplementation>(this MeowOption options, string connection, Action<DbContextOptionsBuilder> setupAction = null,
         Action<NpgsqlDbContextOptionsBuilder> pgSqlSetupAction = null, bool isEnableLegacyTimestampBehavior = false, bool? condition = null)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService
@@ -37,7 +37,7 @@ public static class OptionsExtensions
     /// <param name="pgSqlSetupAction">PostgreSql配置操作</param>
     /// <param name="isEnableLegacyTimestampBehavior">是否启用传统时间戳行为</param>
     /// <param name="condition">条件,设置为false,跳过配置</param>
-    public static Options UsePgSqlUnitOfWork<TService, TImplementation>(this Options options, DbConnection connection, Action<DbContextOptionsBuilder> setupAction = null,
+    public static MeowOption UsePgSqlUnitOfWork<TService, TImplementation>(this MeowOption options, DbConnection connection, Action<DbContextOptionsBuilder> setupAction = null,
         Action<NpgsqlDbContextOptionsBuilder> pgSqlSetupAction = null, bool isEnableLegacyTimestampBehavior = false, bool? condition = null)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService
@@ -48,7 +48,7 @@ public static class OptionsExtensions
     /// <summary>
     /// 配置PostgreSql工作单元
     /// </summary>
-    private static Options UsePgSqlUnitOfWork<TService, TImplementation>(this Options options, string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction,
+    private static MeowOption UsePgSqlUnitOfWork<TService, TImplementation>(this MeowOption options, string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction,
         Action<NpgsqlDbContextOptionsBuilder> pgSqlSetupAction, bool isEnableLegacyTimestampBehavior, bool? condition)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService

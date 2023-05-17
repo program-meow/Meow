@@ -15,7 +15,7 @@ public static class IdentityExtension
     /// <param name="type">声明类型</param>
     public static string GetValue(this ClaimsIdentity identity, string type)
     {
-        var claim = identity.FindFirst(type);
+        Claim claim = identity.FindFirst(type);
         if (claim == null)
             return string.Empty;
         return claim.Value;

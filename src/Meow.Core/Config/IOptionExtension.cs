@@ -7,7 +7,7 @@ namespace Meow.Config;
 /// <summary>
 /// 配置项扩展
 /// </summary>
-public interface IOptionsExtension
+public interface IOptionExtension
 {
     /// <summary>
     /// 配置服务

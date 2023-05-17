@@ -1,6 +1,6 @@
 ﻿using System;
 using AspectCore.Configuration;
-using Meow.Config;
+using MeowOption = Meow.Config.Option;
 
 namespace Meow.Aop.Extension;
 
@@ -14,7 +14,7 @@ public static class OptionsExtension
     /// </summary>
     /// <param name="options">配置项</param>
     /// <param name="setupAction">AspectCore拦截器配置操作</param>
-    public static Options UseAop(this Options options, Action<IAspectConfiguration> setupAction = null)
+    public static MeowOption UseAop(this MeowOption options, Action<IAspectConfiguration> setupAction = null)
     {
         options.AddExtension(new AopOptionsExtension(setupAction));
         return options;

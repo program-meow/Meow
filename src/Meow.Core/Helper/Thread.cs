@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SystemAction = System.Action;
 
 namespace Meow.Helper;
 
@@ -14,12 +15,12 @@ public static class Thread
     /// 执行多个操作，等待所有操作完成
     /// </summary>
     /// <param name="actions">操作集合</param>
-    public static void WaitAll(params System.Action[] actions)
+    public static void WaitAll(params SystemAction[] actions)
     {
         if (actions == null)
             return;
         List<Task> tasks = new List<Task>();
-        foreach (System.Action action in actions)
+        foreach (SystemAction action in actions)
             tasks.Add(Task.Factory.StartNew(action, TaskCreationOptions.None));
         Task.WaitAll(tasks.ToArray());
     }
@@ -28,7 +29,7 @@ public static class Thread
     /// 并发执行多个操作
     /// </summary>
     /// <param name="actions">操作集合</param>
-    public static void ParallelInvoke(params System.Action[] actions)
+    public static void ParallelInvoke(params SystemAction[] actions)
     {
         Parallel.Invoke(actions);
     }
@@ -39,7 +40,7 @@ public static class Thread
     /// <param name="action">操作</param>
     /// <param name="count">执行次数</param>
     /// <param name="options">并发执行配置</param>
-    public static void ParallelFor(System.Action action, int count = 1, ParallelOptions options = null)
+    public static void ParallelFor(SystemAction action, int count = 1, ParallelOptions options = null)
     {
         if (options == null)
         {

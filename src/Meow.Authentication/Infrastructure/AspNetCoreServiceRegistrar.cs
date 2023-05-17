@@ -1,11 +1,11 @@
 ﻿using Meow.Authentication.Session;
 using Meow.Converter;
-using Meow.Helper;
 using Meow.Http;
 using Meow.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SystemAction = System.Action;
 
 namespace Meow.Authentication.Infrastructure;
 
@@ -33,7 +33,7 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public System.Action Register(ServiceContext serviceContext)
+    public SystemAction Register(ServiceContext serviceContext)
     {
         serviceContext.HostBuilder.ConfigureServices((context, services) =>
         {
@@ -54,7 +54,7 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar
     {
         HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
         services.TryAddSingleton<IHttpContextAccessor>(httpContextAccessor);
-        Web.HttpContextAccessor = httpContextAccessor;
+        Meow.Helper.Web.HttpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar
     /// </summary>
     private void RegisterServiceLocator()
     {
-        Ioc.SetServiceProviderAction(() => Web.ServiceProvider);
+        Meow.Helper.Ioc.SetServiceProviderAction(() => Meow.Helper.Web.ServiceProvider);
     }
 
     /// <summary>

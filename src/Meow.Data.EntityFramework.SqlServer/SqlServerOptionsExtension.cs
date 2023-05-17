@@ -12,7 +12,7 @@ namespace Meow.Data.EntityFramework.SqlServer;
 /// <summary>
 /// Sql Server 工作单元配置扩展
 /// </summary>
-public class SqlServerOptionsExtension<TService, TImplementation> : OptionsExtensionBase
+public class SqlServerOptionsExtension<TService, TImplementation> : OptionExtensionBase
     where TService : class, IUnitOfWork
     where TImplementation : UnitOfWorkBase, TService
 {

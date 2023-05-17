@@ -7,7 +7,7 @@ namespace Meow.Config;
 /// <summary>
 /// 配置项扩展
 /// </summary>
-public abstract class OptionsExtensionBase : IOptionsExtension
+public abstract class OptionExtensionBase : IOptionExtension
 {
     /// <inheritdoc />
     public virtual void ConfigureServices(HostBuilderContext context, IServiceCollection services)

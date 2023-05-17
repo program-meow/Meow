@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Meow.Helper;
 
 namespace Meow.Data.EntityFramework.ValueConverter.SystemTextJson;
 
@@ -37,9 +36,9 @@ public class UtcDateTimeJsonConverter : JsonConverter<DateTime>
     public override DateTime Read(ref Utf8JsonReader reader, System.Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType == JsonTokenType.String)
-            return Time.UtcToLocalTime(Meow.Helper.Convert.ToDateTime(reader.GetString()));
+            return Meow.Helper.Time.UtcToLocalTime(Meow.Helper.Convert.ToDateTime(reader.GetString()));
         if (reader.TryGetDateTime(out DateTime date))
-            return Time.UtcToLocalTime(date);
+            return Meow.Helper.Time.UtcToLocalTime(date);
         return DateTime.MinValue;
     }
 
@@ -48,7 +47,7 @@ public class UtcDateTimeJsonConverter : JsonConverter<DateTime>
     /// </summary>
     public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
     {
-        string date = Time.Normalize(value).ToString(_format);
+        string date = Meow.Helper.Time.Normalize(value).ToString(_format);
         writer.WriteStringValue(date);
     }
 }

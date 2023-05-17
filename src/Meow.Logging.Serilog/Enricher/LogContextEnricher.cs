@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Meow.Extension;
-using Meow.Helper;
 using Serilog.Core;
 using Serilog.Events;
 
@@ -23,7 +22,7 @@ public class LogContextEnricher : ILogEventEnricher
     /// <param name="propertyFactory">日志事件属性工厂</param>
     public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
     {
-        ILogContextAccessor accessor = Ioc.Create<ILogContextAccessor>();
+        ILogContextAccessor accessor = Meow.Helper.Ioc.Create<ILogContextAccessor>();
         if (accessor == null)
             return;
         _context = accessor.Context;

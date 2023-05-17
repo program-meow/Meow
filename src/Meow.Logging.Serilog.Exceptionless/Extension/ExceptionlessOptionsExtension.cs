@@ -13,7 +13,7 @@ namespace Meow.Logging.Serilog.Extension;
 /// <summary>
 /// Exceptionless日志操作配置扩展
 /// </summary>
-public class ExceptionlessOptionsExtension : OptionsExtensionBase
+public class ExceptionlessOptionsExtension : OptionExtensionBase
 {
     /// <summary>
     /// Exceptionless日志配置操作

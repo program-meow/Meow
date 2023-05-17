@@ -3,6 +3,6 @@
 /// <summary>
 /// 配置项
 /// </summary>
-public class Options : OptionsBase
+public class Option : OptionBase
 {
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Meow.Extension;
 using Microsoft.Extensions.Logging;
+using SystemException = System.Exception;
 
 namespace Meow.Logging;
 
@@ -54,7 +55,7 @@ public class Log : ILog
     /// <summary>
     /// 日志异常
     /// </summary>
-    protected System.Exception LogException { get; set; }
+    protected SystemException LogException { get; set; }
     /// <summary>
     /// 日志属性集合
     /// </summary>
@@ -88,7 +89,7 @@ public class Log : ILog
     #region Exception(设置异常)
 
     /// <inheritdoc />
-    public virtual ILog Exception(System.Exception exception)
+    public virtual ILog Exception(SystemException exception)
     {
         LogException = exception;
         return this;
@@ -384,7 +385,7 @@ public class Log : ILog
     /// <summary>
     /// 获取格式化消息
     /// </summary>
-    protected virtual string GetFormatMessage(IDictionary<string, object> content, System.Exception exception)
+    protected virtual string GetFormatMessage(IDictionary<string, object> content, SystemException exception)
     {
         if (exception != null)
             return exception.Message;

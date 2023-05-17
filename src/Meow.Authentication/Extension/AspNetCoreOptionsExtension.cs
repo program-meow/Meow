@@ -9,7 +9,7 @@ namespace Meow.Authentication.Extension;
 /// <summary>
 /// AspNetCore操作配置扩展
 /// </summary>
-public class AspNetCoreOptionsExtension<TPermissionManager, TAuthorizationMiddlewareResultHandler> : OptionsExtensionBase
+public class AspNetCoreOptionsExtension<TPermissionManager, TAuthorizationMiddlewareResultHandler> : OptionExtensionBase
     where TPermissionManager : class, IPermissionManager
     where TAuthorizationMiddlewareResultHandler : class, IAuthorizationMiddlewareResultHandler
 {

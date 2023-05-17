@@ -4,7 +4,6 @@ using Meow.Data.Sql.Builder.Clause;
 using Meow.Data.Sql.Builder.Param;
 using Meow.Data.Sql.Builder.Set;
 using Meow.Extension;
-using Meow.Helper;
 
 namespace Meow.Data.Sql.Builder;
 
@@ -13,7 +12,6 @@ namespace Meow.Data.Sql.Builder;
 /// </summary>
 public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
 {
-
     #region 字段
 
     /// <summary>
@@ -349,7 +347,7 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
         AppendSql(builder, _groupByClause);
         AppendSql(builder, _orderByClause);
         AppendSql(builder, _endClause);
-        builder.RemoveEnd($" {String.Line}");
+        builder.RemoveEnd($" {Meow.Helper.String.Line}");
     }
 
     /// <summary>

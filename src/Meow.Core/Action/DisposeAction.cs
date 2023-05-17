@@ -1,5 +1,6 @@
 ﻿using System;
 using Meow.Extension;
+using SystemAction = System.Action;
 
 namespace Meow.Action;
 
@@ -11,13 +12,13 @@ public class DisposeAction : IDisposable
     /// <summary>
     /// 操作
     /// </summary>
-    private readonly System.Action _action;
+    private readonly SystemAction _action;
 
     /// <summary>
     /// 初始化释放操作
     /// </summary>
     /// <param name="action">操作</param>
-    public DisposeAction(System.Action action)
+    public DisposeAction(SystemAction action)
     {
         action.CheckNull(nameof(action));
         _action = action;

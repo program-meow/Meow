@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Meow.Helper;
 
 namespace Meow.Extension;
 
@@ -14,7 +13,7 @@ public static class HashExtension
     /// <param name="str">源字符串</param>
     /// <param name="type">哈希类型</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToHash(this string str, HashTypeEnum type)
+    public static string ToHash(this string str, Meow.Helper.HashTypeEnum type)
     {
         return Meow.Helper.Hash.ToString(type, str);
     }
@@ -26,7 +25,7 @@ public static class HashExtension
     /// <param name="type">哈希类型</param>
     /// <param name="isLower">是否是小写</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToHash(this string str, HashTypeEnum type, bool isLower)
+    public static string ToHash(this string str, Meow.Helper.HashTypeEnum type, bool isLower)
     {
         return Meow.Helper.Hash.ToString(type, str, isLower);
     }
@@ -39,7 +38,7 @@ public static class HashExtension
     /// <param name="key">key</param>
     /// <param name="isLower">是否是小写</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToHash(this string str, HashTypeEnum type, string key, bool isLower = false)
+    public static string ToHash(this string str, Meow.Helper.HashTypeEnum type, string key, bool isLower = false)
     {
         return Meow.Helper.Hash.ToString(type, str, key, isLower);
 
@@ -53,7 +52,7 @@ public static class HashExtension
     /// <param name="encoding">编码类型</param>
     /// <param name="isLower">是否是小写</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToHash(this string str, HashTypeEnum type, Encoding encoding, bool isLower = false)
+    public static string ToHash(this string str, Meow.Helper.HashTypeEnum type, Encoding encoding, bool isLower = false)
     {
         return Meow.Helper.Hash.ToString(type, str, encoding, isLower);
     }
@@ -67,7 +66,7 @@ public static class HashExtension
     /// <param name="encoding">编码类型</param>
     /// <param name="isLower">是否是小写</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToHash(this string str, HashTypeEnum type, string key, Encoding encoding, bool isLower = false)
+    public static string ToHash(this string str, Meow.Helper.HashTypeEnum type, string key, Encoding encoding, bool isLower = false)
     {
         return Meow.Helper.Hash.ToString(type, str, key, encoding, isLower);
     }
@@ -78,7 +77,7 @@ public static class HashExtension
     /// <param name="source">source</param>
     /// <param name="type">hash类型</param>
     /// <returns>hash过的字节数组</returns>
-    public static string ToStringByHash(this byte[] source, HashTypeEnum type)
+    public static string ToStringByHash(this byte[] source, Meow.Helper.HashTypeEnum type)
     {
         return Meow.Helper.Hash.ToString(type, source);
     }
@@ -90,7 +89,7 @@ public static class HashExtension
     /// <param name="type">hash类型</param>
     /// <param name="isLower">isLower</param>
     /// <returns>hash过的字节数组</returns>
-    public static string ToStringByHash(this byte[] source, HashTypeEnum type, bool isLower)
+    public static string ToStringByHash(this byte[] source, Meow.Helper.HashTypeEnum type, bool isLower)
     {
         return Meow.Helper.Hash.ToString(type, source, isLower);
     }
@@ -103,7 +102,7 @@ public static class HashExtension
     /// <param name="key">key</param>
     /// <param name="isLower">是否是小写</param>
     /// <returns>哈希算法处理之后的字符串</returns>
-    public static string ToStringByHash(this byte[] source, HashTypeEnum type, byte[] key, bool isLower = false)
+    public static string ToStringByHash(this byte[] source, Meow.Helper.HashTypeEnum type, byte[] key, bool isLower = false)
     {
         return Meow.Helper.Hash.ToString(type, source, key, isLower);
     }
@@ -114,7 +113,7 @@ public static class HashExtension
     /// <param name="str">要hash的字符串</param>
     /// <param name="type">hash类型</param>
     /// <returns>hash过的字节数组</returns>
-    public static byte[] ToBytesByHash(this string str, HashTypeEnum type)
+    public static byte[] ToBytesByHash(this string str, Meow.Helper.HashTypeEnum type)
     {
         return Meow.Helper.Hash.ToBytes(type, str);
     }
@@ -126,7 +125,7 @@ public static class HashExtension
     /// <param name="type">hash类型</param>
     /// <param name="encoding">编码类型</param>
     /// <returns>hash过的字节数组</returns>
-    public static byte[] ToBytesByHash(this string str, HashTypeEnum type, Encoding encoding)
+    public static byte[] ToBytesByHash(this string str, Meow.Helper.HashTypeEnum type, Encoding encoding)
     {
         return Meow.Helper.Hash.ToBytes(type, str, encoding);
     }
@@ -137,7 +136,7 @@ public static class HashExtension
     /// <param name="bytes">原字节数组</param>
     /// <param name="type">哈希类型</param>
     /// <returns></returns>
-    public static byte[] ToHash(this byte[] bytes, HashTypeEnum type)
+    public static byte[] ToHash(this byte[] bytes, Meow.Helper.HashTypeEnum type)
     {
         return Meow.Helper.Hash.ToBytes(type, bytes);
     }
@@ -149,7 +148,7 @@ public static class HashExtension
     /// <param name="key">key</param>
     /// <param name="bytes">原字节数组</param>
     /// <returns></returns>
-    public static byte[] ToHash(this byte[] bytes, HashTypeEnum type, byte[] key)
+    public static byte[] ToHash(this byte[] bytes, Meow.Helper.HashTypeEnum type, byte[] key)
     {
         return Meow.Helper.Hash.ToBytes(type, bytes, key);
     }

@@ -4,6 +4,7 @@ using Meow.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SystemType = System.Type;
+using SystemAction = System.Action;
 
 namespace Meow.Event.Infrastructure;
 
@@ -31,7 +32,7 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public System.Action Register(ServiceContext serviceContext)
+    public SystemAction Register(ServiceContext serviceContext)
     {
         serviceContext.HostBuilder.ConfigureServices((context, services) =>
         {

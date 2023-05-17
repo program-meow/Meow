@@ -13,6 +13,7 @@ using Meow.Http.Extension;
 using System.IO;
 using System.Net;
 using Meow.Response;
+using SystemException = System.Exception;
 
 namespace Meow.Http;
 
@@ -88,7 +89,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
     /// <summary>
     /// 重试监听异常方法
     /// </summary>
-    private Action<int, TimeSpan, System.Exception> _retryListenerExceptionFunc;
+    private Action<int, TimeSpan, SystemException> _retryListenerExceptionFunc;
     /// <summary>
     /// 重试设置延迟时间方法
     /// </summary>
@@ -405,7 +406,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
     /// <param name="maxTimes">最大重试次数。第一次失败后，再次尝试重新发起请求的次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validateResultFunc = null, int maxTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public IHttpRequest<TResult> RetryTimes(Func<TResult, bool> validateResultFunc = null, int maxTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         if (maxTimes < 0)
             return this;
@@ -891,7 +892,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
     /// 获取结果
     /// </summary>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    public async Task<Result<TResult>> GetResultAsync(Action<System.Exception> listenerExceptionFunc = null)
+    public async Task<Result<TResult>> GetResultAsync(Action<SystemException> listenerExceptionFunc = null)
     {
         if (_retryMaxTimes > 0)
             return await Meow.Helper.Retry.TryInvokeAsync(RunResultAsync, _retryValidateResultFunc, _retryMaxTimes, _retryListenerExceptionFunc, _retryDelayFunc);
@@ -900,7 +901,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
             var result = await RunResultAsync();
             return new Result<TResult>(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription(), result);
         }
-        catch (System.Exception ex)
+        catch (SystemException ex)
         {
             listenerExceptionFunc?.Invoke(ex);
             return new Result<TResult>(ResultStatusCodeEnum.Error, ex.Message);
@@ -927,7 +928,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
     /// 获取流
     /// </summary>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    public async Task<Result<byte[]>> GetStreamAsync(Action<System.Exception> listenerExceptionFunc = null)
+    public async Task<Result<byte[]>> GetStreamAsync(Action<SystemException> listenerExceptionFunc = null)
     {
         if (_retryMaxTimes > 0)
             return await Meow.Helper.Retry.TryInvokeAsync(RunStreamAsync, ((result) => result != null), _retryMaxTimes, _retryListenerExceptionFunc, _retryDelayFunc);
@@ -936,7 +937,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
             var result = await RunStreamAsync();
             return new Result<byte[]>(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription(), result);
         }
-        catch (System.Exception ex)
+        catch (SystemException ex)
         {
             listenerExceptionFunc?.Invoke(ex);
             return new Result<byte[]>(ResultStatusCodeEnum.Error, ex.Message);
@@ -985,7 +986,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
-    public async Task<Result> WriteAsync(string filePath, Action<System.Exception> listenerExceptionFunc = null)
+    public async Task<Result> WriteAsync(string filePath, Action<SystemException> listenerExceptionFunc = null)
     {
         Result<byte[]> result = await GetStreamAsync(listenerExceptionFunc);
         if (!result.IsOk)
@@ -995,7 +996,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class
             await result.Data.FileWriteAsync(filePath);
             return new Result(ResultStatusCodeEnum.Ok, ResultStatusCodeEnum.Ok.GetDescription());
         }
-        catch (System.Exception ex)
+        catch (SystemException ex)
         {
             listenerExceptionFunc?.Invoke(ex);
             return new Result(ResultStatusCodeEnum.Error, ex.Message);

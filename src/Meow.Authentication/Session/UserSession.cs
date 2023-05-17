@@ -31,7 +31,7 @@ public class UserSession : ISession
     {
         get
         {
-            var result = Web.Identity.GetValue(ClaimTypes.UserId);
+            string result = Web.Identity.GetValue(ClaimTypes.UserId);
             return result.IsEmpty() ? Web.Identity.GetValue(System.Security.Claims.ClaimTypes.NameIdentifier) : result;
         }
     }

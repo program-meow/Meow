@@ -12,7 +12,7 @@ namespace Meow.Data.EntityFramework.Sqlite;
 /// <summary>
 /// Sqlite工作单元配置扩展
 /// </summary>
-public class SqliteOptionsExtension<TService, TImplementation> : OptionsExtensionBase
+public class SqliteOptionsExtension<TService, TImplementation> : OptionExtensionBase
     where TService : class, IUnitOfWork
     where TImplementation : UnitOfWorkBase, TService
 {

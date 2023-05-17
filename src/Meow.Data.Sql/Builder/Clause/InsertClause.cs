@@ -3,7 +3,6 @@ using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Data.Sql.Builder.Param;
 using Meow.Extension;
-using Meow.Helper;
 
 namespace Meow.Data.Sql.Builder.Clause;
 
@@ -161,7 +160,7 @@ public class InsertClause : ClauseBase, IInsertClause
         builder.AppendLine(" ");
         if (ValuesResult.Length == 0)
         {
-            builder.RemoveEnd(String.Line);
+            builder.RemoveEnd(Meow.Helper.String.Line);
             return;
         }
         builder.Append("Values");

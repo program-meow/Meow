@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ 
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Data.Dapper.Core</AssemblyName>
+		<RootNamespace>Meow.Data.Dapper</RootNamespace>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<Description>
+			Meow.Data.Dapper.Core 是 Meow 应用框架基于 Dapper 的数据访问封装基础类库。
+			$(Tips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Data.Dapper.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Data.Dapper.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Dapper" Version="2.0.123" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Data.Metadata\03-Meow.Data.Metadata.csproj" />
+	  <ProjectReference Include="..\Meow.Data.Sql\02-Meow.Data.Sql.csproj" />
+	</ItemGroup>
+
+</Project>

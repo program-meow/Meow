@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using SystemException = System.Exception;
 
 namespace Meow.Logging;
 
@@ -25,7 +26,7 @@ public interface ILog
     /// 设置异常
     /// </summary>
     /// <param name="exception">异常</param>
-    ILog Exception(System.Exception exception);
+    ILog Exception(SystemException exception);
     /// <summary>
     /// 设置自定义扩展属性
     /// </summary>

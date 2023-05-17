@@ -1,0 +1,67 @@
+﻿using System;
+using System.Data;
+using Meow.Data.Dapper.PostgreSql.Sql.Builder;
+using Meow.Data.Dapper.Sql;
+using Meow.Data.Sql;
+using Meow.Data.Sql.Builder;
+using Meow.Data.Sql.Builder.Core;
+
+namespace Meow.Data.Dapper.PostgreSql.Sql;
+
+/// <summary>
+/// PostgreSql Sql查询对象
+/// </summary>
+public abstract class PostgreSqlQueryBase : SqlQueryBase
+{
+    /// <summary>
+    /// 初始化PostgreSql Sql查询对象
+    /// </summary>
+    /// <param name="serviceProvider">服务提供器</param>
+    /// <param name="option">Sql配置</param>
+    /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
+    protected PostgreSqlQueryBase(IServiceProvider serviceProvider, SqlOption option, IDatabase database) : base(serviceProvider, option, database)
+    {
+    }
+
+    /// <inheritdoc />
+    protected override ISqlBuilder CreateSqlBuilder()
+    {
+        return new PostgreSqlBuilder();
+    }
+
+    /// <inheritdoc />
+    protected override IExistsSqlBuilder CreatExistsSqlBuilder(ISqlBuilder sqlBuilder)
+    {
+        return new PostgreSqlExistsSqlBuilder(sqlBuilder);
+    }
+
+    /// <inheritdoc />
+    protected override IDatabaseFactory CreateDatabaseFactory()
+    {
+        return new PostgreSqlDatabaseFactory();
+    }
+
+    /// <inheritdoc />
+    protected override string GetProcedure(string procedure)
+    {
+        if (IsProcedure(procedure))
+            return Dialect.ReplaceSql(procedure);
+        return new TableItem(Dialect, procedure).ToResult();
+    }
+
+    /// <summary>
+    /// 是否存储过程
+    /// </summary>
+    protected virtual bool IsProcedure(string procedure)
+    {
+        return procedure.Trim().StartsWith("call ", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <inheritdoc />
+    protected override CommandType GetProcedureCommandType()
+    {
+        if (IsProcedure(GetSql()))
+            return CommandType.Text;
+        return CommandType.StoredProcedure;
+    }
+}

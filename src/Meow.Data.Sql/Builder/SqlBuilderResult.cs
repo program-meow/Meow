@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Meow.Data.Sql.Builder.Param;
-using Meow.Helper;
 
 namespace Meow.Data.Sql.Builder;
 
@@ -68,7 +67,7 @@ public class SqlBuilderResult
         SqlParam result = _sqlParams.Find(t => t.Name?.ToUpperInvariant() == name?.ToUpperInvariant());
         if (result == null)
             return default;
-        return Convert.To<T>(result.Value);
+        return Meow.Helper.Convert.To<T>(result.Value);
     }
 
     /// <summary>
@@ -79,7 +78,7 @@ public class SqlBuilderResult
         string sql = GetSql();
         List<SqlParam> parameters = GetParams();
         foreach (SqlParam parameter in parameters)
-            sql = Regex.Replace(sql, $@"{parameter.Name}\b", _resolver.GetParamLiterals(parameter.Value));
+            sql = Meow.Helper.Regex.Replace(sql, $@"{parameter.Name}\b", _resolver.GetParamLiterals(parameter.Value));
         return sql;
     }
 }

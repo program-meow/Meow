@@ -1,5 +1,4 @@
 ﻿using System;
-using Meow.Helper;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meow.Data.EntityFramework.ValueConverter;
@@ -22,7 +21,7 @@ public class DateTimeValueConverter : ValueConverter<DateTime?, DateTime?>
     /// </summary>
     public static DateTime? Normalize(DateTime? date)
     {
-        return date.HasValue ? Time.Normalize(date.Value) : null;
+        return date.HasValue ? Meow.Helper.Time.Normalize(date.Value) : null;
     }
 
     /// <summary>
@@ -30,6 +29,6 @@ public class DateTimeValueConverter : ValueConverter<DateTime?, DateTime?>
     /// </summary>
     public static DateTime? ToLocalTime(DateTime? date)
     {
-        return date.HasValue ? Time.UtcToLocalTime(date.Value) : null;
+        return date.HasValue ? Meow.Helper.Time.UtcToLocalTime(date.Value) : null;
     }
 }

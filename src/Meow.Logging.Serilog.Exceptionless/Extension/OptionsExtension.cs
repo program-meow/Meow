@@ -1,6 +1,6 @@
 ﻿using System;
-using Meow.Config;
 using Meow.Extension;
+using MeowOption = Meow.Config.Option;
 
 namespace Meow.Logging.Serilog.Extension;
 
@@ -15,7 +15,7 @@ public static class OptionsExtension
     /// <param name="options">配置项</param>
     /// <param name="configAction">Exceptionless日志配置操作</param>
     /// <param name="isClearProviders">是否清除默认设置的日志提供程序</param>
-    public static Options UseSerilog(this Options options, Action<SerilogExceptionlessConfiguration> configAction, bool isClearProviders = false)
+    public static MeowOption UseSerilog(this MeowOption options, Action<SerilogExceptionlessConfiguration> configAction, bool isClearProviders = false)
     {
         configAction.CheckNull(nameof(configAction));
         SerilogExceptionlessConfiguration config = new SerilogExceptionlessConfiguration();

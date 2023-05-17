@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using SystemException = System.Exception;
 
 namespace Meow.Logging;
 
@@ -29,7 +30,7 @@ public class LoggerWrapper : ILoggerWrapper
     }
 
     /// <inheritdoc />
-    public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, System.Exception exception, Func<TState, System.Exception, string> formatter)
+    public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, SystemException exception, Func<TState, SystemException, string> formatter)
     {
         Logger.Log(logLevel, eventId, state, exception, formatter);
     }
@@ -41,37 +42,37 @@ public class LoggerWrapper : ILoggerWrapper
     }
 
     /// <inheritdoc />
-    public void LogTrace(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogTrace(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogTrace(eventId, exception, message, args);
     }
 
     /// <inheritdoc />
-    public void LogDebug(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogDebug(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogDebug(eventId, exception, message, args);
     }
 
     /// <inheritdoc />
-    public void LogInformation(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogInformation(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogInformation(eventId, exception, message, args);
     }
 
     /// <inheritdoc />
-    public void LogWarning(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogWarning(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogWarning(eventId, exception, message, args);
     }
 
     /// <inheritdoc />
-    public void LogError(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogError(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogError(eventId, exception, message, args);
     }
 
     /// <inheritdoc />
-    public void LogCritical(EventId eventId, System.Exception exception, string message, params object[] args)
+    public void LogCritical(EventId eventId, SystemException exception, string message, params object[] args)
     {
         Logger.LogCritical(eventId, exception, message, args);
     }

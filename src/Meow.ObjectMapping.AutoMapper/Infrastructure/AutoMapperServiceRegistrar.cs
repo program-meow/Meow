@@ -2,6 +2,7 @@
 using AutoMapper;
 using Meow.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using SystemAction = System.Action;
 
 namespace Meow.ObjectMapping.Infrastructure;
 
@@ -29,7 +30,7 @@ public class AutoMapperServiceRegistrar : IServiceRegistrar
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public System.Action Register(ServiceContext serviceContext)
+    public SystemAction Register(ServiceContext serviceContext)
     {
         var types = serviceContext.TypeFinder.Find<IAutoMapperConfig>();
         var instances = types.Select(type => Meow.Helper.Reflection.CreateInstance<IAutoMapperConfig>(type)).ToList();

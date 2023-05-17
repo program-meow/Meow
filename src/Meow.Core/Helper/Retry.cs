@@ -2,6 +2,9 @@
 using System;
 using Meow.Extension;
 using Meow.Response;
+using SystemException = System.Exception;
+using SystemAction = System.Action;
+
 
 namespace Meow.Helper;
 
@@ -36,12 +39,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<bool> TryInvoke(System.Action action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<bool> TryInvoke(SystemAction action, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         action.CheckNull(nameof(action));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
         int time = 0;
@@ -56,7 +59,7 @@ public static class Retry
 
                 return new Result<bool>(statusCode, statusCode.GetDescription(), true);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
@@ -80,12 +83,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<bool?> TryInvoke(Func<bool> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<bool?> TryInvoke(Func<bool> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
 
@@ -104,7 +107,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = null;
 
@@ -130,12 +133,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<TResult>(Func<TResult> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<TResult> TryInvoke<TResult>(Func<TResult> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -154,7 +157,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -181,12 +184,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, TResult>(Func<T1, TResult> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<TResult> TryInvoke<T1, TResult>(Func<T1, TResult> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -205,7 +208,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -233,12 +236,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, TResult>(Func<T1, T2, TResult> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<TResult> TryInvoke<T1, T2, TResult>(Func<T1, T2, TResult> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -257,7 +260,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -286,12 +289,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<TResult> TryInvoke<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -310,7 +313,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -340,12 +343,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -364,7 +367,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -393,12 +396,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<bool>> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<bool>> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         action.CheckNull(nameof(action));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
         int time = 0;
@@ -413,7 +416,7 @@ public static class Retry
 
                 return new Result<bool>(statusCode, statusCode.GetDescription(), true);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
@@ -437,12 +440,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<bool?>> TryInvokeAsync(Func<Task<bool>> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<bool?>> TryInvokeAsync(Func<Task<bool>> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
 
@@ -461,7 +464,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = null;
 
@@ -487,12 +490,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<TResult>(Func<Task<TResult>> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<TResult>> TryInvokeAsync<TResult>(Func<Task<TResult>> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -511,7 +514,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -538,12 +541,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>(Func<T1, Task<TResult>> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>(Func<T1, Task<TResult>> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -562,7 +565,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -590,12 +593,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -614,7 +617,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -643,12 +646,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -667,7 +670,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 
@@ -697,12 +700,12 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, System.Exception> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
     {
         func.CheckNull(nameof(func));
 
         ResultStatusCodeEnum statusCode;
-        System.Exception exception;
+        SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
 
@@ -721,7 +724,7 @@ public static class Retry
                 if (validateResultFunc(result))
                     return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
             }
-            catch (System.Exception ex)
+            catch (SystemException ex)
             {
                 result = default(TResult);
 

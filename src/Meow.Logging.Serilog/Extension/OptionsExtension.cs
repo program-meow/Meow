@@ -1,4 +1,4 @@
-﻿using Meow.Config;
+﻿using MeowOption = Meow.Config.Option;
 
 namespace Meow.Logging.Serilog.Extension;
 
@@ -12,7 +12,7 @@ public static class OptionsExtension
     /// </summary>
     /// <param name="options">配置项</param>
     /// <param name="isClearProviders">是否清除默认设置的日志提供程序</param>
-    public static Options UseSerilog(this Options options, bool isClearProviders = false)
+    public static MeowOption UseSerilog(this MeowOption options, bool isClearProviders = false)
     {
         options.AddExtension(new SerilogOptionsExtension(isClearProviders));
         return options;

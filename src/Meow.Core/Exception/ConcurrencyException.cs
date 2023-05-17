@@ -1,4 +1,5 @@
 ﻿using Meow.Error;
+using SystemException = System.Exception;
 
 namespace Meow.Exception;
 
@@ -24,7 +25,7 @@ public class ConcurrencyException : Warning
     /// 初始化并发异常
     /// </summary>
     /// <param name="exception">异常</param>
-    public ConcurrencyException(System.Exception exception)
+    public ConcurrencyException(SystemException exception)
         : this("", exception)
     {
     }
@@ -36,7 +37,7 @@ public class ConcurrencyException : Warning
     /// <param name="exception">异常</param>
     /// <param name="code">错误码</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public ConcurrencyException(string message, System.Exception exception = null, string code = null, int? httpStatusCode = null)
+    public ConcurrencyException(string message, SystemException exception = null, string code = null, int? httpStatusCode = null)
         : base(message, exception, code, httpStatusCode)
     {
         _message = message;
