@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Meow.Model;
-using Meow.Validation;
+using Meow.Validation.Validator;
 
 namespace Meow.Data.Store;
 

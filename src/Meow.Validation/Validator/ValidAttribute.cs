@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
 using Meow.Aop;
 
-namespace Meow.Validation;
+namespace Meow.Validation.Validator;
 
 /// <summary>
 /// 验证拦截器
@@ -24,7 +24,7 @@ public class ValidAttribute : ParameterInterceptorBase
     /// </summary>
     private void Validate(Parameter parameter)
     {
-        if (Meow.Helper.Reflection.IsGenericCollection(parameter.RawType))
+        if (Helper.Reflection.IsGenericCollection(parameter.RawType))
         {
             ValidateCollection(parameter);
             return;

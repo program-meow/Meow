@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Meow.Data.Filter;
 using Meow.Dependency;
 using Meow.Domain.Entity;
-using Meow.Validation;
+using Meow.Validation.Validator;
 
 namespace Meow.Domain.Repository;
 

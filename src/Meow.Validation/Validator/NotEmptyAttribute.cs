@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
+using Meow.Aop;
+using Meow.Extension;
 
-namespace Meow.Aop;
+namespace Meow.Validation.Validator;
 
 /// <summary>
-/// 验证参数不能为null
+/// 验证参数不能为空
 /// </summary>
-public class NotNullAttribute : ParameterInterceptorBase
+public class NotEmptyAttribute : ParameterInterceptorBase
 {
     /// <summary>
     /// 执行
     /// </summary>
     public override Task Invoke(ParameterAspectContext context, ParameterAspectDelegate next)
     {
-        if (context.Parameter.Value == null)
+        if (string.IsNullOrWhiteSpace(context.Parameter.Value.SafeString()))
             throw new ArgumentNullException(context.Parameter.Name);
         return next(context);
     }
