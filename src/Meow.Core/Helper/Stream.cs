@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Meow.Extension;
+using SystemStream = System.IO.Stream;
 
 namespace Meow.Helper;
 
@@ -17,7 +18,7 @@ public static class Stream
     /// 流转换为字节数组
     /// </summary>
     /// <param name="stream">流</param>
-    public static byte[] ToBytes(System.IO.Stream stream)
+    public static byte[] ToBytes(SystemStream stream)
     {
         stream.Seek(0, SeekOrigin.Begin);
         byte[] buffer = new byte[stream.Length];
@@ -55,7 +56,7 @@ public static class Stream
     /// </summary>
     /// <param name="stream">流</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public static async Task<byte[]> ToBytesAsync(System.IO.Stream stream, CancellationToken cancellationToken = default)
+    public static async Task<byte[]> ToBytesAsync(SystemStream stream, CancellationToken cancellationToken = default)
     {
         stream.Seek(0, SeekOrigin.Begin);
         byte[] buffer = new byte[stream.Length];
@@ -71,7 +72,7 @@ public static class Stream
     /// 字符串转换成流
     /// </summary>
     /// <param name="data">数据</param>
-    public static System.IO.Stream ToStream(string data)
+    public static SystemStream ToStream(string data)
     {
         return ToStream(data, Encoding.UTF8);
     }
@@ -81,10 +82,10 @@ public static class Stream
     /// </summary>
     /// <param name="data">数据</param>
     /// <param name="encoding">字符编码</param>
-    public static System.IO.Stream ToStream(string data, Encoding encoding)
+    public static SystemStream ToStream(string data, Encoding encoding)
     {
         if (data.IsEmpty())
-            return System.IO.Stream.Null;
+            return SystemStream.Null;
         return new MemoryStream(ToBytes(data, encoding));
     }
 
@@ -99,7 +100,7 @@ public static class Stream
     /// <param name="encoding">字符编码。默认：UTF8</param>
     /// <param name="bufferSize">缓冲区大小</param>
     /// <param name="isCloseStream">读取完成是否释放流，默认为true</param>
-    public static string ToString(System.IO.Stream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
+    public static string ToString(SystemStream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
     {
         if (stream == null)
             return string.Empty;
@@ -125,7 +126,7 @@ public static class Stream
     /// <param name="encoding">字符编码。默认：UTF8</param>
     /// <param name="bufferSize">缓冲区大小</param>
     /// <param name="isCloseStream">读取完成是否释放流，默认为true</param>
-    public static async Task<string> ToStringAsync(System.IO.Stream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
+    public static async Task<string> ToStringAsync(SystemStream stream, Encoding encoding = null, int bufferSize = 1024 * 2, bool isCloseStream = true)
     {
         if (stream == null)
             return string.Empty;
@@ -149,7 +150,7 @@ public static class Stream
     /// </summary>
     /// <param name="stream">流</param>
     /// <param name="encoding">字符编码。默认：UTF8</param>
-    public static async Task<string> CopyToStringAsync(System.IO.Stream stream, Encoding encoding = null)
+    public static async Task<string> CopyToStringAsync(SystemStream stream, Encoding encoding = null)
     {
         if (stream == null)
             return string.Empty;

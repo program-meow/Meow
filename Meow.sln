@@ -79,13 +79,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-dapper", "03-dapper", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Data.Dapper.Core", "src\Meow.Data.Dapper.Core\01-Meow.Data.Dapper.Core.csproj", "{20F2B2B5-933A-49B8-8234-896616E669CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Data.Dapper.SqlServer", "src\Meow.Data.Dapper.SqlServer\02-Meow.Data.Dapper.SqlServer.csproj", "{46FD2194-5440-4505-9104-29F0818A7728}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Data.Dapper.SqlServer", "src\Meow.Data.Dapper.SqlServer\02-Meow.Data.Dapper.SqlServer.csproj", "{46FD2194-5440-4505-9104-29F0818A7728}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Meow.Data.Dapper.PostgreSql", "src\Meow.Data.Dapper.PostgreSql\03-Meow.Data.Dapper.PostgreSql.csproj", "{196EB19B-7C1B-4019-9F85-5A8157651B9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.Dapper.PostgreSql", "src\Meow.Data.Dapper.PostgreSql\03-Meow.Data.Dapper.PostgreSql.csproj", "{196EB19B-7C1B-4019-9F85-5A8157651B9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Meow.Data.Dapper.MySql", "src\Meow.Data.Dapper.MySql\04-Meow.Data.Dapper.MySql.csproj", "{0FB0BF2A-2BE4-48DD-98B8-3277367D2A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Data.Dapper.MySql", "src\Meow.Data.Dapper.MySql\04-Meow.Data.Dapper.MySql.csproj", "{0FB0BF2A-2BE4-48DD-98B8-3277367D2A0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05-Meow.Data.Dapper.All", "src\Meow.Data.Dapper.All\05-Meow.Data.Dapper.All.csproj", "{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Data.Dapper.All", "src\Meow.Data.Dapper.All\05-Meow.Data.Dapper.All.csproj", "{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-application", "12-application", "{A1DEC02B-B85E-4216-9AE4-3F229311ADEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Application", "src\Meow.Application\01-Meow.Application.csproj", "{190B9CB7-339F-480C-BADA-0EC305129A3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Application.EntityFramework", "src\Meow.Application.EntityFramework\02-Meow.Application.EntityFramework.csproj", "{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-caching", "05-caching", "{3BA93F24-4424-4C4F-9BF7-9D27ECB1745F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Caching", "src\Meow.Caching\01-Meow.Caching.csproj", "{957685E3-F15C-4FF8-993D-2B11E45F2FB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Caching.EasyCaching", "src\Meow.Caching.EasyCaching\02-Meow.Caching.EasyCaching.csproj", "{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Meow.Application.WebApi", "src\Meow.Application.WebApi\03-Meow.Application.WebApi.csproj", "{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +215,26 @@ Global
 		{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190B9CB7-339F-480C-BADA-0EC305129A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190B9CB7-339F-480C-BADA-0EC305129A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190B9CB7-339F-480C-BADA-0EC305129A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190B9CB7-339F-480C-BADA-0EC305129A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957685E3-F15C-4FF8-993D-2B11E45F2FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957685E3-F15C-4FF8-993D-2B11E45F2FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957685E3-F15C-4FF8-993D-2B11E45F2FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957685E3-F15C-4FF8-993D-2B11E45F2FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +277,13 @@ Global
 		{196EB19B-7C1B-4019-9F85-5A8157651B9C} = {176827B1-8A7C-40FD-BEFB-DD9DA63CB6A6}
 		{0FB0BF2A-2BE4-48DD-98B8-3277367D2A0A} = {176827B1-8A7C-40FD-BEFB-DD9DA63CB6A6}
 		{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1} = {176827B1-8A7C-40FD-BEFB-DD9DA63CB6A6}
+		{A1DEC02B-B85E-4216-9AE4-3F229311ADEE} = {A73CDCF8-DE82-4251-B145-86AB90329C5F}
+		{190B9CB7-339F-480C-BADA-0EC305129A3D} = {A1DEC02B-B85E-4216-9AE4-3F229311ADEE}
+		{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5} = {A1DEC02B-B85E-4216-9AE4-3F229311ADEE}
+		{3BA93F24-4424-4C4F-9BF7-9D27ECB1745F} = {A73CDCF8-DE82-4251-B145-86AB90329C5F}
+		{957685E3-F15C-4FF8-993D-2B11E45F2FB3} = {3BA93F24-4424-4C4F-9BF7-9D27ECB1745F}
+		{CEAF5619-2DEA-41E9-9B06-8BB591B1C52C} = {3BA93F24-4424-4C4F-9BF7-9D27ECB1745F}
+		{65331483-9C5A-4177-8FBB-E2F3A8AB0EA1} = {A1DEC02B-B85E-4216-9AE4-3F229311ADEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A606D32-B672-4F8E-B52C-CC6795E59FDE}

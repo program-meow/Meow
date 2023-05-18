@@ -12,7 +12,7 @@ namespace Meow.Data.EntityFramework.PostgreSql;
 /// <summary>
 /// PostgreSql工作单元配置扩展
 /// </summary>
-public class PgSqlOptionsExtension<TService, TImplementation> : OptionExtensionBase
+public class PgSqlOptionsExtension<TService, TImplementation> : OptionsExtensionBase
     where TService : class, IUnitOfWork
     where TImplementation : UnitOfWorkBase, TService
 {

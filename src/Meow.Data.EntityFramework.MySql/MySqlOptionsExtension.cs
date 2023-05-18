@@ -13,7 +13,7 @@ namespace Meow.Data.EntityFramework.MySql;
 /// <summary>
 /// MySql工作单元配置扩展
 /// </summary>
-public class MySqlOptionsExtension<TService, TImplementation> : OptionExtensionBase
+public class MySqlOptionsExtension<TService, TImplementation> : OptionsExtensionBase
     where TService : class, IUnitOfWork
     where TImplementation : UnitOfWorkBase, TService
 {

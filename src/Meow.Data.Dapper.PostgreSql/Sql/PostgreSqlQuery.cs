@@ -12,10 +12,10 @@ public class PostgreSqlQuery : PostgreSqlQueryBase
     /// 初始化PostgreSql Sql查询对象
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
-    /// <param name="option">Sql配置</param>
+    /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    public PostgreSqlQuery(IServiceProvider serviceProvider, SqlOption<PostgreSqlQuery> option, IDatabase database = null)
-        : base(serviceProvider, option, database)
+    public PostgreSqlQuery(IServiceProvider serviceProvider, SqlOptions<PostgreSqlQuery> options, IDatabase database = null)
+        : base(serviceProvider, options, database)
     {
     }
 }

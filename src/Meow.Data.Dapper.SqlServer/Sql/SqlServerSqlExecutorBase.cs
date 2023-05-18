@@ -15,9 +15,9 @@ public abstract class SqlServerSqlExecutorBase : SqlExecutorBase
     /// 初始化Sql Server Sql执行器
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
-    /// <param name="option">Sql配置</param>
+    /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    protected SqlServerSqlExecutorBase(IServiceProvider serviceProvider, SqlOption option, IDatabase database) : base(serviceProvider, option, database)
+    protected SqlServerSqlExecutorBase(IServiceProvider serviceProvider, SqlOptions options, IDatabase database) : base(serviceProvider, options, database)
     {
     }
 

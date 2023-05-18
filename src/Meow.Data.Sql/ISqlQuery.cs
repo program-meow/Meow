@@ -10,7 +10,7 @@ namespace Meow.Data.Sql;
 /// <summary>
 /// Sql查询对象
 /// </summary>
-public interface ISqlQuery : ISqlQueryOperation, ISqlOption, IDisposable
+public interface ISqlQuery : ISqlQueryOperation, ISqlOptions, IDisposable
 {
     /// <summary>
     /// 上下文标识

@@ -12,7 +12,7 @@ namespace Meow.Data.EntityFramework.Oracle;
 /// <summary>
 /// Oracle工作单元配置扩展
 /// </summary>
-public class OracleOptionsExtension<TService, TImplementation> : OptionExtensionBase
+public class OracleOptionsExtension<TService, TImplementation> : OptionsExtensionBase
     where TService : class, IUnitOfWork
     where TImplementation : UnitOfWorkBase, TService
 {

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Meow.Option;
 
 namespace Meow.Helper;
 
@@ -24,7 +25,7 @@ public static class Time
     /// <summary>
     /// 是否使用Utc日期
     /// </summary>
-    private static bool IsUseUtc => _isUseUtc.Value != null ? _isUseUtc.Value.SafeValue() : Meow.Option.TimeOptions.IsUseUtc;
+    private static bool IsUseUtc => _isUseUtc.Value != null ? _isUseUtc.Value.SafeValue() : TimeOptions.IsUseUtc;
 
     /// <summary>
     /// 设置时间

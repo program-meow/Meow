@@ -54,7 +54,7 @@ public class MetadataServiceFactory : IMetadataServiceFactory
     /// </summary>
     private IMetadataService CreateSqlServerMetadataService(string connection)
     {
-        var options = new SqlOption<SqlServerSqlQuery>
+        var options = new SqlOptions<SqlServerSqlQuery>
         {
             ConnectionString = connection
         };
@@ -67,7 +67,7 @@ public class MetadataServiceFactory : IMetadataServiceFactory
     /// </summary>
     private IMetadataService CreatePgSqlMetadataService(string connection)
     {
-        var options = new SqlOption<PostgreSqlQuery>
+        var options = new SqlOptions<PostgreSqlQuery>
         {
             ConnectionString = connection
         };
@@ -80,7 +80,7 @@ public class MetadataServiceFactory : IMetadataServiceFactory
     /// </summary>
     private IMetadataService CreateMySqlMetadataService(string connection)
     {
-        var options = new SqlOption<MySqlQuery>
+        var options = new SqlOptions<MySqlQuery>
         {
             ConnectionString = connection
         };

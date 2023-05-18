@@ -6,7 +6,9 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Threading;
 using System.Threading.Tasks;
+using Meow.Option;
 using SystemType = System.Type;
+using SystemStream = System.IO.Stream;
 
 namespace Meow.Helper;
 
@@ -20,9 +22,9 @@ public static class Json
     /// </summary>
     /// <param name="value">目标对象</param>
     /// <param name="options">Json配置</param>
-    public static string ToJson<T>(T value, Meow.Option.JsonOptions options)
+    public static string ToJson<T>(T value, JsonOptions options)
     {
-        options ??= new Meow.Option.JsonOptions();
+        options ??= new JsonOptions();
         JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
         if (options.IgnoreNullValues)
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
@@ -153,7 +155,7 @@ public static class Json
     /// <param name="json">Json流</param>
     /// <param name="options">序列化配置</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public static async Task<T> ToObjectAsync<T>(System.IO.Stream json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default)
+    public static async Task<T> ToObjectAsync<T>(SystemStream json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default)
     {
         if (json == null)
             return default;

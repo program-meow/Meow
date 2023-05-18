@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Meow.Extension;
+using SystemStream = System.IO.Stream;
 
 namespace Meow.Helper;
 
@@ -115,7 +116,7 @@ public static class File
     /// 读取文件流
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
-    public static System.IO.Stream ReadToStream(string filePath)
+    public static SystemStream ReadToStream(string filePath)
     {
         return new FileStream(filePath, FileMode.Open);
     }

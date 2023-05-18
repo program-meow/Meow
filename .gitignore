@@ -27,6 +27,11 @@
 /src/Meow.Event/bin
 /src/Meow.Event/obj
 
+/src/Meow.Caching/bin
+/src/Meow.Caching/obj
+/src/Meow.Caching.EasyCaching/bin
+/src/Meow.Caching.EasyCaching/obj
+
 /src/Meow.Domain/bin
 /src/Meow.Domain/obj
 
@@ -60,6 +65,13 @@
 /src/Meow.Data.Dapper.MySql/obj
 /src/Meow.Data.Dapper.All/bin
 /src/Meow.Data.Dapper.All/obj
+
+/src/Meow.Application/bin
+/src/Meow.Application/obj
+/src/Meow.Application.EntityFramework/bin
+/src/Meow.Application.EntityFramework/obj
+/src/Meow.Application.WebApi/bin
+/src/Meow.Application.WebApi/obj
 
 
 

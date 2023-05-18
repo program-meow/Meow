@@ -23,7 +23,7 @@ namespace Meow.Data.Dapper.Sql;
 /// <summary>
 /// Sql查询对象
 /// </summary>
-public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAccessor, IGetParameter, IClearParameters, IConnectionManager, ITransactionManager
+public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAccessor, IGetParameter, IClearParameters, IConnectionManager, ITransactionManager
 {
     #region 字段
 
@@ -34,7 +34,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAcce
     /// <summary>
     /// Sql配置
     /// </summary>
-    protected readonly SqlOption Option;
+    protected readonly SqlOptions Options;
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -68,14 +68,14 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAcce
     /// 初始化Sql查询对象
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
-    /// <param name="option">Sql配置</param>
+    /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    protected SqlQueryBase(IServiceProvider serviceProvider, SqlOption option, IDatabase database)
+    protected SqlQueryBase(IServiceProvider serviceProvider, SqlOptions options, IDatabase database)
     {
         ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-        Option = option ?? throw new ArgumentNullException(nameof(option));
+        Options = options ?? throw new ArgumentNullException(nameof(options));
         Logger = CreateLogger();
-        _connection = option.Connection;
+        _connection = options.Connection;
         _database = database;
         ContextId = Meow.Helper.Id.Create();
     }
@@ -88,7 +88,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAcce
         ILoggerFactory loggerFactory = ServiceProvider.GetService<ILoggerFactory>();
         if (loggerFactory == null)
             return NullLogger.Instance;
-        return loggerFactory.CreateLogger(Option.LogCategory);
+        return loggerFactory.CreateLogger(Options.LogCategory);
     }
 
     #endregion
@@ -198,12 +198,12 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAcce
     /// </summary>
     protected virtual IDatabase CreateDatabase()
     {
-        if (Option.ConnectionString.IsEmpty())
+        if (Options.ConnectionString.IsEmpty())
             throw new InvalidOperationException("数据库连接字符串不能为空");
         IDatabaseFactory factory = CreateDatabaseFactory();
         if (factory == null)
             throw new InvalidOperationException("数据库工厂不能为空");
-        return factory.Create(Option.ConnectionString);
+        return factory.Create(Options.ConnectionString);
     }
 
     /// <summary>
@@ -232,9 +232,9 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionAcce
     /// <summary>
     /// 获取Sql配置
     /// </summary>
-    public SqlOption GetOptions()
+    public SqlOptions GetOptions()
     {
-        return Option;
+        return Options;
     }
 
     #endregion

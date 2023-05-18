@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.Common;
+using Meow.Config;
 using Microsoft.EntityFrameworkCore;
 using Oracle.EntityFrameworkCore.Infrastructure;
-using MeowOption = Meow.Config.Option;
 
 namespace Meow.Data.EntityFramework.Oracle;
 
@@ -19,7 +19,7 @@ public static class OptionsExtensions
     /// <param name="setupAction">工作单元配置操作</param>
     /// <param name="oracleSetupAction">Oracle配置操作</param>
     /// <param name="condition">条件,设置为false,跳过配置</param>
-    public static MeowOption UseOracleUnitOfWork<TService, TImplementation>(this MeowOption options, string connection, Action<DbContextOptionsBuilder> setupAction = null,
+    public static Options UseOracleUnitOfWork<TService, TImplementation>(this Options options, string connection, Action<DbContextOptionsBuilder> setupAction = null,
         Action<OracleDbContextOptionsBuilder> oracleSetupAction = null, bool? condition = null)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService
@@ -35,7 +35,7 @@ public static class OptionsExtensions
     /// <param name="setupAction">工作单元配置操作</param>
     /// <param name="oracleSetupAction">Oracle配置操作</param>
     /// <param name="condition">条件,设置为false,跳过配置</param>
-    public static MeowOption UseOracleUnitOfWork<TService, TImplementation>(this MeowOption options, DbConnection connection, Action<DbContextOptionsBuilder> setupAction = null,
+    public static Options UseOracleUnitOfWork<TService, TImplementation>(this Options options, DbConnection connection, Action<DbContextOptionsBuilder> setupAction = null,
         Action<OracleDbContextOptionsBuilder> oracleSetupAction = null, bool? condition = null)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService
@@ -46,7 +46,7 @@ public static class OptionsExtensions
     /// <summary>
     /// 配置Oracle工作单元
     /// </summary>
-    private static MeowOption UseOracleUnitOfWork<TService, TImplementation>(this MeowOption options, string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction,
+    private static Options UseOracleUnitOfWork<TService, TImplementation>(this Options options, string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction,
         Action<OracleDbContextOptionsBuilder> oracleSetupAction, bool? condition)
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService
