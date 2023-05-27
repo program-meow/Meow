@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Meow.Domain.Operation;
 using Meow.Model;
 using Microsoft.EntityFrameworkCore;
 

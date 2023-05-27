@@ -1,6 +1,7 @@
 ﻿using System;
 using Meow.Data.Extension;
 using Meow.Data.Filter;
+using Meow.Domain.Operation;
 using Meow.Model;
 
 namespace Meow.Data.EntityFramework.Extension;

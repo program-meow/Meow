@@ -1,4 +1,4 @@
-﻿using Meow.Model;
+﻿using Meow.Domain.Operation;
 
 namespace Meow.Domain.Entity;
 

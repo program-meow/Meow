@@ -1,4 +1,4 @@
-﻿namespace Meow.Model;
+﻿namespace Meow.Domain.Tree;
 
 /// <summary>
 /// 排序号

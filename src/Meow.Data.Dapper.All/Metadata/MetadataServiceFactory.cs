@@ -7,7 +7,7 @@ using Meow.Data.Dapper.SqlServer.Metadata;
 using Meow.Data.Dapper.SqlServer.Sql;
 using Meow.Data.Metadata;
 using Meow.Data.Sql;
-using Meow.Enum;
+using Meow.Database;
 
 namespace Meow.Data.Dapper.Metadata;
 

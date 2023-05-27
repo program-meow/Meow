@@ -1,4 +1,4 @@
-﻿namespace Meow.Model;
+﻿namespace Meow.Domain.Operation;
 
 /// <summary>
 /// 逻辑删除

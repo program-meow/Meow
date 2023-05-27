@@ -8,6 +8,7 @@ using Meow.Data.Extension;
 using Meow.Data.Filter;
 using Meow.Data.Query;
 using Meow.Data.Store;
+using Meow.Domain.Operation;
 using Meow.Exception;
 using Meow.Extension;
 using Meow.Model;

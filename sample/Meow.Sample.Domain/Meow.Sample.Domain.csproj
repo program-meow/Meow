@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Domain\01-Meow.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Models/Sample.*.cs">
+			<DependentUpon>Sample.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>

@@ -17,7 +17,7 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar
     /// <summary>
     /// 获取服务名
     /// </summary>
-    public static string ServiceName => "Util.Authentication.Infrastructure.AspNetCoreServiceRegistrar";
+    public static string ServiceName => "Meow.Authentication.Infrastructure.AspNetCoreServiceRegistrar";
 
     /// <summary>
     /// 排序号

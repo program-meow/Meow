@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Meow.Enum;
+namespace Meow.Database;
 
 /// <summary>
 /// 数据库类型
@@ -10,26 +10,26 @@ public enum DatabaseEnum
     /// <summary>
     /// Sql Server数据库
     /// </summary>
-    [Description("Sql Server数据库")]
+    [Description("SqlServer")]
     SqlServer = 1,
     /// <summary>
     /// MySql数据库
     /// </summary>
-    [Description("MySql数据库")]
+    [Description("MySql")]
     MySql = 2,
     /// <summary>
-    /// PostgreSQL数据库
+    /// PgSql数据库
     /// </summary>
-    [Description("PostgreSQL数据库")]
+    [Description("PgSql")]
     PgSql = 3,
     /// <summary>
     /// Oracle数据库
     /// </summary>
-    [Description("Oracle数据库")]
+    [Description("Oracle")]
     Oracle = 4,
     /// <summary>
     /// Sqlite数据库
     /// </summary>
-    [Description("Sqlite数据库")]
+    [Description("Sqlite")]
     Sqlite = 5,
 }

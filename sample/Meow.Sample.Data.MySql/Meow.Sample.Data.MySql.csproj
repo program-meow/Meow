@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.MySql\04-Meow.Data.EntityFramework.MySql.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data\Meow.Sample.Data.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.PostgreSql\03-Meow.Data.EntityFramework.PostgreSql.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data\Meow.Sample.Data.csproj" />
+	</ItemGroup>
+
+</Project>

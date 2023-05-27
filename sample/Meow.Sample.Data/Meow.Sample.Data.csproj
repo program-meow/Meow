@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFramework.Core.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Domain\Meow.Sample.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

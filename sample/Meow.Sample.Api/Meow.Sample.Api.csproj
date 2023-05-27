@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Meow.Application.WebApi\03-Meow.Application.WebApi.csproj" />
+		<ProjectReference Include="..\Meow.Sample.Application\Meow.Sample.Application.csproj" />
+	</ItemGroup>
+
+</Project>

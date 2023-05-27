@@ -3,7 +3,7 @@ using Meow.Data.Dapper.MySql.Metadata;
 using Meow.Data.Dapper.PostgreSql.Metadata;
 using Meow.Data.Dapper.SqlServer.Metadata;
 using Meow.Data.Metadata;
-using Meow.Enum;
+using Meow.Database;
 
 namespace Meow.Data.Dapper.Metadata;
 

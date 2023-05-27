@@ -1,4 +1,5 @@
 ﻿using System;
+using Meow.Domain.Operation;
 using Meow.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Application.EntityFramework\02-Meow.Application.EntityFramework.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data.MySql\Meow.Sample.Data.MySql.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data.Oracle\Meow.Sample.Data.Oracle.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data.PgSql\Meow.Sample.Data.PgSql.csproj" />
+	  <ProjectReference Include="..\Meow.Sample.Data.SqlServer\Meow.Sample.Data.SqlServer.csproj" />
+	</ItemGroup>
+
+</Project>

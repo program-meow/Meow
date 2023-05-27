@@ -76,6 +76,26 @@
 
 
 
+/sample/Meow.Sample.Api/bin
+/sample/Meow.Sample.Api/obj
+/sample/Meow.Sample.Application/bin
+/sample/Meow.Sample.Application/obj
+/sample/Meow.Sample.Domain/bin
+/sample/Meow.Sample.Domain/obj
+/sample/Meow.Sample.Data/bin
+/sample/Meow.Sample.Data/obj
+/sample/Meow.Sample.Data.MySql/bin
+/sample/Meow.Sample.Data.MySql/obj
+/sample/Meow.Sample.Data.Oracle/bin
+/sample/Meow.Sample.Data.Oracle/obj
+/sample/Meow.Sample.Data.PgSql/bin
+/sample/Meow.Sample.Data.PgSql/obj
+/sample/Meow.Sample.Data.SqlServer/bin
+/sample/Meow.Sample.Data.SqlServer/obj
+
+
+
+
 /test/Meow.Common.Test/bin
 /test/Meow.Common.Test/obj
 

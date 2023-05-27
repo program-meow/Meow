@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Meow.Domain.Tree;
 using Meow.Extension;
 using Meow.Model;
 using Meow.Query;
