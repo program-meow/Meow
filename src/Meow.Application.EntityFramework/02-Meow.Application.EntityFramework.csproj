@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Application.EntityFramework</AssemblyName>
 		<RootNamespace>Meow.Application.EntityFramework</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Application.EntityFramework 是 Meow 应用框架基于 EntityFrameworkCore 数据访问的应用层类库。

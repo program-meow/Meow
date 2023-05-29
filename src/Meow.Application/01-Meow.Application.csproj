@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Application</AssemblyName>
 		<RootNamespace>Meow.Application</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Application 是 Meow 应用框架的应用层基础类库。

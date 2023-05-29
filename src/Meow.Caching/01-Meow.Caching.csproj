@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Caching</AssemblyName>
 		<RootNamespace>Meow.Caching</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Caching 是 Meow 应用框架缓存操作基础类库。

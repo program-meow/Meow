@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Metadata</AssemblyName>
 		<RootNamespace>Meow.Data.Metadata</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Metadata 是 Meow 应用框架数据库元数据操作类库。

@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.EntityFramework.SqlServer</AssemblyName>
 		<RootNamespace>Meow.Data.EntityFramework.SqlServer</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Data.EntityFramework.SqlServer 是 Meow 应用框架基于 EntityFrameworkCore 的数据访问封装类库,用于处理 SqlServer 数据库。

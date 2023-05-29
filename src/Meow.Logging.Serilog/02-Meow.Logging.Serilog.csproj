@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Logging.Serilog</AssemblyName>
 		<RootNamespace>Meow.Logging.Serilog</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Logging.Serilog 是 Meow 应用框架集成封装 Serilog 日志框架的核心类库,它包含了写入 文件 和 Seq。

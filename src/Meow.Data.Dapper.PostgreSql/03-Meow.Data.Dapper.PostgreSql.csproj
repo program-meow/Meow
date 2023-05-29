@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Dapper.PostgreSql</AssemblyName>
 		<RootNamespace>Meow.Data.Dapper.PostgreSql</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Data.Dapper.PostgreSql 是 Meow 应用框架基于 Dapper 的数据访问封装类库,用于处理 PostgreSql 数据库。

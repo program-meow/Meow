@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Caching.EasyCaching</AssemblyName>
 		<RootNamespace>Meow.Caching.EasyCaching</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Caching.EasyCaching 是 Meow 应用框架基于 EasyCaching 的缓存操作类库,默认引入 内存缓存 和 Redis 缓存实现。

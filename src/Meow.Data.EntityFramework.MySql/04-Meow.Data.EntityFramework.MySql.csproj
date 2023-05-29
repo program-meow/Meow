@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.EntityFramework.MySql</AssemblyName>
 		<RootNamespace>Meow.Data.EntityFramework.MySql</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Data.EntityFramework.MySql 是 Meow 应用框架基于 EntityFrameworkCore 的数据访问封装类库,用于处理 MySql 数据库。

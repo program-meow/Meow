@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Aop.AspectCore</AssemblyName>
 		<RootNamespace>Meow.Aop</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Aop.AspectCore 是 Meow 应用框架基于 AspectCore 实现AOP拦截功能的库。

@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.ObjectMapping.AutoMapper</AssemblyName>
 		<RootNamespace>Meow.ObjectMapping</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.ObjectMapping.AutoMapper 是 Meow 应用框架的 AutoMapper 对象映射封装类库。

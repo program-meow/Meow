@@ -4,6 +4,8 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Application.WebApi</AssemblyName>
 		<RootNamespace>Meow.Application.WebApi</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
 			Meow.Application.WebApi 是 Meow 应用框架基于 Asp.Net Core Web Api 的应用层类库。
