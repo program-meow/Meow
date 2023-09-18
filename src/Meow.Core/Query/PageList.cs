@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Meow.Query;
+﻿namespace Meow.Query;
 
 /// <summary>
 /// 分页集合
 /// </summary>
 /// <typeparam name="T">元素类型</typeparam>
-public class PageList<T>
-{
+public class PageList<T> {
     /// <summary>
     /// 初始化分页集合
     /// </summary>
-    public PageList() : this(0)
-    {
+    public PageList() : this( 0 ) {
     }
 
     /// <summary>
     /// 初始化分页集合
     /// </summary>
     /// <param name="data">内容</param>
-    public PageList(IEnumerable<T> data = null)
-        : this(0, data)
-    {
+    public PageList( IEnumerable<T> data = null )
+        : this( 0 , data ) {
     }
 
     /// <summary>
@@ -31,9 +24,8 @@ public class PageList<T>
     /// </summary>
     /// <param name="totalCount">总行数</param>
     /// <param name="data">内容</param>
-    public PageList(int totalCount, IEnumerable<T> data = null)
-        : this(1, 20, totalCount, data)
-    {
+    public PageList( int totalCount , IEnumerable<T> data = null )
+        : this( 1 , 20 , totalCount , data ) {
     }
 
     /// <summary>
@@ -43,9 +35,8 @@ public class PageList<T>
     /// <param name="pageSize">每页显示行数</param>
     /// <param name="totalCount">总行数</param>
     /// <param name="data">内容</param>
-    public PageList(int page, int pageSize, int totalCount, IEnumerable<T> data = null)
-        : this(page, pageSize, totalCount, "", data)
-    {
+    public PageList( int page , int pageSize , int totalCount , IEnumerable<T> data = null )
+        : this( page , pageSize , totalCount , "" , data ) {
     }
 
     /// <summary>
@@ -56,10 +47,9 @@ public class PageList<T>
     /// <param name="totalCount">总行数</param>
     /// <param name="order">排序条件</param>
     /// <param name="data">内容</param>
-    public PageList(int page, int pageSize, int totalCount, string order, IEnumerable<T> data = null)
-    {
+    public PageList( int page , int pageSize , int totalCount , string order , IEnumerable<T> data = null ) {
         Data = data?.ToList() ?? new List<T>();
-        var pager = new Pager(page, pageSize, totalCount);
+        Pager pager = new Pager( page , pageSize , totalCount );
         Total = pager.Total;
         PageCount = pager.GetPageCount();
         Page = pager.Page;
@@ -72,9 +62,8 @@ public class PageList<T>
     /// </summary>
     /// <param name="pager">查询对象</param>
     /// <param name="data">内容</param>
-    public PageList(IPage pager, IEnumerable<T> data = null)
-        : this(pager.Page, pager.PageSize, pager.Total, pager.Order, data)
-    {
+    public PageList( IPage pager , IEnumerable<T> data = null )
+        : this( pager.Page , pager.PageSize , pager.Total , pager.Order , data ) {
     }
 
     /// <summary>
@@ -111,35 +100,31 @@ public class PageList<T>
     /// 索引器
     /// </summary>
     /// <param name="index">索引</param>
-    public T this[int index]
-    {
-        get => Data[index];
-        set => Data[index] = value;
+    public T this[ int index ] {
+        get => Data[ index ];
+        set => Data[ index ] = value;
     }
 
     /// <summary>
     /// 添加元素
     /// </summary>
     /// <param name="item">元素</param>
-    public void Add(T item)
-    {
-        Data.Add(item);
+    public void Add( T item ) {
+        Data.Add( item );
     }
 
     /// <summary>
     /// 添加元素集合
     /// </summary>
     /// <param name="collection">元素集合</param>
-    public void AddRange(IEnumerable<T> collection)
-    {
-        Data.AddRange(collection);
+    public void AddRange( IEnumerable<T> collection ) {
+        Data.AddRange( collection );
     }
 
     /// <summary>
     /// 清空
     /// </summary>
-    public void Clear()
-    {
+    public void Clear() {
         Data.Clear();
     }
 
@@ -148,17 +133,15 @@ public class PageList<T>
     /// </summary>
     /// <typeparam name="TResult">目标元素类型</typeparam>
     /// <param name="converter">转换方法</param>
-    public PageList<TResult> Convert<TResult>(Func<T, TResult> converter)
-    {
-        return Convert(Data.Select(converter));
+    public PageList<TResult> Convert<TResult>( Func<T , TResult> converter ) {
+        return Convert( Data.Select( converter ) );
     }
 
     /// <summary>
     /// 转换分页集合
     /// </summary>
     /// <param name="data">内容</param>
-    public PageList<TResult> Convert<TResult>(IEnumerable<TResult> data)
-    {
-        return new(Page, PageSize, Total, Order, data);
+    public PageList<TResult> Convert<TResult>( IEnumerable<TResult> data ) {
+        return new( Page , PageSize , Total , Order , data );
     }
 }

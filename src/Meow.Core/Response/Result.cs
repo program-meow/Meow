@@ -1,22 +1,19 @@
-﻿using System.Net;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Response;
 
 /// <summary>
 /// 结果 - 规则：业务状态码 "200" 为成功，"500"为错误
 /// </summary>
-public class Result : Result<object>
-{
+public class Result : Result<object> {
     /// <summary>
     /// 初始化结果
     /// </summary>
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(ResultStatusCodeEnum code, string message, object data = default(object))
-        : this(code.GetValue().SafeString(), message, data)
-    {
+    public Result( ResultStatusCodeEnum code , string message , object data = default )
+        : this( code.GetValue().SafeString() , message , data ) {
     }
 
     /// <summary>
@@ -25,9 +22,8 @@ public class Result : Result<object>
     /// <param name="code">HTTP状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(HttpStatusCode code, string message, object data = default(object))
-        : this(code.GetValue().SafeString(), message, data)
-    {
+    public Result( HttpStatusCode code , string message , object data = default )
+        : this( code.GetValue().SafeString() , message , data ) {
     }
 
     /// <summary>
@@ -36,16 +32,14 @@ public class Result : Result<object>
     /// <param name="code">业务状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(string code, string message, object data = default(object)) : base(code, message, data)
-    {
+    public Result( string code , string message , object data = default ) : base( code , message , data ) {
     }
 }
 
 /// <summary>
 /// 结果 - 规则：业务状态码 "200" 为成功，"500"为错误
 /// </summary>
-public class Result<TResult> : IResult<TResult>
-{
+public class Result<TResult> : IResult<TResult> {
     /// <inheritdoc />
     public string Code { get; }
     /// <inheritdoc />
@@ -61,9 +55,8 @@ public class Result<TResult> : IResult<TResult>
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(ResultStatusCodeEnum code, string message, TResult data = default(TResult))
-        : this(code.GetValue().SafeString(), message, data)
-    {
+    public Result( ResultStatusCodeEnum code , string message , TResult data = default )
+        : this( code.GetValue().SafeString() , message , data ) {
     }
 
     /// <summary>
@@ -72,9 +65,8 @@ public class Result<TResult> : IResult<TResult>
     /// <param name="code">HTTP状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(HttpStatusCode code, string message, TResult data = default(TResult))
-        : this(code.GetValue().SafeString(), message, data)
-    {
+    public Result( HttpStatusCode code , string message , TResult data = default )
+        : this( code.GetValue().SafeString() , message , data ) {
     }
 
     /// <summary>
@@ -83,8 +75,7 @@ public class Result<TResult> : IResult<TResult>
     /// <param name="code">业务状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result(string code, string message, TResult data = default(TResult))
-    {
+    public Result( string code , string message , TResult data = default ) {
         Code = code;
         Message = message;
         Data = data;

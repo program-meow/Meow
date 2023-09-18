@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Authentication 是 Meow 应用框架的认证库。
+			Meow.Authentication 是 Meow 的认证库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

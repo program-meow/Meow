@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-namespace Meow.Reflection;
+﻿namespace Meow.Reflection;
 
 /// <summary>
 /// 应用程序域程序集查找器
 /// </summary>
-public class AppDomainAssemblyFinder : IAssemblyFinder
-{
+public class AppDomainAssemblyFinder : IAssemblyFinder {
     /// <summary>
     /// 程序集过滤模式
     /// </summary>
@@ -24,17 +16,15 @@ public class AppDomainAssemblyFinder : IAssemblyFinder
     /// <summary>
     /// 获取程序集列表
     /// </summary>
-    public List<Assembly> Find()
-    {
-        if (_assemblies != null)
+    public List<Assembly> Find() {
+        if( _assemblies != null )
             return _assemblies;
         _assemblies = new List<Assembly>();
         LoadAssemblies();
-        foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            if (IsSkip(assembly))
+        foreach( Assembly assembly in AppDomain.CurrentDomain.GetAssemblies() ) {
+            if( IsSkip( assembly ) )
                 continue;
-            _assemblies.Add(assembly);
+            _assemblies.Add( assembly );
         }
         return _assemblies;
     }
@@ -42,60 +32,52 @@ public class AppDomainAssemblyFinder : IAssemblyFinder
     /// <summary>
     /// 加载引用但尚未调用的程序集列表到当前应用程序域
     /// </summary>
-    protected virtual void LoadAssemblies()
-    {
+    protected virtual void LoadAssemblies() {
         Assembly[] currentDomainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-        foreach (string file in GetLoadAssemblyFiles())
-            LoadAssembly(file, currentDomainAssemblies);
+        foreach( string file in GetLoadAssemblyFiles() )
+            LoadAssembly( file , currentDomainAssemblies );
     }
 
     /// <summary>
     /// 获取需要加载的程序集文件列表
     /// </summary>
-    protected virtual string[] GetLoadAssemblyFiles()
-    {
-        return Directory.GetFiles(AppContext.BaseDirectory, "*.dll");
+    protected virtual string[] GetLoadAssemblyFiles() {
+        return Directory.GetFiles( AppContext.BaseDirectory , "*.dll" );
     }
 
     /// <summary>
     /// 加载程序集到当前应用程序域
     /// </summary>
-    protected void LoadAssembly(string file, Assembly[] currentDomainAssemblies)
-    {
-        try
-        {
-            AssemblyName assemblyName = AssemblyName.GetAssemblyName(file);
-            if (IsSkip(assemblyName.Name))
+    protected void LoadAssembly( string file , Assembly[] currentDomainAssemblies ) {
+        try {
+            AssemblyName assemblyName = AssemblyName.GetAssemblyName( file );
+            if( IsSkip( assemblyName.Name ) )
                 return;
-            if (currentDomainAssemblies.Any(t => t.FullName == assemblyName.FullName))
+            if( currentDomainAssemblies.Any( t => t.FullName == assemblyName.FullName ) )
                 return;
-            AppDomain.CurrentDomain.Load(assemblyName);
-        }
-        catch (BadImageFormatException)
-        {
+            AppDomain.CurrentDomain.Load( assemblyName );
+        } catch( BadImageFormatException ) {
         }
     }
 
     /// <summary>
     /// 是否过滤程序集
     /// </summary>
-    protected bool IsSkip(string assemblyName)
-    {
+    protected bool IsSkip( string assemblyName ) {
         string applicationName = Assembly.GetEntryAssembly()?.GetName().Name;
-        if (assemblyName.StartsWith($"{applicationName}.Views"))
+        if( assemblyName.StartsWith( $"{applicationName}.Views" ) )
             return true;
-        if (assemblyName.StartsWith($"{applicationName}.PrecompiledViews"))
+        if( assemblyName.StartsWith( $"{applicationName}.PrecompiledViews" ) )
             return true;
-        if (string.IsNullOrWhiteSpace(AssemblySkipPattern))
+        if( string.IsNullOrWhiteSpace( AssemblySkipPattern ) )
             return false;
-        return Regex.IsMatch(assemblyName, AssemblySkipPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        return Regex.IsMatch( assemblyName , AssemblySkipPattern , RegexOptions.IgnoreCase | RegexOptions.Compiled );
     }
 
     /// <summary>
     /// 是否过滤程序集
     /// </summary>
-    private bool IsSkip(Assembly assembly)
-    {
-        return IsSkip(assembly.FullName);
+    private bool IsSkip( Assembly assembly ) {
+        return IsSkip( assembly.FullName );
     }
 }

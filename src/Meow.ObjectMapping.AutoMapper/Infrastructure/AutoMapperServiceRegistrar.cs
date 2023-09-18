@@ -1,16 +1,13 @@
-﻿using System.Linq;
-using AutoMapper;
-using Meow.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Meow.Infrastructure;
 using SystemAction = System.Action;
+using SystemType = System.Type;
 
 namespace Meow.ObjectMapping.Infrastructure;
 
 /// <summary>
 /// AutoMapper服务注册器
 /// </summary>
-public class AutoMapperServiceRegistrar : IServiceRegistrar
-{
+public class AutoMapperServiceRegistrar : IServiceRegistrar {
     /// <summary>
     /// 获取服务名
     /// </summary>
@@ -24,24 +21,22 @@ public class AutoMapperServiceRegistrar : IServiceRegistrar
     /// <summary>
     /// 是否启用
     /// </summary>
-    public bool Enabled => ServiceRegistrarConfig.IsEnabled(ServiceName);
+    public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
     /// <summary>
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public SystemAction Register(ServiceContext serviceContext)
-    {
-        var types = serviceContext.TypeFinder.Find<IAutoMapperConfig>();
-        var instances = types.Select(type => Meow.Helper.Reflection.CreateInstance<IAutoMapperConfig>(type)).ToList();
-        var expression = new MapperConfigurationExpression();
-        instances.ForEach(t => t.Config(expression));
-        var mapper = new ObjectMapper(expression);
-        Meow.Helper.ObjectMapper.SetMapper(mapper);
-        serviceContext.HostBuilder.ConfigureServices((context, services) =>
-        {
-            services.AddSingleton<IObjectMapper>(mapper);
-        });
+    public SystemAction Register( ServiceContext serviceContext ) {
+        List<SystemType> types = serviceContext.TypeFinder.Find<IAutoMapperConfig>();
+        List<IAutoMapperConfig> instances = types.Select( type => Meow.Helper.Reflection.CreateInstance<IAutoMapperConfig>( type ) ).ToList();
+        MapperConfigurationExpression expression = new MapperConfigurationExpression();
+        instances.ForEach( t => t.Config( expression ) );
+        ObjectMapper mapper = new ObjectMapper( expression );
+        Meow.Helper.ObjectMapper.SetMapper( mapper );
+        serviceContext.HostBuilder.ConfigureServices( ( context , services ) => {
+            services.AddSingleton<IObjectMapper>( mapper );
+        } );
         return null;
     }
 }

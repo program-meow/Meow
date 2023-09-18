@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Core 是 Meow 应用框架的基础类库。
+			Meow.Core 是 Meow 的基础类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

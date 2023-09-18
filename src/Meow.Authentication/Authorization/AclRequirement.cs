@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 授权要求
 /// </summary>
-public class AclRequirement : IAuthorizationRequirement
-{
+public class AclRequirement : IAuthorizationRequirement {
     /// <summary>
     /// 是否忽略
     /// </summary>

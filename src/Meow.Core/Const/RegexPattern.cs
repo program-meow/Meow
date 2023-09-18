@@ -3,8 +3,7 @@
 /// <summary>
 /// 正则表达式模式
 /// </summary>
-public static class RegexPattern
-{
+public static class RegexPattern {
     #region 字符串
 
     /// <summary>

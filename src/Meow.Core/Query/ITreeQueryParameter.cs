@@ -3,8 +3,7 @@
 /// <summary>
 /// 树形查询参数
 /// </summary>
-public interface ITreeQueryParameter : IPage
-{
+public interface ITreeQueryParameter : IPage {
     /// <summary>
     /// 父标识
     /// </summary>

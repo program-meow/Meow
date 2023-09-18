@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Validation 是 Meow 应用框架的验证库。
+			Meow.Validation 是 Meow 的验证库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

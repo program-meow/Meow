@@ -1,18 +1,13 @@
-﻿using System.Security.Claims;
-using System.Security.Principal;
-
-namespace Meow.Authentication;
+﻿namespace Meow.Authentication;
 
 /// <summary>
 /// 未认证安全主体
 /// </summary>
-public class UnauthenticatedPrincipal : ClaimsPrincipal
-{
+public class UnauthenticatedPrincipal : ClaimsPrincipal {
     /// <summary>
     /// 初始化未认证安全主体
     /// </summary>
-    private UnauthenticatedPrincipal()
-    {
+    private UnauthenticatedPrincipal() {
     }
 
     /// <summary>

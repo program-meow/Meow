@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Aop.AspectCore 是 Meow 应用框架基于 AspectCore 实现AOP拦截功能的库。
+			Meow.Aop.AspectCore 是 Meow 基于 AspectCore 实现AOP拦截功能的库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

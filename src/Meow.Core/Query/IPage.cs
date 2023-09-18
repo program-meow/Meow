@@ -3,8 +3,7 @@
 /// <summary>
 /// 分页
 /// </summary>
-public interface IPage
-{
+public interface IPage {
     /// <summary>
     /// 页数，即第几页，从1开始
     /// </summary>

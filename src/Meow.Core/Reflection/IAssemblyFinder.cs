@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-
-namespace Meow.Reflection;
+﻿namespace Meow.Reflection;
 
 /// <summary>
 /// 程序集查找器
 /// </summary>
-public interface IAssemblyFinder
-{
+public interface IAssemblyFinder {
     /// <summary>
     /// 程序集过滤模式
     /// </summary>

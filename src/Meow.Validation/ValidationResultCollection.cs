@@ -1,31 +1,24 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
-namespace Meow.Validation;
+﻿namespace Meow.Validation;
 
 /// <summary>
 /// 验证结果集合
 /// </summary>
-public class ValidationResultCollection : List<ValidationResult>
-{
+public class ValidationResultCollection : List<ValidationResult> {
 
     /// <summary>
     /// 初始化验证结果集合
     /// </summary>
-    public ValidationResultCollection() : this("")
-    {
+    public ValidationResultCollection() : this( "" ) {
     }
 
     /// <summary>
     /// 初始化验证结果集合
     /// </summary>
     /// <param name="result">验证结果</param>
-    public ValidationResultCollection(string result)
-    {
-        if (string.IsNullOrWhiteSpace(result))
+    public ValidationResultCollection( string result ) {
+        if( string.IsNullOrWhiteSpace( result ) )
             return;
-        Add(new ValidationResult(result));
+        Add( new ValidationResult( result ) );
     }
 
     /// <summary>
@@ -42,20 +35,18 @@ public class ValidationResultCollection : List<ValidationResult>
     /// 添加验证结果集合
     /// </summary>
     /// <param name="results">验证结果集合</param>
-    public void AddList(IEnumerable<ValidationResult> results)
-    {
-        if (results == null)
+    public void AddList( IEnumerable<ValidationResult> results ) {
+        if( results == null )
             return;
-        foreach (var result in results)
-            Add(result);
+        foreach( var result in results )
+            Add( result );
     }
 
     /// <summary>
     /// 输出验证消息
     /// </summary>
-    public override string ToString()
-    {
-        if (IsValid)
+    public override string ToString() {
+        if( IsValid )
             return string.Empty;
         return this.First().ErrorMessage;
     }

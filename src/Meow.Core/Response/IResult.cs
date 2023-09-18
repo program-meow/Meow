@@ -5,8 +5,7 @@ namespace Meow.Response;
 /// <summary>
 /// 结果
 /// </summary>
-public interface IResult<out TResult> : IResponse
-{
+public interface IResult<out TResult> : IResponse {
     /// <summary>
     /// 业务状态码
     /// </summary>

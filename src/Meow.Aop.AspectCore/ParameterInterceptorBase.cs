@@ -1,10 +1,7 @@
-﻿using AspectCore.DynamicProxy.Parameters;
-
-namespace Meow.Aop;
+﻿namespace Meow.Aop;
 
 /// <summary>
 /// 参数拦截器基类
 /// </summary>
-public abstract class ParameterInterceptorBase : ParameterInterceptorAttribute
-{
+public abstract class ParameterInterceptorBase : ParameterInterceptorAttribute {
 }

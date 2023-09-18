@@ -1,12 +1,9 @@
-﻿using System.Security.Claims;
-
-namespace Meow.Authentication;
+﻿namespace Meow.Authentication;
 
 /// <summary>
 /// 未认证的身份标识
 /// </summary>
-public class UnauthenticatedIdentity : ClaimsIdentity
-{
+public class UnauthenticatedIdentity : ClaimsIdentity {
     /// <summary>
     /// 是否认证
     /// </summary>

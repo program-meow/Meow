@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Meow.Query;
+﻿namespace Meow.Query;
 
 /// <summary>
 /// 树形查询参数
 /// </summary>
-public class TreeQueryParameter : QueryParameter, ITreeQueryParameter
-{
+public class TreeQueryParameter : QueryParameter, ITreeQueryParameter {
     /// <summary>
     /// 初始化树形查询参数
     /// </summary>
-    protected TreeQueryParameter()
-    {
+    protected TreeQueryParameter() {
         Order = "SortId";
     }
 
@@ -33,6 +29,6 @@ public class TreeQueryParameter : QueryParameter, ITreeQueryParameter
     /// <summary>
     /// 启用
     /// </summary>
-    [Display(Name = "meow.enabled")]
+    [Display( Name = "meow.enabled" )]
     public bool? Enabled { get; set; }
 }

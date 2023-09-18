@@ -1,12 +1,9 @@
-﻿using System.Net.Http;
-
-namespace Meow.Http;
+﻿namespace Meow.Http;
 
 /// <summary>
 /// Http客户端服务
 /// </summary>
-public class HttpClientService : IHttpClient
-{
+public class HttpClientService : IHttpClient {
     #region 字段
 
     /// <summary>
@@ -26,8 +23,7 @@ public class HttpClientService : IHttpClient
     /// 初始化Http客户端服务
     /// </summary>
     /// <param name="factory">Http客户端工厂</param>
-    public HttpClientService(IHttpClientFactory factory = null)
-    {
+    public HttpClientService( IHttpClientFactory factory = null ) {
         _httpClientFactory = factory;
     }
 
@@ -39,8 +35,7 @@ public class HttpClientService : IHttpClient
     /// 设置Http客户端处理器
     /// </summary>
     /// <param name="httpClientHandler">Http客户端处理器</param>
-    public IHttpClient SetHttpClientHandler(HttpClientHandler httpClientHandler)
-    {
+    public IHttpClient SetHttpClientHandler( HttpClientHandler httpClientHandler ) {
         _httpClientHandler = httpClientHandler;
         return this;
     }
@@ -53,18 +48,16 @@ public class HttpClientService : IHttpClient
     /// 发送Get请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<string> Get(string url)
-    {
-        return Get<string>(url);
+    public IHttpRequest<string> Get( string url ) {
+        return Get<string>( url );
     }
 
     /// <summary>
     /// 发送Get请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<TResult> Get<TResult>(string url) where TResult : class
-    {
-        return new HttpRequest<TResult>(_httpClientFactory, _httpClientHandler, HttpMethod.Get, url);
+    public IHttpRequest<TResult> Get<TResult>( string url ) where TResult : class {
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Get , url );
     }
 
     #endregion
@@ -75,18 +68,16 @@ public class HttpClientService : IHttpClient
     /// 发送Post请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<string> Post(string url)
-    {
-        return Post<string>(url);
+    public IHttpRequest<string> Post( string url ) {
+        return Post<string>( url );
     }
 
     /// <summary>
     /// 发送Post请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<TResult> Post<TResult>(string url) where TResult : class
-    {
-        return new HttpRequest<TResult>(_httpClientFactory, _httpClientHandler, HttpMethod.Post, url);
+    public IHttpRequest<TResult> Post<TResult>( string url ) where TResult : class {
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Post , url );
     }
 
     #endregion
@@ -97,18 +88,16 @@ public class HttpClientService : IHttpClient
     /// 发送Put请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<string> Put(string url)
-    {
-        return Put<string>(url);
+    public IHttpRequest<string> Put( string url ) {
+        return Put<string>( url );
     }
 
     /// <summary>
     /// 发送Put请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<TResult> Put<TResult>(string url) where TResult : class
-    {
-        return new HttpRequest<TResult>(_httpClientFactory, _httpClientHandler, HttpMethod.Put, url);
+    public IHttpRequest<TResult> Put<TResult>( string url ) where TResult : class {
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Put , url );
     }
 
     #endregion
@@ -119,18 +108,16 @@ public class HttpClientService : IHttpClient
     /// 发送Delete请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<string> Delete(string url)
-    {
-        return Delete<string>(url);
+    public IHttpRequest<string> Delete( string url ) {
+        return Delete<string>( url );
     }
 
     /// <summary>
     /// 发送Delete请求
     /// </summary>
     /// <param name="url">服务地址</param>
-    public IHttpRequest<TResult> Delete<TResult>(string url) where TResult : class
-    {
-        return new HttpRequest<TResult>(_httpClientFactory, _httpClientHandler, HttpMethod.Delete, url);
+    public IHttpRequest<TResult> Delete<TResult>( string url ) where TResult : class {
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Delete , url );
     }
 
     #endregion

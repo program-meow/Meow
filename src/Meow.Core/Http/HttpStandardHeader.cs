@@ -1,13 +1,9 @@
-﻿using System;
-using System.Net.Http.Headers;
-
-namespace Meow.Http;
+﻿namespace Meow.Http;
 
 /// <summary>
 /// HTTP标准请求头
 /// </summary>
-public class HttpStandardHeader
-{
+public class HttpStandardHeader {
     #region 设置接受参数
 
     /// <summary>

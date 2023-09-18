@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace Meow.Model;
+﻿namespace Meow.Model;
 
 /// <summary>
 /// 数据行
 /// </summary>
-public class DataRow
-{
+public class DataRow {
     /// <summary>
     /// 初始化数据行
     /// </summary>
     /// <param name="no">行号</param>
     /// <param name="columns">列数据</param>
-    public DataRow(int no, List<KeyValue> columns)
-    {
+    public DataRow( int no , List<KeyValue> columns ) {
         No = no;
         Columns = columns;
     }

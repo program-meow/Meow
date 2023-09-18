@@ -1,21 +1,18 @@
-﻿using System.Linq;
-using Meow.Exception;
+﻿using Meow.Exception;
 
 namespace Meow.Validation;
 
 /// <summary>
 /// 验证失败，抛出异常
 /// </summary>
-public class ThrowHandler : IValidationHandler
-{
+public class ThrowHandler : IValidationHandler {
     /// <summary>
     /// 处理验证错误
     /// </summary>
     /// <param name="results">验证结果集合</param>
-    public void Handle(ValidationResultCollection results)
-    {
-        if (results.IsValid)
+    public void Handle( ValidationResultCollection results ) {
+        if( results.IsValid )
             return;
-        throw new Warning(results.First().ErrorMessage);
+        throw new Warning( results.First().ErrorMessage );
     }
 }

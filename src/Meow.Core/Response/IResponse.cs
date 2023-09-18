@@ -3,6 +3,5 @@
 /// <summary>
 /// 相应对象
 /// </summary>
-public interface IResponse
-{
+public interface IResponse {
 }

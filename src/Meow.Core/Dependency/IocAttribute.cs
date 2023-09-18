@@ -1,19 +1,15 @@
-﻿using System;
-
-namespace Meow.Dependency;
+﻿namespace Meow.Dependency;
 
 /// <summary>
 /// 依赖关系配置,用于覆盖实现类
 /// </summary>
-[AttributeUsage(AttributeTargets.Class)]
-public class IocAttribute : System.Attribute
-{
+[AttributeUsage( AttributeTargets.Class )]
+public class IocAttribute : System.Attribute {
     /// <summary>
     /// 初始化依赖关系配置
     /// </summary>
     /// <param name="priority">优先级,值越大优先级越高</param>
-    public IocAttribute(int priority)
-    {
+    public IocAttribute( int priority ) {
         Priority = priority;
     }
 

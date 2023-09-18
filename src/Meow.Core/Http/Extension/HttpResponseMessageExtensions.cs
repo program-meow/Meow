@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace Meow.Http.Extension;
+﻿namespace Meow.Http.Extension;
 
 /// <summary>
 /// Http响应消息扩展
@@ -10,7 +8,7 @@ public static class HttpResponseMessageExtensions {
     /// 获取内容类型
     /// </summary>
     /// <param name="response">Http响应消息</param>
-    public static string GetContentType( this HttpResponseMessage response )  {
+    public static string GetContentType( this HttpResponseMessage response ) {
         return response?.Content.Headers.ContentType?.MediaType;
     }
 }

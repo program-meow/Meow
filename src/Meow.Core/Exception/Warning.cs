@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SystemException = System.Exception;
+﻿using SystemException = System.Exception;
 
 namespace Meow.Exception;
 
 /// <summary>
 /// 应用程序异常
 /// </summary>
-public class Warning : SystemException
-{
+public class Warning : SystemException {
     /// <summary>
     /// 初始化应用程序异常
     /// </summary>
     /// <param name="exception">异常</param>
-    public Warning(SystemException exception)
-        : this(null, exception)
-    {
+    public Warning( SystemException exception )
+        : this( null , exception ) {
     }
 
     /// <summary>
@@ -26,9 +21,8 @@ public class Warning : SystemException
     /// <param name="code">错误码</param>
     /// <param name="exception">异常</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public Warning(string message, SystemException exception = null, string code = null, int? httpStatusCode = null)
-        : base(message ?? "", exception)
-    {
+    public Warning( string message , SystemException exception = null , string code = null , int? httpStatusCode = null )
+        : base( message ?? "" , exception ) {
         Code = code;
         HttpStatusCode = httpStatusCode;
         IsLocalization = true;
@@ -53,60 +47,54 @@ public class Warning : SystemException
     /// 获取错误消息
     /// </summary>
     /// <param name="isProduction">是否生产环境</param>
-    public virtual string GetMessage(bool isProduction = true)
-    {
-        return GetMessage(this);
+    public virtual string GetMessage( bool isProduction = true ) {
+        return GetMessage( this );
     }
 
     /// <summary>
     /// 获取错误消息
     /// </summary>
-    public static string GetMessage(SystemException ex)
-    {
+    public static string GetMessage( SystemException ex ) {
         StringBuilder result = new StringBuilder();
-        var list = GetExceptions(ex);
-        foreach (var exception in list)
-            AppendMessage(result, exception);
-        return result.ToString().Trim(Environment.NewLine.ToCharArray());
+        var list = GetExceptions( ex );
+        foreach( var exception in list )
+            AppendMessage( result , exception );
+        return result.ToString().Trim( Environment.NewLine.ToCharArray() );
     }
 
     /// <summary>
     /// 添加异常消息
     /// </summary>
-    private static void AppendMessage(StringBuilder result, SystemException exception)
-    {
-        if (exception == null)
+    private static void AppendMessage( StringBuilder result , SystemException exception ) {
+        if( exception == null )
             return;
-        result.AppendLine(exception.Message);
+        result.AppendLine( exception.Message );
     }
 
     /// <summary>
     /// 获取异常列表
     /// </summary>
-    public IList<SystemException> GetExceptions()
-    {
-        return GetExceptions(this);
+    public IList<SystemException> GetExceptions() {
+        return GetExceptions( this );
     }
 
     /// <summary>
     /// 获取异常列表
     /// </summary>
     /// <param name="ex">异常</param>
-    public static IList<SystemException> GetExceptions(SystemException ex)
-    {
+    public static IList<SystemException> GetExceptions( SystemException ex ) {
         var result = new List<SystemException>();
-        AddException(result, ex);
+        AddException( result , ex );
         return result;
     }
 
     /// <summary>
     /// 添加内部异常
     /// </summary>
-    private static void AddException(List<SystemException> result, SystemException exception)
-    {
-        if (exception == null)
+    private static void AddException( List<SystemException> result , SystemException exception ) {
+        if( exception == null )
             return;
-        result.Add(exception);
-        AddException(result, exception.InnerException);
+        result.Add( exception );
+        AddException( result , exception.InnerException );
     }
 }

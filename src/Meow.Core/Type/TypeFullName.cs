@@ -3,8 +3,7 @@
 /// <summary>
 /// 类型全名
 /// </summary>
-public static class TypeFullName
-{
+public static class TypeFullName {
     /// <summary>
     /// 类型：sbyte；
     /// 范围：-128 到 127；

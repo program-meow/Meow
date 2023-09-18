@@ -6,8 +6,7 @@ namespace Meow.Exception;
 /// <summary>
 /// 并发异常
 /// </summary>
-public class ConcurrencyException : Warning
-{
+public class ConcurrencyException : Warning {
     /// <summary>
     /// 消息
     /// </summary>
@@ -17,17 +16,15 @@ public class ConcurrencyException : Warning
     /// 初始化并发异常
     /// </summary>
     public ConcurrencyException()
-        : this("")
-    {
+        : this( "" ) {
     }
 
     /// <summary>
     /// 初始化并发异常
     /// </summary>
     /// <param name="exception">异常</param>
-    public ConcurrencyException(SystemException exception)
-        : this("", exception)
-    {
+    public ConcurrencyException( SystemException exception )
+        : this( "" , exception ) {
     }
 
     /// <summary>
@@ -37,9 +34,8 @@ public class ConcurrencyException : Warning
     /// <param name="exception">异常</param>
     /// <param name="code">错误码</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public ConcurrencyException(string message, SystemException exception = null, string code = null, int? httpStatusCode = null)
-        : base(message, exception, code, httpStatusCode)
-    {
+    public ConcurrencyException( string message , SystemException exception = null , string code = null , int? httpStatusCode = null )
+        : base( message , exception , code , httpStatusCode ) {
         _message = message;
     }
 
@@ -47,10 +43,9 @@ public class ConcurrencyException : Warning
     public override string Message => $"{ErrorMessageKey.ConcurrencyExceptionMessage}.{_message}";
 
     /// <inheritdoc />
-    public override string GetMessage(bool isProduction = true)
-    {
-        if (isProduction)
+    public override string GetMessage( bool isProduction = true ) {
+        if( isProduction )
             return ErrorMessageKey.ConcurrencyExceptionMessage;
-        return GetMessage(this);
+        return GetMessage( this );
     }
 }

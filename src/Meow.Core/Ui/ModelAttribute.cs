@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Meow.Ui; 
+﻿namespace Meow.Ui;
 
 /// <summary>
 /// 模型绑定

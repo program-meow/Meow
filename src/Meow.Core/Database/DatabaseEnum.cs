@@ -1,35 +1,32 @@
-﻿using System.ComponentModel;
-
-namespace Meow.Database;
+﻿namespace Meow.Database;
 
 /// <summary>
 /// 数据库类型
 /// </summary>
-public enum DatabaseEnum
-{
+public enum DatabaseEnum {
     /// <summary>
     /// Sql Server数据库
     /// </summary>
-    [Description("SqlServer")]
+    [Description( "SqlServer" )]
     SqlServer = 1,
     /// <summary>
     /// MySql数据库
     /// </summary>
-    [Description("MySql")]
+    [Description( "MySql" )]
     MySql = 2,
     /// <summary>
     /// PgSql数据库
     /// </summary>
-    [Description("PgSql")]
+    [Description( "PgSql" )]
     PgSql = 3,
     /// <summary>
     /// Oracle数据库
     /// </summary>
-    [Description("Oracle")]
+    [Description( "Oracle" )]
     Oracle = 4,
     /// <summary>
     /// Sqlite数据库
     /// </summary>
-    [Description("Sqlite")]
+    [Description( "Sqlite" )]
     Sqlite = 5,
 }

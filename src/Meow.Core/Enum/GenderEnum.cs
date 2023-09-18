@@ -1,12 +1,9 @@
-﻿using System.ComponentModel;
-
-namespace Meow.Enum;
+﻿namespace Meow.Enum;
 
 /// <summary>
 /// 性别
 /// </summary>
-public enum GenderEnum
-{
+public enum GenderEnum {
     /// <summary>
     /// 女
     /// </summary>        

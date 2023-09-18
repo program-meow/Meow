@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace Meow.Model;
+﻿namespace Meow.Model;
 
 /// <summary>
 /// 数据表
 /// </summary>
-public class DataTable
-{
+public class DataTable {
     /// <summary>
     /// 初始化数据表
     /// </summary>
     /// <param name="name">表名</param>
     /// <param name="rows">行数据</param>
-    public DataTable(string name, List<DataRow> rows)
-    {
+    public DataTable( string name , List<DataRow> rows ) {
         Name = name;
         Rows = rows;
     }

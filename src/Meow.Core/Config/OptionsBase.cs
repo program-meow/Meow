@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Config;
 
 /// <summary>
 /// 配置项基类
 /// </summary>
-public abstract class OptionsBase : IOptions
-{
+public abstract class OptionsBase : IOptions {
     /// <summary>
     /// 初始化配置项
     /// </summary>
-    protected OptionsBase()
-    {
+    protected OptionsBase() {
         Extensions = new List<IOptionsExtension>();
     }
 
@@ -25,9 +22,8 @@ public abstract class OptionsBase : IOptions
     /// 添加配置项扩展
     /// </summary>
     /// <param name="extension">配置项扩展</param>
-    public void AddExtension(IOptionsExtension extension)
-    {
-        extension.CheckNull(nameof(extension));
-        Extensions.Add(extension);
+    public void AddExtension( IOptionsExtension extension ) {
+        extension.CheckNull( nameof( extension ) );
+        Extensions.Add( extension );
     }
 }

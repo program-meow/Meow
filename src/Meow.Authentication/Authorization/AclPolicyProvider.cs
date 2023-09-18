@@ -1,38 +1,31 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 授权策略提供器
 /// </summary>
-public class AclPolicyProvider : IAuthorizationPolicyProvider
-{
+public class AclPolicyProvider : IAuthorizationPolicyProvider {
     /// <summary>
     /// 获取授权策略
     /// </summary>
     /// <param name="policyName">授权策略名称</param>
-    public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
-    {
+    public Task<AuthorizationPolicy> GetPolicyAsync( string policyName ) {
         AuthorizationPolicyBuilder builder = new AuthorizationPolicyBuilder();
-        AclRequirement requirement = AclPolicyHelper.GetRequirement(policyName);
-        builder.AddRequirements(requirement);
-        return Task.FromResult(builder.Build());
+        AclRequirement requirement = AclPolicyHelper.GetRequirement( policyName );
+        builder.AddRequirements( requirement );
+        return Task.FromResult( builder.Build() );
     }
 
     /// <summary>
     /// 获取默认授权策略
     /// </summary>
-    public Task<AuthorizationPolicy> GetDefaultPolicyAsync()
-    {
-        return Task.FromResult(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
+    public Task<AuthorizationPolicy> GetDefaultPolicyAsync() {
+        return Task.FromResult( new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build() );
     }
 
     /// <summary>
     /// 获取回退授权策略
     /// </summary>
-    public Task<AuthorizationPolicy> GetFallbackPolicyAsync()
-    {
-        return Task.FromResult<AuthorizationPolicy>(null);
+    public Task<AuthorizationPolicy> GetFallbackPolicyAsync() {
+        return Task.FromResult<AuthorizationPolicy>( null );
     }
 }

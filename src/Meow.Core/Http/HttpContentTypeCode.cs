@@ -3,8 +3,7 @@
 /// <summary>
 /// Http请求内容类型
 /// </summary>
-public static class HttpContentTypeCode
-{
+public static class HttpContentTypeCode {
     /// <summary>
     /// application/x-www-form-urlencoded
     /// </summary>
