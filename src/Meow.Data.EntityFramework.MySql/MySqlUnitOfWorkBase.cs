@@ -1,20 +1,20 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-
-namespace Meow.Data.EntityFramework.MySql;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// MySql工作单元基类
 /// </summary>
-public abstract class MySqlUnitOfWorkBase : UnitOfWorkBase
-{
+public abstract class MySqlUnitOfWorkBase : UnitOfWorkBase {
     /// <summary>
     /// 初始化MySql工作单元
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="options">配置</param>
-    protected MySqlUnitOfWorkBase(IServiceProvider serviceProvider, DbContextOptions options)
-        : base(serviceProvider, options)
-    {
+    protected MySqlUnitOfWorkBase( IServiceProvider serviceProvider , DbContextOptions options )
+        : base( serviceProvider , options ) {
+    }
+
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
+        optionsBuilder.UseMySql( connectionString , ServerVersion.AutoDetect( connectionString ) );
     }
 }

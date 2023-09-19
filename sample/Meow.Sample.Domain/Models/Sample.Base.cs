@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Meow.Domain.Auditing;
 using Meow.Domain.Entity;
 using Meow.Domain.Operation;
+using Meow.Tenant;
 
 namespace Meow.Sample.Domain.Models
 {

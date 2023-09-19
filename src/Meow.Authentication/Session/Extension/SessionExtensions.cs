@@ -19,6 +19,6 @@ public static class SessionExtensions {
     /// </summary>
     /// <param name="session">用户会话</param>
     public static T GetUserId<T>( this ISession session ) {
-        return Util.Helpers.Convert.To<T>( session.UserId );
+        return Meow.Helper.Convert.To<T>( session.UserId );
     }
 }

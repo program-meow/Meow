@@ -1,14 +1,11 @@
-﻿using System;
-using System.Linq.Expressions;
-using Meow.Dependency;
+﻿using Meow.Dependency;
 
 namespace Meow.Data.Filter;
 
 /// <summary>
 /// 数据过滤器
 /// </summary>
-public interface IFilter : ITransientDependency
-{
+public interface IFilter : ITransientDependency {
     /// <summary>
     /// 过滤器是否启用
     /// </summary>
@@ -30,13 +27,12 @@ public interface IFilter : ITransientDependency
     /// 获取过滤表达式
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    Expression<Func<TEntity, bool>> GetExpression<TEntity>() where TEntity : class;
+    Expression<Func<TEntity , bool>> GetExpression<TEntity>( object state ) where TEntity : class;
 }
 
 /// <summary>
 /// 数据过滤器
 /// </summary>
 /// <typeparam name="TFilterType">过滤器类型</typeparam>
-public interface IFilter<TFilterType> : IFilter where TFilterType : class
-{
+public interface IFilter<TFilterType> : IFilter where TFilterType : class {
 }

@@ -1,23 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql查询对象操作扩展 - 获取单值扩展
 /// </summary>
-public static partial class SqlQueryExtensions
-{
+public static partial class SqlQueryExtensions {
+
     #region ToStringAsync  [获取字符串值]
 
     /// <summary>
     /// 获取字符串值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<string> ToStringAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<string> ToStringAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
         return result.SafeString();
     }
@@ -30,10 +27,9 @@ public static partial class SqlQueryExtensions
     /// 获取32位整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static int ToInt(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToInt(source.ExecuteScalar());
+    public static int ToInt( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToInt( source.ExecuteScalar() );
     }
 
     #endregion
@@ -44,11 +40,10 @@ public static partial class SqlQueryExtensions
     /// 获取32位整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<int> ToIntAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<int> ToIntAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToInt(result);
+        return Meow.Helper.Convert.ToInt( result );
     }
 
     #endregion
@@ -59,10 +54,9 @@ public static partial class SqlQueryExtensions
     /// 获取32位可空整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static int? ToIntOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToIntOrNull(source.ExecuteScalar());
+    public static int? ToIntOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToIntOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -73,11 +67,10 @@ public static partial class SqlQueryExtensions
     /// 获取32位可空整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<int?> ToIntOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<int?> ToIntOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToIntOrNull(result);
+        return Meow.Helper.Convert.ToIntOrNull( result );
     }
 
     #endregion
@@ -88,10 +81,9 @@ public static partial class SqlQueryExtensions
     /// 获取64位整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static long ToLong(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToLong(source.ExecuteScalar());
+    public static long ToLong( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToLong( source.ExecuteScalar() );
     }
 
     #endregion
@@ -102,11 +94,10 @@ public static partial class SqlQueryExtensions
     /// 获取64位整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<long> ToLongAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<long> ToLongAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToLong(result);
+        return Meow.Helper.Convert.ToLong( result );
     }
 
     #endregion
@@ -117,10 +108,9 @@ public static partial class SqlQueryExtensions
     /// 获取64位可空整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static long? ToLongOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToLongOrNull(source.ExecuteScalar());
+    public static long? ToLongOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToLongOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -131,11 +121,10 @@ public static partial class SqlQueryExtensions
     /// 获取64位可空整型值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<long?> ToLongOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<long?> ToLongOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToLongOrNull(result);
+        return Meow.Helper.Convert.ToLongOrNull( result );
     }
 
     #endregion
@@ -146,10 +135,9 @@ public static partial class SqlQueryExtensions
     /// 获取Guid值
     /// </summary>
     /// <param name="source">源</param>
-    public static Guid ToGuid(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToGuid(source.ExecuteScalar());
+    public static Guid ToGuid( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToGuid( source.ExecuteScalar() );
     }
 
     #endregion
@@ -160,11 +148,10 @@ public static partial class SqlQueryExtensions
     /// 获取Guid值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<Guid> ToGuidAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<Guid> ToGuidAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToGuid(result);
+        return Meow.Helper.Convert.ToGuid( result );
     }
 
     #endregion
@@ -175,10 +162,9 @@ public static partial class SqlQueryExtensions
     /// 获取可空Guid值
     /// </summary>
     /// <param name="source">源</param>
-    public static Guid? ToGuidOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToGuidOrNull(source.ExecuteScalar());
+    public static Guid? ToGuidOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToGuidOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -189,11 +175,10 @@ public static partial class SqlQueryExtensions
     /// 获取可空Guid值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<Guid?> ToGuidOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<Guid?> ToGuidOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToGuidOrNull(result);
+        return Meow.Helper.Convert.ToGuidOrNull( result );
     }
 
     #endregion
@@ -204,10 +189,9 @@ public static partial class SqlQueryExtensions
     /// 获取布尔值
     /// </summary>
     /// <param name="source">源</param>
-    public static bool ToBool(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToBool(source.ExecuteScalar());
+    public static bool ToBool( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToBool( source.ExecuteScalar() );
     }
 
     #endregion
@@ -218,11 +202,10 @@ public static partial class SqlQueryExtensions
     /// 获取布尔值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<bool> ToBoolAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<bool> ToBoolAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToBool(result);
+        return Meow.Helper.Convert.ToBool( result );
     }
 
     #endregion
@@ -233,10 +216,9 @@ public static partial class SqlQueryExtensions
     /// 获取可空布尔值
     /// </summary>
     /// <param name="source">源</param>
-    public static bool? ToBoolOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToBoolOrNull(source.ExecuteScalar());
+    public static bool? ToBoolOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToBoolOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -247,11 +229,10 @@ public static partial class SqlQueryExtensions
     /// 获取可空布尔值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<bool?> ToBoolOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<bool?> ToBoolOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToBoolOrNull(result);
+        return Meow.Helper.Convert.ToBoolOrNull( result );
     }
 
     #endregion
@@ -262,10 +243,9 @@ public static partial class SqlQueryExtensions
     /// 获取32位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static float ToFloat(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToFloat(source.ExecuteScalar());
+    public static float ToFloat( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToFloat( source.ExecuteScalar() );
     }
 
     #endregion
@@ -276,11 +256,10 @@ public static partial class SqlQueryExtensions
     /// 获取32位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<float> ToFloatAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<float> ToFloatAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToFloat(result);
+        return Meow.Helper.Convert.ToFloat( result );
     }
 
     #endregion
@@ -291,10 +270,9 @@ public static partial class SqlQueryExtensions
     /// 获取32位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static float? ToFloatOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToFloatOrNull(source.ExecuteScalar());
+    public static float? ToFloatOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToFloatOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -305,11 +283,10 @@ public static partial class SqlQueryExtensions
     /// 获取32位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<float?> ToFloatOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<float?> ToFloatOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToFloatOrNull(result);
+        return Meow.Helper.Convert.ToFloatOrNull( result );
     }
 
     #endregion
@@ -320,10 +297,9 @@ public static partial class SqlQueryExtensions
     /// 获取64位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static double ToDouble(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDouble(source.ExecuteScalar());
+    public static double ToDouble( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDouble( source.ExecuteScalar() );
     }
 
     #endregion
@@ -334,11 +310,10 @@ public static partial class SqlQueryExtensions
     /// 获取64位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<double> ToDoubleAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<double> ToDoubleAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDouble(result);
+        return Meow.Helper.Convert.ToDouble( result );
     }
 
     #endregion
@@ -349,10 +324,9 @@ public static partial class SqlQueryExtensions
     /// 获取64位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static double? ToDoubleOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDoubleOrNull(source.ExecuteScalar());
+    public static double? ToDoubleOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDoubleOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -363,11 +337,10 @@ public static partial class SqlQueryExtensions
     /// 获取64位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<double?> ToDoubleOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<double?> ToDoubleOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDoubleOrNull(result);
+        return Meow.Helper.Convert.ToDoubleOrNull( result );
     }
 
     #endregion
@@ -378,10 +351,9 @@ public static partial class SqlQueryExtensions
     /// 获取128位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static decimal ToDecimal(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDecimal(source.ExecuteScalar());
+    public static decimal ToDecimal( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDecimal( source.ExecuteScalar() );
     }
 
     #endregion
@@ -392,11 +364,10 @@ public static partial class SqlQueryExtensions
     /// 获取128位浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<decimal> ToDecimalAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<decimal> ToDecimalAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDecimal(result);
+        return Meow.Helper.Convert.ToDecimal( result );
     }
 
     #endregion
@@ -407,10 +378,9 @@ public static partial class SqlQueryExtensions
     /// 获取128位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static decimal? ToDecimalOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDecimalOrNull(source.ExecuteScalar());
+    public static decimal? ToDecimalOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDecimalOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -421,11 +391,10 @@ public static partial class SqlQueryExtensions
     /// 获取128位可空浮点值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<decimal?> ToDecimalOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<decimal?> ToDecimalOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDecimalOrNull(result);
+        return Meow.Helper.Convert.ToDecimalOrNull( result );
     }
 
     #endregion
@@ -436,10 +405,9 @@ public static partial class SqlQueryExtensions
     /// 获取日期值
     /// </summary>
     /// <param name="source">源</param>
-    public static DateTime ToDateTime(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDateTime(source.ExecuteScalar());
+    public static DateTime ToDateTime( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDateTime( source.ExecuteScalar() );
     }
 
     #endregion
@@ -450,11 +418,10 @@ public static partial class SqlQueryExtensions
     /// 获取日期值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<DateTime> ToDateTimeAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<DateTime> ToDateTimeAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDateTime(result);
+        return Meow.Helper.Convert.ToDateTime( result );
     }
 
     #endregion
@@ -465,10 +432,9 @@ public static partial class SqlQueryExtensions
     /// 获取可空日期值
     /// </summary>
     /// <param name="source">源</param>
-    public static DateTime? ToDateTimeOrNull(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
-        return Meow.Helper.Convert.ToDateTimeOrNull(source.ExecuteScalar());
+    public static DateTime? ToDateTimeOrNull( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
+        return Meow.Helper.Convert.ToDateTimeOrNull( source.ExecuteScalar() );
     }
 
     #endregion
@@ -479,11 +445,10 @@ public static partial class SqlQueryExtensions
     /// 获取可空日期值
     /// </summary>
     /// <param name="source">源</param>
-    public static async Task<DateTime?> ToDateTimeOrNullAsync(this ISqlQuery source)
-    {
-        source.CheckNull(nameof(source));
+    public static async Task<DateTime?> ToDateTimeOrNullAsync( this ISqlQuery source ) {
+        source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDateTimeOrNull(result);
+        return Meow.Helper.Convert.ToDateTimeOrNull( result );
     }
 
     #endregion

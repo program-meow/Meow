@@ -38,7 +38,7 @@ public class DefaultLock : ILock
         _expiration = expiration;
         if (_cache.Exists(key))
             return false;
-        return _cache.TrySet(key, 1, new CacheOption { Expiration = expiration });
+        return _cache.TrySet(key, 1, new CacheOptions { Expiration = expiration });
     }
 
     /// <inheritdoc />
@@ -48,7 +48,7 @@ public class DefaultLock : ILock
         _expiration = expiration;
         if (await _cache.ExistsAsync(key))
             return false;
-        return await _cache.TrySetAsync(key, 1, new CacheOption { Expiration = expiration });
+        return await _cache.TrySetAsync(key, 1, new CacheOptions { Expiration = expiration });
     }
 
     /// <inheritdoc />

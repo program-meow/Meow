@@ -1,14 +1,11 @@
-﻿using System;
-using System.Text;
-using Meow.Data.Sql.Builder.Param;
+﻿using Meow.Data.Sql.Builder.Param;
 
 namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Sql查询条件
 /// </summary>
-public abstract class SqlConditionBase : ISqlCondition
-{
+public abstract class SqlConditionBase : ISqlCondition {
     /// <summary>
     /// Sql参数管理器
     /// </summary>
@@ -33,11 +30,10 @@ public abstract class SqlConditionBase : ISqlCondition
     /// <param name="column">列名</param>
     /// <param name="value">值</param>
     /// <param name="isParameterization">是否参数化</param>
-    protected SqlConditionBase(IParameterManager parameterManager, string column, object value, bool isParameterization)
-    {
-        ParameterManager = parameterManager ?? throw new ArgumentNullException(nameof(parameterManager));
-        if (string.IsNullOrWhiteSpace(column))
-            throw new ArgumentNullException(nameof(column));
+    protected SqlConditionBase( IParameterManager parameterManager , string column , object value , bool isParameterization ) {
+        ParameterManager = parameterManager ?? throw new ArgumentNullException( nameof( parameterManager ) );
+        if( string.IsNullOrWhiteSpace( column ) )
+            throw new ArgumentNullException( nameof( column ) );
         Column = column;
         Value = value;
         IsParameterization = isParameterization;
@@ -47,19 +43,16 @@ public abstract class SqlConditionBase : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public virtual void AppendTo(StringBuilder builder)
-    {
-        if (Value is ISqlBuilder sqlBuilder)
-        {
-            AppendSqlBuilder(builder, Column, sqlBuilder);
+    public virtual void AppendTo( StringBuilder builder ) {
+        if( Value is ISqlBuilder sqlBuilder ) {
+            AppendSqlBuilder( builder , Column , sqlBuilder );
             return;
         }
-        if (IsParameterization)
-        {
-            AppendParameterizedCondition(builder);
+        if( IsParameterization ) {
+            AppendParameterizedCondition( builder );
             return;
         }
-        AppendNonParameterizedCondition(builder);
+        AppendNonParameterizedCondition( builder );
     }
 
     /// <summary>
@@ -68,8 +61,7 @@ public abstract class SqlConditionBase : ISqlCondition
     /// <param name="builder">字符串生成器</param>
     /// <param name="column">列名</param>
     /// <param name="sqlBuilder">Sql生成器</param>
-    protected virtual void AppendSqlBuilder(StringBuilder builder, string column, ISqlBuilder sqlBuilder)
-    {
+    protected virtual void AppendSqlBuilder( StringBuilder builder , string column , ISqlBuilder sqlBuilder ) {
         throw new NotImplementedException();
     }
 
@@ -77,27 +69,24 @@ public abstract class SqlConditionBase : ISqlCondition
     /// 添加参数化条件
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    protected virtual void AppendParameterizedCondition(StringBuilder builder)
-    {
+    protected virtual void AppendParameterizedCondition( StringBuilder builder ) {
         string paramName = GenerateParamName();
         object value = GetValue();
-        ParameterManager.Add(paramName, value);
-        AppendCondition(builder, Column, paramName);
+        ParameterManager.Add( paramName , value );
+        AppendCondition( builder , Column , paramName );
     }
 
     /// <summary>
     /// 创建参数名
     /// </summary>
-    protected virtual string GenerateParamName()
-    {
+    protected virtual string GenerateParamName() {
         return ParameterManager.GenerateName();
     }
 
     /// <summary>
     /// 获取参数值
     /// </summary>
-    protected virtual object GetValue()
-    {
+    protected virtual object GetValue() {
         return Value;
     }
 
@@ -107,14 +96,13 @@ public abstract class SqlConditionBase : ISqlCondition
     /// <param name="builder">字符串生成器</param>
     /// <param name="column">列名</param>
     /// <param name="value">值</param>
-    protected abstract void AppendCondition(StringBuilder builder, string column, object value);
+    protected abstract void AppendCondition( StringBuilder builder , string column , object value );
 
     /// <summary>
     /// 添加非参数化条件
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    protected virtual void AppendNonParameterizedCondition(StringBuilder builder)
-    {
-        AppendCondition(builder, Column, GetValue());
+    protected virtual void AppendNonParameterizedCondition( StringBuilder builder ) {
+        AppendCondition( builder , Column , GetValue() );
     }
 }

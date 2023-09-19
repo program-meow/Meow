@@ -3,6 +3,5 @@
 /// <summary>
 /// Sql配置操作
 /// </summary>
-public interface ISqlOptions
-{
+public interface ISqlOptions {
 }

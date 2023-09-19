@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Meow.Domain\01-Meow.Domain.csproj" />
+	  <ProjectReference Include="..\..\src\Meow.Tenant\02-Meow.Tenant.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

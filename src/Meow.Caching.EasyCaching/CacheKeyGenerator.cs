@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection;
-using EasyCaching.Core.Interceptor;
-
-namespace Meow.Caching.EasyCaching; 
+﻿namespace Meow.Caching.EasyCaching;
 
 /// <summary>
 /// 缓存键生成器
@@ -18,11 +14,11 @@ public class CacheKeyGenerator : ICacheKeyGenerator {
     /// </summary>
     /// <param name="keyGenerator">EasyCaching缓存键生成器</param>
     public CacheKeyGenerator( IEasyCachingKeyGenerator keyGenerator ) {
-        _keyGenerator = keyGenerator ?? throw new ArgumentNullException( nameof(keyGenerator) );
+        _keyGenerator = keyGenerator ?? throw new ArgumentNullException( nameof( keyGenerator ) );
     }
 
     /// <inheritdoc />
-    public string CreateCacheKey( MethodInfo methodInfo, object[] args, string prefix ) {
-        return _keyGenerator.GetCacheKey( methodInfo, args, prefix );
+    public string CreateCacheKey( MethodInfo methodInfo , object[] args , string prefix ) {
+        return _keyGenerator.GetCacheKey( methodInfo , args , prefix );
     }
 }

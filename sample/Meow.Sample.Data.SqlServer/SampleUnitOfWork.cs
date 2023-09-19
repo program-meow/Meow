@@ -1,5 +1,5 @@
 using System;
-using Meow.Data.EntityFramework.SqlServer;
+using Meow.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meow.Sample.Data.SqlServer

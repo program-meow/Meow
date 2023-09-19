@@ -3,8 +3,7 @@
 /// <summary>
 /// 逻辑删除
 /// </summary>
-public interface IDelete
-{
+public interface IDelete {
     /// <summary>
     /// 是否删除
     /// </summary>

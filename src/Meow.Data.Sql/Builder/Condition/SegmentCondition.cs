@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Meow.Data.Query;
+﻿using Meow.Data.Query;
 using Meow.Data.Sql.Builder.Param;
 using Meow.Extension;
 
@@ -9,8 +7,7 @@ namespace Meow.Data.Sql.Builder.Condition;
 /// <summary>
 /// 范围过滤条件
 /// </summary>
-public class SegmentCondition : ISqlCondition
-{
+public class SegmentCondition : ISqlCondition {
     /// <summary>
     /// Sql参数管理器
     /// </summary>
@@ -45,11 +42,10 @@ public class SegmentCondition : ISqlCondition
     /// <param name="maxValue">最大值</param>
     /// <param name="boundary">包含边界</param>
     /// <param name="isParameterization">是否参数化</param>
-    public SegmentCondition(IParameterManager parameterManager, string column, object minValue, object maxValue, BoundaryEnum boundary, bool isParameterization)
-    {
-        ParameterManager = parameterManager ?? throw new ArgumentNullException(nameof(parameterManager));
-        if (string.IsNullOrWhiteSpace(column))
-            throw new ArgumentNullException(nameof(column));
+    public SegmentCondition( IParameterManager parameterManager , string column , object minValue , object maxValue , BoundaryEnum boundary , bool isParameterization ) {
+        ParameterManager = parameterManager ?? throw new ArgumentNullException( nameof( parameterManager ) );
+        if( string.IsNullOrWhiteSpace( column ) )
+            throw new ArgumentNullException( nameof( column ) );
         Column = column;
         MinValue = minValue;
         MaxValue = maxValue;
@@ -61,44 +57,39 @@ public class SegmentCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        new AndCondition(CreateLeftCondition(), CreateRightCondition()).AppendTo(builder);
+    public void AppendTo( StringBuilder builder ) {
+        new AndCondition( CreateLeftCondition() , CreateRightCondition() ).AppendTo( builder );
     }
 
     /// <summary>
     /// 创建左条件
     /// </summary>
-    private ISqlCondition CreateLeftCondition()
-    {
-        if (string.IsNullOrWhiteSpace(MinValue.SafeString()))
+    private ISqlCondition CreateLeftCondition() {
+        if( string.IsNullOrWhiteSpace( MinValue.SafeString() ) )
             return NullCondition.Instance;
-        switch (Boundary)
-        {
+        switch( Boundary ) {
             case BoundaryEnum.Left:
-                return new GreaterEqualCondition(ParameterManager, Column, MinValue, IsParameterization);
+                return new GreaterEqualCondition( ParameterManager , Column , MinValue , IsParameterization );
             case BoundaryEnum.Both:
-                return new GreaterEqualCondition(ParameterManager, Column, MinValue, IsParameterization);
+                return new GreaterEqualCondition( ParameterManager , Column , MinValue , IsParameterization );
             default:
-                return new GreaterCondition(ParameterManager, Column, MinValue, IsParameterization);
+                return new GreaterCondition( ParameterManager , Column , MinValue , IsParameterization );
         }
     }
 
     /// <summary>
     /// 创建右条件
     /// </summary>
-    private ISqlCondition CreateRightCondition()
-    {
-        if (string.IsNullOrWhiteSpace(MaxValue.SafeString()))
+    private ISqlCondition CreateRightCondition() {
+        if( string.IsNullOrWhiteSpace( MaxValue.SafeString() ) )
             return NullCondition.Instance;
-        switch (Boundary)
-        {
+        switch( Boundary ) {
             case BoundaryEnum.Right:
-                return new LessEqualCondition(ParameterManager, Column, MaxValue, IsParameterization);
+                return new LessEqualCondition( ParameterManager , Column , MaxValue , IsParameterization );
             case BoundaryEnum.Both:
-                return new LessEqualCondition(ParameterManager, Column, MaxValue, IsParameterization);
+                return new LessEqualCondition( ParameterManager , Column , MaxValue , IsParameterization );
             default:
-                return new LessCondition(ParameterManager, Column, MaxValue, IsParameterization);
+                return new LessCondition( ParameterManager , Column , MaxValue , IsParameterization );
         }
     }
 }

@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-
-namespace Meow.Data.Metadata;
+﻿namespace Meow.Data.Metadata;
 
 /// <summary>
 /// 数据库信息
 /// </summary>
-public class DatabaseInfo
-{
+public class DatabaseInfo {
     /// <summary>
     /// 初始化数据库信息
     /// </summary>
-    public DatabaseInfo()
-    {
+    public DatabaseInfo() {
         Tables = new List<TableInfo>();
     }
 

@@ -1,13 +1,11 @@
-﻿using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Core;
 
 /// <summary>
 /// 表项
 /// </summary>
-public class TableItem
-{
+public class TableItem {
     /// <summary>
     /// Sql方言
     /// </summary>
@@ -18,18 +16,16 @@ public class TableItem
     /// </summary>
     /// <param name="dialect">Sql方言</param>
     /// <param name="name">列名</param>
-    public TableItem(IDialect dialect, string name)
-    {
+    public TableItem( IDialect dialect , string name ) {
         _dialect = dialect;
-        Resolve(name);
+        Resolve( name );
     }
 
     /// <summary>
     /// 解析
     /// </summary>
-    private void Resolve(string name)
-    {
-        NameItem item = new NameItem(name);
+    private void Resolve( string name ) {
+        NameItem item = new NameItem( name );
         Schema = item.Prefix;
         Name = item.Name;
         TableAlias = item.Alias;
@@ -53,18 +49,16 @@ public class TableItem
     /// <summary>
     /// 验证是否有效
     /// </summary>
-    public bool Validate()
-    {
-        return !string.IsNullOrWhiteSpace(Name);
+    public bool Validate() {
+        return !string.IsNullOrWhiteSpace( Name );
     }
 
     /// <summary>
     /// 获取结果
     /// </summary>
-    public string ToResult()
-    {
+    public string ToResult() {
         StringBuilder builder = new StringBuilder();
-        AppendTo(builder);
+        AppendTo( builder );
         return builder.ToString();
     }
 
@@ -72,40 +66,36 @@ public class TableItem
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public virtual void AppendTo(StringBuilder builder)
-    {
-        AppendSchema(builder);
-        AppendTable(builder);
-        AppendTableAlias(builder);
+    public virtual void AppendTo( StringBuilder builder ) {
+        AppendSchema( builder );
+        AppendTable( builder );
+        AppendTableAlias( builder );
     }
 
     /// <summary>
     /// 添加架构名
     /// </summary>
-    private void AppendSchema(StringBuilder builder)
-    {
-        if (Schema.IsEmpty())
+    private void AppendSchema( StringBuilder builder ) {
+        if( Schema.IsEmpty() )
             return;
-        builder.AppendFormat("{0}.", _dialect.GetSafeName(Schema));
+        builder.AppendFormat( "{0}." , _dialect.GetSafeName( Schema ) );
     }
 
     /// <summary>
     /// 添加表名
     /// </summary>
-    private void AppendTable(StringBuilder builder)
-    {
-        if (Name.IsEmpty())
+    private void AppendTable( StringBuilder builder ) {
+        if( Name.IsEmpty() )
             return;
-        builder.AppendFormat(_dialect.GetSafeName(Name));
+        builder.AppendFormat( _dialect.GetSafeName( Name ) );
     }
 
     /// <summary>
     /// 添加表别名
     /// </summary>
-    private void AppendTableAlias(StringBuilder builder)
-    {
-        if (TableAlias.IsEmpty())
+    private void AppendTableAlias( StringBuilder builder ) {
+        if( TableAlias.IsEmpty() )
             return;
-        builder.AppendFormat(" As {0}", _dialect.GetSafeName(TableAlias));
+        builder.AppendFormat( " As {0}" , _dialect.GetSafeName( TableAlias ) );
     }
 }

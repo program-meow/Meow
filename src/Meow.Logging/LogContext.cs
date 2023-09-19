@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace Meow.Logging;
+﻿namespace Meow.Logging;
 
 /// <summary>
 /// 日志上下文
 /// </summary>
-public class LogContext
-{
+public class LogContext {
     /// <summary>
     /// 初始化日志上下文
     /// </summary>
-    public LogContext()
-    {
-        Data = new Dictionary<string, object>();
+    public LogContext() {
+        Data = new Dictionary<string , object>();
     }
 
     /// <summary>
@@ -39,5 +34,5 @@ public class LogContext
     /// <summary>
     /// 扩展数据
     /// </summary>
-    public IDictionary<string, object> Data { get; }
+    public IDictionary<string , object> Data { get; }
 }

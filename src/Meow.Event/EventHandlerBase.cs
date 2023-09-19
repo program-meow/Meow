@@ -1,18 +1,16 @@
-﻿using System.Threading.Tasks;
-
-namespace Meow.Event;
+﻿namespace Meow.Event;
 
 /// <summary>
 /// 本地事件处理器基类
 /// </summary>
 /// <typeparam name="TEvent">事件类型</typeparam>
-public abstract class EventHandlerBase<TEvent> : IEventHandler<TEvent> where TEvent : IEvent
-{
+public abstract class EventHandlerBase<TEvent> : IEventHandler<TEvent>, ILocalEventHandler where TEvent : IEvent {
     /// <summary>
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public abstract Task HandleAsync(TEvent @event);
+    /// <param name="cancellationToken">取消令牌</param>
+    public abstract Task HandleAsync( TEvent @event , CancellationToken cancellationToken );
 
     /// <summary>
     /// 序号

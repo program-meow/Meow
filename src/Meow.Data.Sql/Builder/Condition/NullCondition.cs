@@ -1,17 +1,13 @@
-﻿using System.Text;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// 空查询条件
 /// </summary>
-public class NullCondition : ISqlCondition
-{
+public class NullCondition : ISqlCondition {
     /// <summary>
     /// 封闭构造方法
     /// </summary>
-    private NullCondition()
-    {
+    private NullCondition() {
     }
 
     /// <summary>
@@ -23,7 +19,6 @@ public class NullCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
+    public void AppendTo( StringBuilder builder ) {
     }
 }

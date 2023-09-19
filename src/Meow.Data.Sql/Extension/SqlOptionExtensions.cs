@@ -1,13 +1,12 @@
-﻿using System.Data;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql配置扩展
 /// </summary>
-public static class SqlOptionExtensions
-{
+public static class SqlOptionExtensions {
+
     #region ConnectionString  [设置数据库连接字符串]
 
     /// <summary>
@@ -15,9 +14,8 @@ public static class SqlOptionExtensions
     /// </summary>
     /// <param name="options">源</param>
     /// <param name="connectionString">数据库连接字符串</param>
-    public static SqlOptions ConnectionString(this SqlOptions options, string connectionString)
-    {
-        options.CheckNull(nameof(options));
+    public static SqlOptions ConnectionString( this SqlOptions options , string connectionString ) {
+        options.CheckNull( nameof( options ) );
         options.ConnectionString = connectionString;
         return options;
     }
@@ -31,9 +29,8 @@ public static class SqlOptionExtensions
     /// </summary>
     /// <param name="options">源</param>
     /// <param name="connection">数据库连接</param>
-    public static SqlOptions Connection(this SqlOptions options, IDbConnection connection)
-    {
-        options.CheckNull(nameof(options));
+    public static SqlOptions Connection( this SqlOptions options , IDbConnection connection ) {
+        options.CheckNull( nameof( options ) );
         options.Connection = connection;
         return options;
     }
@@ -47,9 +44,8 @@ public static class SqlOptionExtensions
     /// </summary>
     /// <param name="options">源</param>
     /// <param name="logCategory">日志类别</param>
-    public static SqlOptions LogCategory(this SqlOptions options, string logCategory)
-    {
-        options.CheckNull(nameof(options));
+    public static SqlOptions LogCategory( this SqlOptions options , string logCategory ) {
+        options.CheckNull( nameof( options ) );
         options.LogCategory = logCategory;
         return options;
     }

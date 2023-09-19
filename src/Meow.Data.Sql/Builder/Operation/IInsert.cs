@@ -3,6 +3,5 @@
 /// <summary>
 /// 插入子句操作
 /// </summary>
-public interface IInsert
-{
+public interface IInsert {
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using AspectCore.DynamicProxy;
-using Meow.Aop;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Meow.Aop;
 using SystemType = System.Type;
 
 namespace Meow.Caching;
@@ -11,8 +6,7 @@ namespace Meow.Caching;
 /// <summary>
 /// 缓存拦截器
 /// </summary>
-public class CacheAttribute : InterceptorBase
-{
+public class CacheAttribute : InterceptorBase {
     /// <summary>
     /// 缓存键前缀
     /// </summary>
@@ -25,64 +19,56 @@ public class CacheAttribute : InterceptorBase
     /// <summary>
     /// 执行
     /// </summary>
-    public override async Task Invoke(AspectContext context, AspectDelegate next)
-    {
-        var cache = GetCache(context);
-        var returnType = GetReturnType(context);
-        var key = CreateCacheKey(context);
-        var value = await GetCacheValue(cache, returnType, key);
-        if (value != null)
-        {
-            SetReturnValue(context, returnType, value);
+    public override async Task Invoke( AspectContext context , AspectDelegate next ) {
+        ICache cache = GetCache( context );
+        SystemType returnType = GetReturnType( context );
+        string key = CreateCacheKey( context );
+        object value = await GetCacheValue( cache , returnType , key );
+        if( value != null ) {
+            SetReturnValue( context , returnType , value );
             return;
         }
-        await next(context);
-        await SetCache(context, cache, key);
+        await next( context );
+        await SetCache( context , cache , key );
     }
 
     /// <summary>
     /// 获取缓存服务
     /// </summary>
-    protected virtual ICache GetCache(AspectContext context)
-    {
+    protected virtual ICache GetCache( AspectContext context ) {
         return context.ServiceProvider.GetService<ICache>();
     }
 
     /// <summary>
     /// 获取返回类型
     /// </summary>
-    private SystemType GetReturnType(AspectContext context)
-    {
+    private SystemType GetReturnType( AspectContext context ) {
         return context.IsAsync() ? context.ServiceMethod.ReturnType.GetGenericArguments().First() : context.ServiceMethod.ReturnType;
     }
 
     /// <summary>
     /// 创建缓存键
     /// </summary>
-    private string CreateCacheKey(AspectContext context)
-    {
-        var keyGenerator = context.ServiceProvider.GetService<ICacheKeyGenerator>();
-        return keyGenerator.CreateCacheKey(context.ServiceMethod, context.Parameters, CacheKeyPrefix);
+    private string CreateCacheKey( AspectContext context ) {
+        ICacheKeyGenerator keyGenerator = context.ServiceProvider.GetService<ICacheKeyGenerator>();
+        return keyGenerator.CreateCacheKey( context.ServiceMethod , context.Parameters , CacheKeyPrefix );
     }
 
     /// <summary>
     /// 获取缓存值
     /// </summary>
-    private async Task<object> GetCacheValue(ICache cache, SystemType returnType, string key)
-    {
-        return await cache.GetAsync(key, returnType);
+    private async Task<object> GetCacheValue( ICache cache , SystemType returnType , string key ) {
+        return await cache.GetAsync( key , returnType );
     }
 
     /// <summary>
     /// 设置返回值
     /// </summary>
-    private void SetReturnValue(AspectContext context, SystemType returnType, object value)
-    {
-        if (context.IsAsync())
-        {
-            context.ReturnValue = typeof(Task).GetMethods()
-                .First(p => p.Name == "FromResult" && p.ContainsGenericParameters)
-                .MakeGenericMethod(returnType).Invoke(null, new[] { value });
+    private void SetReturnValue( AspectContext context , SystemType returnType , object value ) {
+        if( context.IsAsync() ) {
+            context.ReturnValue = typeof( Task ).GetMethods()
+                .First( p => p.Name == "FromResult" && p.ContainsGenericParameters )
+                .MakeGenericMethod( returnType ).Invoke( null , new[] { value } );
             return;
         }
         context.ReturnValue = value;
@@ -91,10 +77,9 @@ public class CacheAttribute : InterceptorBase
     /// <summary>
     /// 设置缓存
     /// </summary>
-    private async Task SetCache(AspectContext context, ICache cache, string key)
-    {
-        var options = new CacheOption { Expiration = TimeSpan.FromSeconds(Expiration) };
-        var returnValue = context.IsAsync() ? await context.UnwrapAsyncReturnValue() : context.ReturnValue;
-        await cache.SetAsync(key, returnValue, options);
+    private async Task SetCache( AspectContext context , ICache cache , string key ) {
+        CacheOptions options = new CacheOptions { Expiration = TimeSpan.FromSeconds( Expiration ) };
+        object returnValue = context.IsAsync() ? await context.UnwrapAsyncReturnValue() : context.ReturnValue;
+        await cache.SetAsync( key , returnValue , options );
     }
 }

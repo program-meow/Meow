@@ -3,8 +3,7 @@
 /// <summary>
 /// 变更值
 /// </summary>
-public class ChangeValue
-{
+public class ChangeValue {
     /// <summary>
     /// 初始化变更值
     /// </summary>
@@ -12,8 +11,7 @@ public class ChangeValue
     /// <param name="description">描述</param>
     /// <param name="originalValue">原始值</param>
     /// <param name="newValue">新值</param>
-    public ChangeValue(string propertyName, string description, string originalValue, string newValue)
-    {
+    public ChangeValue( string propertyName , string description , string originalValue , string newValue ) {
         PropertyName = propertyName;
         Description = description;
         OriginalValue = originalValue;
@@ -40,8 +38,7 @@ public class ChangeValue
     /// <summary>
     /// 输出变更信息
     /// </summary>
-    public override string ToString()
-    {
+    public override string ToString() {
         return $"{PropertyName}({Description}),原始值:{OriginalValue},新值:{NewValue}";
     }
 }

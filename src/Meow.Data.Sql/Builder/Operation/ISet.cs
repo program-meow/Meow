@@ -3,6 +3,5 @@
 /// <summary>
 /// Sql集合操作
 /// </summary>
-public interface ISet
-{
+public interface ISet {
 }

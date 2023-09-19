@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Data.EntityFrameworkCore.Oracle</AssemblyName>
+		<RootNamespace>Meow.Data.EntityFrameworkCore</RootNamespace>
+		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<Description>
+			Meow.Data.EntityFrameworkCore.Oracle 是 Meow 基于 EntityFrameworkCore 的数据访问封装类库,用于处理 Oracle 数据库。
+			$(Tips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Data.EntityFrameworkCore.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Data.EntityFrameworkCore.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFrameworkCore.csproj" />
+	</ItemGroup>
+
+</Project>

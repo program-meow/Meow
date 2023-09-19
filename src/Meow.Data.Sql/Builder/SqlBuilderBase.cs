@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Clause;
 using Meow.Data.Sql.Builder.Param;
 using Meow.Data.Sql.Builder.Set;
@@ -10,8 +9,8 @@ namespace Meow.Data.Sql.Builder;
 /// <summary>
 /// Sql生成器
 /// </summary>
-public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
-{
+public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor {
+
     #region 字段
 
     /// <summary>
@@ -79,8 +78,7 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// 初始化Sql生成器
     /// </summary>
     /// <param name="parameterManager">Sql参数管理器</param>
-    protected SqlBuilderBase(IParameterManager parameterManager = null)
-    {
+    protected SqlBuilderBase( IParameterManager parameterManager = null ) {
         _parameterManager = parameterManager;
     }
 
@@ -162,97 +160,85 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// <summary>
     /// 创建参数管理器
     /// </summary>
-    protected virtual IParameterManager CreateParameterManager()
-    {
-        return new ParameterManager(Dialect);
+    protected virtual IParameterManager CreateParameterManager() {
+        return new ParameterManager( Dialect );
     }
 
     /// <summary>
     /// 创建Sql条件工厂
     /// </summary>
-    protected virtual IConditionFactory CreateConditionFactory()
-    {
-        return new SqlConditionFactory(ParameterManager);
+    protected virtual IConditionFactory CreateConditionFactory() {
+        return new SqlConditionFactory( ParameterManager );
     }
 
     /// <summary>
     /// 创建起始子句
     /// </summary>
-    protected virtual IStartClause CreateStartClause()
-    {
-        return new StartClause(this);
+    protected virtual IStartClause CreateStartClause() {
+        return new StartClause( this );
     }
 
     /// <summary>
     /// 创建Insert子句
     /// </summary>
-    protected virtual IInsertClause CreateInsertClause()
-    {
-        return new InsertClause(this);
+    protected virtual IInsertClause CreateInsertClause() {
+        return new InsertClause( this );
     }
 
     /// <summary>
     /// 创建Select子句
     /// </summary>
-    protected virtual ISelectClause CreateSelectClause()
-    {
-        return new SelectClause(this);
+    protected virtual ISelectClause CreateSelectClause() {
+        return new SelectClause( this );
     }
 
     /// <summary>
     /// 创建From子句
     /// </summary>
-    protected virtual IFromClause CreateFromClause()
-    {
-        return new FromClause(this);
+    protected virtual IFromClause CreateFromClause() {
+        return new FromClause( this );
     }
 
     /// <summary>
     /// 创建Join子句
     /// </summary>
-    protected virtual IJoinClause CreateJoinClause()
-    {
-        return new JoinClause(this);
+    protected virtual IJoinClause CreateJoinClause() {
+        return new JoinClause( this );
     }
 
     /// <summary>
     /// 创建Where子句
     /// </summary>
-    protected virtual IWhereClause CreatewWhereClause()
-    {
-        return new WhereClause(this);
+    protected virtual IWhereClause CreatewWhereClause() {
+        return new WhereClause( this );
     }
 
     /// <summary>
     /// 创建分组子句
     /// </summary>
-    protected virtual IGroupByClause CreateGroupByClause()
-    {
-        return new GroupByClause(this);
+    protected virtual IGroupByClause CreateGroupByClause() {
+        return new GroupByClause( this );
     }
 
     /// <summary>
     /// 创建排序子句
     /// </summary>
-    protected virtual IOrderByClause CreateOrderByClause()
-    {
-        return new OrderByClause(this);
+    protected virtual IOrderByClause CreateOrderByClause() {
+        return new OrderByClause( this );
     }
 
     /// <summary>
     /// 创建结束子句
     /// </summary>
-    protected virtual IEndClause CreateEndClause()
-    {
-        return new EndClause(this);
+    protected virtual IEndClause CreateEndClause() {
+        return new EndClause( this );
     }
 
     /// <summary>
     /// 创建Sql生成器集合
     /// </summary>
-    protected virtual ISqlBuilderSet CreateSqlBuilderSet()
-    {
-        return new SqlBuilderSet(this);
+    protected virtual ISqlBuilderSet CreateSqlBuilderSet() {
+        return new SqlBuilderSet( this );
     }
 
     #endregion
@@ -266,21 +252,20 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// 复制Sql生成器
     /// </summary>
     /// <param name="source">源Sql生成器</param>
-    protected void Clone(SqlBuilderBase source)
-    {
+    protected void Clone( SqlBuilderBase source ) {
         _dialect = source._dialect;
         _columnCache = source._columnCache;
         _parameterManager = source._parameterManager?.Clone();
-        _startClause = source._startClause?.Clone(this);
-        _insertClause = source._insertClause?.Clone(this);
-        _selectClause = source._selectClause?.Clone(this);
-        _fromClause = source._fromClause?.Clone(this);
-        _joinClause = source._joinClause?.Clone(this);
-        _whereClause = source._whereClause?.Clone(this);
-        _groupByClause = source._groupByClause?.Clone(this);
-        _orderByClause = source._orderByClause?.Clone(this);
-        _endClause = source._endClause?.Clone(this);
-        _sqlBuilderSet = source._sqlBuilderSet?.Clone(this);
+        _startClause = source._startClause?.Clone( this );
+        _insertClause = source._insertClause?.Clone( this );
+        _selectClause = source._selectClause?.Clone( this );
+        _fromClause = source._fromClause?.Clone( this );
+        _joinClause = source._joinClause?.Clone( this );
+        _whereClause = source._whereClause?.Clone( this );
+        _groupByClause = source._groupByClause?.Clone( this );
+        _orderByClause = source._orderByClause?.Clone( this );
+        _endClause = source._endClause?.Clone( this );
+        _sqlBuilderSet = source._sqlBuilderSet?.Clone( this );
     }
 
     #endregion
@@ -290,8 +275,7 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// <summary>
     /// 清理
     /// </summary>
-    public ISqlBuilder Clear()
-    {
+    public ISqlBuilder Clear() {
         _parameterManager?.Clear();
         _startClause?.Clear();
         _insertClause?.Clear();
@@ -322,8 +306,7 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// <summary>
     /// 生成Sql语句
     /// </summary>
-    public virtual string GetSql()
-    {
+    public virtual string GetSql() {
         return SqlBuilderSet.ToResult();
     }
 
@@ -335,32 +318,30 @@ public abstract class SqlBuilderBase : ISqlBuilder, ISqlPartAccessor
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        AppendSql(builder, _startClause);
-        AppendSql(builder, _insertClause);
-        AppendSql(builder, _selectClause);
-        AppendSql(builder, _fromClause);
-        AppendSql(builder, _joinClause);
-        AppendSql(builder, _whereClause);
-        AppendSql(builder, _groupByClause);
-        AppendSql(builder, _orderByClause);
-        AppendSql(builder, _endClause);
-        builder.RemoveEnd($" {Meow.Helper.String.Line}");
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        AppendSql( builder , _startClause );
+        AppendSql( builder , _insertClause );
+        AppendSql( builder , _selectClause );
+        AppendSql( builder , _fromClause );
+        AppendSql( builder , _joinClause );
+        AppendSql( builder , _whereClause );
+        AppendSql( builder , _groupByClause );
+        AppendSql( builder , _orderByClause );
+        AppendSql( builder , _endClause );
+        builder.RemoveEnd( $" {Meow.Helper.String.Line}" );
     }
 
     /// <summary>
     /// 添加Sql
     /// </summary>
-    protected void AppendSql(StringBuilder builder, ISqlClause content)
-    {
-        if (content == null)
+    protected void AppendSql( StringBuilder builder , ISqlClause content ) {
+        if( content == null )
             return;
-        if (content.Validate() == false)
+        if( content.Validate() == false )
             return;
-        content.AppendTo(builder);
-        builder.AppendLine(" ");
+        content.AppendTo( builder );
+        builder.AppendLine( " " );
     }
 
     #endregion

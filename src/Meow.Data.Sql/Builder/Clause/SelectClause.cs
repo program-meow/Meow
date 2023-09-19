@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
 
@@ -9,8 +7,7 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Select子句
 /// </summary>
-public class SelectClause : ClauseBase, ISelectClause
-{
+public class SelectClause : ClauseBase, ISelectClause {
 
     #region 字段
 
@@ -32,8 +29,7 @@ public class SelectClause : ClauseBase, ISelectClause
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">Select子句结果</param>
-    public SelectClause(SqlBuilderBase sqlBuilder, StringBuilder result = null) : base(sqlBuilder)
-    {
+    public SelectClause( SqlBuilderBase sqlBuilder , StringBuilder result = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
     }
@@ -43,54 +39,48 @@ public class SelectClause : ClauseBase, ISelectClause
     #region Select  [设置列名]
 
     /// <inheritdoc />
-    public void Select()
-    {
+    public void Select() {
         Result.Clear();
-        Result.Append("*");
+        Result.Append( "*" );
     }
 
     /// <inheritdoc />
-    public void Select(string columns)
-    {
-        if (columns.IsEmpty())
+    public void Select( string columns ) {
+        if( columns.IsEmpty() )
             return;
-        if (columns == "*")
-        {
+        if( columns == "*" ) {
             Select();
             return;
         }
-        AppendColumns(ColumnCache.GetSafeColumns(columns));
+        AppendColumns( ColumnCache.GetSafeColumns( columns ) );
     }
 
     /// <summary>
     /// 添加列
     /// </summary>
-    protected void AppendColumns(string columns)
-    {
-        if (Result.Length > 0)
-            Result.RemoveEnd(",").Append(",");
-        Result.Append(columns);
+    protected void AppendColumns( string columns ) {
+        if( Result.Length > 0 )
+            Result.RemoveEnd( "," ).Append( "," );
+        Result.Append( columns );
     }
 
     /// <inheritdoc />
-    public void Select(ISqlBuilder builder, string alias)
-    {
-        if (builder == null)
+    public void Select( ISqlBuilder builder , string alias ) {
+        if( builder == null )
             return;
-        if (Result.Length > 0)
-            Result.Append(",");
-        SqlBuilderItem item = new SqlBuilderItem(Dialect, builder, alias);
-        item.AppendTo(Result);
+        if( Result.Length > 0 )
+            Result.Append( "," );
+        SqlBuilderItem item = new SqlBuilderItem( Dialect , builder , alias );
+        item.AppendTo( Result );
     }
 
     /// <inheritdoc />
-    public void Select(Action<ISqlBuilder> action, string alias)
-    {
-        if (action == null)
+    public void Select( Action<ISqlBuilder> action , string alias ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        Select(builder, alias);
+        action( builder );
+        Select( builder , alias );
     }
 
     #endregion
@@ -98,34 +88,30 @@ public class SelectClause : ClauseBase, ISelectClause
     #region AppendSql  [添加到Select子句]
 
     /// <inheritdoc />
-    public void AppendSql(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendSql( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.Append(sql);
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     /// <inheritdoc />
-    public void AppendSql(ISqlBuilder builder)
-    {
-        if (builder == null)
+    public void AppendSql( ISqlBuilder builder ) {
+        if( builder == null )
             return;
-        builder.AppendTo(Result);
+        builder.AppendTo( Result );
     }
 
     /// <inheritdoc />
-    public void AppendSql(Action<ISqlBuilder> action)
-    {
-        if (action == null)
+    public void AppendSql( Action<ISqlBuilder> action ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        AppendSql(builder);
+        action( builder );
+        AppendSql( builder );
     }
 
     #endregion
@@ -133,8 +119,7 @@ public class SelectClause : ClauseBase, ISelectClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return Result.Length > 0;
     }
 
@@ -143,13 +128,12 @@ public class SelectClause : ClauseBase, ISelectClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        builder.Append("Select ");
-        builder.Append(Result);
+        builder.Append( "Select " );
+        builder.Append( Result );
     }
 
     #endregion
@@ -157,8 +141,7 @@ public class SelectClause : ClauseBase, ISelectClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
     }
 
@@ -167,11 +150,10 @@ public class SelectClause : ClauseBase, ISelectClause
     #region Clone  [复制Select子句]
 
     /// <inheritdoc />
-    public virtual ISelectClause Clone(SqlBuilderBase builder)
-    {
+    public virtual ISelectClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
-        return new SelectClause(builder, result);
+        result.Append( Result );
+        return new SelectClause( builder , result );
     }
 
     #endregion

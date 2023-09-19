@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Meow.Domain.Compare;
+﻿using Meow.Domain.Compare;
 using Meow.Model;
 
 namespace Meow.Domain.Extension;
@@ -8,18 +6,16 @@ namespace Meow.Domain.Extension;
 /// <summary>
 /// 列表比较器扩展
 /// </summary>
-public static class ListCompareExtensions
-{
+public static class ListCompareExtensions {
     /// <summary>
     /// 比较
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="newList">新实体集合</param>
     /// <param name="originalList">旧实体集合</param>
-    public static ListCompareResult<TEntity, Guid> Compare<TEntity>(this IEnumerable<TEntity> newList, IEnumerable<TEntity> originalList)
-        where TEntity : IKey<Guid>
-    {
-        return newList.Compare<TEntity, Guid>(originalList);
+    public static ListCompareResult<TEntity , Guid> Compare<TEntity>( this IEnumerable<TEntity> newList , IEnumerable<TEntity> originalList )
+        where TEntity : IKey<Guid> {
+        return newList.Compare<TEntity , Guid>( originalList );
     }
 
     /// <summary>
@@ -29,11 +25,10 @@ public static class ListCompareExtensions
     /// <typeparam name="TKey">标识类型</typeparam>
     /// <param name="newList">新实体集合</param>
     /// <param name="originalList">旧实体集合</param>
-    public static ListCompareResult<TEntity, TKey> Compare<TEntity, TKey>(this IEnumerable<TEntity> newList, IEnumerable<TEntity> originalList)
-        where TEntity : IKey<TKey>
-    {
-        var comparator = new ListComparator<TEntity, TKey>();
-        return comparator.Compare(newList, originalList);
+    public static ListCompareResult<TEntity , TKey> Compare<TEntity, TKey>( this IEnumerable<TEntity> newList , IEnumerable<TEntity> originalList )
+        where TEntity : IKey<TKey> {
+        var comparator = new ListComparator<TEntity , TKey>();
+        return comparator.Compare( newList , originalList );
     }
 
     /// <summary>
@@ -41,10 +36,9 @@ public static class ListCompareExtensions
     /// </summary>
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
-    public static KeyListCompareResult<Guid> Compare(this IEnumerable<Guid> newList, IEnumerable<Guid> originalList)
-    {
+    public static KeyListCompareResult<Guid> Compare( this IEnumerable<Guid> newList , IEnumerable<Guid> originalList ) {
         var comparator = new KeyListComparator<Guid>();
-        return comparator.Compare(newList, originalList);
+        return comparator.Compare( newList , originalList );
     }
 
     /// <summary>
@@ -52,10 +46,9 @@ public static class ListCompareExtensions
     /// </summary>
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
-    public static KeyListCompareResult<string> Compare(this IEnumerable<string> newList, IEnumerable<string> originalList)
-    {
+    public static KeyListCompareResult<string> Compare( this IEnumerable<string> newList , IEnumerable<string> originalList ) {
         var comparator = new KeyListComparator<string>();
-        return comparator.Compare(newList, originalList);
+        return comparator.Compare( newList , originalList );
     }
 
     /// <summary>
@@ -63,10 +56,9 @@ public static class ListCompareExtensions
     /// </summary>
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
-    public static KeyListCompareResult<int> Compare(this IEnumerable<int> newList, IEnumerable<int> originalList)
-    {
+    public static KeyListCompareResult<int> Compare( this IEnumerable<int> newList , IEnumerable<int> originalList ) {
         var comparator = new KeyListComparator<int>();
-        return comparator.Compare(newList, originalList);
+        return comparator.Compare( newList , originalList );
     }
 
     /// <summary>
@@ -74,9 +66,8 @@ public static class ListCompareExtensions
     /// </summary>
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
-    public static KeyListCompareResult<long> Compare(this IEnumerable<long> newList, IEnumerable<long> originalList)
-    {
+    public static KeyListCompareResult<long> Compare( this IEnumerable<long> newList , IEnumerable<long> originalList ) {
         var comparator = new KeyListComparator<long>();
-        return comparator.Compare(newList, originalList);
+        return comparator.Compare( newList , originalList );
     }
 }

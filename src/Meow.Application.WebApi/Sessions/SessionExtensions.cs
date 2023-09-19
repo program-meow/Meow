@@ -111,21 +111,21 @@ public static class SessionExtensions
         return Meow.Helper.Convert.To<T>(Web.Identity.GetValue(ClaimTypes.TenantId));
     }
 
-    /// <summary>
-    /// 获取当前租户编码
-    /// </summary>
-    /// <param name="session">用户会话</param>
-    public static string GetTenantCode(this ISession session)
-    {
-        return Web.Identity.GetValue(ClaimTypes.TenantCode);
-    }
+    ///// <summary>
+    ///// 获取当前租户编码
+    ///// </summary>
+    ///// <param name="session">用户会话</param>
+    //public static string GetTenantCode(this ISession session)
+    //{
+    //    return Web.Identity.GetValue(ClaimTypes.TenantCode);
+    //}
 
-    /// <summary>
-    /// 获取当前租户名称
-    /// </summary>
-    /// <param name="session">用户会话</param>
-    public static string GetTenantName(this ISession session)
-    {
-        return Web.Identity.GetValue(ClaimTypes.TenantName);
-    }
+    ///// <summary>
+    ///// 获取当前租户名称
+    ///// </summary>
+    ///// <param name="session">用户会话</param>
+    //public static string GetTenantName(this ISession session)
+    //{
+    //    return Web.Identity.GetValue(ClaimTypes.TenantName);
+    //}
 }

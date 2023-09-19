@@ -1,6 +1,4 @@
-﻿using System;
-using Meow.Extension;
-using Microsoft.Extensions.Logging;
+﻿using Meow.Extension;
 using SystemException = System.Exception;
 
 namespace Meow.Logging;
@@ -9,8 +7,7 @@ namespace Meow.Logging;
 /// 日志操作
 /// </summary>
 /// <typeparam name="TCategoryName">日志类别</typeparam>
-public class Log<TCategoryName> : ILog<TCategoryName>
-{
+public class Log<TCategoryName> : ILog<TCategoryName> {
     /// <summary>
     /// 日志操作
     /// </summary>
@@ -20,10 +17,9 @@ public class Log<TCategoryName> : ILog<TCategoryName>
     /// 初始化日志操作
     /// </summary>
     /// <param name="factory">日志操作工厂</param>
-    public Log(ILogFactory factory)
-    {
-        factory.CheckNull(nameof(factory));
-        _log = factory.CreateLog(typeof(TCategoryName));
+    public Log( ILogFactory factory ) {
+        factory.CheckNull( nameof( factory ) );
+        _log = factory.CreateLog( typeof( TCategoryName ) );
     }
 
     /// <summary>
@@ -32,80 +28,67 @@ public class Log<TCategoryName> : ILog<TCategoryName>
     public static ILog<TCategoryName> Null = NullLog<TCategoryName>.Instance;
 
     /// <inheritdoc />
-    public ILog EventId(EventId eventId)
-    {
-        return _log.EventId(eventId);
+    public ILog EventId( EventId eventId ) {
+        return _log.EventId( eventId );
     }
 
     /// <inheritdoc />
-    public ILog Exception(SystemException exception)
-    {
-        return _log.Exception(exception);
+    public ILog Exception( SystemException exception ) {
+        return _log.Exception( exception );
     }
 
     /// <inheritdoc />
-    public ILog Property(string propertyName, string propertyValue)
-    {
-        return _log.Property(propertyName, propertyValue);
+    public ILog Property( string propertyName , string propertyValue ) {
+        return _log.Property( propertyName , propertyValue );
     }
 
     /// <inheritdoc />
-    public ILog State(object state)
-    {
-        return _log.State(state);
+    public ILog State( object state ) {
+        return _log.State( state );
     }
 
     /// <inheritdoc />
-    public ILog Message(string message, params object[] args)
-    {
-        return _log.Message(message, args);
+    public ILog Message( string message , params object[] args ) {
+        return _log.Message( message , args );
     }
 
     /// <inheritdoc />
-    public bool IsEnabled(LogLevel logLevel)
-    {
-        return _log.IsEnabled(logLevel);
+    public bool IsEnabled( LogLevel logLevel ) {
+        return _log.IsEnabled( logLevel );
     }
 
     /// <inheritdoc />
-    public IDisposable BeginScope<TState>(TState state)
-    {
-        return _log.BeginScope(state);
+    public IDisposable BeginScope<TState>( TState state ) {
+        return _log.BeginScope( state );
     }
 
     /// <inheritdoc />
-    public ILog LogTrace()
-    {
+    public ILog LogTrace() {
         return _log.LogTrace();
     }
 
     /// <inheritdoc />
-    public virtual ILog LogDebug()
-    {
+    public virtual ILog LogDebug() {
         return _log.LogDebug();
     }
 
     /// <inheritdoc />
-    public virtual ILog LogInformation()
-    {
+    public virtual ILog LogInformation() {
         return _log.LogInformation();
     }
 
     /// <inheritdoc />
-    public virtual ILog LogWarning()
-    {
+    public virtual ILog LogWarning() {
         return _log.LogWarning();
     }
 
     /// <inheritdoc />
-    public virtual ILog LogError()
-    {
+    public virtual ILog LogError() {
         return _log.LogError();
     }
 
     /// <inheritdoc />
-    public virtual ILog LogCritical()
-    {
+    public virtual ILog LogCritical() {
         return _log.LogCritical();
     }
 }

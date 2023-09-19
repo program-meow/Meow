@@ -1,12 +1,9 @@
-﻿using System.Data;
-
-namespace Meow.Data.Sql.Builder.Param;
+﻿namespace Meow.Data.Sql.Builder.Param;
 
 /// <summary>
 /// Sql参数
 /// </summary>
-public class SqlParam
-{
+public class SqlParam {
     /// <summary>
     /// 初始化Sql参数
     /// </summary>
@@ -17,8 +14,7 @@ public class SqlParam
     /// <param name="size">字段长度</param>
     /// <param name="precision">数值有效位数</param>
     /// <param name="scale">数值小数位数</param>
-    public SqlParam(string name, object value, DbType? dbType = null, ParameterDirection? direction = null, int? size = null, byte? precision = null, byte? scale = null)
-    {
+    public SqlParam( string name , object value , DbType? dbType = null , ParameterDirection? direction = null , int? size = null , byte? precision = null , byte? scale = null ) {
         Name = name;
         Value = value;
         Direction = direction;

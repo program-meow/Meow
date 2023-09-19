@@ -1,12 +1,9 @@
-﻿using System.Text;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Sql查询条件
 /// </summary>
-public class SqlCondition : ISqlCondition
-{
+public class SqlCondition : ISqlCondition {
     /// <summary>
     /// Sql查询条件
     /// </summary>
@@ -16,8 +13,7 @@ public class SqlCondition : ISqlCondition
     /// 初始化Sql查询条件
     /// </summary>
     /// <param name="condition">查询条件</param>
-    public SqlCondition(string condition)
-    {
+    public SqlCondition( string condition ) {
         _condition = condition;
     }
 
@@ -25,8 +21,7 @@ public class SqlCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.Append(_condition);
+    public void AppendTo( StringBuilder builder ) {
+        builder.Append( _condition );
     }
 }

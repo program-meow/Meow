@@ -3,6 +3,5 @@
 /// <summary>
 /// 扩展属性
 /// </summary>
-public interface IExtraProperties
-{
+public interface IExtraProperties {
 }

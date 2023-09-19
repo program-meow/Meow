@@ -7,8 +7,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// 起始子句操作扩展
 /// </summary>
-public static class StartClauseExtensions
-{
+public static class StartClauseExtensions {
+
     #region Cte  [设置公用表表达式CTE]
 
     /// <summary>
@@ -17,11 +17,10 @@ public static class StartClauseExtensions
     /// <param name="source">源</param>
     /// <param name="name">公用表表达式名称</param>
     /// <param name="builder">Sql生成器</param>
-    public static T Cte<T>(this T source, string name, ISqlBuilder builder) where T : IStart
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.StartClause.Cte(name, builder);
+    public static T Cte<T>( this T source , string name , ISqlBuilder builder ) where T : IStart {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.StartClause.Cte( name , builder );
         return source;
     }
 
@@ -35,11 +34,10 @@ public static class StartClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T Append<T>(this T source, string sql, bool raw = false) where T : IStart
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.StartClause.Append(sql, raw);
+    public static T Append<T>( this T source , string sql , bool raw = false ) where T : IStart {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.StartClause.Append( sql , raw );
         return source;
     }
 
@@ -53,11 +51,10 @@ public static class StartClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendLine<T>(this T source, string sql, bool raw = false) where T : IStart
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.StartClause.AppendLine(sql, raw);
+    public static T AppendLine<T>( this T source , string sql , bool raw = false ) where T : IStart {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.StartClause.AppendLine( sql , raw );
         return source;
     }
 
@@ -71,9 +68,8 @@ public static class StartClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendStart<T>(this T source, string sql, bool raw = false) where T : IStart
-    {
-        return source.Append(sql, raw);
+    public static T AppendStart<T>( this T source , string sql , bool raw = false ) where T : IStart {
+        return source.Append( sql , raw );
     }
 
     #endregion
@@ -84,10 +80,9 @@ public static class StartClauseExtensions
     /// 清理公用表表达式CTE
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearCte<T>(this T source) where T : IStart
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearCte<T>( this T source ) where T : IStart {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.StartClause.ClearCte();
         return source;
     }
@@ -100,10 +95,9 @@ public static class StartClauseExtensions
     /// 清理Sql起始子句
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearStart<T>(this T source) where T : IStart
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearStart<T>( this T source ) where T : IStart {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.StartClause.Clear();
         return source;
     }

@@ -1,12 +1,9 @@
-﻿using System.Text;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// And连接条件
 /// </summary>
-public class AndCondition : ISqlCondition
-{
+public class AndCondition : ISqlCondition {
     /// <summary>
     /// Sql条件1
     /// </summary>
@@ -21,8 +18,7 @@ public class AndCondition : ISqlCondition
     /// </summary>
     /// <param name="condition1">Sql条件1</param>
     /// <param name="condition2">Sql条件2</param>
-    public AndCondition(ISqlCondition condition1, ISqlCondition condition2 = null)
-    {
+    public AndCondition( ISqlCondition condition1 , ISqlCondition condition2 = null ) {
         _condition1 = condition1;
         _condition2 = condition2;
     }
@@ -31,27 +27,24 @@ public class AndCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        if (_condition1 == null && _condition2 == null)
+    public void AppendTo( StringBuilder builder ) {
+        if( _condition1 == null && _condition2 == null )
             return;
-        And(builder, _condition1);
-        And(builder, _condition2);
+        And( builder , _condition1 );
+        And( builder , _condition2 );
     }
 
     /// <summary>
     /// 与连接
     /// </summary>
-    private void And(StringBuilder builder, ISqlCondition condition)
-    {
-        if (condition == null || condition == NullCondition.Instance)
+    private void And( StringBuilder builder , ISqlCondition condition ) {
+        if( condition == null || condition == NullCondition.Instance )
             return;
-        if (builder.Length == 0)
-        {
-            condition.AppendTo(builder);
+        if( builder.Length == 0 ) {
+            condition.AppendTo( builder );
             return;
         }
-        builder.Append(" And ");
-        condition.AppendTo(builder);
+        builder.Append( " And " );
+        condition.AppendTo( builder );
     }
 }

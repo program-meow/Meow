@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Meow.Data.Sql.Builder.Param;
+﻿using Meow.Data.Sql.Builder.Param;
 using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Condition;
@@ -10,8 +6,7 @@ namespace Meow.Data.Sql.Builder.Condition;
 /// <summary>
 /// In查询条件
 /// </summary>
-public class InCondition : ISqlCondition
-{
+public class InCondition : ISqlCondition {
     /// <summary>
     /// Sql参数管理器
     /// </summary>
@@ -36,11 +31,10 @@ public class InCondition : ISqlCondition
     /// <param name="column">列名</param>
     /// <param name="value">值</param>
     /// <param name="isParameterization">是否参数化</param>
-    public InCondition(IParameterManager parameterManager, string column, object value, bool isParameterization)
-    {
-        ParameterManager = parameterManager ?? throw new ArgumentNullException(nameof(parameterManager));
-        if (string.IsNullOrWhiteSpace(column))
-            throw new ArgumentNullException(nameof(column));
+    public InCondition( IParameterManager parameterManager , string column , object value , bool isParameterization ) {
+        ParameterManager = parameterManager ?? throw new ArgumentNullException( nameof( parameterManager ) );
+        if( string.IsNullOrWhiteSpace( column ) )
+            throw new ArgumentNullException( nameof( column ) );
         Column = column;
         Value = value;
         IsParameterization = isParameterization;
@@ -50,22 +44,19 @@ public class InCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        if (Value is ISqlBuilder sqlBuilder)
-        {
-            AppendSqlBuilder(builder, Column, sqlBuilder);
+    public void AppendTo( StringBuilder builder ) {
+        if( Value is ISqlBuilder sqlBuilder ) {
+            AppendSqlBuilder( builder , Column , sqlBuilder );
             return;
         }
         List<object> values = GetValues();
-        if (values.Count == 0)
+        if( values.Count == 0 )
             return;
-        if (IsParameterization)
-        {
-            AppendParameterizedCondition(builder, values);
+        if( IsParameterization ) {
+            AppendParameterizedCondition( builder , values );
             return;
         }
-        AppendNonParameterizedCondition(builder, values);
+        AppendNonParameterizedCondition( builder , values );
     }
 
     /// <summary>
@@ -74,36 +65,32 @@ public class InCondition : ISqlCondition
     /// <param name="builder">字符串生成器</param>
     /// <param name="column">列名</param>
     /// <param name="sqlBuilder">Sql生成器</param>
-    protected virtual void AppendSqlBuilder(StringBuilder builder, string column, ISqlBuilder sqlBuilder)
-    {
-        builder.AppendFormat("{0} {1} ", column, GetOperator());
-        builder.Append("(");
-        sqlBuilder.AppendTo(builder);
-        builder.Append(")");
+    protected virtual void AppendSqlBuilder( StringBuilder builder , string column , ISqlBuilder sqlBuilder ) {
+        builder.AppendFormat( "{0} {1} " , column , GetOperator() );
+        builder.Append( "(" );
+        sqlBuilder.AppendTo( builder );
+        builder.Append( ")" );
     }
 
     /// <summary>
     /// 获取操作符关键字
     /// </summary>
-    protected virtual string GetOperator()
-    {
+    protected virtual string GetOperator() {
         return "In";
     }
 
     /// <summary>
     /// 获取值
     /// </summary>
-    private List<object> GetValues()
-    {
+    private List<object> GetValues() {
         IEnumerable values = Value as IEnumerable;
-        if (values == null)
+        if( values == null )
             return null;
         List<object> result = new List<object>();
-        foreach (object value in values)
-        {
-            if (value == null)
+        foreach( object value in values ) {
+            if( value == null )
                 continue;
-            result.Add(value);
+            result.Add( value );
         }
         return result;
     }
@@ -111,38 +98,32 @@ public class InCondition : ISqlCondition
     /// <summary>
     /// 添加参数化条件
     /// </summary>
-    protected virtual void AppendParameterizedCondition(StringBuilder builder, List<object> values)
-    {
-        builder.AppendFormat("{0} {1} (", Column, GetOperator());
-        foreach (object value in values)
-        {
+    protected virtual void AppendParameterizedCondition( StringBuilder builder , List<object> values ) {
+        builder.AppendFormat( "{0} {1} (" , Column , GetOperator() );
+        foreach( object value in values ) {
             string paramName = ParameterManager.GenerateName();
-            builder.AppendFormat("{0},", paramName);
-            ParameterManager.Add(paramName, value);
+            builder.AppendFormat( "{0}," , paramName );
+            ParameterManager.Add( paramName , value );
         }
-        builder.RemoveEnd(",").Append(")");
+        builder.RemoveEnd( "," ).Append( ")" );
     }
 
     /// <summary>
     /// 添加非参数化条件
     /// </summary>
-    protected virtual void AppendNonParameterizedCondition(StringBuilder builder, List<object> values)
-    {
-        builder.AppendFormat("{0} {1} (", Column, GetOperator());
-        foreach (object value in values)
-        {
-            builder.AppendFormat("{0},", GetFormattedValue(value));
+    protected virtual void AppendNonParameterizedCondition( StringBuilder builder , List<object> values ) {
+        builder.AppendFormat( "{0} {1} (" , Column , GetOperator() );
+        foreach( object value in values ) {
+            builder.AppendFormat( "{0}," , GetFormattedValue( value ) );
         }
-        builder.RemoveEnd(",").Append(")");
+        builder.RemoveEnd( "," ).Append( ")" );
     }
 
     /// <summary>
     /// 获取格式化后的值
     /// </summary>
-    private string GetFormattedValue(object value)
-    {
-        switch (value.GetType().ToString())
-        {
+    private string GetFormattedValue( object value ) {
+        switch( value.GetType().ToString() ) {
             case "System.String":
                 return $"'{value}'";
             default:

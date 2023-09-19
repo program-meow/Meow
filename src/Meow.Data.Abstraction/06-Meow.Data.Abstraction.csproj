@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Data.Abstraction 是 Meow 应用框架数据访问基础契约库。
+			Meow.Data.Abstraction 是 Meow 数据访问基础契约库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

@@ -3,8 +3,7 @@
 /// <summary>
 /// double范围查询参数对象 - 使用该对象的目的是构建参数化条件
 /// </summary>
-internal class DoubleQuery
-{
+internal class DoubleQuery {
     /// <summary>
     /// 最小值
     /// </summary>

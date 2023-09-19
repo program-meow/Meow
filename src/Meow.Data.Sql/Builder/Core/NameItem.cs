@@ -1,33 +1,28 @@
-﻿using System;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Core;
 
 /// <summary>
 /// 名称项,用于拆分列名或表名
 /// </summary>
-public class NameItem
-{
+public class NameItem {
     /// <summary>
     /// 初始化名称项
     /// </summary>
     /// <param name="name">名称</param>
-    public NameItem(string name)
-    {
-        Resolve(name);
+    public NameItem( string name ) {
+        Resolve( name );
     }
 
     /// <summary>
     /// 解析
     /// </summary>
-    private void Resolve(string name)
-    {
-        name = Filter(name);
-        SplitItem asItem = new SplitItem(name);
+    private void Resolve( string name ) {
+        name = Filter( name );
+        SplitItem asItem = new SplitItem( name );
         Alias = asItem.Right;
-        SplitItem dotItem = new SplitItem(asItem.Left, ".");
-        if (dotItem.Right.IsEmpty())
-        {
+        SplitItem dotItem = new SplitItem( asItem.Left , "." );
+        if( dotItem.Right.IsEmpty() ) {
             Name = dotItem.Left;
             return;
         }
@@ -38,26 +33,23 @@ public class NameItem
     /// <summary>
     /// 过滤
     /// </summary>
-    private string Filter(string name)
-    {
-        name = FilterAs(name);
-        return FilterDotSpace(name);
+    private string Filter( string name ) {
+        name = FilterAs( name );
+        return FilterDotSpace( name );
     }
 
     /// <summary>
     /// 过滤as关键字,替换为空格
     /// </summary>
-    private string FilterAs(string name)
-    {
-        return name.Replace(" as ", " ", StringComparison.OrdinalIgnoreCase);
+    private string FilterAs( string name ) {
+        return name.Replace( " as " , " " , StringComparison.OrdinalIgnoreCase );
     }
 
     /// <summary>
     /// 过滤.前后空格
     /// </summary>
-    private string FilterDotSpace(string name)
-    {
-        return name.Replace(@" .", ".").Replace(@". ", ".");
+    private string FilterDotSpace( string name ) {
+        return name.Replace( @" ." , "." ).Replace( @". " , "." );
     }
 
     /// <summary>

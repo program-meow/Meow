@@ -3,6 +3,5 @@
 /// <summary>
 /// Select子句操作
 /// </summary>
-public interface ISelect
-{
+public interface ISelect {
 }

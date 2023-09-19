@@ -3,6 +3,5 @@
 /// <summary>
 /// OrderBy子句操作
 /// </summary>
-public interface IOrderBy
-{
+public interface IOrderBy {
 }

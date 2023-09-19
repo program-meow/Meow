@@ -1,5 +1,4 @@
-﻿using System;
-using Meow.Data.Store;
+﻿using Meow.Data.Store;
 using Meow.Domain.Entity;
 
 namespace Meow.Domain.Repository;
@@ -8,8 +7,7 @@ namespace Meow.Domain.Repository;
 /// 查询仓储
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public interface IQueryRepository<TEntity> : IQueryRepository<TEntity, Guid> where TEntity : class, IAggregateRoot<Guid>
-{
+public interface IQueryRepository<TEntity> : IQueryRepository<TEntity , Guid> where TEntity : class, IAggregateRoot<Guid> {
 }
 
 /// <summary>
@@ -17,6 +15,5 @@ public interface IQueryRepository<TEntity> : IQueryRepository<TEntity, Guid> whe
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
 /// <typeparam name="TKey">实体标识类型</typeparam>
-public interface IQueryRepository<TEntity, in TKey> : IQueryStore<TEntity, TKey> where TEntity : class, IAggregateRoot<TKey>
-{
+public interface IQueryRepository<TEntity, in TKey> : IQueryStore<TEntity , TKey> where TEntity : class, IAggregateRoot<TKey> {
 }

@@ -3,15 +3,13 @@
 /// <summary>
 /// Sql生成器集合项
 /// </summary>
-public class SqlBuilderSetItem
-{
+public class SqlBuilderSetItem {
     /// <summary>
     /// 初始化Sql生成器集合项
     /// </summary>
     /// <param name="operator">操作</param>
     /// <param name="builder">Sql生成器实例</param>
-    public SqlBuilderSetItem(string @operator, ISqlBuilder builder)
-    {
+    public SqlBuilderSetItem( string @operator , ISqlBuilder builder ) {
         Operator = @operator;
         Builder = builder;
     }
@@ -29,8 +27,7 @@ public class SqlBuilderSetItem
     /// <summary>
     /// 复制Sql生成器集合项
     /// </summary>
-    public SqlBuilderSetItem Clone()
-    {
-        return new SqlBuilderSetItem(Operator, Builder.Clone());
+    public SqlBuilderSetItem Clone() {
+        return new SqlBuilderSetItem( Operator , Builder.Clone() );
     }
 }

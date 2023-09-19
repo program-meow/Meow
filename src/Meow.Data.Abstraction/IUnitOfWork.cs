@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meow.Data.Filter;
+﻿using Meow.Data.Filter;
 
 namespace Meow.Data;
 
@@ -8,8 +6,7 @@ namespace Meow.Data;
 /// 工作单元
 /// </summary>
 [Meow.Aop.Ignore]
-public interface IUnitOfWork : IDisposable, IFilterOperation
-{
+public interface IUnitOfWork : IDisposable, IFilterOperation {
     /// <summary>
     /// 提交,返回影响的行数
     /// </summary>

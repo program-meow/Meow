@@ -1,13 +1,9 @@
-﻿using System;
-using System.Text;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Exists查询条件
 /// </summary>
-public class ExistsCondition : ISqlCondition
-{
+public class ExistsCondition : ISqlCondition {
     /// <summary>
     /// 子查询Sql生成器
     /// </summary>
@@ -17,8 +13,7 @@ public class ExistsCondition : ISqlCondition
     /// 初始化Exists查询条件
     /// </summary>
     /// <param name="builder">子查询Sql生成器</param>
-    public ExistsCondition(ISqlBuilder builder)
-    {
+    public ExistsCondition( ISqlBuilder builder ) {
         _sqlBuilder = builder;
     }
 
@@ -27,12 +22,11 @@ public class ExistsCondition : ISqlCondition
     /// </summary>
     /// <param name="builder">字符串生成器</param>
     /// <exception cref="NotImplementedException"></exception>
-    public void AppendTo(StringBuilder builder)
-    {
-        if (_sqlBuilder == null)
+    public void AppendTo( StringBuilder builder ) {
+        if( _sqlBuilder == null )
             return;
-        builder.Append("Exists (");
-        _sqlBuilder.AppendTo(builder);
-        builder.Append(")");
+        builder.Append( "Exists (" );
+        _sqlBuilder.AppendTo( builder );
+        builder.Append( ")" );
     }
 }

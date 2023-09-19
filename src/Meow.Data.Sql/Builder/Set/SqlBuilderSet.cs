@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Meow.Data.Sql.Builder.Clause;
+﻿using Meow.Data.Sql.Builder.Clause;
 using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Set;
@@ -10,8 +6,8 @@ namespace Meow.Data.Sql.Builder.Set;
 /// <summary>
 /// Sql生成器集合
 /// </summary>
-public class SqlBuilderSet : ISqlBuilderSet
-{
+public class SqlBuilderSet : ISqlBuilderSet {
+
     #region 字段
 
     /// <summary>
@@ -32,9 +28,8 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// </summary>
     /// <param name="builder">主Sql生成器</param>
     /// <param name="setItems">Sql生成器集合</param>
-    public SqlBuilderSet(ISqlBuilder builder, List<SqlBuilderSetItem> setItems = null)
-    {
-        MasterBuilder = builder ?? throw new ArgumentNullException(nameof(builder));
+    public SqlBuilderSet( ISqlBuilder builder , List<SqlBuilderSetItem> setItems = null ) {
+        MasterBuilder = builder ?? throw new ArgumentNullException( nameof( builder ) );
         SetItems = setItems ?? new List<SqlBuilderSetItem>();
     }
 
@@ -47,13 +42,11 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// </summary>
     /// <param name="operator">操作符</param>
     /// <param name="builders">Sql生成器集合</param>
-    protected void Set(string @operator, IEnumerable<ISqlBuilder> builders)
-    {
-        if (builders == null)
+    protected void Set( string @operator , IEnumerable<ISqlBuilder> builders ) {
+        if( builders == null )
             return;
-        foreach (ISqlBuilder builder in builders)
-        {
-            SetItems.Add(new SqlBuilderSetItem(@operator, builder));
+        foreach( ISqlBuilder builder in builders ) {
+            SetItems.Add( new SqlBuilderSetItem( @operator , builder ) );
         }
     }
 
@@ -65,18 +58,16 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Union(params ISqlBuilder[] builders)
-    {
-        Set("Union", builders);
+    public virtual void Union( params ISqlBuilder[] builders ) {
+        Set( "Union" , builders );
     }
 
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Union(IEnumerable<ISqlBuilder> builders)
-    {
-        Set("Union", builders);
+    public virtual void Union( IEnumerable<ISqlBuilder> builders ) {
+        Set( "Union" , builders );
     }
 
     #endregion
@@ -87,18 +78,16 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void UnionAll(params ISqlBuilder[] builders)
-    {
-        Set("Union All", builders);
+    public virtual void UnionAll( params ISqlBuilder[] builders ) {
+        Set( "Union All" , builders );
     }
 
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void UnionAll(IEnumerable<ISqlBuilder> builders)
-    {
-        Set("Union All", builders);
+    public virtual void UnionAll( IEnumerable<ISqlBuilder> builders ) {
+        Set( "Union All" , builders );
     }
 
     #endregion
@@ -109,18 +98,16 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// 交集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Intersect(params ISqlBuilder[] builders)
-    {
-        Set("Intersect", builders);
+    public virtual void Intersect( params ISqlBuilder[] builders ) {
+        Set( "Intersect" , builders );
     }
 
     /// <summary>
     /// 交集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Intersect(IEnumerable<ISqlBuilder> builders)
-    {
-        Set("Intersect", builders);
+    public virtual void Intersect( IEnumerable<ISqlBuilder> builders ) {
+        Set( "Intersect" , builders );
     }
 
     #endregion
@@ -131,18 +118,16 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// 差集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Except(params ISqlBuilder[] builders)
-    {
-        Set("Except", builders);
+    public virtual void Except( params ISqlBuilder[] builders ) {
+        Set( "Except" , builders );
     }
 
     /// <summary>
     /// 差集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    public virtual void Except(IEnumerable<ISqlBuilder> builders)
-    {
-        Set("Except", builders);
+    public virtual void Except( IEnumerable<ISqlBuilder> builders ) {
+        Set( "Except" , builders );
     }
 
     #endregion
@@ -152,9 +137,8 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// <summary>
     /// 获取结果
     /// </summary>
-    public string ToResult()
-    {
-        if (SetItems.Count == 0)
+    public string ToResult() {
+        if( SetItems.Count == 0 )
             return GetMasterResult();
         return GetSetResult();
     }
@@ -162,92 +146,84 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// <summary>
     /// 获取主查询结果
     /// </summary>
-    protected virtual string GetMasterResult()
-    {
+    protected virtual string GetMasterResult() {
         StringBuilder builder = new StringBuilder();
-        MasterBuilder.AppendTo(builder);
+        MasterBuilder.AppendTo( builder );
         return builder.ToString();
     }
 
     /// <summary>
     /// 获取集合操作结果
     /// </summary>
-    protected virtual string GetSetResult()
-    {
+    protected virtual string GetSetResult() {
         StringBuilder builder = new StringBuilder();
-        AppendMasterSql(builder);
-        AppendSetSql(builder);
-        AppendEndSql(builder);
+        AppendMasterSql( builder );
+        AppendSetSql( builder );
+        AppendEndSql( builder );
         return builder.ToString();
     }
 
     /// <summary>
     /// 添加主查询结果
     /// </summary>
-    protected virtual void AppendMasterSql(StringBuilder result)
-    {
-        ISqlPartAccessor accessor = ToSqlPartAccessor(MasterBuilder);
-        AppendSql(result, accessor.StartClause);
-        result.AppendLine("(");
-        AppendSql(result, accessor.SelectClause);
-        AppendSql(result, accessor.FromClause);
-        AppendSql(result, accessor.JoinClause);
-        AppendSql(result, accessor.WhereClause);
-        AppendSql(result, accessor.GroupByClause);
-        result.AppendLine(")");
+    protected virtual void AppendMasterSql( StringBuilder result ) {
+        ISqlPartAccessor accessor = ToSqlPartAccessor( MasterBuilder );
+        AppendSql( result , accessor.StartClause );
+        result.AppendLine( "(" );
+        AppendSql( result , accessor.SelectClause );
+        AppendSql( result , accessor.FromClause );
+        AppendSql( result , accessor.JoinClause );
+        AppendSql( result , accessor.WhereClause );
+        AppendSql( result , accessor.GroupByClause );
+        result.AppendLine( ")" );
     }
 
     /// <summary>
     /// 添加集合Sql
     /// </summary>
-    protected virtual void AppendSetSql(StringBuilder result)
-    {
-        foreach (SqlBuilderSetItem item in SetItems)
-        {
-            ISqlPartAccessor accessor = ToSqlPartAccessor(item.Builder);
-            result.AppendFormat("{0} ", item.Operator);
+    protected virtual void AppendSetSql( StringBuilder result ) {
+        foreach( SqlBuilderSetItem item in SetItems ) {
+            ISqlPartAccessor accessor = ToSqlPartAccessor( item.Builder );
+            result.AppendFormat( "{0} " , item.Operator );
             result.AppendLine();
-            result.AppendLine("(");
-            AppendSql(result, accessor.SelectClause);
-            AppendSql(result, accessor.FromClause);
-            AppendSql(result, accessor.JoinClause);
-            AppendSql(result, accessor.WhereClause);
-            AppendSql(result, accessor.GroupByClause);
-            result.AppendLine(")");
+            result.AppendLine( "(" );
+            AppendSql( result , accessor.SelectClause );
+            AppendSql( result , accessor.FromClause );
+            AppendSql( result , accessor.JoinClause );
+            AppendSql( result , accessor.WhereClause );
+            AppendSql( result , accessor.GroupByClause );
+            result.AppendLine( ")" );
         }
     }
 
     /// <summary>
     /// 添加结束Sql
     /// </summary>
-    protected virtual void AppendEndSql(StringBuilder result)
-    {
-        ISqlPartAccessor accessor = ToSqlPartAccessor(MasterBuilder);
-        AppendSql(result, accessor.OrderByClause);
-        AppendSql(result, accessor.EndClause);
-        result.RemoveEnd($" {Meow.Helper.String.Line}");
+    protected virtual void AppendEndSql( StringBuilder result ) {
+        ISqlPartAccessor accessor = ToSqlPartAccessor( MasterBuilder );
+        AppendSql( result , accessor.OrderByClause );
+        AppendSql( result , accessor.EndClause );
+        result.RemoveEnd( $" {Meow.Helper.String.Line}" );
     }
 
     /// <summary>
     /// 转换为Sql组件访问器
     /// </summary>
-    protected ISqlPartAccessor ToSqlPartAccessor(ISqlBuilder builder)
-    {
+    protected ISqlPartAccessor ToSqlPartAccessor( ISqlBuilder builder ) {
         ISqlPartAccessor accessor = builder as ISqlPartAccessor;
-        if (accessor == null)
-            throw new NotImplementedException(nameof(ISqlPartAccessor));
+        if( accessor == null )
+            throw new NotImplementedException( nameof( ISqlPartAccessor ) );
         return accessor;
     }
 
     /// <summary>
     /// 添加Sql
     /// </summary>
-    protected void AppendSql(StringBuilder builder, ISqlClause content)
-    {
-        if (content.Validate() == false)
+    protected void AppendSql( StringBuilder builder , ISqlClause content ) {
+        if( content.Validate() == false )
             return;
-        content.AppendTo(builder);
-        builder.AppendLine(" ");
+        content.AppendTo( builder );
+        builder.AppendLine( " " );
     }
 
     #endregion
@@ -257,8 +233,7 @@ public class SqlBuilderSet : ISqlBuilderSet
     /// <summary>
     /// 清理
     /// </summary>
-    public void Clear()
-    {
+    public void Clear() {
         SetItems.Clear();
     }
 
@@ -267,9 +242,8 @@ public class SqlBuilderSet : ISqlBuilderSet
     #region Clone  [复制Sql生成器集合]
 
     /// <inheritdoc />
-    public virtual ISqlBuilderSet Clone(SqlBuilderBase builder)
-    {
-        return new SqlBuilderSet(builder, SetItems.Select(t => t.Clone()).ToList());
+    public virtual ISqlBuilderSet Clone( SqlBuilderBase builder ) {
+        return new SqlBuilderSet( builder , SetItems.Select( t => t.Clone() ).ToList() );
     }
 
     #endregion

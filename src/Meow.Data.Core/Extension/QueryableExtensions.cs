@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Linq.Dynamic.Core;
-using Meow.Data.Query;
+﻿using Meow.Data.Query;
 using Meow.Data.Query.Condition;
 using Meow.Extension;
 using Meow.Query;
@@ -12,8 +8,7 @@ namespace Meow.Data.Extension;
 /// <summary>
 /// 查询对象扩展
 /// </summary>
-public static class QueryableExtensions
-{
+public static class QueryableExtensions {
     #region Where  [添加查询条件对象]
 
     /// <summary>
@@ -22,14 +17,13 @@ public static class QueryableExtensions
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="source">源</param>
     /// <param name="condition">查询条件</param>
-    public static IQueryable<TEntity> Where<TEntity>(this IQueryable<TEntity> source, ICondition<TEntity> condition) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        condition.CheckNull(nameof(condition));
-        Expression<Func<TEntity, bool>> predicate = condition.GetCondition();
-        if (predicate == null)
+    public static IQueryable<TEntity> Where<TEntity>( this IQueryable<TEntity> source , ICondition<TEntity> condition ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        condition.CheckNull( nameof( condition ) );
+        Expression<Func<TEntity , bool>> predicate = condition.GetCondition();
+        if( predicate == null )
             return source;
-        return source.Where(predicate);
+        return source.Where( predicate );
     }
 
     #endregion
@@ -43,10 +37,9 @@ public static class QueryableExtensions
     /// <param name="source">数据源</param>
     /// <param name="predicate">查询条件</param>
     /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
-    public static IQueryable<TEntity> WhereIf<TEntity>(this IQueryable<TEntity> source, Expression<Func<TEntity, bool>> predicate, bool condition) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return condition ? source.Where(predicate) : source;
+    public static IQueryable<TEntity> WhereIf<TEntity>( this IQueryable<TEntity> source , Expression<Func<TEntity , bool>> predicate , bool condition ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return condition ? source.Where( predicate ) : source;
     }
 
     #endregion
@@ -60,10 +53,9 @@ public static class QueryableExtensions
     /// <param name="source">数据源</param>
     /// <param name="condition">查询条件,如果参数值为空，则忽略该查询条件，范例：t => t.Name == ""，该查询条件被忽略。
     /// 注意：一次仅能添加一个条件，范例：t => t.Name == "a" &amp;&amp; t.Mobile == "123"，不支持，将抛出异常</param>
-    public static IQueryable<TEntity> WhereIfNotEmpty<TEntity>(this IQueryable<TEntity> source, Expression<Func<TEntity, bool>> condition) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return source.Where(new WhereIfNotEmptyCondition<TEntity>(condition));
+    public static IQueryable<TEntity> WhereIfNotEmpty<TEntity>( this IQueryable<TEntity> source , Expression<Func<TEntity , bool>> condition ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return source.Where( new WhereIfNotEmptyCondition<TEntity>( condition ) );
     }
 
     #endregion
@@ -81,11 +73,10 @@ public static class QueryableExtensions
     /// 注意：一次仅能添加一个条件，范例：t => t.Name == "a" &amp;&amp; t.Mobile == "123"，不支持，将抛出异常</param>
     /// <param name="conditions">查询条件列表,如果参数值为空，则忽略该查询条件，范例：t => t.Name == ""，该查询条件被忽略。
     /// 注意：一次仅能添加一个条件，范例：t => t.Name == "a" &amp;&amp; t.Mobile == "123"，不支持，将抛出异常</param>
-    public static IQueryable<TEntity> OrIfNotEmpty<TEntity>(this IQueryable<TEntity> source, Expression<Func<TEntity, bool>> condition1,
-        Expression<Func<TEntity, bool>> condition2, params Expression<Func<TEntity, bool>>[] conditions) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return source.Where(new OrIfNotEmptyCondition<TEntity>(condition1, condition2, conditions));
+    public static IQueryable<TEntity> OrIfNotEmpty<TEntity>( this IQueryable<TEntity> source , Expression<Func<TEntity , bool>> condition1 ,
+        Expression<Func<TEntity , bool>> condition2 , params Expression<Func<TEntity , bool>>[] conditions ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return source.Where( new OrIfNotEmptyCondition<TEntity>( condition1 , condition2 , conditions ) );
     }
 
     #endregion
@@ -102,10 +93,9 @@ public static class QueryableExtensions
     /// <param name="min">最小值</param>
     /// <param name="max">最大值</param>
     /// <param name="boundary">包含边界</param>
-    public static IQueryable<TEntity> Between<TEntity, TProperty>(this IQueryable<TEntity> source, Expression<Func<TEntity, TProperty>> propertyExpression, int? min, int? max, BoundaryEnum boundary = BoundaryEnum.Both) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return source.Where(new IntSegmentCondition<TEntity, TProperty>(propertyExpression, min, max, boundary));
+    public static IQueryable<TEntity> Between<TEntity, TProperty>( this IQueryable<TEntity> source , Expression<Func<TEntity , TProperty>> propertyExpression , int? min , int? max , BoundaryEnum boundary = BoundaryEnum.Both ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return source.Where( new IntSegmentCondition<TEntity , TProperty>( propertyExpression , min , max , boundary ) );
     }
 
     /// <summary>
@@ -118,10 +108,9 @@ public static class QueryableExtensions
     /// <param name="min">最小值</param>
     /// <param name="max">最大值</param>
     /// <param name="boundary">包含边界</param>
-    public static IQueryable<TEntity> Between<TEntity, TProperty>(this IQueryable<TEntity> source, Expression<Func<TEntity, TProperty>> propertyExpression, double? min, double? max, BoundaryEnum boundary = BoundaryEnum.Both) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return source.Where(new DoubleSegmentCondition<TEntity, TProperty>(propertyExpression, min, max, boundary));
+    public static IQueryable<TEntity> Between<TEntity, TProperty>( this IQueryable<TEntity> source , Expression<Func<TEntity , TProperty>> propertyExpression , double? min , double? max , BoundaryEnum boundary = BoundaryEnum.Both ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return source.Where( new DoubleSegmentCondition<TEntity , TProperty>( propertyExpression , min , max , boundary ) );
     }
 
     /// <summary>
@@ -134,10 +123,9 @@ public static class QueryableExtensions
     /// <param name="min">最小值</param>
     /// <param name="max">最大值</param>
     /// <param name="boundary">包含边界</param>
-    public static IQueryable<TEntity> Between<TEntity, TProperty>(this IQueryable<TEntity> source, Expression<Func<TEntity, TProperty>> propertyExpression, decimal? min, decimal? max, BoundaryEnum boundary = BoundaryEnum.Both) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        return source.Where(new DecimalSegmentCondition<TEntity, TProperty>(propertyExpression, min, max, boundary));
+    public static IQueryable<TEntity> Between<TEntity, TProperty>( this IQueryable<TEntity> source , Expression<Func<TEntity , TProperty>> propertyExpression , decimal? min , decimal? max , BoundaryEnum boundary = BoundaryEnum.Both ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        return source.Where( new DecimalSegmentCondition<TEntity , TProperty>( propertyExpression , min , max , boundary ) );
     }
 
     /// <summary>
@@ -151,13 +139,12 @@ public static class QueryableExtensions
     /// <param name="max">最大值</param>
     /// <param name="includeTime">是否包含时间</param>
     /// <param name="boundary">包含边界</param>
-    public static IQueryable<TEntity> Between<TEntity, TProperty>(this IQueryable<TEntity> source, Expression<Func<TEntity, TProperty>> propertyExpression, DateTime? min, DateTime? max, bool includeTime = true, BoundaryEnum boundary = BoundaryEnum.Both) where TEntity : class
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (includeTime)
-            return source.Where(new DateTimeSegmentCondition<TEntity, TProperty>(propertyExpression, min, max, boundary));
-        return source.Where(new DateSegmentCondition<TEntity, TProperty>(propertyExpression, min, max, boundary));
+    public static IQueryable<TEntity> Between<TEntity, TProperty>( this IQueryable<TEntity> source , Expression<Func<TEntity , TProperty>> propertyExpression , DateTime? min , DateTime? max , bool includeTime = true , BoundaryEnum boundary = BoundaryEnum.Both ) where TEntity : class {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( includeTime )
+            return source.Where( new DateTimeSegmentCondition<TEntity , TProperty>( propertyExpression , min , max , boundary ) );
+        return source.Where( new DateSegmentCondition<TEntity , TProperty>( propertyExpression , min , max , boundary ) );
     }
 
     #endregion
@@ -171,25 +158,23 @@ public static class QueryableExtensions
     /// <param name="source">源</param>
     /// <param name="parameter">分页参数</param>
     /// <param name="defaultOrder">默认排序属性,如果未设置排序条件,则使用该排序属性,范例: "Id"</param>
-    public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, IPage parameter, string defaultOrder = null) where TEntity : class
-    {
-        source.CheckNull(nameof(source));
-        parameter.CheckNull(nameof(parameter));
-        InitOrder(source, parameter, defaultOrder);
-        return parameter.Order.IsEmpty() ? source : source.OrderBy(parameter.Order);
+    public static IQueryable<TEntity> OrderBy<TEntity>( this IQueryable<TEntity> source , IPage parameter , string defaultOrder = null ) where TEntity : class {
+        source.CheckNull( nameof( source ) );
+        parameter.CheckNull( nameof( parameter ) );
+        InitOrder( source , parameter , defaultOrder );
+        return parameter.Order.IsEmpty() ? source : source.OrderBy( parameter.Order );
     }
 
     /// <summary>
     /// 初始化排序
     /// </summary>
-    private static void InitOrder<TEntity>(IQueryable<TEntity> source, IPage parameter, string defaultOrder)
-    {
-        if (parameter.Order.IsEmpty() == false)
+    private static void InitOrder<TEntity>( IQueryable<TEntity> source , IPage parameter , string defaultOrder ) {
+        if( parameter.Order.IsEmpty() == false )
             return;
         string expression = source.Expression.SafeString();
-        if (expression.Contains(".OrderBy(") || expression.Contains(".OrderByDescending("))
+        if( expression.Contains( ".OrderBy(" ) || expression.Contains( ".OrderByDescending(" ) )
             return;
-        if (defaultOrder.IsEmpty())
+        if( defaultOrder.IsEmpty() )
             return;
         parameter.Order = defaultOrder;
     }

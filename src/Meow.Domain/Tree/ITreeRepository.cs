@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Meow.Domain.Repository;
+﻿using Meow.Domain.Repository;
 
 namespace Meow.Domain.Tree;
 
@@ -9,8 +6,7 @@ namespace Meow.Domain.Tree;
 /// 树形仓储
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public interface ITreeRepository<TEntity> : ITreeRepository<TEntity, Guid, Guid?> where TEntity : class, ITreeEntity<TEntity, Guid, Guid?>
-{
+public interface ITreeRepository<TEntity> : ITreeRepository<TEntity , Guid , Guid?> where TEntity : class, ITreeEntity<TEntity , Guid , Guid?> {
 }
 
 /// <summary>
@@ -19,12 +15,11 @@ public interface ITreeRepository<TEntity> : ITreeRepository<TEntity, Guid, Guid?
 /// <typeparam name="TEntity">实体类型</typeparam>
 /// <typeparam name="TKey">实体标识类型</typeparam>
 /// <typeparam name="TParentId">父标识类型</typeparam>
-public interface ITreeRepository<TEntity, in TKey, in TParentId> : IRepository<TEntity, TKey>
-    where TEntity : class, ITreeEntity<TEntity, TKey, TParentId>
-{
+public interface ITreeRepository<TEntity, in TKey, in TParentId> : IRepository<TEntity , TKey>
+    where TEntity : class, ITreeEntity<TEntity , TKey , TParentId> {
     /// <summary>
     /// 获取全部下级实体
     /// </summary>
     /// <param name="parent">父实体</param>
-    Task<List<TEntity>> GetAllChildrenAsync(TEntity parent);
+    Task<List<TEntity>> GetAllChildrenAsync( TEntity parent );
 }

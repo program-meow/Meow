@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Logging 是 Meow 应用框架的日志操作核心类库。
+			Meow.Logging 是 Meow 日志操作核心类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

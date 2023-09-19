@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Meow.Data.Sql.Builder;
+﻿using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Builder.Operation;
 using Meow.Extension;
 
@@ -8,8 +7,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// Sql生成器集合操作扩展
 /// </summary>
-public static class SqlBuilderSetExtensions
-{
+public static class SqlBuilderSetExtensions {
+
     #region Union  [合并结果集]
 
     /// <summary>
@@ -17,11 +16,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Union<T>(this T source, params ISqlBuilder[] builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Union(builders);
+    public static T Union<T>( this T source , params ISqlBuilder[] builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Union( builders );
         return source;
     }
 
@@ -30,11 +28,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Union<T>(this T source, IEnumerable<ISqlBuilder> builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Union(builders);
+    public static T Union<T>( this T source , IEnumerable<ISqlBuilder> builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Union( builders );
         return source;
     }
 
@@ -47,11 +44,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T UnionAll<T>(this T source, params ISqlBuilder[] builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.UnionAll(builders);
+    public static T UnionAll<T>( this T source , params ISqlBuilder[] builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.UnionAll( builders );
         return source;
     }
 
@@ -60,11 +56,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T UnionAll<T>(this T source, IEnumerable<ISqlBuilder> builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.UnionAll(builders);
+    public static T UnionAll<T>( this T source , IEnumerable<ISqlBuilder> builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.UnionAll( builders );
         return source;
     }
 
@@ -77,11 +72,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Intersect<T>(this T source, params ISqlBuilder[] builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Intersect(builders);
+    public static T Intersect<T>( this T source , params ISqlBuilder[] builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Intersect( builders );
         return source;
     }
 
@@ -90,11 +84,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Intersect<T>(this T source, IEnumerable<ISqlBuilder> builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Intersect(builders);
+    public static T Intersect<T>( this T source , IEnumerable<ISqlBuilder> builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Intersect( builders );
         return source;
     }
 
@@ -107,11 +100,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Except<T>(this T source, params ISqlBuilder[] builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Except(builders);
+    public static T Except<T>( this T source , params ISqlBuilder[] builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Except( builders );
         return source;
     }
 
@@ -120,11 +112,10 @@ public static class SqlBuilderSetExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="builders">Sql生成器集合</param>
-    public static T Except<T>(this T source, IEnumerable<ISqlBuilder> builders) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.SqlBuilderSet.Except(builders);
+    public static T Except<T>( this T source , IEnumerable<ISqlBuilder> builders ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.SqlBuilderSet.Except( builders );
         return source;
     }
 
@@ -136,10 +127,9 @@ public static class SqlBuilderSetExtensions
     /// 清理Union等集合操作
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearSets<T>(this T source) where T : ISet
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearSets<T>( this T source ) where T : ISet {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.SqlBuilderSet.Clear();
         return source;
     }

@@ -1,17 +1,14 @@
-﻿using System.Data;
-
-namespace Meow.Data.Sql.Database;
+﻿namespace Meow.Data.Sql.Database;
 
 /// <summary>
 /// 数据库事务管理器
 /// </summary>
-public interface ITransactionManager
-{
+public interface ITransactionManager {
     /// <summary>
     /// 设置数据库事务
     /// </summary>
     /// <param name="transaction">数据库事务</param>
-    void SetTransaction(IDbTransaction transaction);
+    void SetTransaction( IDbTransaction transaction );
     /// <summary>
     /// 获取数据库事务
     /// </summary>
@@ -24,7 +21,7 @@ public interface ITransactionManager
     /// 开始事务
     /// </summary>
     /// <param name="isolationLevel">事务隔离级别</param>
-    IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
+    IDbTransaction BeginTransaction( IsolationLevel isolationLevel );
     /// <summary>
     /// 提交事务
     /// </summary>

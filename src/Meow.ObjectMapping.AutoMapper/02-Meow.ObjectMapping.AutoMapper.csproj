@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.ObjectMapping.AutoMapper 是 Meow 的 AutoMapper 对象映射封装类库。
+			Meow.ObjectMapping.AutoMapper 是 Meow AutoMapper 对象映射封装类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

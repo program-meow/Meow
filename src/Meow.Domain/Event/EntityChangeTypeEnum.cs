@@ -3,8 +3,7 @@
 /// <summary>
 /// 实体变更类型
 /// </summary>
-public enum EntityChangeTypeEnum
-{
+public enum EntityChangeTypeEnum {
     /// <summary>
     /// 新增
     /// </summary>

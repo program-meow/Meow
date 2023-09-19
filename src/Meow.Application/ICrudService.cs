@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Meow.Aop;
 using Meow.Application.Dto;
 using Meow.Query;
-using Meow.Validation;
 using Meow.Validation.Validator;
 
 namespace Meow.Application;
@@ -36,12 +34,12 @@ public interface ICrudService<TDto, in TCreateRequest, in TUpdateRequest, in TQu
     /// 创建
     /// </summary>
     /// <param name="request">创建参数</param>
-    Task<string> CreateAsync([NotNull][Valid] TCreateRequest request);
+    Task<string> CreateAsync([Aop.NotNull][Valid] TCreateRequest request);
     /// <summary>
     /// 修改
     /// </summary>
     /// <param name="request">修改参数</param>
-    Task UpdateAsync([NotNull][Valid] TUpdateRequest request);
+    Task UpdateAsync([Aop.NotNull][Valid] TUpdateRequest request);
     /// <summary>
     /// 删除
     /// </summary>

@@ -1,52 +1,49 @@
-﻿using System.Collections.Generic;
-
-namespace Meow.Data.Sql.Builder.Set;
+﻿namespace Meow.Data.Sql.Builder.Set;
 
 /// <summary>
 /// Sql生成器集合
 /// </summary>
-public interface ISqlBuilderSet
-{
+public interface ISqlBuilderSet {
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Union(params ISqlBuilder[] builders);
+    void Union( params ISqlBuilder[] builders );
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Union(IEnumerable<ISqlBuilder> builders);
+    void Union( IEnumerable<ISqlBuilder> builders );
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void UnionAll(params ISqlBuilder[] builders);
+    void UnionAll( params ISqlBuilder[] builders );
     /// <summary>
     /// 合并结果集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void UnionAll(IEnumerable<ISqlBuilder> builders);
+    void UnionAll( IEnumerable<ISqlBuilder> builders );
     /// <summary>
     /// 交集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Intersect(params ISqlBuilder[] builders);
+    void Intersect( params ISqlBuilder[] builders );
     /// <summary>
     /// 交集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Intersect(IEnumerable<ISqlBuilder> builders);
+    void Intersect( IEnumerable<ISqlBuilder> builders );
     /// <summary>
     /// 差集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Except(params ISqlBuilder[] builders);
+    void Except( params ISqlBuilder[] builders );
     /// <summary>
     /// 差集
     /// </summary>
     /// <param name="builders">Sql生成器集合</param>
-    void Except(IEnumerable<ISqlBuilder> builders);
+    void Except( IEnumerable<ISqlBuilder> builders );
     /// <summary>
     /// 清理
     /// </summary>
@@ -59,5 +56,5 @@ public interface ISqlBuilderSet
     /// 复制Sql生成器集合
     /// </summary>
     /// <param name="builder">Sql生成器</param>
-    ISqlBuilderSet Clone(SqlBuilderBase builder);
+    ISqlBuilderSet Clone( SqlBuilderBase builder );
 }

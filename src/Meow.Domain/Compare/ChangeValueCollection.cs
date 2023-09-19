@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Domain.Compare;
 
 /// <summary>
 /// 变更值集合
 /// </summary>
-public class ChangeValueCollection : List<ChangeValue>
-{
+public class ChangeValueCollection : List<ChangeValue> {
     /// <summary>
     /// 初始化变更值集合
     /// </summary>
     /// <param name="typeName">类型名称</param>
     /// <param name="typeDescription">类型描述</param>
     /// <param name="id">标识</param>
-    public ChangeValueCollection(string typeName = null, string typeDescription = null, string id = null)
-    {
+    public ChangeValueCollection( string typeName = null , string typeDescription = null , string id = null ) {
         TypeName = typeName;
         TypeDescription = typeDescription;
         Id = id;
@@ -44,24 +40,22 @@ public class ChangeValueCollection : List<ChangeValue>
     /// <param name="description">描述</param>
     /// <param name="originalValue">原始值</param>
     /// <param name="newValue">新值</param>
-    public void Add(string propertyName, string description, string originalValue, string newValue)
-    {
-        if (string.IsNullOrWhiteSpace(propertyName))
+    public void Add( string propertyName , string description , string originalValue , string newValue ) {
+        if( string.IsNullOrWhiteSpace( propertyName ) )
             return;
-        Add(new ChangeValue(propertyName, description, originalValue, newValue));
+        Add( new ChangeValue( propertyName , description , originalValue , newValue ) );
     }
 
     /// <summary>
     /// 输出变更信息
     /// </summary>
-    public override string ToString()
-    {
+    public override string ToString() {
         StringBuilder result = new StringBuilder();
-        result.Append($"{TypeName}({TypeDescription}),");
-        if (Id.IsEmpty() == false)
-            result.Append($"Id: {Id},");
-        foreach (ChangeValue item in this)
-            result.Append($"{item},");
-        return result.ToString().TrimEnd(',');
+        result.Append( $"{TypeName}({TypeDescription})," );
+        if( Id.IsEmpty() == false )
+            result.Append( $"Id: {Id}," );
+        foreach( ChangeValue item in this )
+            result.Append( $"{item}," );
+        return result.ToString().TrimEnd( ',' );
     }
 }

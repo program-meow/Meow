@@ -1,5 +1,5 @@
 using System;
-using Meow.Data.EntityFramework.MySql;
+using Meow.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meow.Sample.Data.MySql

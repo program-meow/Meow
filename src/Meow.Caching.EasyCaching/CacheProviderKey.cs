@@ -3,8 +3,7 @@
 /// <summary>
 /// 缓存提供器标识
 /// </summary>
-public static class CacheProviderKey
-{
+public static class CacheProviderKey {
     /// <summary>
     /// 内存缓存提供器标识
     /// </summary>

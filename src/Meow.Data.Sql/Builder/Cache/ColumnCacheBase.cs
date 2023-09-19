@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Meow.Data.Sql.Builder.Core;
+﻿using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Cache;
@@ -9,8 +6,7 @@ namespace Meow.Data.Sql.Builder.Cache;
 /// <summary>
 /// 列缓存基类
 /// </summary>
-public abstract class ColumnCacheBase : IColumnCache
-{
+public abstract class ColumnCacheBase : IColumnCache {
     /// <summary>
     /// Sql方言
     /// </summary>
@@ -20,8 +16,7 @@ public abstract class ColumnCacheBase : IColumnCache
     /// 初始化列缓存
     /// </summary>
     /// <param name="dialect">Sql方言</param>
-    protected ColumnCacheBase(IDialect dialect)
-    {
+    protected ColumnCacheBase( IDialect dialect ) {
         Dialect = dialect;
     }
 
@@ -29,24 +24,22 @@ public abstract class ColumnCacheBase : IColumnCache
     /// 从缓存中获取处理后的列集合
     /// </summary>
     /// <param name="columns">列集合</param>
-    public abstract string GetSafeColumns(string columns);
+    public abstract string GetSafeColumns( string columns );
 
     /// <summary>
     /// 规范化列集合
     /// </summary>
     /// <param name="columns">列集合</param>
-    protected string NormalizeColumns(string columns)
-    {
-        if (columns.IsEmpty())
+    protected string NormalizeColumns( string columns ) {
+        if( columns.IsEmpty() )
             return null;
         StringBuilder result = new StringBuilder();
-        IEnumerable<ColumnItem> items = columns.Split(',').Where(column => column.IsEmpty() == false).Select(column => new ColumnItem(Dialect, column));
-        foreach (ColumnItem item in items)
-        {
-            item.AppendTo(result);
-            result.Append(",");
+        IEnumerable<ColumnItem> items = columns.Split( ',' ).Where( column => column.IsEmpty() == false ).Select( column => new ColumnItem( Dialect , column ) );
+        foreach( ColumnItem item in items ) {
+            item.AppendTo( result );
+            result.Append( "," );
         }
-        result.RemoveEnd(",");
+        result.RemoveEnd( "," );
         return result.ToString();
     }
 
@@ -54,17 +47,16 @@ public abstract class ColumnCacheBase : IColumnCache
     /// 从缓存中获取处理后的列
     /// </summary>
     /// <param name="column">列</param>
-    public abstract string GetSafeColumn(string column);
+    public abstract string GetSafeColumn( string column );
 
     /// <summary>
     /// 规范化列
     /// </summary>
     /// <param name="column">列</param>
-    protected string NormalizeColumn(string column)
-    {
-        if (column.IsEmpty())
+    protected string NormalizeColumn( string column ) {
+        if( column.IsEmpty() )
             return null;
-        ColumnItem item = new ColumnItem(Dialect, column);
+        ColumnItem item = new ColumnItem( Dialect , column );
         return item.ToResult();
     }
 }

@@ -6,14 +6,12 @@ namespace Meow.Domain.Event;
 /// 实体删除事件
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public class EntityDeletedEvent<TEntity> : IEvent
-{
+public class EntityDeletedEvent<TEntity> : IEvent {
     /// <summary>
     /// 初始化实体删除事件
     /// </summary>
     /// <param name="entity">实体</param>
-    public EntityDeletedEvent(TEntity entity)
-    {
+    public EntityDeletedEvent( TEntity entity ) {
         Entity = entity;
     }
 

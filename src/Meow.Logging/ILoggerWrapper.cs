@@ -1,19 +1,16 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-using SystemException = System.Exception;
+﻿using SystemException = System.Exception;
 
 namespace Meow.Logging;
 
 /// <summary>
 /// 日志记录包装器
 /// </summary>
-public interface ILoggerWrapper
-{
+public interface ILoggerWrapper {
     /// <summary>
     /// 是否启用
     /// </summary>
     /// <param name="logLevel">日志级别</param>
-    bool IsEnabled(LogLevel logLevel);
+    bool IsEnabled( LogLevel logLevel );
     /// <summary>写日志</summary>
     /// <param name="logLevel">日志级别</param>
     /// <param name="eventId">日志事件标识</param>
@@ -21,13 +18,13 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="formatter">消息格式化操作</param>
     /// <typeparam name="TState">日志状态类型</typeparam>
-    void Log<TState>(LogLevel logLevel, EventId eventId, TState state, SystemException exception, Func<TState, SystemException, string> formatter);
+    void Log<TState>( LogLevel logLevel , EventId eventId , TState state , SystemException exception , Func<TState , SystemException , string> formatter );
     /// <summary>
     /// 创建日志范围
     /// </summary>
     /// <param name="state">日志状态</param>
     /// <typeparam name="TState">日志状态类型</typeparam>
-    IDisposable BeginScope<TState>(TState state);
+    IDisposable BeginScope<TState>( TState state );
     /// <summary>
     /// 写跟踪日志
     /// </summary>
@@ -35,7 +32,7 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogTrace(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogTrace( EventId eventId , SystemException exception , string message , params object[] args );
     /// <summary>
     /// 写调试日志
     /// </summary>
@@ -43,7 +40,7 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogDebug(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogDebug( EventId eventId , SystemException exception , string message , params object[] args );
     /// <summary>
     /// 写信息日志
     /// </summary>
@@ -51,7 +48,7 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogInformation(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogInformation( EventId eventId , SystemException exception , string message , params object[] args );
     /// <summary>
     /// 写警告日志
     /// </summary>
@@ -59,7 +56,7 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogWarning(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogWarning( EventId eventId , SystemException exception , string message , params object[] args );
     /// <summary>
     /// 写错误日志
     /// </summary>
@@ -67,7 +64,7 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogError(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogError( EventId eventId , SystemException exception , string message , params object[] args );
     /// <summary>
     /// 写致命日志
     /// </summary>
@@ -75,5 +72,5 @@ public interface ILoggerWrapper
     /// <param name="exception">异常</param>
     /// <param name="message">日志消息</param>
     /// <param name="args">日志消息参数</param>
-    void LogCritical(EventId eventId, SystemException exception, string message, params object[] args);
+    void LogCritical( EventId eventId , SystemException exception , string message , params object[] args );
 }

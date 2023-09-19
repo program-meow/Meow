@@ -1,21 +1,18 @@
-﻿using System.Collections.Generic;
-using Meow.Model;
+﻿using Meow.Model;
 
 namespace Meow.Domain.Compare;
 
 /// <summary>
 /// 列表比较结果
 /// </summary>
-public class ListCompareResult<TEntity, TKey> where TEntity : IKey<TKey>
-{
+public class ListCompareResult<TEntity, TKey> where TEntity : IKey<TKey> {
     /// <summary>
     /// 初始化列表比较结果
     /// </summary>
     /// <param name="createList">创建列表</param>
     /// <param name="updateList">更新列表</param>
     /// <param name="deleteList">删除列表</param>
-    public ListCompareResult(List<TEntity> createList, List<TEntity> updateList, List<TEntity> deleteList)
-    {
+    public ListCompareResult( List<TEntity> createList , List<TEntity> updateList , List<TEntity> deleteList ) {
         CreateList = createList;
         UpdateList = updateList;
         DeleteList = deleteList;

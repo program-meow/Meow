@@ -19,7 +19,7 @@ public class UserSession : ISession {
     public static readonly ISession Instance = new UserSession();
 
     /// <inheritdoc />
-    public virtual IServiceProvider ServiceProvider => Web.ServiceProvider;
+    public virtual IServiceProvider ServiceProvider => Meow.Helper.Web.ServiceProvider;
 
     /// <inheritdoc />
     public virtual bool IsAuthenticated => Web.Identity.IsAuthenticated;

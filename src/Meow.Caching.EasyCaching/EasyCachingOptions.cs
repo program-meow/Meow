@@ -1,14 +1,9 @@
-﻿using EasyCaching.InMemory;
-using EasyCaching.Redis;
-using Microsoft.Extensions.Configuration;
-
-namespace Meow.Caching.EasyCaching;
+﻿namespace Meow.Caching.EasyCaching;
 
 /// <summary>
 /// EasyCaching配置
 /// </summary>
-internal class EasyCachingOptions
-{
+internal class EasyCachingOptions {
     /// <summary>
     /// 内存缓存配置操作
     /// </summary>

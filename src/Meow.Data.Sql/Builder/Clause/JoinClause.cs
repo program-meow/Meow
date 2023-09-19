@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Condition;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
@@ -11,8 +9,8 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Join子句
 /// </summary>
-public class JoinClause : ClauseBase, IJoinClause
-{
+public class JoinClause : ClauseBase, IJoinClause {
+
     #region 常量
 
     /// <summary>
@@ -59,8 +57,7 @@ public class JoinClause : ClauseBase, IJoinClause
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">Join子句结果</param>
     /// <param name="condition">连接条件</param>
-    public JoinClause(SqlBuilderBase sqlBuilder, StringBuilder result = null, StringBuilder condition = null) : base(sqlBuilder)
-    {
+    public JoinClause( SqlBuilderBase sqlBuilder , StringBuilder result = null , StringBuilder condition = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         Condition = condition ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
@@ -72,79 +69,71 @@ public class JoinClause : ClauseBase, IJoinClause
     #region Join  [内连接]
 
     /// <inheritdoc />
-    public void Join(string table)
-    {
-        Join(JoinKey, table);
+    public void Join( string table ) {
+        Join( JoinKey , table );
     }
 
     /// <summary>
     /// 表连接
     /// </summary>
-    private void Join(string joinType, string table)
-    {
+    private void Join( string joinType , string table ) {
         AppendOn();
-        AppendJoin(joinType, table);
+        AppendJoin( joinType , table );
     }
 
     /// <summary>
     /// 添加On条件
     /// </summary>
-    private void AppendOn()
-    {
-        if (Condition.Length == 0)
+    private void AppendOn() {
+        if( Condition.Length == 0 )
             return;
-        Result.Append(" On ");
-        Result.Append(Condition);
-        Result.AppendLine(" ");
+        Result.Append( " On " );
+        Result.Append( Condition );
+        Result.AppendLine( " " );
         Condition.Clear();
     }
 
     /// <summary>
     /// 添加Join
     /// </summary>
-    private void AppendJoin(string joinType, string table)
-    {
-        Result.AppendFormat("{0} ", joinType);
-        TableItem item = CreateTableItem(table);
-        item.AppendTo(Result);
+    private void AppendJoin( string joinType , string table ) {
+        Result.AppendFormat( "{0} " , joinType );
+        TableItem item = CreateTableItem( table );
+        item.AppendTo( Result );
     }
 
     /// <summary>
     /// 创建表项
     /// </summary>
     /// <param name="table">表名</param>
-    protected virtual TableItem CreateTableItem(string table)
-    {
-        return new(Dialect, table);
+    protected virtual TableItem CreateTableItem( string table ) {
+        return new( Dialect , table );
     }
 
     /// <inheritdoc />
-    public void Join(ISqlBuilder builder, string alias)
-    {
-        Join(JoinKey, builder, alias);
+    public void Join( ISqlBuilder builder , string alias ) {
+        Join( JoinKey , builder , alias );
     }
 
     /// <summary>
     /// 表连接
     /// </summary>
-    private void Join(string joinType, ISqlBuilder builder, string alias)
-    {
-        if (builder == null)
+    private void Join( string joinType , ISqlBuilder builder , string alias ) {
+        if( builder == null )
             return;
         AppendOn();
-        Result.AppendFormat("{0} ", joinType);
-        SqlBuilderItem item = new SqlBuilderItem(Dialect, builder, alias);
-        item.AppendTo(Result);
+        Result.AppendFormat( "{0} " , joinType );
+        SqlBuilderItem item = new SqlBuilderItem( Dialect , builder , alias );
+        item.AppendTo( Result );
     }
 
     /// <inheritdoc />
-    public void Join(Action<ISqlBuilder> action, string alias)
-    {
-        if (action == null)
+    public void Join( Action<ISqlBuilder> action , string alias ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        Join(builder, alias);
+        action( builder );
+        Join( builder , alias );
     }
 
     #endregion
@@ -152,25 +141,22 @@ public class JoinClause : ClauseBase, IJoinClause
     #region LeftJoin  [左外连接]
 
     /// <inheritdoc />
-    public void LeftJoin(string table)
-    {
-        Join(LeftJoinKey, table);
+    public void LeftJoin( string table ) {
+        Join( LeftJoinKey , table );
     }
 
     /// <inheritdoc />
-    public void LeftJoin(ISqlBuilder builder, string alias)
-    {
-        Join(LeftJoinKey, builder, alias);
+    public void LeftJoin( ISqlBuilder builder , string alias ) {
+        Join( LeftJoinKey , builder , alias );
     }
 
     /// <inheritdoc />
-    public void LeftJoin(Action<ISqlBuilder> action, string alias)
-    {
-        if (action == null)
+    public void LeftJoin( Action<ISqlBuilder> action , string alias ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        LeftJoin(builder, alias);
+        action( builder );
+        LeftJoin( builder , alias );
     }
 
     #endregion
@@ -178,25 +164,22 @@ public class JoinClause : ClauseBase, IJoinClause
     #region RightJoin  [右外连接]
 
     /// <inheritdoc />
-    public void RightJoin(string table)
-    {
-        Join(RightJoinKey, table);
+    public void RightJoin( string table ) {
+        Join( RightJoinKey , table );
     }
 
     /// <inheritdoc />
-    public void RightJoin(ISqlBuilder builder, string alias)
-    {
-        Join(RightJoinKey, builder, alias);
+    public void RightJoin( ISqlBuilder builder , string alias ) {
+        Join( RightJoinKey , builder , alias );
     }
 
     /// <inheritdoc />
-    public void RightJoin(Action<ISqlBuilder> action, string alias)
-    {
-        if (action == null)
+    public void RightJoin( Action<ISqlBuilder> action , string alias ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        RightJoin(builder, alias);
+        action( builder );
+        RightJoin( builder , alias );
     }
 
     #endregion
@@ -204,37 +187,34 @@ public class JoinClause : ClauseBase, IJoinClause
     #region On  [设置连接条件]
 
     /// <inheritdoc />
-    public void On(string column, object value, OperatorEnum @operator = OperatorEnum.Equal, bool isParameterization = false)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        value = GetValue(value, isParameterization);
-        ISqlCondition condition = ConditionFactory.Create(column, value, @operator, isParameterization);
-        On(condition);
+    public void On( string column , object value , OperatorEnum @operator = OperatorEnum.Equal , bool isParameterization = false ) {
+        column = ColumnCache.GetSafeColumn( column );
+        value = GetValue( value , isParameterization );
+        ISqlCondition condition = ConditionFactory.Create( column , value , @operator , isParameterization );
+        On( condition );
     }
 
     /// <summary>
     /// 获取值,非参数化字符串值被认为是列名,将进行规范化处理
     /// </summary>
-    private object GetValue(object value, bool isParameterization)
-    {
-        if (value == null)
+    private object GetValue( object value , bool isParameterization ) {
+        if( value == null )
             return null;
-        if (isParameterization)
+        if( isParameterization )
             return value;
-        if (value.GetType() != typeof(string))
+        if( value.GetType() != typeof( string ) )
             return value;
-        return ColumnCache.GetSafeColumn(value.ToString());
+        return ColumnCache.GetSafeColumn( value.ToString() );
     }
 
     /// <summary>
     /// 设置连接条件
     /// </summary>
     /// <param name="condition">连接条件</param>
-    public void On(ISqlCondition condition)
-    {
-        if (condition == null)
+    public void On( ISqlCondition condition ) {
+        if( condition == null )
             return;
-        new AndCondition(condition).AppendTo(Condition);
+        new AndCondition( condition ).AppendTo( Condition );
     }
 
     #endregion
@@ -242,26 +222,23 @@ public class JoinClause : ClauseBase, IJoinClause
     #region AppendJoin  [添加到内连接子句]
 
     /// <inheritdoc />
-    public void AppendJoin(string sql, bool raw)
-    {
-        AppendSql(JoinKey, sql, raw);
+    public void AppendJoin( string sql , bool raw ) {
+        AppendSql( JoinKey , sql , raw );
     }
 
     /// <summary>
     /// 添加到连接子句
     /// </summary>
-    private void AppendSql(string joinType, string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    private void AppendSql( string joinType , string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
         AppendOn();
-        Result.AppendFormat("{0} ", joinType);
-        if (raw)
-        {
-            Result.Append(sql);
+        Result.AppendFormat( "{0} " , joinType );
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -269,9 +246,8 @@ public class JoinClause : ClauseBase, IJoinClause
     #region AppendLeftJoin  [添加到左外连接子句]
 
     /// <inheritdoc />
-    public void AppendLeftJoin(string sql, bool raw)
-    {
-        AppendSql(LeftJoinKey, sql, raw);
+    public void AppendLeftJoin( string sql , bool raw ) {
+        AppendSql( LeftJoinKey , sql , raw );
     }
 
     #endregion
@@ -279,9 +255,8 @@ public class JoinClause : ClauseBase, IJoinClause
     #region AppendRightJoin  [添加到右外连接子句]
 
     /// <inheritdoc />
-    public void AppendRightJoin(string sql, bool raw)
-    {
-        AppendSql(RightJoinKey, sql, raw);
+    public void AppendRightJoin( string sql , bool raw ) {
+        AppendSql( RightJoinKey , sql , raw );
     }
 
     #endregion
@@ -289,14 +264,12 @@ public class JoinClause : ClauseBase, IJoinClause
     #region AppendOn  [添加到On子句]
 
     /// <inheritdoc />
-    public void AppendOn(string sql, bool raw)
-    {
-        if (raw)
-        {
-            On(new SqlCondition(sql));
+    public void AppendOn( string sql , bool raw ) {
+        if( raw ) {
+            On( new SqlCondition( sql ) );
             return;
         }
-        On(new SqlCondition(ReplaceRawSql(sql)));
+        On( new SqlCondition( ReplaceRawSql( sql ) ) );
     }
 
     #endregion
@@ -304,8 +277,7 @@ public class JoinClause : ClauseBase, IJoinClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return Result.Length > 0;
     }
 
@@ -314,14 +286,13 @@ public class JoinClause : ClauseBase, IJoinClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
         AppendOn();
-        builder.Append(Result);
-        builder.RemoveEnd($" {Meow.Helper.String.Line}");
+        builder.Append( Result );
+        builder.RemoveEnd( $" {Meow.Helper.String.Line}" );
     }
 
     #endregion
@@ -329,8 +300,7 @@ public class JoinClause : ClauseBase, IJoinClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
         Condition.Clear();
     }
@@ -340,13 +310,12 @@ public class JoinClause : ClauseBase, IJoinClause
     #region Clone  [复制Join子句]
 
     /// <inheritdoc />
-    public virtual IJoinClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IJoinClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
+        result.Append( Result );
         StringBuilder condition = new StringBuilder();
-        condition.Append(Condition);
-        return new JoinClause(builder, result, condition);
+        condition.Append( Condition );
+        return new JoinClause( builder , result , condition );
     }
 
     #endregion

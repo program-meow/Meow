@@ -3,8 +3,7 @@
 /// <summary>
 /// 清空Sql参数
 /// </summary>
-public interface IClearParameters
-{
+public interface IClearParameters {
     /// <summary>
     /// 清空Sql参数
     /// </summary>

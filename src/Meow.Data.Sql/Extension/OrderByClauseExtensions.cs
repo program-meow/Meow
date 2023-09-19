@@ -7,8 +7,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// OrderBy子句操作扩展
 /// </summary>
-public static class OrderByClauseExtensions
-{
+public static class OrderByClauseExtensions {
+
     #region OrderBy  [排序]
 
     /// <summary>
@@ -16,11 +16,10 @@ public static class OrderByClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="order">排序列表,范例：a.Id,b.Name desc</param>
-    public static T OrderBy<T>(this T source, string order) where T : IOrderBy
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.OrderByClause.OrderBy(order);
+    public static T OrderBy<T>( this T source , string order ) where T : IOrderBy {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.OrderByClause.OrderBy( order );
         return source;
     }
 
@@ -34,11 +33,10 @@ public static class OrderByClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendOrderBy<T>(this T source, string sql, bool raw = false) where T : IOrderBy
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.OrderByClause.AppendSql(sql, raw);
+    public static T AppendOrderBy<T>( this T source , string sql , bool raw = false ) where T : IOrderBy {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.OrderByClause.AppendSql( sql , raw );
         return source;
     }
 
@@ -50,10 +48,9 @@ public static class OrderByClauseExtensions
     /// 清空Order By子句
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearOrderBy<T>(this T source) where T : IOrderBy
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearOrderBy<T>( this T source ) where T : IOrderBy {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.OrderByClause.Clear();
         return source;
     }

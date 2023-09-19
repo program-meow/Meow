@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql查询对象操作扩展 - 查询扩展
 /// </summary>
-public static partial class SqlQueryExtensions
-{
+public static partial class SqlQueryExtensions {
+
     #region ToEntity  [获取单个实体]
 
     /// <summary>
@@ -18,10 +15,9 @@ public static partial class SqlQueryExtensions
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public static TEntity ToEntity<TEntity>(this ISqlQuery source, int? timeout = null)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteSingle<TEntity>(timeout);
+    public static TEntity ToEntity<TEntity>( this ISqlQuery source , int? timeout = null ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteSingle<TEntity>( timeout );
     }
 
     #endregion
@@ -34,10 +30,9 @@ public static partial class SqlQueryExtensions
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public static async Task<TEntity> ToEntityAsync<TEntity>(this ISqlQuery source, int? timeout = null)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteSingleAsync<TEntity>(timeout);
+    public static async Task<TEntity> ToEntityAsync<TEntity>( this ISqlQuery source , int? timeout = null ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteSingleAsync<TEntity>( timeout );
     }
 
     #endregion
@@ -50,10 +45,9 @@ public static partial class SqlQueryExtensions
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<dynamic> ToList(this ISqlQuery source, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(timeout, buffered);
+    public static List<dynamic> ToList( this ISqlQuery source , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( timeout , buffered );
     }
 
     /// <summary>
@@ -63,10 +57,9 @@ public static partial class SqlQueryExtensions
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<TEntity>(this ISqlQuery source, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery<TEntity>(timeout, buffered);
+    public static List<TEntity> ToList<TEntity>( this ISqlQuery source , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery<TEntity>( timeout , buffered );
     }
 
     /// <summary>
@@ -79,10 +72,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, TEntity>(this ISqlQuery source, Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, TEntity>( this ISqlQuery source , Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     /// <summary>
@@ -96,10 +88,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, T3, TEntity>(this ISqlQuery source, Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, T3, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     /// <summary>
@@ -114,10 +105,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, T3, T4, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, T3, T4, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     /// <summary>
@@ -133,10 +123,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, T3, T4, T5, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, T3, T4, T5, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     /// <summary>
@@ -153,10 +142,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, T3, T4, T5, T6, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, T3, T4, T5, T6, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     /// <summary>
@@ -174,10 +162,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static List<TEntity> ToList<T1, T2, T3, T4, T5, T6, T7, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return source.ExecuteQuery(map, timeout, buffered);
+    public static List<TEntity> ToList<T1, T2, T3, T4, T5, T6, T7, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return source.ExecuteQuery( map , timeout , buffered );
     }
 
     #endregion
@@ -189,10 +176,9 @@ public static partial class SqlQueryExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public static async Task<List<dynamic>> ToListAsync(this ISqlQuery source, int? timeout = null)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(timeout);
+    public static async Task<List<dynamic>> ToListAsync( this ISqlQuery source , int? timeout = null ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( timeout );
     }
 
     /// <summary>
@@ -201,10 +187,9 @@ public static partial class SqlQueryExtensions
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="source">源</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public static async Task<List<TEntity>> ToListAsync<TEntity>(this ISqlQuery source, int? timeout = null)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync<TEntity>(timeout);
+    public static async Task<List<TEntity>> ToListAsync<TEntity>( this ISqlQuery source , int? timeout = null ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync<TEntity>( timeout );
     }
 
     /// <summary>
@@ -217,10 +202,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, TEntity>(this ISqlQuery source, Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, TEntity>( this ISqlQuery source , Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     /// <summary>
@@ -234,10 +218,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, TEntity>(this ISqlQuery source, Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     /// <summary>
@@ -252,10 +235,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     /// <summary>
@@ -271,10 +253,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     /// <summary>
@@ -291,10 +272,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, T6, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, T6, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     /// <summary>
@@ -312,10 +292,9 @@ public static partial class SqlQueryExtensions
     /// <param name="map">映射函数</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
     /// <param name="buffered">是否缓存,默认值: true</param>
-    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>(this ISqlQuery source, Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
-        source.CheckNull(nameof(source));
-        return await source.ExecuteQueryAsync(map, timeout, buffered);
+    public static async Task<List<TEntity>> ToListAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>( this ISqlQuery source , Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
+        source.CheckNull( nameof( source ) );
+        return await source.ExecuteQueryAsync( map , timeout , buffered );
     }
 
     #endregion

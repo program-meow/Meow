@@ -1,13 +1,11 @@
-﻿using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Is Null查询条件
 /// </summary>
-public class IsNullCondition : ISqlCondition
-{
+public class IsNullCondition : ISqlCondition {
     /// <summary>
     /// 列名
     /// </summary>
@@ -17,8 +15,7 @@ public class IsNullCondition : ISqlCondition
     /// 初始化Is Null查询条件
     /// </summary>
     /// <param name="name">列名</param>
-    public IsNullCondition(string name)
-    {
+    public IsNullCondition( string name ) {
         _name = name;
     }
 
@@ -26,10 +23,9 @@ public class IsNullCondition : ISqlCondition
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        if (_name.IsEmpty())
+    public void AppendTo( StringBuilder builder ) {
+        if( _name.IsEmpty() )
             return;
-        builder.AppendFormat("{0} Is Null", _name);
+        builder.AppendFormat( "{0} Is Null" , _name );
     }
 }

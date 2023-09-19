@@ -8,8 +8,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// 结束子句操作扩展
 /// </summary>
-public static class EndClauseExtensions
-{
+public static class EndClauseExtensions {
+
     #region Skip  [设置跳过行数]
 
     /// <summary>
@@ -17,11 +17,10 @@ public static class EndClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="count">跳过的行数</param>
-    public static T Skip<T>(this T source, int count) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.EndClause.Skip(count);
+    public static T Skip<T>( this T source , int count ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.EndClause.Skip( count );
         return source;
     }
 
@@ -34,11 +33,10 @@ public static class EndClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="count">获取的行数</param>
-    public static T Take<T>(this T source, int count) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.EndClause.Take(count);
+    public static T Take<T>( this T source , int count ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.EndClause.Take( count );
         return source;
     }
 
@@ -51,11 +49,10 @@ public static class EndClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="page">分页参数</param>
-    public static T Page<T>(this T source, IPage page) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.EndClause.Page(page);
+    public static T Page<T>( this T source , IPage page ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.EndClause.Page( page );
         return source;
     }
 
@@ -69,11 +66,10 @@ public static class EndClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendEnd<T>(this T source, string sql, bool raw = false) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.EndClause.AppendSql(sql, raw);
+    public static T AppendEnd<T>( this T source , string sql , bool raw = false ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.EndClause.AppendSql( sql , raw );
         return source;
     }
 
@@ -85,10 +81,9 @@ public static class EndClauseExtensions
     /// 清理分页
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearPage<T>(this T source) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearPage<T>( this T source ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.EndClause.ClearPage();
         return source;
     }
@@ -101,10 +96,9 @@ public static class EndClauseExtensions
     /// 清理Sql结束子句
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearEnd<T>(this T source) where T : IEnd
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearEnd<T>( this T source ) where T : IEnd {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.EndClause.Clear();
         return source;
     }

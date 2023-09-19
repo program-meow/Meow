@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Meow.Aop;
+﻿using Meow.Aop;
 
 namespace Meow.Data;
 
@@ -7,8 +6,7 @@ namespace Meow.Data;
 /// 数据库信息
 /// </summary>
 [Ignore]
-public interface IDatabase
-{
+public interface IDatabase {
     /// <summary>
     /// 获取数据库连接
     /// </summary>

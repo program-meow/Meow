@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Data.Sql.Builder.Param;
 using Meow.Extension;
@@ -9,8 +8,7 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Insert子句
 /// </summary>
-public class InsertClause : ClauseBase, IInsertClause
-{
+public class InsertClause : ClauseBase, IInsertClause {
     #region 字段
 
     /// <summary>
@@ -40,8 +38,7 @@ public class InsertClause : ClauseBase, IInsertClause
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="insertResult">Insert结果</param>
     /// <param name="valuesResult">Values结果</param>
-    public InsertClause(SqlBuilderBase sqlBuilder, StringBuilder insertResult = null, StringBuilder valuesResult = null) : base(sqlBuilder)
-    {
+    public InsertClause( SqlBuilderBase sqlBuilder , StringBuilder insertResult = null , StringBuilder valuesResult = null ) : base( sqlBuilder ) {
         InsertResult = insertResult ?? new StringBuilder();
         ValuesResult = valuesResult ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
@@ -53,31 +50,28 @@ public class InsertClause : ClauseBase, IInsertClause
     #region Insert  [设置插入的表和列名集合]
 
     /// <inheritdoc />
-    public void Insert(string columns, string table = null)
-    {
-        if (InsertResult.Length == 0)
-        {
-            if (table.IsEmpty())
+    public void Insert( string columns , string table = null ) {
+        if( InsertResult.Length == 0 ) {
+            if( table.IsEmpty() )
                 return;
-            TableItem tableItem = new TableItem(Dialect, table);
-            tableItem.AppendTo(InsertResult);
-            InsertResult.Append("(");
-            InsertResult.Append(ColumnCache.GetSafeColumns(columns));
-            InsertResult.Append(")");
+            TableItem tableItem = new TableItem( Dialect , table );
+            tableItem.AppendTo( InsertResult );
+            InsertResult.Append( "(" );
+            InsertResult.Append( ColumnCache.GetSafeColumns( columns ) );
+            InsertResult.Append( ")" );
             return;
         }
-        AppendColumns(ColumnCache.GetSafeColumns(columns));
+        AppendColumns( ColumnCache.GetSafeColumns( columns ) );
     }
 
     /// <summary>
     /// 添加列
     /// </summary>
-    protected void AppendColumns(string columns)
-    {
-        InsertResult.RemoveEnd(")");
-        InsertResult.Append(",");
-        InsertResult.Append(columns);
-        InsertResult.Append(")");
+    protected void AppendColumns( string columns ) {
+        InsertResult.RemoveEnd( ")" );
+        InsertResult.Append( "," );
+        InsertResult.Append( columns );
+        InsertResult.Append( ")" );
     }
 
     #endregion
@@ -85,20 +79,18 @@ public class InsertClause : ClauseBase, IInsertClause
     #region Values  [设置插入的值集合]
 
     /// <inheritdoc />
-    public void Values(params object[] values)
-    {
-        if (values == null)
+    public void Values( params object[] values ) {
+        if( values == null )
             return;
-        if (ValuesResult.Length > 0)
-            ValuesResult.Append(",");
-        ValuesResult.Append("(");
-        foreach (object[] value in values)
-        {
+        if( ValuesResult.Length > 0 )
+            ValuesResult.Append( "," );
+        ValuesResult.Append( "(" );
+        foreach( object[] value in values ) {
             string paramName = ParameterManager.GenerateName();
-            ValuesResult.AppendFormat("{0},", paramName);
-            ParameterManager.Add(paramName, value);
+            ValuesResult.AppendFormat( "{0}," , paramName );
+            ParameterManager.Add( paramName , value );
         }
-        ValuesResult.RemoveEnd(",").Append(")");
+        ValuesResult.RemoveEnd( "," ).Append( ")" );
     }
 
     #endregion
@@ -106,16 +98,14 @@ public class InsertClause : ClauseBase, IInsertClause
     #region AppendInsert  [添加到Insert子句]
 
     /// <inheritdoc />
-    public void AppendInsert(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendInsert( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            InsertResult.Append(sql);
+        if( raw ) {
+            InsertResult.Append( sql );
             return;
         }
-        InsertResult.Append(ReplaceRawSql(sql));
+        InsertResult.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -123,16 +113,14 @@ public class InsertClause : ClauseBase, IInsertClause
     #region AppendValues  [添加到Values子句]
 
     /// <inheritdoc />
-    public void AppendValues(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendValues( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            ValuesResult.Append(sql);
+        if( raw ) {
+            ValuesResult.Append( sql );
             return;
         }
-        ValuesResult.Append(ReplaceRawSql(sql));
+        ValuesResult.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -140,8 +128,7 @@ public class InsertClause : ClauseBase, IInsertClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return InsertResult.Length != 0;
     }
 
@@ -150,21 +137,19 @@ public class InsertClause : ClauseBase, IInsertClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        builder.Append("Insert Into ");
-        builder.Append(InsertResult);
-        builder.AppendLine(" ");
-        if (ValuesResult.Length == 0)
-        {
-            builder.RemoveEnd(Meow.Helper.String.Line);
+        builder.Append( "Insert Into " );
+        builder.Append( InsertResult );
+        builder.AppendLine( " " );
+        if( ValuesResult.Length == 0 ) {
+            builder.RemoveEnd( Meow.Helper.String.Line );
             return;
         }
-        builder.Append("Values");
-        builder.Append(ValuesResult);
+        builder.Append( "Values" );
+        builder.Append( ValuesResult );
     }
 
     #endregion
@@ -172,8 +157,7 @@ public class InsertClause : ClauseBase, IInsertClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         InsertResult.Clear();
         ValuesResult.Clear();
     }
@@ -183,13 +167,12 @@ public class InsertClause : ClauseBase, IInsertClause
     #region Clone  [复制Insert子句]
 
     /// <inheritdoc />
-    public virtual IInsertClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IInsertClause Clone( SqlBuilderBase builder ) {
         StringBuilder insertResult = new StringBuilder();
-        insertResult.Append(InsertResult);
+        insertResult.Append( InsertResult );
         StringBuilder valuesResult = new StringBuilder();
-        valuesResult.Append(ValuesResult);
-        return new InsertClause(builder, insertResult, valuesResult);
+        valuesResult.Append( ValuesResult );
+        return new InsertClause( builder , insertResult , valuesResult );
     }
 
     #endregion

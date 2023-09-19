@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Meow.Data.Extension;
+﻿using Meow.Data.Extension;
 using Meow.Data.Filter;
 using Meow.Data.Query;
 using Meow.Data.Store;
@@ -12,25 +6,21 @@ using Meow.Domain.Operation;
 using Meow.Exception;
 using Meow.Extension;
 using Meow.Model;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SystemException = System.Exception;
 
-namespace Meow.Data.EntityFramework;
+namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 存储器
 /// </summary>
 /// <typeparam name="TEntity">对象类型</typeparam>
-public abstract class StoreBase<TEntity> : StoreBase<TEntity, Guid>, IStore<TEntity>
-    where TEntity : class, IKey<Guid>
-{
+public abstract class StoreBase<TEntity> : StoreBase<TEntity , Guid>, IStore<TEntity>
+    where TEntity : class, IKey<Guid> {
     /// <summary>
     /// 初始化存储器
     /// </summary>
     /// <param name="unitOfWork">工作单元</param>
-    protected StoreBase(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
+    protected StoreBase( IUnitOfWork unitOfWork ) : base( unitOfWork ) {
     }
 }
 
@@ -39,8 +29,8 @@ public abstract class StoreBase<TEntity> : StoreBase<TEntity, Guid>, IStore<TEnt
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
 /// <typeparam name="TKey">实体标识类型</typeparam>
-public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterSwitch, ITrack where TEntity : class, IKey<TKey>
-{
+public abstract class StoreBase<TEntity, TKey> : IStore<TEntity , TKey>, IFilterSwitch, ITrack where TEntity : class, IKey<TKey> {
+
     #region 字段
 
     /// <summary>
@@ -56,9 +46,8 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// 初始化存储器
     /// </summary>
     /// <param name="unitOfWork">工作单元</param>
-    protected StoreBase(IUnitOfWork unitOfWork)
-    {
-        UnitOfWork = (UnitOfWorkBase)unitOfWork;
+    protected StoreBase( IUnitOfWork unitOfWork ) {
+        UnitOfWork = ( UnitOfWorkBase ) unitOfWork;
     }
 
     #endregion
@@ -87,8 +76,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// <summary>
     /// 设置为不跟踪实体
     /// </summary>
-    public void NoTracking()
-    {
+    public void NoTracking() {
         IsTracking = false;
     }
 
@@ -100,21 +88,19 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// 启用过滤器
     /// </summary>
     /// <typeparam name="TFilterType">过滤器类型</typeparam>
-    public void EnableFilter<TFilterType>() where TFilterType : class
-    {
+    public void EnableFilter<TFilterType>() where TFilterType : class {
         UnitOfWork.EnableFilter<TFilterType>();
     }
 
     #endregion
 
-    #region DisableFilter  [禁用过滤器]
+    #region DisableFilter [禁用过滤器]
 
     /// <summary>
     /// 禁用过滤器
     /// </summary>
     /// <typeparam name="TFilterType">过滤器类型</typeparam>
-    public IDisposable DisableFilter<TFilterType>() where TFilterType : class
-    {
+    public IDisposable DisableFilter<TFilterType>() where TFilterType : class {
         return UnitOfWork.DisableFilter<TFilterType>();
     }
 
@@ -123,10 +109,9 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region Find  [查找实体]
 
     /// <inheritdoc />
-    public IQueryable<TEntity> Find()
-    {
+    public IQueryable<TEntity> Find() {
         ThrowIfDisposed();
-        if (IsTracking)
+        if( IsTracking )
             return Set;
         IQueryable<TEntity> result = Set.AsNoTracking();
         IsTracking = true;
@@ -134,15 +119,13 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     }
 
     /// <inheritdoc />
-    public IQueryable<TEntity> Find(ICondition<TEntity> condition)
-    {
-        return Find().Where(condition);
+    public IQueryable<TEntity> Find( ICondition<TEntity> condition ) {
+        return Find().Where( condition );
     }
 
     /// <inheritdoc />
-    public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> condition)
-    {
-        return Find().Where(condition);
+    public IQueryable<TEntity> Find( Expression<Func<TEntity , bool>> condition ) {
+        return Find().Where( condition );
     }
 
     #endregion
@@ -150,25 +133,23 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindById  [通过标识查找实体]
 
     /// <inheritdoc />
-    public TEntity FindById(object id)
-    {
+    public TEntity FindById( object id ) {
         ThrowIfDisposed();
-        if (id.SafeString().IsEmpty())
+        if( id.SafeString().IsEmpty() )
             return null;
-        object key = GetKey(id);
-        if (IsTracking)
-            return Set.Find(key);
-        return Single(t => t.Id.Equals(key));
+        object key = GetKey( id );
+        if( IsTracking )
+            return Set.Find( key );
+        return Single( t => t.Id.Equals( key ) );
     }
 
     /// <summary>
     /// 获取标识
     /// </summary>
-    protected object GetKey(object id)
-    {
-        if (id is TKey)
+    protected object GetKey( object id ) {
+        if( id is TKey )
             return id;
-        return Meow.Helper.Convert.To<TKey>(id);
+        return Meow.Helper.Convert.To<TKey>( id );
     }
 
     #endregion
@@ -176,16 +157,15 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindByIdAsync  [通过标识查找实体]
 
     /// <inheritdoc />
-    public async Task<TEntity> FindByIdAsync(object id, CancellationToken cancellationToken = default)
-    {
+    public async Task<TEntity> FindByIdAsync( object id , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        if (id.SafeString().IsEmpty())
+        if( id.SafeString().IsEmpty() )
             return null;
-        object key = GetKey(id);
-        if (IsTracking)
-            return await Set.FindAsync(new[] { key }, cancellationToken);
-        return await SingleAsync(t => t.Id.Equals(key), cancellationToken);
+        object key = GetKey( id );
+        if( IsTracking )
+            return await Set.FindAsync( new[] { key } , cancellationToken );
+        return await SingleAsync( t => t.Id.Equals( key ) , cancellationToken );
     }
 
     #endregion
@@ -193,21 +173,18 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindByIds  [通过标识列表查找实体列表]
 
     /// <inheritdoc />
-    public virtual List<TEntity> FindByIds(params TKey[] ids)
-    {
-        return FindByIds((IEnumerable<TKey>)ids);
+    public virtual List<TEntity> FindByIds( params TKey[] ids ) {
+        return FindByIds( ( IEnumerable<TKey> ) ids );
     }
 
     /// <inheritdoc />
-    public virtual List<TEntity> FindByIds(IEnumerable<TKey> ids)
-    {
-        return ids == null ? null : Find(t => ids.Contains(t.Id)).ToList();
+    public virtual List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
+        return ids == null ? null : Find( t => ids.Contains( t.Id ) ).ToList();
     }
 
     /// <inheritdoc />
-    public virtual List<TEntity> FindByIds(string ids)
-    {
-        return FindByIds(Meow.Helper.Convert.ToList<TKey>(ids));
+    public virtual List<TEntity> FindByIds( string ids ) {
+        return FindByIds( Meow.Helper.Convert.ToList<TKey>( ids ) );
     }
 
     #endregion
@@ -215,40 +192,35 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindByIdsAsync  [通过标识列表查找实体列表]
 
     /// <inheritdoc />
-    public virtual async Task<List<TEntity>> FindByIdsAsync(params TKey[] ids)
-    {
-        return await FindByIdsAsync((IEnumerable<TKey>)ids);
+    public virtual async Task<List<TEntity>> FindByIdsAsync( params TKey[] ids ) {
+        return await FindByIdsAsync( ( IEnumerable<TKey> ) ids );
     }
 
     /// <inheritdoc />
-    public virtual async Task<List<TEntity>> FindByIdsAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        return ids == null ? null : await Find(t => ids.Contains(t.Id)).ToListAsync(cancellationToken);
+        return ids == null ? null : await Find( t => ids.Contains( t.Id ) ).ToListAsync( cancellationToken );
     }
 
     /// <inheritdoc />
-    public virtual async Task<List<TEntity>> FindByIdsAsync(string ids, CancellationToken cancellationToken = default)
-    {
-        return await FindByIdsAsync(Meow.Helper.Convert.ToList<TKey>(ids), cancellationToken);
+    public virtual async Task<List<TEntity>> FindByIdsAsync( string ids , CancellationToken cancellationToken = default ) {
+        return await FindByIdsAsync( Meow.Helper.Convert.ToList<TKey>( ids ) , cancellationToken );
     }
 
     #endregion
 
-    #region Single  [查找单个实体]
+    #region Single(查找单个实体)
 
     /// <inheritdoc />
-    public virtual TEntity Single(Expression<Func<TEntity, bool>> condition)
-    {
-        return Find().FirstOrDefault(condition);
+    public virtual TEntity Single( Expression<Func<TEntity , bool>> condition ) {
+        return Find().FirstOrDefault( condition );
     }
 
     /// <inheritdoc />
-    public virtual TEntity Single(Expression<Func<TEntity, bool>> condition, Func<IQueryable<TEntity>, IQueryable<TEntity>> action)
-    {
-        if (action == null)
-            return Single(condition);
-        return action(Find()).FirstOrDefault(condition);
+    public virtual TEntity Single( Expression<Func<TEntity , bool>> condition , Func<IQueryable<TEntity> , IQueryable<TEntity>> action ) {
+        if( action == null )
+            return Single( condition );
+        return action( Find() ).FirstOrDefault( condition );
     }
 
     #endregion
@@ -256,19 +228,17 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region SingleAsync  [查找单个实体]
 
     /// <inheritdoc />
-    public virtual async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> condition, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<TEntity> SingleAsync( Expression<Func<TEntity , bool>> condition , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        return await Find().FirstOrDefaultAsync(condition, cancellationToken);
+        return await Find().FirstOrDefaultAsync( condition , cancellationToken );
     }
 
     /// <inheritdoc />
-    public virtual async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> condition, Func<IQueryable<TEntity>, IQueryable<TEntity>> action, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<TEntity> SingleAsync( Expression<Func<TEntity , bool>> condition , Func<IQueryable<TEntity> , IQueryable<TEntity>> action , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        if (action == null)
-            return await SingleAsync(condition, cancellationToken);
-        return await action(Find()).FirstOrDefaultAsync(condition, cancellationToken);
+        if( action == null )
+            return await SingleAsync( condition , cancellationToken );
+        return await action( Find() ).FirstOrDefaultAsync( condition , cancellationToken );
     }
 
     #endregion
@@ -276,9 +246,8 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindAll  [查找实体列表]
 
     /// <inheritdoc />
-    public virtual List<TEntity> FindAll(Expression<Func<TEntity, bool>> condition = null)
-    {
-        return condition == null ? Find().ToList() : Find(condition).ToList();
+    public virtual List<TEntity> FindAll( Expression<Func<TEntity , bool>> condition = null ) {
+        return condition == null ? Find().ToList() : Find( condition ).ToList();
     }
 
     #endregion
@@ -286,12 +255,11 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region FindAllAsync  [查找实体列表]
 
     /// <inheritdoc />
-    public virtual async Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> condition = null, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<List<TEntity>> FindAllAsync( Expression<Func<TEntity , bool>> condition = null , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        if (condition == null)
-            return await Find().ToListAsync(cancellationToken);
-        return await Find(condition).ToListAsync(cancellationToken);
+        if( condition == null )
+            return await Find().ToListAsync( cancellationToken );
+        return await Find( condition ).ToListAsync( cancellationToken );
     }
 
     #endregion
@@ -299,15 +267,13 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region Exists  [判断是否存在]
 
     /// <inheritdoc />
-    public virtual bool Exists(params TKey[] ids)
-    {
-        return ids != null && Exists(t => ids.Contains(t.Id));
+    public virtual bool Exists( params TKey[] ids ) {
+        return ids != null && Exists( t => ids.Contains( t.Id ) );
     }
 
     /// <inheritdoc />
-    public virtual bool Exists(Expression<Func<TEntity, bool>> condition)
-    {
-        return condition != null && Find().Any(condition);
+    public virtual bool Exists( Expression<Func<TEntity , bool>> condition ) {
+        return condition != null && Find().Any( condition );
     }
 
     #endregion
@@ -315,16 +281,14 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region ExistsAsync  [判断是否存在]
 
     /// <inheritdoc />
-    public virtual async Task<bool> ExistsAsync(params TKey[] ids)
-    {
-        return ids != null && await ExistsAsync(t => ids.Contains(t.Id));
+    public virtual async Task<bool> ExistsAsync( params TKey[] ids ) {
+        return ids != null && await ExistsAsync( t => ids.Contains( t.Id ) );
     }
 
     /// <inheritdoc />
-    public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> condition, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<bool> ExistsAsync( Expression<Func<TEntity , bool>> condition , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        return condition != null && await Find().AnyAsync(condition, cancellationToken);
+        return condition != null && await Find().AnyAsync( condition , cancellationToken );
     }
 
     #endregion
@@ -332,9 +296,8 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region Count  [查找数量]
 
     /// <inheritdoc />
-    public virtual int Count(Expression<Func<TEntity, bool>> condition = null)
-    {
-        return condition == null ? Find().Count() : Find().Count(condition);
+    public virtual int Count( Expression<Func<TEntity , bool>> condition = null ) {
+        return condition == null ? Find().Count() : Find().Count( condition );
     }
 
     #endregion
@@ -342,12 +305,11 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region CountAsync  [查找数量]
 
     /// <inheritdoc />
-    public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> condition = null, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task<int> CountAsync( Expression<Func<TEntity , bool>> condition = null , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         return condition == null
-            ? await Find().CountAsync(cancellationToken)
-            : await Find().CountAsync(condition, cancellationToken);
+            ? await Find().CountAsync( cancellationToken )
+            : await Find().CountAsync( condition , cancellationToken );
     }
 
     #endregion
@@ -359,12 +321,11 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task AddAsync( TEntity entity , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        entity.CheckNull(nameof(entity));
-        await Set.AddAsync(entity, cancellationToken);
+        entity.CheckNull( nameof( entity ) );
+        await Set.AddAsync( entity , cancellationToken );
     }
 
     /// <summary>
@@ -372,12 +333,11 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     /// <param name="entities">实体集合</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public virtual async Task AddAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task AddAsync( IEnumerable<TEntity> entities , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        entities.CheckNull(nameof(entities));
-        await Set.AddRangeAsync(entities, cancellationToken);
+        entities.CheckNull( nameof( entities ) );
+        await Set.AddRangeAsync( entities , cancellationToken );
     }
 
     #endregion
@@ -385,86 +345,76 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region UpdateAsync  [修改实体]
 
     /// <inheritdoc />
-    public virtual Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
-    {
+    public virtual Task UpdateAsync( TEntity entity , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        Update(entity);
+        Update( entity );
         return Task.CompletedTask;
     }
 
     /// <summary>
     /// 更新
     /// </summary>
-    protected void Update(TEntity entity)
-    {
+    protected void Update( TEntity entity ) {
         ThrowIfDisposed();
-        entity.CheckNull(nameof(entity));
-        EntityEntry<TEntity> entry = UnitOfWork.Entry(entity);
-        ValidateVersion(entry, entity);
-        UpdateEntity(entry, entity);
+        entity.CheckNull( nameof( entity ) );
+        EntityEntry<TEntity> entry = UnitOfWork.Entry( entity );
+        ValidateVersion( entry , entity );
+        UpdateEntity( entry , entity );
     }
 
     /// <summary>
     /// 验证版本号
     /// </summary>
-    protected virtual void ValidateVersion(EntityEntry<TEntity> entry, TEntity entity)
-    {
-        if (entity is not IVersion current)
+    protected virtual void ValidateVersion( EntityEntry<TEntity> entry , TEntity entity ) {
+        if( entity is not IVersion current )
             return;
-        if (current.Version == null || current.Version.Length == 0)
-        {
-            ThrowConcurrencyException(entity);
+        if( current.Version == null || current.Version.Length == 0 ) {
+            ThrowConcurrencyException( entity );
             return;
         }
-        byte[] oldVersion = entry.OriginalValues.GetValue<byte[]>("Version");
-        for (int i = 0; i < oldVersion.Length; i++)
-        {
-            if (current.Version[i] != oldVersion[i])
-                ThrowConcurrencyException(entity);
+        byte[] oldVersion = entry.OriginalValues.GetValue<byte[]>( "Version" );
+        for( int i = 0 ; i < oldVersion.Length ; i++ ) {
+            if( current.Version[ i ] != oldVersion[ i ] )
+                ThrowConcurrencyException( entity );
         }
     }
 
     /// <summary>
     /// 抛出并发异常
     /// </summary>
-    private void ThrowConcurrencyException(TEntity entity)
-    {
-        throw new ConcurrencyException(new SystemException($"Type:{typeof(TEntity)},Id:{entity.Id}"));
+    private void ThrowConcurrencyException( TEntity entity ) {
+        throw new ConcurrencyException( new SystemException( $"Type:{typeof( TEntity )},Id:{entity.Id}" ) );
     }
 
     /// <summary>
     /// 更新实体
     /// </summary>
-    protected void UpdateEntity(EntityEntry<TEntity> entry, TEntity entity)
-    {
-        EntityEntry<TEntity> oldEntry = UnitOfWork.ChangeTracker.Entries<TEntity>().FirstOrDefault(t => t.Entity.Equals(entity));
-        if (oldEntry != null)
-        {
-            oldEntry.CurrentValues.SetValues(entity);
+    protected void UpdateEntity( EntityEntry<TEntity> entry , TEntity entity ) {
+        EntityEntry<TEntity> oldEntry = UnitOfWork.ChangeTracker.Entries<TEntity>().FirstOrDefault( t => t.Entity.Equals( entity ) );
+        if( oldEntry != null ) {
+            oldEntry.CurrentValues.SetValues( entity );
             return;
         }
-        if (entry.State == EntityState.Detached)
-            UnitOfWork.Update(entity);
+        if( entry.State == EntityState.Detached )
+            UnitOfWork.Update( entity );
     }
 
     /// <inheritdoc />
-    public virtual Task UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-    {
+    public virtual Task UpdateAsync( IEnumerable<TEntity> entities , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        entities.CheckNull(nameof(entities));
-        Update(entities);
+        entities.CheckNull( nameof( entities ) );
+        Update( entities );
         return Task.CompletedTask;
     }
 
     /// <summary>
     /// 更新实体集合
     /// </summary>
-    protected void Update(IEnumerable<TEntity> entities)
-    {
+    protected void Update( IEnumerable<TEntity> entities ) {
         ThrowIfDisposed();
-        entities.CheckNull(nameof(entities));
-        foreach (TEntity entity in entities)
-            Update(entity);
+        entities.CheckNull( nameof( entities ) );
+        foreach( TEntity entity in entities )
+            Update( entity );
     }
 
     #endregion
@@ -472,67 +422,60 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     #region RemoveAsync  [移除实体]
 
     /// <inheritdoc />
-    public virtual async Task RemoveAsync(object id, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task RemoveAsync( object id , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        TEntity entity = await FindByIdAsync(id, cancellationToken);
-        Delete(entity);
+        TEntity entity = await FindByIdAsync( id , cancellationToken );
+        Delete( entity );
     }
 
     /// <summary>
     /// 删除
     /// </summary>
-    private void Delete(TEntity entity)
-    {
-        if (entity == null)
+    private void Delete( TEntity entity ) {
+        if( entity == null )
             return;
-        if (entity is IDelete model)
-        {
+        if( entity is IDelete model ) {
             model.IsDeleted = true;
             return;
         }
-        Set.Remove(entity);
+        Set.Remove( entity );
     }
 
     /// <inheritdoc />
-    public virtual async Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default)
-    {
-        if (entity == null)
+    public virtual async Task RemoveAsync( TEntity entity , CancellationToken cancellationToken = default ) {
+        if( entity == null )
             return;
-        await RemoveAsync(entity.Id, cancellationToken);
+        await RemoveAsync( entity.Id , cancellationToken );
     }
 
     /// <inheritdoc />
-    public virtual async Task RemoveAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-    {
+    public virtual async Task RemoveAsync( IEnumerable<TKey> ids , CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        if (ids == null)
+        if( ids == null )
             return;
-        List<TEntity> entities = await FindByIdsAsync(ids, cancellationToken);
-        Delete(entities);
+        List<TEntity> entities = await FindByIdsAsync( ids , cancellationToken );
+        Delete( entities );
     }
 
     /// <summary>
     /// 删除实体集合
     /// </summary>
-    private void Delete(List<TEntity> list)
-    {
-        if (list == null)
+    private void Delete( List<TEntity> list ) {
+        if( list == null )
             return;
-        if (!list.Any())
+        if( !list.Any() )
             return;
-        foreach (TEntity entity in list)
-            Delete(entity);
+        foreach( TEntity entity in list )
+            Delete( entity );
     }
 
     /// <inheritdoc />
-    public virtual async Task RemoveAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-    {
-        if (entities == null)
+    public virtual async Task RemoveAsync( IEnumerable<TEntity> entities , CancellationToken cancellationToken = default ) {
+        if( entities == null )
             return;
-        await RemoveAsync(entities.Select(t => t.Id), cancellationToken);
+        await RemoveAsync( entities.Select( t => t.Id ) , cancellationToken );
     }
 
     #endregion
@@ -542,11 +485,9 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// <summary>
     /// 已释放则抛出异常
     /// </summary>
-    protected void ThrowIfDisposed()
-    {
-        if (_disposed)
-        {
-            throw new ObjectDisposedException(GetType().Name);
+    protected void ThrowIfDisposed() {
+        if( _disposed ) {
+            throw new ObjectDisposedException( GetType().Name );
         }
     }
 
@@ -557,8 +498,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// <summary>
     /// 释放
     /// </summary>
-    public void Dispose()
-    {
+    public void Dispose() {
         _disposed = true;
     }
 

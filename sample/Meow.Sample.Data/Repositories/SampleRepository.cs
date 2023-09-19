@@ -1,4 +1,4 @@
-using Meow.Data.EntityFramework;
+using Meow.Data.EntityFrameworkCore;
 using Meow.Sample.Domain.Repositories;
 
 namespace Meow.Sample.Data.Repositories

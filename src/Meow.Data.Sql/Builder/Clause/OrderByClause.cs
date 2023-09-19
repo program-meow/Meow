@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
 
@@ -10,8 +7,8 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Order By子句
 /// </summary>
-public class OrderByClause : ClauseBase, IOrderByClause
-{
+public class OrderByClause : ClauseBase, IOrderByClause {
+
     #region 字段
 
     /// <summary>
@@ -32,8 +29,7 @@ public class OrderByClause : ClauseBase, IOrderByClause
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">Order By子句结果</param>
-    public OrderByClause(SqlBuilderBase sqlBuilder, StringBuilder result = null) : base(sqlBuilder)
-    {
+    public OrderByClause( SqlBuilderBase sqlBuilder , StringBuilder result = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
     }
@@ -43,18 +39,16 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region OrderBy  [排序]
 
     /// <inheritdoc />
-    public void OrderBy(string order)
-    {
-        if (string.IsNullOrWhiteSpace(order))
+    public void OrderBy( string order ) {
+        if( string.IsNullOrWhiteSpace( order ) )
             return;
-        IEnumerable<string> items = order.Split(',').Where(t => t.IsEmpty() == false);
-        foreach (string item in items)
-        {
-            OrderByItem orderItem = new OrderByItem(item);
-            Result.Append(ColumnCache.GetSafeColumn(orderItem.Column));
-            if (orderItem.Desc)
-                Result.Append(" Desc");
-            Result.Append(",");
+        IEnumerable<string> items = order.Split( ',' ).Where( t => t.IsEmpty() == false );
+        foreach( string item in items ) {
+            OrderByItem orderItem = new OrderByItem( item );
+            Result.Append( ColumnCache.GetSafeColumn( orderItem.Column ) );
+            if( orderItem.Desc )
+                Result.Append( " Desc" );
+            Result.Append( "," );
         }
     }
 
@@ -63,16 +57,14 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region AppendSql  [添加到排序子句]
 
     /// <inheritdoc />
-    public void AppendSql(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendSql( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.Append(sql);
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -80,8 +72,7 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return Result.Length > 0;
     }
 
@@ -90,14 +81,13 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        builder.Append("Order By ");
-        builder.Append(Result);
-        builder.RemoveEnd(",");
+        builder.Append( "Order By " );
+        builder.Append( Result );
+        builder.RemoveEnd( "," );
     }
 
     #endregion
@@ -105,8 +95,7 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
     }
 
@@ -115,11 +104,10 @@ public class OrderByClause : ClauseBase, IOrderByClause
     #region Clone  [复制Order By子句]
 
     /// <inheritdoc />
-    public virtual IOrderByClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IOrderByClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
-        return new OrderByClause(builder, result);
+        result.Append( Result );
+        return new OrderByClause( builder , result );
     }
 
     #endregion

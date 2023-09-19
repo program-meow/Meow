@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Logging.Serilog.Exceptionless 是 Meow 应用框架集成封装 Serilog 日志操作类库,用于写入 Exceptionless。
+			Meow.Logging.Serilog.Exceptionless 是 Meow 集成封装 Serilog 日志操作类库,用于写入 Exceptionless。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

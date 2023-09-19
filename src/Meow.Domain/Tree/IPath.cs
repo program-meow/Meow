@@ -3,8 +3,7 @@
 /// <summary>
 /// 物化路径
 /// </summary>
-public interface IPath
-{
+public interface IPath {
     /// <summary>
     /// 路径
     /// </summary>

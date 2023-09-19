@@ -3,8 +3,7 @@
 /// <summary>
 /// 排序号
 /// </summary>
-public interface ISortId
-{
+public interface ISortId {
     /// <summary>
     /// 排序号
     /// </summary>

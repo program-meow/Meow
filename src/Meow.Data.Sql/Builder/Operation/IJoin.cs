@@ -3,6 +3,5 @@
 /// <summary>
 /// Join子句操作
 /// </summary>
-public interface IJoin
-{
+public interface IJoin {
 }

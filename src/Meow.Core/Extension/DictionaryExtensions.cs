@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Meow.Extension;
+﻿namespace Meow.Extension;
 
 /// <summary>
 /// 字典扩展
@@ -350,4 +347,14 @@ public static class DictionaryExtensions
 
     #endregion
 
+    /// <summary>
+    /// 获取值
+    /// </summary>
+    /// <param name="source">字典数据</param>
+    /// <param name="key">键</param>
+    public static TValue GetValue<TKey, TValue>( this IDictionary<TKey , TValue> source , TKey key ) {
+        if( source == null )
+            return default;
+        return source.TryGetValue( key , out var obj ) ? obj : default;
+    }
 }

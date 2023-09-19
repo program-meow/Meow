@@ -33,7 +33,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Meow.Application\01-Meow.Application.csproj" />
-	  <ProjectReference Include="..\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFramework.Core.csproj" />
+	  <ProjectReference Include="..\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFrameworkCore.csproj" />
 	</ItemGroup>
 
 </Project>

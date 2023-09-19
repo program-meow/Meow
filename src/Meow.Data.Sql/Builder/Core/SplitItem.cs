@@ -1,33 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Core;
 
 /// <summary>
 /// 拆分项
 /// </summary>
-public class SplitItem
-{
+public class SplitItem {
     /// <summary>
     /// 初始化拆分项
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="separator">拆分字符</param>
-    public SplitItem(string value, string separator = " ")
-    {
-        if (string.IsNullOrEmpty(value))
+    public SplitItem( string value , string separator = " " ) {
+        if( string.IsNullOrEmpty( value ) )
             return;
-        List<string> list = value.Trim().Split(separator).Where(item => item.IsEmpty() == false).ToList();
-        if (list.Count == 1)
-        {
-            Left = list[0];
+        List<string> list = value.Trim().Split( separator ).Where( item => item.IsEmpty() == false ).ToList();
+        if( list.Count == 1 ) {
+            Left = list[ 0 ];
             return;
         }
-        if (list.Count == 2)
-        {
-            Left = list[0];
-            Right = list[1];
+        if( list.Count == 2 ) {
+            Left = list[ 0 ];
+            Right = list[ 1 ];
         }
     }
 

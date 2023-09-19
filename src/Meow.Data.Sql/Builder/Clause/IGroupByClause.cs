@@ -5,13 +5,12 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Group By子句
 /// </summary>
-public interface IGroupByClause : ISqlClause
-{
+public interface IGroupByClause : ISqlClause {
     /// <summary>
     /// 添加分组列
     /// </summary>
     /// <param name="columns">分组字段</param>
-    void GroupBy(string columns);
+    void GroupBy( string columns );
     /// <summary>
     /// 添加分组条件
     /// </summary>
@@ -19,19 +18,19 @@ public interface IGroupByClause : ISqlClause
     /// <param name="value">值</param>
     /// <param name="operator">运算符</param>
     /// <param name="isParameterization">是否参数化</param>
-    void Having(string expression, object value, OperatorEnum @operator = OperatorEnum.Equal, bool isParameterization = true);
+    void Having( string expression , object value , OperatorEnum @operator = OperatorEnum.Equal , bool isParameterization = true );
     /// <summary>
     /// 添加到Group By子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendGroupBy(string sql, bool raw);
+    void AppendGroupBy( string sql , bool raw );
     /// <summary>
     /// 添加到Having子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendHaving(string sql, bool raw);
+    void AppendHaving( string sql , bool raw );
     /// <summary>
     /// 清理
     /// </summary>
@@ -40,5 +39,5 @@ public interface IGroupByClause : ISqlClause
     /// 复制Group By子句
     /// </summary>
     /// <param name="builder">Sql生成器</param>
-    IGroupByClause Clone(SqlBuilderBase builder);
+    IGroupByClause Clone( SqlBuilderBase builder );
 }

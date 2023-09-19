@@ -45,7 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-domain", "10-domain", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Domain", "src\Meow.Domain\01-Meow.Domain.csproj", "{B1FBC638-7A59-43C9-A56E-C4FCDCC3C241}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Event", "src\Meow.Event\01-Meow.Event.csproj", "{4D686BA4-9383-4256-9FFB-7063730BA581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Event", "src\Meow.Event\02-Meow.Event.csproj", "{4D686BA4-9383-4256-9FFB-7063730BA581}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-data", "11-data", "{7794B40D-D786-4A9A-9732-7F79CA067210}"
 EndProject
@@ -61,19 +61,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.Metadata", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-ef", "02-ef", "{2012BF53-40F7-431C-949A-B9E6C37D0449}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Data.EntityFramework.Core", "src\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFramework.Core.csproj", "{2BC2F278-D2D9-43F1-AFF7-2ED60D1ABFDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Data.EntityFrameworkCore", "src\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFrameworkCore.csproj", "{2BC2F278-D2D9-43F1-AFF7-2ED60D1ABFDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Data.EntityFramework.SqlServer", "src\Meow.Data.EntityFramework.SqlServer\02-Meow.Data.EntityFramework.SqlServer.csproj", "{1A0ACDAC-A473-4B56-9837-4C37846A4D3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Data.EntityFrameworkCore.SqlServer", "src\Meow.Data.EntityFramework.SqlServer\02-Meow.Data.EntityFrameworkCore.SqlServer.csproj", "{1A0ACDAC-A473-4B56-9837-4C37846A4D3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Data.EntityFramework.Sqlite", "src\Meow.Data.EntityFramework.Sqlite\05-Meow.Data.EntityFramework.Sqlite.csproj", "{02B2CB5F-FF87-4C07-AC97-8990862625F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Data.EntityFrameworkCore.Sqlite", "src\Meow.Data.EntityFramework.Sqlite\05-Meow.Data.EntityFrameworkCore.Sqlite.csproj", "{02B2CB5F-FF87-4C07-AC97-8990862625F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Meow.Data.EntityFramework.Oracle", "src\Meow.Data.EntityFramework.Oracle\06-Meow.Data.EntityFramework.Oracle.csproj", "{53996157-4DF0-4B32-9889-0250ED7E5B07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Meow.Data.EntityFrameworkCore.Oracle", "src\Meow.Data.EntityFramework.Oracle\06-Meow.Data.EntityFrameworkCore.Oracle.csproj", "{53996157-4DF0-4B32-9889-0250ED7E5B07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Authentication", "src\Meow.Authentication\05-Meow.Authentication.csproj", "{D6281152-207C-4BC5-9127-614E6A9A71AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.EntityFramework.PostgreSql", "src\Meow.Data.EntityFramework.PostgreSql\03-Meow.Data.EntityFramework.PostgreSql.csproj", "{4F0450FF-4D0D-4EE9-8AED-5630718905C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.EntityFrameworkCore.PostgreSql", "src\Meow.Data.EntityFramework.PostgreSql\03-Meow.Data.EntityFrameworkCore.PostgreSql.csproj", "{4F0450FF-4D0D-4EE9-8AED-5630718905C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Data.EntityFramework.MySql", "src\Meow.Data.EntityFramework.MySql\04-Meow.Data.EntityFramework.MySql.csproj", "{8556A150-AD45-4F66-9DE9-DD7824664B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Data.EntityFrameworkCore.MySql", "src\Meow.Data.EntityFramework.MySql\04-Meow.Data.EntityFrameworkCore.MySql.csproj", "{8556A150-AD45-4F66-9DE9-DD7824664B95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-dapper", "03-dapper", "{176827B1-8A7C-40FD-BEFB-DD9DA63CB6A6}"
 EndProject
@@ -126,6 +126,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Sample.Data.PgSql", "sample\Meow.Sample.Data.PgSql\Meow.Sample.Data.PgSql.csproj", "{ADEE75C8-8705-47CE-9781-3E87601A9393}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Sample.Data.SqlServer", "sample\Meow.Sample.Data.SqlServer\Meow.Sample.Data.SqlServer.csproj", "{2002AE35-C288-4032-9446-A50619E27BF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Event.Abstraction", "src\Meow.Event.Abstraction\01-Meow.Event.Abstraction.csproj", "{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-tenant", "09-tenant", "{3728559E-FEE7-4578-9F16-5C2CF832ED6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Tenant.Abstraction", "src\Meow.Tenant.Abstraction\01-Meow.Tenant.Abstraction.csproj", "{EAD088BE-F6E5-4461-B726-B10849ECADBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Tenant", "src\Meow.Tenant\02-Meow.Tenant.csproj", "{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -293,6 +301,18 @@ Global
 		{2002AE35-C288-4032-9446-A50619E27BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2002AE35-C288-4032-9446-A50619E27BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2002AE35-C288-4032-9446-A50619E27BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD088BE-F6E5-4461-B726-B10849ECADBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD088BE-F6E5-4461-B726-B10849ECADBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD088BE-F6E5-4461-B726-B10849ECADBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD088BE-F6E5-4461-B726-B10849ECADBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -354,6 +374,10 @@ Global
 		{E6AC37D3-25B4-485D-915A-FC593780DDBA} = {38C102FD-F8A0-4928-BF59-F1961E92EA76}
 		{ADEE75C8-8705-47CE-9781-3E87601A9393} = {38C102FD-F8A0-4928-BF59-F1961E92EA76}
 		{2002AE35-C288-4032-9446-A50619E27BF1} = {38C102FD-F8A0-4928-BF59-F1961E92EA76}
+		{7040CE60-37D9-4A7C-8059-CFBB2FFB0990} = {0B2F72C9-D44B-43B8-91C9-F07270CD1411}
+		{3728559E-FEE7-4578-9F16-5C2CF832ED6B} = {A73CDCF8-DE82-4251-B145-86AB90329C5F}
+		{EAD088BE-F6E5-4461-B726-B10849ECADBB} = {3728559E-FEE7-4578-9F16-5C2CF832ED6B}
+		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB} = {3728559E-FEE7-4578-9F16-5C2CF832ED6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A606D32-B672-4F8E-B52C-CC6795E59FDE}

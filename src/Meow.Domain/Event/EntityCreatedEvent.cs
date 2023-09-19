@@ -6,14 +6,12 @@ namespace Meow.Domain.Event;
 /// 实体创建事件
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public class EntityCreatedEvent<TEntity> : IEvent
-{
+public class EntityCreatedEvent<TEntity> : IEvent {
     /// <summary>
     /// 初始化实体创建事件
     /// </summary>
     /// <param name="entity">实体</param>
-    public EntityCreatedEvent(TEntity entity)
-    {
+    public EntityCreatedEvent( TEntity entity ) {
         Entity = entity;
     }
 

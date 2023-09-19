@@ -1,5 +1,4 @@
-﻿using System;
-using Meow.Data.Sql.Builder;
+﻿using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Builder.Operation;
 
 namespace Meow.Data.Sql.Extension;
@@ -7,8 +6,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// Insert子句操作扩展
 /// </summary>
-public static class InsertClauseExtensions
-{
+public static class InsertClauseExtensions {
+
     #region Insert  [设置插入的表和列名集合]
 
     /// <summary>
@@ -17,12 +16,11 @@ public static class InsertClauseExtensions
     /// <param name="source">源</param>
     /// <param name="columns">列名集合</param>
     /// <param name="table">表名</param>
-    public static T Insert<T>(this T source, string columns, string table = null) where T : IInsert
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.InsertClause.Insert(columns, table);
+    public static T Insert<T>( this T source , string columns , string table = null ) where T : IInsert {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.InsertClause.Insert( columns , table );
         return source;
     }
 
@@ -35,12 +33,11 @@ public static class InsertClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="values">参数值集合</param>
-    public static T Values<T>(this T source, params object[] values) where T : IInsert
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.InsertClause.Values(values);
+    public static T Values<T>( this T source , params object[] values ) where T : IInsert {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.InsertClause.Values( values );
         return source;
     }
 
@@ -54,12 +51,11 @@ public static class InsertClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendInsert<T>(this T source, string sql, bool raw = false) where T : IFrom
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.InsertClause.AppendInsert(sql, raw);
+    public static T AppendInsert<T>( this T source , string sql , bool raw = false ) where T : IFrom {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.InsertClause.AppendInsert( sql , raw );
         return source;
     }
 
@@ -73,12 +69,11 @@ public static class InsertClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendValues<T>(this T source, string sql, bool raw = false) where T : IFrom
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.InsertClause.AppendValues(sql, raw);
+    public static T AppendValues<T>( this T source , string sql , bool raw = false ) where T : IFrom {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.InsertClause.AppendValues( sql , raw );
         return source;
     }
 
@@ -90,11 +85,10 @@ public static class InsertClauseExtensions
     /// 清空Insert子句
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearInsert<T>(this T source) where T : IFrom
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearInsert<T>( this T source ) where T : IFrom {
+        if( source == null )
+            throw new ArgumentNullException( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.InsertClause.Clear();
         return source;
     }

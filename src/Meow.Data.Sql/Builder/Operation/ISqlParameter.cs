@@ -3,6 +3,5 @@
 /// <summary>
 /// Sql参数操作
 /// </summary>
-public interface ISqlParameter
-{
+public interface ISqlParameter {
 }

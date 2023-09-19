@@ -3,8 +3,7 @@
 /// <summary>
 /// 日志上下文访问器
 /// </summary>
-public interface ILogContextAccessor
-{
+public interface ILogContextAccessor {
     /// <summary>
     /// 日志上下文
     /// </summary>

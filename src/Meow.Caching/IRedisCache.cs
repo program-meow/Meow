@@ -3,6 +3,5 @@
 /// <summary>
 /// Redis缓存
 /// </summary>
-public interface IRedisCache : ICache
-{
+public interface IRedisCache : ICache {
 }

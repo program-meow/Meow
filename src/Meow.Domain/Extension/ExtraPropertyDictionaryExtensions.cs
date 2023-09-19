@@ -1,5 +1,4 @@
-﻿using System;
-using Meow.Domain.Extending;
+﻿using Meow.Domain.Extending;
 using Meow.Extension;
 using Meow.Option;
 
@@ -8,22 +7,20 @@ namespace Meow.Domain.Extension;
 /// <summary>
 /// 扩展属性字典扩展
 /// </summary>
-public static class ExtraPropertyDictionaryExtensions
-{
+public static class ExtraPropertyDictionaryExtensions {
     /// <summary>
     /// 获取属性
     /// </summary>
     /// <param name="source">扩展属性字典</param>
     /// <param name="name">属性名</param>
-    public static TProperty GetProperty<TProperty>(this ExtraPropertyDictionary source, string name)
-    {
-        source.CheckNull(nameof(source));
-        if (source.ContainsKey(name) == false)
+    public static TProperty GetProperty<TProperty>( this ExtraPropertyDictionary source , string name ) {
+        source.CheckNull( nameof( source ) );
+        if( source.ContainsKey( name ) == false )
             return default;
-        var value = source[name];
-        if (value is DateTime dateValue && TimeOptions.IsUseUtc)
-            value = Meow.Helper.Time.UtcToLocalTime(dateValue);
-        return Helper.Convert.To<TProperty>(value);
+        var value = source[ name ];
+        if( value is DateTime dateValue && TimeOptions.IsUseUtc )
+            value = Meow.Helper.Time.UtcToLocalTime( dateValue );
+        return Helper.Convert.To<TProperty>( value );
     }
 
     /// <summary>
@@ -32,25 +29,23 @@ public static class ExtraPropertyDictionaryExtensions
     /// <param name="source">扩展属性字典</param>
     /// <param name="name">属性名</param>
     /// <param name="value">属性值</param>
-    public static ExtraPropertyDictionary SetProperty(this ExtraPropertyDictionary source, string name, object value)
-    {
-        source.CheckNull(nameof(source));
-        source.RemoveProperty(name);
-        if (value == null)
+    public static ExtraPropertyDictionary SetProperty( this ExtraPropertyDictionary source , string name , object value ) {
+        source.CheckNull( nameof( source ) );
+        source.RemoveProperty( name );
+        if( value == null )
             return source;
-        source[name] = GetPropertyValue(source, value);
+        source[ name ] = GetPropertyValue( source , value );
         return source;
     }
 
     /// <summary>
     /// 获取属性值
     /// </summary>
-    private static object GetPropertyValue(ExtraPropertyDictionary source, object value)
-    {
-        if (value is string && source.IsTrimString)
+    private static object GetPropertyValue( ExtraPropertyDictionary source , object value ) {
+        if( value is string && source.IsTrimString )
             return value.SafeString();
-        if (value is DateTime dateValue && TimeOptions.IsUseUtc)
-            return Meow.Helper.Time.Normalize(dateValue);
+        if( value is DateTime dateValue && TimeOptions.IsUseUtc )
+            return Meow.Helper.Time.Normalize( dateValue );
         return value;
     }
 
@@ -59,11 +54,10 @@ public static class ExtraPropertyDictionaryExtensions
     /// </summary>
     /// <param name="source">扩展属性字典</param>
     /// <param name="name">属性名</param>
-    public static ExtraPropertyDictionary RemoveProperty(this ExtraPropertyDictionary source, string name)
-    {
-        source.CheckNull(nameof(source));
-        if (source.ContainsKey(name))
-            source.Remove(name);
+    public static ExtraPropertyDictionary RemoveProperty( this ExtraPropertyDictionary source , string name ) {
+        source.CheckNull( nameof( source ) );
+        if( source.ContainsKey( name ) )
+            source.Remove( name );
         return source;
     }
 }

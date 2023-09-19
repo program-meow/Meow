@@ -1,19 +1,16 @@
-﻿using System.Text;
-using Meow.Data.Sql.Builder.Param;
+﻿using Meow.Data.Sql.Builder.Param;
 
 namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Sql小于查询条件
 /// </summary>
-public class LessCondition : SqlConditionBase
-{
+public class LessCondition : SqlConditionBase {
     /// <summary>
     /// 初始化Sql小于查询条件
     /// </summary>
-    public LessCondition(IParameterManager parameterManager, string column, object value, bool isParameterization)
-        : base(parameterManager, column, value, isParameterization)
-    {
+    public LessCondition( IParameterManager parameterManager , string column , object value , bool isParameterization )
+        : base( parameterManager , column , value , isParameterization ) {
     }
 
     /// <summary>
@@ -22,9 +19,8 @@ public class LessCondition : SqlConditionBase
     /// <param name="builder">字符串生成器</param>
     /// <param name="column">列名</param>
     /// <param name="value">值</param>
-    protected override void AppendCondition(StringBuilder builder, string column, object value)
-    {
-        builder.AppendFormat("{0}<{1}", column, value);
+    protected override void AppendCondition( StringBuilder builder , string column , object value ) {
+        builder.AppendFormat( "{0}<{1}" , column , value );
     }
 
     /// <summary>
@@ -33,11 +29,10 @@ public class LessCondition : SqlConditionBase
     /// <param name="builder">字符串生成器</param>
     /// <param name="column">列名</param>
     /// <param name="sqlBuilder">Sql生成器</param>
-    protected override void AppendSqlBuilder(StringBuilder builder, string column, ISqlBuilder sqlBuilder)
-    {
-        builder.AppendFormat("{0}<", column);
-        builder.Append("(");
-        sqlBuilder.AppendTo(builder);
-        builder.Append(")");
+    protected override void AppendSqlBuilder( StringBuilder builder , string column , ISqlBuilder sqlBuilder ) {
+        builder.AppendFormat( "{0}<" , column );
+        builder.Append( "(" );
+        sqlBuilder.AppendTo( builder );
+        builder.Append( ")" );
     }
 }

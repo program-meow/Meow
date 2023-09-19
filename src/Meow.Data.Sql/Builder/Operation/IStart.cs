@@ -3,6 +3,5 @@
 /// <summary>
 /// 起始子句操作
 /// </summary>
-public interface IStart
-{
+public interface IStart {
 }

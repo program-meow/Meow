@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Meow.Data;
-using Meow.Data.EntityFramework.Extension;
+using Meow.Data.EntityFrameworkCore.Extension;
 using Meow.Data.Extension;
 using Meow.Data.Store;
 using Meow.Extension;

@@ -1,7 +1,4 @@
-using Meow.Data.EntityFramework.MySql;
-using Meow.Data.EntityFramework.Oracle;
-using Meow.Data.EntityFramework.PostgreSql;
-using Meow.Data.EntityFramework.SqlServer;
+using Meow.Data.EntityFrameworkCore;
 using Meow.Extension;
 using Meow.Sample.Data;
 using Microsoft.AspNetCore.Builder;
@@ -17,27 +14,27 @@ builder.Services.AddControllers();
 
 
 
-builder.Host.AddMeow(
-    options => options
+//builder.Host.AddMeow(
+//    options => options
 
-        //配置数据库连接字符串与工作单元映射
-        //SqlServer 数据库
-        .UseSqlServerUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.SqlServer.SampleUnitOfWork>(
-            builder.Configuration.GetConnectionString("SqlServerConnection"),
-            condition: builder.Configuration["App:DbType"] == "SqlServer")
-        //PgSql 数据库
-        .UsePgSqlUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.PgSql.SampleUnitOfWork>(
-            builder.Configuration.GetConnectionString("PgSqlConnection"),
-            condition: builder.Configuration["App:DbType"] == "PgSql")
-        //Oracle 数据库
-        .UseOracleUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.Oracle.SampleUnitOfWork>(
-            builder.Configuration.GetConnectionString("OracleConnection"),
-            condition: builder.Configuration["App:DbType"] == "Oracle")
-        //MySql 数据库
-        .UseMySqlUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.MySql.SampleUnitOfWork>(
-            builder.Configuration.GetConnectionString("MySqlConnection"),
-            condition: builder.Configuration["App:DbType"] == "MySql")
-);
+//        //配置数据库连接字符串与工作单元映射
+//        //SqlServer 数据库
+//        .UseSqlServerUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.SqlServer.SampleUnitOfWork>(
+//            builder.Configuration.GetConnectionString("SqlServerConnection"),
+//            condition: builder.Configuration["App:DbType"] == "SqlServer")
+//        //PgSql 数据库
+//        .UsePgSqlUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.PgSql.SampleUnitOfWork>(
+//            builder.Configuration.GetConnectionString("PgSqlConnection"),
+//            condition: builder.Configuration["App:DbType"] == "PgSql")
+//        //Oracle 数据库
+//        .UseOracleUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.Oracle.SampleUnitOfWork>(
+//            builder.Configuration.GetConnectionString("OracleConnection"),
+//            condition: builder.Configuration["App:DbType"] == "Oracle")
+//        //MySql 数据库
+//        .UseMySqlUnitOfWork<ISampleUnitOfWork, Meow.Sample.Data.MySql.SampleUnitOfWork>(
+//            builder.Configuration.GetConnectionString("MySqlConnection"),
+//            condition: builder.Configuration["App:DbType"] == "MySql")
+//);
 
 
 //构建用于配置HTTP管道和路由的web应用程序。

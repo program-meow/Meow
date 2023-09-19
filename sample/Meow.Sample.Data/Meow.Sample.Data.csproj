@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFramework.Core.csproj" />
+	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFrameworkCore.csproj" />
 	  <ProjectReference Include="..\Meow.Sample.Domain\Meow.Sample.Domain.csproj" />
 	</ItemGroup>
 

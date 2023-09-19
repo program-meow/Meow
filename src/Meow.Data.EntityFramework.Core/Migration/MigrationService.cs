@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Meow.Data.EntityFramework.Extension;
-using Meow.Extension;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using SystemException = System.Exception;
+﻿using Meow.Extension;
+using Meow.Helper;
+using File = Meow.Helper.File;
 
-namespace Meow.Data.EntityFramework.Migration;
+namespace Meow.Data.EntityFrameworkCore.Migration;
 
 /// <summary>
 /// 迁移服务
 /// </summary>
-public class MigrationService : IMigrationService
-{
+public class MigrationService : IMigrationService {
     /// <summary>
     /// 日志
     /// </summary>
@@ -24,129 +16,79 @@ public class MigrationService : IMigrationService
     /// 迁移文件服务
     /// </summary>
     private readonly IMigrationFileService _migrationFileService;
-    /// <summary>
-    /// 数据上下文项目根目录绝对路径
-    /// </summary>
-    private string _dbContextRootPath;
-    /// <summary>
-    /// 数据上下文
-    /// </summary>
-    private IUnitOfWork _dbcontext;
-    /// <summary>
-    /// 迁移名称
-    /// </summary>
-    private string _migrationName;
-    /// <summary>
-    /// 是否移除所有外键
-    /// </summary>
-    private bool _isRemoveForeignKeys;
 
     /// <summary>
     /// 初始化迁移服务
     /// </summary>
     /// <param name="logger">日志</param>
     /// <param name="migrationFileService">迁移文件服务</param>
-    public MigrationService(ILogger<MigrationService> logger, IMigrationFileService migrationFileService)
-    {
+    public MigrationService( ILogger<MigrationService> logger , IMigrationFileService migrationFileService ) {
         _logger = logger ?? NullLogger<MigrationService>.Instance;
-        _migrationFileService = migrationFileService ?? throw new ArgumentNullException(nameof(migrationFileService));
+        _migrationFileService = migrationFileService ?? throw new ArgumentNullException( nameof( migrationFileService ) );
     }
 
     /// <inheritdoc />
-    public IMigrationService DbContextRootPath(string path)
-    {
-        _dbContextRootPath = path;
+    public IMigrationService InstallEfTool() {
+        _logger.LogTrace( "准备安装 dotnet-ef 全局工具." );
+        CommandLine.Create( "dotnet" , "tool install -g dotnet-ef" )
+            .OutputToMatch( "dotnet-ef" )
+            .Log( _logger )
+            .Execute();
         return this;
     }
 
     /// <inheritdoc />
-    public IMigrationService DbContext(IUnitOfWork dbcontext)
-    {
-        _dbcontext = dbcontext;
+    public IMigrationService UpdateEfTool() {
+        _logger.LogTrace( "准备更新 dotnet-ef 全局工具." );
+        CommandLine.Create( "dotnet" , "tool update -g dotnet-ef" )
+            .OutputToMatch( "dotnet-ef" )
+            .Log( _logger )
+            .Execute();
         return this;
     }
 
     /// <inheritdoc />
-    public IMigrationService MigrationName(string name)
-    {
-        _migrationName = name;
+    public IMigrationService AddMigration( string migrationName , string dbContextRootPath , bool isRemoveForeignKeys = false ) {
+        if( migrationName.IsEmpty() )
+            throw new ArgumentException( "必须设置迁移名称" );
+        if( dbContextRootPath.IsEmpty() )
+            throw new ArgumentException( "必须设置数据上下文项目根目录绝对路径" );
+        _logger.LogTrace( "准备添加 ef 迁移." );
+        CommandLine.Create( "dotnet" , $"ef migrations add {migrationName}" )
+            .WorkingDirectory( dbContextRootPath )
+            .OutputToMatch( "Done" )
+            .OutputToMatch( "used by an existing migration" )
+            .Log( _logger )
+            .Execute();
+        if( isRemoveForeignKeys )
+            RemoveMigrationFileForeignKeys( migrationName , dbContextRootPath );
         return this;
-    }
-
-    /// <inheritdoc />
-    public IMigrationService RemoveForeignKeys()
-    {
-        _isRemoveForeignKeys = true;
-        return this;
-    }
-
-    /// <inheritdoc />
-    public async Task MigrateAsync(CancellationToken cancellationToken = default)
-    {
-        if (Validate() == false)
-            return;
-        AddMigration();
-        if (_isRemoveForeignKeys)
-            await RemoveMigrationFileForeignKeys();
-        await UpdateDatabase(cancellationToken);
-    }
-
-    /// <summary>
-    /// 验证
-    /// </summary>
-    private bool Validate()
-    {
-        if (_migrationName.IsEmpty())
-            throw new ArgumentException("必须设置迁移名称");
-        List<string> migrations = _dbcontext?.GetMigrations();
-        if (migrations == null)
-            return true;
-        if (migrations.Any(t => t.EndsWith($"_{_migrationName}")))
-            return false;
-        return true;
-    }
-
-    /// <summary>
-    /// 添加迁移
-    /// </summary>
-    private void AddMigration()
-    {
-        string result = Meow.Helper.CommandLine.Create("dotnet", $"ef migrations add {_migrationName}")
-            .WorkingDirectory(_dbContextRootPath)
-            .ExecuteResult();
-        _logger.LogTrace($"添加迁移: {result}");
     }
 
     /// <summary>
     /// 删除迁移文件中的外键设置
     /// </summary>
-    private async Task RemoveMigrationFileForeignKeys()
-    {
-        _logger.LogTrace("准备移除迁移文件中的外键设置.");
-        string migrationsPath = Meow.Helper.File.JoinPath(_dbContextRootPath, "Migrations");
-        await _migrationFileService
-            .MigrationsPath(migrationsPath)
-            .MigrationName(_migrationName)
+    private void RemoveMigrationFileForeignKeys( string migrationName , string dbContextRootPath ) {
+        _logger.LogTrace( "准备移除迁移文件中的外键设置." );
+        string migrationsPath = File.JoinPath( dbContextRootPath , "Migrations" );
+        _migrationFileService
+            .MigrationsPath( migrationsPath )
+            .MigrationName( migrationName )
             .RemoveForeignKeys()
-            .SaveAsync();
+            .Save();
     }
 
-    /// <summary>
-    /// 更新数据库
-    /// </summary>
-    private async Task UpdateDatabase(CancellationToken cancellationToken)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            string result = Meow.Helper.CommandLine.Create("dotnet", "ef database update")
-                .WorkingDirectory(_dbContextRootPath)
-                .ExecuteResult();
-            _logger.LogTrace($"迁移更新数据库: {result}");
-            if (result.Contains("Exception"))
-                throw new SystemException($"迁移更新数据库失败: {result}");
-            if (result.Contains("Applying migration"))
-                return;
-            await Task.Delay(1000, cancellationToken);
-        }
+    /// <inheritdoc />
+    public void Migrate( string dbContextRootPath ) {
+        _logger.LogTrace( "准备执行 ef 迁移更新数据库." );
+        CommandLine.Create( "dotnet" , "ef database update" )
+            .WorkingDirectory( dbContextRootPath )
+            .OutputToMatch( "The ConnectionString property has not been initialized" )
+            .OutputToMatch( "The server was not found or was not accessible" )
+            .OutputToMatch( "There is already an object named" )
+            .OutputToMatch( "Applying migration" )
+            .OutputToMatch( "Done" )
+            .Log( _logger )
+            .Execute();
     }
 }

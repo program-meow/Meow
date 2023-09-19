@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Data 是 Meow 应用框架数据访问基础类库。
+			Meow.Data 是 Meow 数据访问基础类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

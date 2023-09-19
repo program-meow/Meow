@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Core;
 using Meow.Extension;
 
@@ -10,8 +7,8 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// 起始子句
 /// </summary>
-public class StartClause : ClauseBase, IStartClause
-{
+public class StartClause : ClauseBase, IStartClause {
+
     #region 字段
 
     /// <summary>
@@ -37,8 +34,7 @@ public class StartClause : ClauseBase, IStartClause
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">起始子句结果</param>
     /// <param name="cteItems">公用表表达式CTE项集合</param>
-    public StartClause(SqlBuilderBase sqlBuilder, StringBuilder result = null, List<CteItem> cteItems = null) : base(sqlBuilder)
-    {
+    public StartClause( SqlBuilderBase sqlBuilder , StringBuilder result = null , List<CteItem> cteItems = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         CteItems = cteItems ?? new List<CteItem>();
         ColumnCache = sqlBuilder.ColumnCache;
@@ -53,12 +49,11 @@ public class StartClause : ClauseBase, IStartClause
     /// </summary>
     /// <param name="name">公用表表达式名称</param>
     /// <param name="builder">Sql生成器</param>
-    public void Cte(string name, ISqlBuilder builder)
-    {
-        if (name.IsEmpty() || builder == null)
+    public void Cte( string name , ISqlBuilder builder ) {
+        if( name.IsEmpty() || builder == null )
             return;
-        name = ColumnCache.GetSafeColumn(name);
-        CteItems.Add(new CteItem(name, builder));
+        name = ColumnCache.GetSafeColumn( name );
+        CteItems.Add( new CteItem( name , builder ) );
     }
 
     #endregion
@@ -70,16 +65,14 @@ public class StartClause : ClauseBase, IStartClause
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    public void Append(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void Append( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.Append(sql);
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -91,16 +84,14 @@ public class StartClause : ClauseBase, IStartClause
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    public void AppendLine(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendLine( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.AppendLine(sql);
+        if( raw ) {
+            Result.AppendLine( sql );
             return;
         }
-        Result.AppendLine(ReplaceRawSql(sql));
+        Result.AppendLine( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -110,11 +101,10 @@ public class StartClause : ClauseBase, IStartClause
     /// <summary>
     /// 验证
     /// </summary>
-    public bool Validate()
-    {
-        if (Result.Length > 0)
+    public bool Validate() {
+        if( Result.Length > 0 )
             return true;
-        if (CteItems.Count > 0)
+        if( CteItems.Count > 0 )
             return true;
         return false;
     }
@@ -127,13 +117,12 @@ public class StartClause : ClauseBase, IStartClause
     /// 添加到字符串生成器
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        AppendCte(builder);
-        builder.Append(Result);
+        AppendCte( builder );
+        builder.Append( Result );
     }
 
     #endregion
@@ -144,27 +133,24 @@ public class StartClause : ClauseBase, IStartClause
     /// 添加公用表表达式CTE
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    protected virtual void AppendCte(StringBuilder builder)
-    {
-        if (CteItems.Count == 0)
+    protected virtual void AppendCte( StringBuilder builder ) {
+        if( CteItems.Count == 0 )
             return;
-        builder.AppendFormat("{0} ", GetCteKeyWord());
-        foreach (CteItem item in CteItems)
-        {
-            builder.Append(item.Name);
-            builder.AppendLine(" ");
-            builder.Append("As (");
-            item.Builder.AppendTo(builder);
-            builder.AppendLine("),");
+        builder.AppendFormat( "{0} " , GetCteKeyWord() );
+        foreach( CteItem item in CteItems ) {
+            builder.Append( item.Name );
+            builder.AppendLine( " " );
+            builder.Append( "As (" );
+            item.Builder.AppendTo( builder );
+            builder.AppendLine( ")," );
         }
-        builder.RemoveEnd($",{Meow.Helper.String.Line}");
+        builder.RemoveEnd( $",{Meow.Helper.String.Line}" );
     }
 
     /// <summary>
     /// 获取CTE关键字
     /// </summary>
-    protected virtual string GetCteKeyWord()
-    {
+    protected virtual string GetCteKeyWord() {
         return "With";
     }
 
@@ -175,8 +161,7 @@ public class StartClause : ClauseBase, IStartClause
     /// <summary>
     /// 清理公用表表达式CTE
     /// </summary>
-    public void ClearCte()
-    {
+    public void ClearCte() {
         CteItems.Clear();
     }
 
@@ -187,8 +172,7 @@ public class StartClause : ClauseBase, IStartClause
     /// <summary>
     /// 清理
     /// </summary>
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
         CteItems.Clear();
     }
@@ -201,11 +185,10 @@ public class StartClause : ClauseBase, IStartClause
     /// 复制起始子句
     /// </summary>
     /// <param name="builder">Sql生成器</param>
-    public virtual IStartClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IStartClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
-        return new StartClause(builder, result, CteItems.Select(t => t.Clone()).ToList());
+        result.Append( Result );
+        return new StartClause( builder , result , CteItems.Select( t => t.Clone() ).ToList() );
     }
 
     #endregion

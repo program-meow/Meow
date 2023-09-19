@@ -1,12 +1,9 @@
-﻿using System;
-
-namespace Meow.Data.Query.Condition.Internal;
+﻿namespace Meow.Data.Query.Condition.Internal;
 
 /// <summary>
 /// 日期范围查询参数对象 - 使用该对象的目的是构建参数化条件
 /// </summary>
-internal class DateTimeQuery
-{
+internal class DateTimeQuery {
     /// <summary>
     /// 起始时间
     /// </summary>

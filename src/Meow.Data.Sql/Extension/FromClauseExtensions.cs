@@ -1,5 +1,4 @@
-﻿using System;
-using Meow.Data.Sql.Builder;
+﻿using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Builder.Operation;
 using Meow.Extension;
 
@@ -8,8 +7,8 @@ namespace Meow.Data.Sql.Extension;
 /// <summary>
 /// From子句操作扩展
 /// </summary>
-public static class FromClauseExtensions
-{
+public static class FromClauseExtensions {
+
     #region From  [设置表]
 
     /// <summary>
@@ -17,11 +16,10 @@ public static class FromClauseExtensions
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="table">表名</param>
-    public static T From<T>(this T source, string table) where T : IFrom
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.FromClause.From(table);
+    public static T From<T>( this T source , string table ) where T : IFrom {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.FromClause.From( table );
         return source;
     }
 
@@ -31,11 +29,10 @@ public static class FromClauseExtensions
     /// <param name="source">源</param>
     /// <param name="builder">Sql生成器</param>
     /// <param name="alias">表别名</param>
-    public static T From<T>(this T source, ISqlBuilder builder, string alias) where T : IFrom
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.FromClause.From(builder, alias);
+    public static T From<T>( this T source , ISqlBuilder builder , string alias ) where T : IFrom {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.FromClause.From( builder , alias );
         return source;
     }
 
@@ -45,11 +42,10 @@ public static class FromClauseExtensions
     /// <param name="source">源</param>
     /// <param name="action">子查询操作</param>
     /// <param name="alias">表别名</param>
-    public static T From<T>(this T source, Action<ISqlBuilder> action, string alias) where T : IFrom
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.FromClause.From(action, alias);
+    public static T From<T>( this T source , Action<ISqlBuilder> action , string alias ) where T : IFrom {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.FromClause.From( action , alias );
         return source;
     }
 
@@ -63,11 +59,10 @@ public static class FromClauseExtensions
     /// <param name="source">源</param>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加,默认会将[]替换为特定Sql转义符</param>
-    public static T AppendFrom<T>(this T source, string sql, bool raw = false) where T : IFrom
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
-            accessor.FromClause.AppendSql(sql, raw);
+    public static T AppendFrom<T>( this T source , string sql , bool raw = false ) where T : IFrom {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
+            accessor.FromClause.AppendSql( sql , raw );
         return source;
     }
 
@@ -79,10 +74,9 @@ public static class FromClauseExtensions
     /// 清空From子句
     /// </summary>
     /// <param name="source">源</param>
-    public static T ClearFrom<T>(this T source) where T : IFrom
-    {
-        source.CheckNull(nameof(source));
-        if (source is ISqlPartAccessor accessor)
+    public static T ClearFrom<T>( this T source ) where T : IFrom {
+        source.CheckNull( nameof( source ) );
+        if( source is ISqlPartAccessor accessor )
             accessor.FromClause.Clear();
         return source;
     }

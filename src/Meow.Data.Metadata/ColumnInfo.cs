@@ -3,8 +3,7 @@
 /// <summary>
 /// 列信息
 /// </summary>
-public class ColumnInfo
-{
+public class ColumnInfo {
     /// <summary>
     /// 列标识
     /// </summary>

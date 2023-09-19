@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-namespace Meow.Data.EntityFramework.ValueConverter;
+﻿namespace Meow.Data.EntityFrameworkCore.ValueConverter;
 
 /// <summary>
 /// 日期值转换器,用于处理Utc日期

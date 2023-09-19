@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Data.Sql.Builder.Param;
 
 /// <summary>
 /// Sql参数管理器
 /// </summary>
-public class ParameterManager : IParameterManager
-{
+public class ParameterManager : IParameterManager {
     /// <summary>
     /// Sql方言
     /// </summary>
@@ -17,7 +13,7 @@ public class ParameterManager : IParameterManager
     /// <summary>
     /// 参数集合
     /// </summary>
-    private readonly IDictionary<string, SqlParam> _params;
+    private readonly IDictionary<string , SqlParam> _params;
     /// <summary>
     /// 动态参数集合
     /// </summary>
@@ -31,11 +27,10 @@ public class ParameterManager : IParameterManager
     /// 初始化Sql参数管理器
     /// </summary>
     /// <param name="dialect">Sql方言</param>
-    public ParameterManager(IDialect dialect)
-    {
+    public ParameterManager( IDialect dialect ) {
         Dialect = dialect;
         _paramIndex = 0;
-        _params = new Dictionary<string, SqlParam>();
+        _params = new Dictionary<string , SqlParam>();
         _dynamicParams = new List<object>();
     }
 
@@ -43,19 +38,17 @@ public class ParameterManager : IParameterManager
     /// 初始化Sql参数管理器
     /// </summary>
     /// <param name="manager">Sql方言</param>
-    public ParameterManager(ParameterManager manager)
-    {
+    public ParameterManager( ParameterManager manager ) {
         Dialect = manager.Dialect;
         _paramIndex = manager._paramIndex;
-        _params = new Dictionary<string, SqlParam>(manager._params);
-        _dynamicParams = new List<object>(manager._dynamicParams);
+        _params = new Dictionary<string , SqlParam>( manager._params );
+        _dynamicParams = new List<object>( manager._dynamicParams );
     }
 
     /// <summary>
     /// 创建参数名
     /// </summary>
-    public virtual string GenerateName()
-    {
+    public virtual string GenerateName() {
         string result = $"{Dialect.GetPrefix()}_p_{_paramIndex}";
         _paramIndex++;
         return result;
@@ -65,12 +58,11 @@ public class ParameterManager : IParameterManager
     /// 标准化参数名
     /// </summary>
     /// <param name="name">参数名</param>
-    public virtual string NormalizeName(string name)
-    {
-        if (name.IsEmpty())
+    public virtual string NormalizeName( string name ) {
+        if( name.IsEmpty() )
             return name;
         name = name.Trim();
-        if (name.StartsWith(Dialect.GetPrefix()))
+        if( name.StartsWith( Dialect.GetPrefix() ) )
             return name;
         return $"{Dialect.GetPrefix()}{name}";
     }
@@ -79,11 +71,10 @@ public class ParameterManager : IParameterManager
     /// 添加动态参数
     /// </summary>
     /// <param name="param">动态参数</param>
-    public virtual void AddDynamicParams(object param)
-    {
-        if (param == null)
+    public virtual void AddDynamicParams( object param ) {
+        if( param == null )
             return;
-        _dynamicParams.Add(param);
+        _dynamicParams.Add( param );
     }
 
     /// <summary>
@@ -96,30 +87,27 @@ public class ParameterManager : IParameterManager
     /// <param name="size">字段长度</param>
     /// <param name="precision">数值有效位数</param>
     /// <param name="scale">数值小数位数</param>
-    public virtual void Add(string name, object value = null, DbType? dbType = null, ParameterDirection? direction = null, int? size = null, byte? precision = null, byte? scale = null)
-    {
-        if (name.IsEmpty())
+    public virtual void Add( string name , object value = null , DbType? dbType = null , ParameterDirection? direction = null , int? size = null , byte? precision = null , byte? scale = null ) {
+        if( name.IsEmpty() )
             return;
-        name = NormalizeName(name);
-        if (_params.ContainsKey(name))
-            _params.Remove(name);
-        SqlParam param = new SqlParam(name, value, dbType, direction, size, precision, scale);
-        _params.Add(name, param);
+        name = NormalizeName( name );
+        if( _params.ContainsKey( name ) )
+            _params.Remove( name );
+        SqlParam param = new SqlParam( name , value , dbType , direction , size , precision , scale );
+        _params.Add( name , param );
     }
 
     /// <summary>
     /// 获取动态参数列表
     /// </summary>
-    public IReadOnlyList<object> GetDynamicParams()
-    {
+    public IReadOnlyList<object> GetDynamicParams() {
         return _dynamicParams;
     }
 
     /// <summary>
     /// 获取参数列表
     /// </summary>
-    public IReadOnlyList<SqlParam> GetParams()
-    {
+    public IReadOnlyList<SqlParam> GetParams() {
         return _params.Values.ToList();
     }
 
@@ -127,37 +115,33 @@ public class ParameterManager : IParameterManager
     /// 是否包含参数
     /// </summary>
     /// <param name="name">参数名</param>
-    public virtual bool Contains(string name)
-    {
-        name = NormalizeName(name);
-        return _params.ContainsKey(name);
+    public virtual bool Contains( string name ) {
+        name = NormalizeName( name );
+        return _params.ContainsKey( name );
     }
 
     /// <summary>
     /// 获取参数
     /// </summary>
     /// <param name="name">参数名</param>
-    public virtual SqlParam GetParam(string name)
-    {
-        name = NormalizeName(name);
-        return _params.ContainsKey(name) ? _params[name] : null;
+    public virtual SqlParam GetParam( string name ) {
+        name = NormalizeName( name );
+        return _params.ContainsKey( name ) ? _params[ name ] : null;
     }
 
     /// <summary>
     /// 获取参数值
     /// </summary>
     /// <param name="name">参数名</param>
-    public virtual object GetValue(string name)
-    {
-        name = NormalizeName(name);
-        return _params.ContainsKey(name) ? _params[name].Value : null;
+    public virtual object GetValue( string name ) {
+        name = NormalizeName( name );
+        return _params.ContainsKey( name ) ? _params[ name ].Value : null;
     }
 
     /// <summary>
     /// 清空参数
     /// </summary>
-    public virtual void Clear()
-    {
+    public virtual void Clear() {
         _paramIndex = 0;
         _params.Clear();
     }
@@ -165,8 +149,7 @@ public class ParameterManager : IParameterManager
     /// <summary>
     /// 复制副本
     /// </summary>
-    public IParameterManager Clone()
-    {
-        return new ParameterManager(this);
+    public IParameterManager Clone() {
+        return new ParameterManager( this );
     }
 }

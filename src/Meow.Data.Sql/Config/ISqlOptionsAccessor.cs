@@ -3,8 +3,7 @@
 /// <summary>
 /// Sql配置访问器
 /// </summary>
-public interface ISqlOptionsAccessor
-{
+public interface ISqlOptionsAccessor {
     /// <summary>
     /// 获取Sql配置
     /// </summary>

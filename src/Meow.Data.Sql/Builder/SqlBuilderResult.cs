@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using Meow.Data.Sql.Builder.Param;
+﻿using Meow.Data.Sql.Builder.Param;
 
 namespace Meow.Data.Sql.Builder;
 
 /// <summary>
 /// Sql生成器结果
 /// </summary>
-public class SqlBuilderResult
-{
+public class SqlBuilderResult {
     /// <summary>
     /// Sql生成器结果
     /// </summary>
@@ -32,8 +30,7 @@ public class SqlBuilderResult
     /// <param name="sqlParams">Sql参数列表</param>
     /// <param name="resolver">参数字面值解析器</param>
     /// <param name="parameterManager">Sql参数管理器</param>
-    public SqlBuilderResult(string sql, List<SqlParam> sqlParams, IParamLiteralsResolver resolver, IParameterManager parameterManager)
-    {
+    public SqlBuilderResult( string sql , List<SqlParam> sqlParams , IParamLiteralsResolver resolver , IParameterManager parameterManager ) {
         _sql = sql;
         _sqlParams = sqlParams ?? new List<SqlParam>();
         _resolver = resolver;
@@ -43,16 +40,14 @@ public class SqlBuilderResult
     /// <summary>
     /// 获取Sql语句
     /// </summary>
-    public string GetSql()
-    {
+    public string GetSql() {
         return _sql;
     }
 
     /// <summary>
     /// 获取Sql参数列表
     /// </summary>
-    public List<SqlParam> GetParams()
-    {
+    public List<SqlParam> GetParams() {
         return _sqlParams;
     }
 
@@ -61,24 +56,22 @@ public class SqlBuilderResult
     /// </summary>
     /// <typeparam name="T">参数值类型</typeparam>
     /// <param name="name">参数名</param>
-    public T GetParam<T>(string name)
-    {
-        name = _parameterManager.NormalizeName(name);
-        SqlParam result = _sqlParams.Find(t => t.Name?.ToUpperInvariant() == name?.ToUpperInvariant());
-        if (result == null)
+    public T GetParam<T>( string name ) {
+        name = _parameterManager.NormalizeName( name );
+        SqlParam result = _sqlParams.Find( t => t.Name?.ToUpperInvariant() == name?.ToUpperInvariant() );
+        if( result == null )
             return default;
-        return Meow.Helper.Convert.To<T>(result.Value);
+        return Meow.Helper.Convert.To<T>( result.Value );
     }
 
     /// <summary>
     /// 获取调试Sql语句
     /// </summary>
-    public virtual string GetDebugSql()
-    {
+    public virtual string GetDebugSql() {
         string sql = GetSql();
         List<SqlParam> parameters = GetParams();
-        foreach (SqlParam parameter in parameters)
-            sql = Meow.Helper.Regex.Replace(sql, $@"{parameter.Name}\b", _resolver.GetParamLiterals(parameter.Value));
+        foreach( SqlParam parameter in parameters )
+            sql = Meow.Helper.Regex.Replace( sql , $@"{parameter.Name}\b" , _resolver.GetParamLiterals( parameter.Value ) );
         return sql;
     }
 }

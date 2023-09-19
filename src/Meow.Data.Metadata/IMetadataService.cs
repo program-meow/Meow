@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
-
-namespace Meow.Data.Metadata;
+﻿namespace Meow.Data.Metadata;
 
 /// <summary>
 /// 数据库元数据服务
 /// </summary>
-public interface IMetadataService
-{
+public interface IMetadataService {
     /// <summary>
     /// 获取数据库信息
     /// </summary>

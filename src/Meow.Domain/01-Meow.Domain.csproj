@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Domain 是 Meow 应用框架领域层基类库。
+			Meow.Domain 是 Meow 领域层基类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -34,7 +34,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Authentication.csproj" />
 	  <ProjectReference Include="..\Meow.Data.Abstraction\06-Meow.Data.Abstraction.csproj" />
-	  <ProjectReference Include="..\Meow.Event\01-Meow.Event.csproj" />
+	  <ProjectReference Include="..\Meow.Event\02-Meow.Event.csproj" />
 	</ItemGroup>
 
 </Project>

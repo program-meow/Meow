@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Condition;
 using Meow.Extension;
 using Meow.Math;
@@ -9,8 +8,7 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Group By子句
 /// </summary>
-public class GroupByClause : ClauseBase, IGroupByClause
-{
+public class GroupByClause : ClauseBase, IGroupByClause {
     #region 字段
 
     /// <summary>
@@ -40,8 +38,7 @@ public class GroupByClause : ClauseBase, IGroupByClause
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">Group By子句结果</param>
     /// <param name="condition">分组条件</param>
-    public GroupByClause(SqlBuilderBase sqlBuilder, StringBuilder result = null, StringBuilder condition = null) : base(sqlBuilder)
-    {
+    public GroupByClause( SqlBuilderBase sqlBuilder , StringBuilder result = null , StringBuilder condition = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         Condition = condition ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
@@ -53,13 +50,12 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region GroupBy  [添加分组列]
 
     /// <inheritdoc />
-    public void GroupBy(string columns)
-    {
-        if (string.IsNullOrWhiteSpace(columns))
+    public void GroupBy( string columns ) {
+        if( string.IsNullOrWhiteSpace( columns ) )
             return;
-        if (Result.Length > 0)
-            Result.Append(",");
-        Result.Append(ColumnCache.GetSafeColumns(columns));
+        if( Result.Length > 0 )
+            Result.Append( "," );
+        Result.Append( ColumnCache.GetSafeColumns( columns ) );
     }
 
     #endregion
@@ -67,17 +63,15 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region Having  [添加分组条件]
 
     /// <inheritdoc />
-    public void Having(string expression, object value, OperatorEnum @operator = OperatorEnum.Equal, bool isParameterization = true)
-    {
-        And(ConditionFactory.Create(expression, value, @operator, isParameterization));
+    public void Having( string expression , object value , OperatorEnum @operator = OperatorEnum.Equal , bool isParameterization = true ) {
+        And( ConditionFactory.Create( expression , value , @operator , isParameterization ) );
     }
 
     /// <summary>
     /// And连接条件
     /// </summary>
-    private void And(ISqlCondition condition)
-    {
-        new AndCondition(condition).AppendTo(Condition);
+    private void And( ISqlCondition condition ) {
+        new AndCondition( condition ).AppendTo( Condition );
     }
 
     #endregion
@@ -85,16 +79,14 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region AppendGroupBy  [添加到Group By子句]
 
     /// <inheritdoc />
-    public void AppendGroupBy(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendGroupBy( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.Append(sql);
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -102,16 +94,14 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region AppendHaving  [添加到Having子句]
 
     /// <inheritdoc />
-    public void AppendHaving(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendHaving( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            And(new SqlCondition(sql));
+        if( raw ) {
+            And( new SqlCondition( sql ) );
             return;
         }
-        And(new SqlCondition(ReplaceRawSql(sql)));
+        And( new SqlCondition( ReplaceRawSql( sql ) ) );
     }
 
     #endregion
@@ -119,8 +109,7 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return Result.Length > 0;
     }
 
@@ -129,17 +118,16 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        builder.Append("Group By ");
-        builder.Append(Result);
-        if (Condition.Length == 0)
+        builder.Append( "Group By " );
+        builder.Append( Result );
+        if( Condition.Length == 0 )
             return;
-        builder.Append(" Having ");
-        builder.Append(Condition);
+        builder.Append( " Having " );
+        builder.Append( Condition );
     }
 
     #endregion
@@ -147,8 +135,7 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
         Condition.Clear();
     }
@@ -158,13 +145,12 @@ public class GroupByClause : ClauseBase, IGroupByClause
     #region Clone  [复制Group By子句]
 
     /// <inheritdoc />
-    public virtual IGroupByClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IGroupByClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
+        result.Append( Result );
         StringBuilder condition = new StringBuilder();
-        condition.Append(Condition);
-        return new GroupByClause(builder, result, condition);
+        condition.Append( Condition );
+        return new GroupByClause( builder , result , condition );
     }
 
     #endregion

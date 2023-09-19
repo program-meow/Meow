@@ -1,13 +1,12 @@
-﻿using System;
-using Meow.Extension;
+﻿using Meow.Extension;
+using Meow.Helper;
 
 namespace Meow.Domain.Auditing;
 
 /// <summary>
 /// 修改操作审计设置器
 /// </summary>
-public class ModificationAuditedSetter
-{
+public class ModificationAuditedSetter {
     /// <summary>
     /// 实体
     /// </summary>
@@ -22,8 +21,7 @@ public class ModificationAuditedSetter
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="userId">用户标识</param>
-    private ModificationAuditedSetter(object entity, string userId)
-    {
+    private ModificationAuditedSetter( object entity , string userId ) {
         _entity = entity;
         _userId = userId;
     }
@@ -33,59 +31,54 @@ public class ModificationAuditedSetter
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="userId">用户标识</param>
-    public static void Set(object entity, string userId)
-    {
-        new ModificationAuditedSetter(entity, userId).Init();
+    public static void Set( object entity , string userId ) {
+        new ModificationAuditedSetter( entity , userId ).Init();
     }
 
     /// <summary>
     /// 初始化
     /// </summary>
-    public void Init()
-    {
-        if (_entity == null)
+    public void Init() {
+        if( _entity == null )
             return;
-        if (_entity is IModificationAudited<Guid> entityByGuid)
-        {
-            entityByGuid.LastModificationTime = Meow.Helper.Time.Now;
-            entityByGuid.LastModifierId = _userId.ToGuid();
+        InitLastModificationTime();
+        if( _userId.IsEmpty() )
             return;
-        }
-        if (_entity is IModificationAudited<Guid?> entityByGuidOrNull)
-        {
-            entityByGuidOrNull.LastModificationTime = Meow.Helper.Time.Now;
-            entityByGuidOrNull.LastModifierId = _userId.ToGuidOrNull();
+        if( _entity is IModificationAudited<Guid> entity ) {
+            entity.LastModifierId = _userId.ToGuid();
             return;
         }
-        if (_entity is IModificationAudited<int> entityByInt)
-        {
-            entityByInt.LastModificationTime = Meow.Helper.Time.Now;
-            entityByInt.LastModifierId = _userId.ToInt();
+        if( _entity is IModificationAudited<Guid?> entity2 ) {
+            entity2.LastModifierId = _userId.ToGuidOrNull();
             return;
         }
-        if (_entity is IModificationAudited<int?> entityByIntOrNull)
-        {
-            entityByIntOrNull.LastModificationTime = Meow.Helper.Time.Now;
-            entityByIntOrNull.LastModifierId = _userId.ToIntOrNull();
+        if( _entity is IModificationAudited<int> entity3 ) {
+            entity3.LastModifierId = _userId.ToInt();
             return;
         }
-        if (_entity is IModificationAudited<string> entityByString)
-        {
-            entityByString.LastModificationTime = Meow.Helper.Time.Now;
-            entityByString.LastModifierId = _userId.SafeString();
+        if( _entity is IModificationAudited<int?> entity4 ) {
+            entity4.LastModifierId = _userId.ToIntOrNull();
             return;
         }
-        if (_entity is IModificationAudited<long> entityByLong)
-        {
-            entityByLong.LastModificationTime = Meow.Helper.Time.Now;
-            entityByLong.LastModifierId = _userId.ToLong();
+        if( _entity is IModificationAudited<string> entity5 ) {
+            entity5.LastModifierId = _userId.SafeString();
             return;
         }
-        if (_entity is IModificationAudited<long?> entityByLongOrNull)
-        {
-            entityByLongOrNull.LastModificationTime = Meow.Helper.Time.Now;
-            entityByLongOrNull.LastModifierId = _userId.ToLongOrNull();
+        if( _entity is IModificationAudited<long> entity6 ) {
+            entity6.LastModifierId = _userId.ToLong();
             return;
         }
+        if( _entity is IModificationAudited<long?> entity7 ) {
+            entity7.LastModifierId = _userId.ToLongOrNull();
+            return;
+        }
+    }
+
+    /// <summary>
+    /// 初始化最后修改时间
+    /// </summary>
+    private void InitLastModificationTime() {
+        if( _entity is ILastModificationTime entity )
+            entity.LastModificationTime = Time.Now;
     }
 }

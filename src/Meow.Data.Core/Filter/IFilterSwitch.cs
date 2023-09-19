@@ -1,12 +1,9 @@
-﻿using System;
-
-namespace Meow.Data.Filter;
+﻿namespace Meow.Data.Filter;
 
 /// <summary>
 /// 数据过滤器开关
 /// </summary>
-public interface IFilterSwitch
-{
+public interface IFilterSwitch {
     /// <summary>
     /// 启用过滤器
     /// </summary>

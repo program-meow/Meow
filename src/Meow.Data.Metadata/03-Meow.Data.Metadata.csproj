@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Metadata 是 Meow 应用框架数据库元数据操作类库。
+			Meow.Metadata 是 Meow 数据库元数据操作类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

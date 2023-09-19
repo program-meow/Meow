@@ -3,8 +3,7 @@
 /// <summary>
 /// 判断是否存在Sql生成器
 /// </summary>
-public interface IExistsSqlBuilder
-{
+public interface IExistsSqlBuilder {
     /// <summary>
     /// 获取Sql语句
     /// </summary>

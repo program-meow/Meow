@@ -1,12 +1,9 @@
-﻿using System;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Sql子句基类
 /// </summary>
-public abstract class ClauseBase
-{
+public abstract class ClauseBase {
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -20,9 +17,8 @@ public abstract class ClauseBase
     /// 初始化Sql子句
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
-    protected ClauseBase(SqlBuilderBase sqlBuilder)
-    {
-        SqlBuilder = sqlBuilder ?? throw new ArgumentNullException(nameof(sqlBuilder));
+    protected ClauseBase( SqlBuilderBase sqlBuilder ) {
+        SqlBuilder = sqlBuilder ?? throw new ArgumentNullException( nameof( sqlBuilder ) );
         Dialect = SqlBuilder.Dialect;
     }
 
@@ -30,8 +26,7 @@ public abstract class ClauseBase
     /// 替换原始Sql,将[]替换为特定Sql转义符
     /// </summary>
     /// <param name="sql">原始Sql</param>
-    protected string ReplaceRawSql(string sql)
-    {
-        return Dialect.ReplaceSql(sql);
+    protected string ReplaceRawSql( string sql ) {
+        return Dialect.ReplaceSql( sql );
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Meow.Data.Sql.Builder.Param;
+﻿using Meow.Data.Sql.Builder.Param;
 using Meow.Extension;
 using Meow.Query;
 
@@ -8,8 +7,7 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// 结束子句
 /// </summary>
-public class EndClause : ClauseBase, IEndClause
-{
+public class EndClause : ClauseBase, IEndClause {
     #region 字段
 
     /// <summary>
@@ -45,8 +43,7 @@ public class EndClause : ClauseBase, IEndClause
     /// <param name="offsetParam">跳过行数参数名</param>
     /// <param name="limitParam">限制行数参数名</param>
     /// <param name="pager">分页</param>
-    public EndClause(SqlBuilderBase sqlBuilder, StringBuilder result = null, string offsetParam = null, string limitParam = null, IPage pager = null) : base(sqlBuilder)
-    {
+    public EndClause( SqlBuilderBase sqlBuilder , StringBuilder result = null , string offsetParam = null , string limitParam = null , IPage pager = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         OffsetParam = offsetParam;
         LimitParam = limitParam;
@@ -59,13 +56,12 @@ public class EndClause : ClauseBase, IEndClause
     #region Page  [设置分页]
 
     /// <inheritdoc />
-    public void Page(IPage page)
-    {
-        if (page == null)
+    public void Page( IPage page ) {
+        if( page == null )
             return;
         Pager = page;
-        Skip(page.GetSkipCount());
-        Take(page.PageSize);
+        Skip( page.GetSkipCount() );
+        Take( page.PageSize );
     }
 
     #endregion
@@ -73,18 +69,16 @@ public class EndClause : ClauseBase, IEndClause
     #region Skip  [设置跳过行数]
 
     /// <inheritdoc />
-    public void Skip(int count)
-    {
+    public void Skip( int count ) {
         string param = GetOffsetParam();
-        ParameterManager.Add(param, count);
+        ParameterManager.Add( param , count );
     }
 
     /// <summary>
     /// 获取跳过行数参数名
     /// </summary>
-    protected string GetOffsetParam()
-    {
-        if (OffsetParam.IsEmpty() == false)
+    protected string GetOffsetParam() {
+        if( OffsetParam.IsEmpty() == false )
             return OffsetParam;
         OffsetParam = CreateOffsetParam();
         return OffsetParam;
@@ -93,10 +87,9 @@ public class EndClause : ClauseBase, IEndClause
     /// <summary>
     /// 创建跳过行数参数名
     /// </summary>
-    private string CreateOffsetParam()
-    {
+    private string CreateOffsetParam() {
         string result = ParameterManager.GenerateName();
-        ParameterManager.Add(result, 0);
+        ParameterManager.Add( result , 0 );
         return result;
     }
 
@@ -105,18 +98,16 @@ public class EndClause : ClauseBase, IEndClause
     #region Take  [设置获取行数]
 
     /// <inheritdoc />
-    public void Take(int count)
-    {
+    public void Take( int count ) {
         string param = GetLimitParam();
-        ParameterManager.Add(param, count);
+        ParameterManager.Add( param , count );
     }
 
     /// <summary>
     /// 获取限制行数的参数名
     /// </summary>
-    protected string GetLimitParam()
-    {
-        if (LimitParam.IsEmpty() == false)
+    protected string GetLimitParam() {
+        if( LimitParam.IsEmpty() == false )
             return LimitParam;
         LimitParam = ParameterManager.GenerateName();
         return LimitParam;
@@ -131,16 +122,14 @@ public class EndClause : ClauseBase, IEndClause
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    public void AppendSql(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendSql( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            Result.Append(sql);
+        if( raw ) {
+            Result.Append( sql );
             return;
         }
-        Result.Append(ReplaceRawSql(sql));
+        Result.Append( ReplaceRawSql( sql ) );
     }
 
     #endregion
@@ -148,11 +137,10 @@ public class EndClause : ClauseBase, IEndClause
     #region Validate  [验证]
 
     /// <inheritdoc />
-    public bool Validate()
-    {
-        if (Result.Length > 0)
+    public bool Validate() {
+        if( Result.Length > 0 )
             return true;
-        if (LimitParam.IsEmpty() == false)
+        if( LimitParam.IsEmpty() == false )
             return true;
         return false;
     }
@@ -162,13 +150,12 @@ public class EndClause : ClauseBase, IEndClause
     #region AppendTo  [添加到字符串生成器]
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        AppendLimit(builder);
-        builder.Append(Result);
+        AppendLimit( builder );
+        builder.Append( Result );
     }
 
     #endregion
@@ -179,11 +166,10 @@ public class EndClause : ClauseBase, IEndClause
     /// 添加行限制
     /// </summary>
     /// <param name="builder">字符串生成器</param>
-    protected virtual void AppendLimit(StringBuilder builder)
-    {
-        if (LimitParam.IsEmpty())
+    protected virtual void AppendLimit( StringBuilder builder ) {
+        if( LimitParam.IsEmpty() )
             return;
-        builder.AppendFormat("Limit {0} OFFSET {1}", GetLimitParam(), GetOffsetParam());
+        builder.AppendFormat( "Limit {0} OFFSET {1}" , GetLimitParam() , GetOffsetParam() );
     }
 
     #endregion
@@ -191,8 +177,7 @@ public class EndClause : ClauseBase, IEndClause
     #region ClearPage  [清理分页]
 
     /// <inheritdoc />
-    public void ClearPage()
-    {
+    public void ClearPage() {
         OffsetParam = null;
         LimitParam = null;
         Pager = null;
@@ -203,8 +188,7 @@ public class EndClause : ClauseBase, IEndClause
     #region Clear  [清理]
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
         ClearPage();
     }
@@ -214,11 +198,10 @@ public class EndClause : ClauseBase, IEndClause
     #region Clone  [复制结束子句]
 
     /// <inheritdoc />
-    public virtual IEndClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IEndClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
-        return new EndClause(builder, result, OffsetParam, LimitParam, Pager);
+        result.Append( Result );
+        return new EndClause( builder , result , OffsetParam , LimitParam , Pager );
     }
 
     #endregion

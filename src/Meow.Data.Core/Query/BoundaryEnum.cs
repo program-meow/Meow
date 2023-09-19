@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Query; 
+﻿namespace Meow.Data.Query;
 
 /// <summary>
 /// 查询边界

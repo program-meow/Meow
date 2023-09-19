@@ -6,8 +6,7 @@ namespace Meow.Data.Sql;
 /// <summary>
 /// Sql生成器
 /// </summary>
-public interface ISqlBuilder : ISqlContent, ISqlOperation
-{
+public interface ISqlBuilder : ISqlContent, ISqlOperation {
     /// <summary>
     /// 复制Sql生成器副本
     /// </summary>

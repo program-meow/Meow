@@ -1,64 +1,62 @@
-﻿using System;
-using Meow.Math;
+﻿using Meow.Math;
 
 namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Join子句
 /// </summary>
-public interface IJoinClause : ISqlClause
-{
+public interface IJoinClause : ISqlClause {
     /// <summary>
     /// 内连接
     /// </summary>
     /// <param name="table">表名</param>
-    void Join(string table);
+    void Join( string table );
     /// <summary>
     /// 内连接子查询
     /// </summary>
     /// <param name="builder">Sql生成器</param>
     /// <param name="alias">表别名</param>
-    void Join(ISqlBuilder builder, string alias);
+    void Join( ISqlBuilder builder , string alias );
     /// <summary>
     /// 内连接子查询
     /// </summary>
     /// <param name="action">子查询操作</param>
     /// <param name="alias">表别名</param>
-    void Join(Action<ISqlBuilder> action, string alias);
+    void Join( Action<ISqlBuilder> action , string alias );
     /// <summary>
     /// 左外连接
     /// </summary>
     /// <param name="table">表名</param>
-    void LeftJoin(string table);
+    void LeftJoin( string table );
     /// <summary>
     /// 左外连接子查询
     /// </summary>
     /// <param name="builder">Sql生成器</param>
     /// <param name="alias">表别名</param>
-    void LeftJoin(ISqlBuilder builder, string alias);
+    void LeftJoin( ISqlBuilder builder , string alias );
     /// <summary>
     /// 左外连接子查询
     /// </summary>
     /// <param name="action">子查询操作</param>
     /// <param name="alias">表别名</param>
-    void LeftJoin(Action<ISqlBuilder> action, string alias);
+    void LeftJoin( Action<ISqlBuilder> action , string alias );
     /// <summary>
     /// 右外连接
     /// </summary>
     /// <param name="table">表名</param>
-    void RightJoin(string table);
+    void RightJoin( string table );
     /// <summary>
     /// 右外连接子查询
     /// </summary>
     /// <param name="builder">Sql生成器</param>
     /// <param name="alias">表别名</param>
-    void RightJoin(ISqlBuilder builder, string alias);
+    void RightJoin( ISqlBuilder builder , string alias );
     /// <summary>
     /// 右外连接子查询
     /// </summary>
     /// <param name="action">子查询操作</param>
     /// <param name="alias">表别名</param>
-    void RightJoin(Action<ISqlBuilder> action, string alias);
+    void RightJoin( Action<ISqlBuilder> action , string alias );
     /// <summary>
     /// 设置连接条件
     /// </summary>
@@ -66,31 +64,31 @@ public interface IJoinClause : ISqlClause
     /// <param name="value">值</param>
     /// <param name="operator">运算符</param>
     /// <param name="isParameterization">是否参数化</param>
-    void On(string column, object value, OperatorEnum @operator = OperatorEnum.Equal, bool isParameterization = false);
+    void On( string column , object value , OperatorEnum @operator = OperatorEnum.Equal , bool isParameterization = false );
     /// <summary>
     /// 添加到内连接子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendJoin(string sql, bool raw);
+    void AppendJoin( string sql , bool raw );
     /// <summary>
     /// 添加到左外连接子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendLeftJoin(string sql, bool raw);
+    void AppendLeftJoin( string sql , bool raw );
     /// <summary>
     /// 添加到右外连接子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendRightJoin(string sql, bool raw);
+    void AppendRightJoin( string sql , bool raw );
     /// <summary>
     /// 添加到On子句
     /// </summary>
     /// <param name="sql">Sql语句</param>
     /// <param name="raw">是否原样添加</param>
-    void AppendOn(string sql, bool raw);
+    void AppendOn( string sql , bool raw );
     /// <summary>
     /// 清理
     /// </summary>
@@ -99,5 +97,5 @@ public interface IJoinClause : ISqlClause
     /// 复制Join子句
     /// </summary>
     /// <param name="builder">Sql生成器</param>
-    IJoinClause Clone(SqlBuilderBase builder);
+    IJoinClause Clone( SqlBuilderBase builder );
 }

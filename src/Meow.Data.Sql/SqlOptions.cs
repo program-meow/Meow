@@ -1,19 +1,15 @@
-﻿using System.Data;
-
-namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql配置
 /// </summary>
-public class SqlOptions<T> : SqlOptions where T : class
-{
+public class SqlOptions<T> : SqlOptions where T : class {
 }
 
 /// <summary>
 /// Sql配置
 /// </summary>
-public class SqlOptions
-{
+public class SqlOptions {
     /// <summary>
     /// 数据库连接字符串
     /// </summary>

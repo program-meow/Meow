@@ -7,8 +7,7 @@ namespace Meow.Data.Sql.Builder;
 /// <summary>
 /// Sql组件访问器
 /// </summary>
-public interface ISqlPartAccessor
-{
+public interface ISqlPartAccessor {
     /// <summary>
     /// Sql方言
     /// </summary>

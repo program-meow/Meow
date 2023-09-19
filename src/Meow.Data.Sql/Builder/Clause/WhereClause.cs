@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Meow.Data.Query;
+﻿using Meow.Data.Query;
 using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Condition;
 using Meow.Extension;
@@ -11,8 +9,8 @@ namespace Meow.Data.Sql.Builder.Clause;
 /// <summary>
 /// Where子句
 /// </summary>
-public class WhereClause : ClauseBase, IWhereClause
-{
+public class WhereClause : ClauseBase, IWhereClause {
+
     #region 字段
 
     /// <summary>
@@ -37,8 +35,7 @@ public class WhereClause : ClauseBase, IWhereClause
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
     /// <param name="result">Where子句结果</param>
-    public WhereClause(SqlBuilderBase sqlBuilder, StringBuilder result = null) : base(sqlBuilder)
-    {
+    public WhereClause( SqlBuilderBase sqlBuilder , StringBuilder result = null ) : base( sqlBuilder ) {
         Result = result ?? new StringBuilder();
         ColumnCache = sqlBuilder.ColumnCache;
         ConditionFactory = sqlBuilder.ConditionFactory;
@@ -49,9 +46,8 @@ public class WhereClause : ClauseBase, IWhereClause
     #region And
 
     /// <inheritdoc />
-    public void And(ISqlCondition condition)
-    {
-        new AndCondition(condition).AppendTo(Result);
+    public void And( ISqlCondition condition ) {
+        new AndCondition( condition ).AppendTo( Result );
     }
 
     #endregion
@@ -59,9 +55,8 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Or
 
     /// <inheritdoc />
-    public void Or(ISqlCondition condition)
-    {
-        new OrCondition(condition).AppendTo(Result);
+    public void Or( ISqlCondition condition ) {
+        new OrCondition( condition ).AppendTo( Result );
     }
 
     #endregion
@@ -69,28 +64,25 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Where
 
     /// <inheritdoc />
-    public void Where(string column, object value, OperatorEnum @operator)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        And(ConditionFactory.Create(column, value, @operator));
+    public void Where( string column , object value , OperatorEnum @operator ) {
+        column = ColumnCache.GetSafeColumn( column );
+        And( ConditionFactory.Create( column , value , @operator ) );
     }
 
     /// <inheritdoc />
-    public void Where(string column, ISqlBuilder builder, OperatorEnum @operator)
-    {
-        if (builder == null)
+    public void Where( string column , ISqlBuilder builder , OperatorEnum @operator ) {
+        if( builder == null )
             return;
-        Where(column, (object)builder, @operator);
+        Where( column , ( object ) builder , @operator );
     }
 
     /// <inheritdoc />
-    public void Where(string column, Action<ISqlBuilder> action, OperatorEnum @operator)
-    {
-        if (action == null)
+    public void Where( string column , Action<ISqlBuilder> action , OperatorEnum @operator ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        Where(column, builder, @operator);
+        action( builder );
+        Where( column , builder , @operator );
     }
 
     #endregion
@@ -98,9 +90,8 @@ public class WhereClause : ClauseBase, IWhereClause
     #region IsNull
 
     /// <inheritdoc />
-    public void IsNull(string column)
-    {
-        Where(column, (object)null, OperatorEnum.Equal);
+    public void IsNull( string column ) {
+        Where( column , ( object ) null , OperatorEnum.Equal );
     }
 
     #endregion
@@ -108,9 +99,8 @@ public class WhereClause : ClauseBase, IWhereClause
     #region IsNotNull
 
     /// <inheritdoc />
-    public void IsNotNull(string column)
-    {
-        Where(column, (object)null, OperatorEnum.NotEqual);
+    public void IsNotNull( string column ) {
+        Where( column , ( object ) null , OperatorEnum.NotEqual );
     }
 
     #endregion
@@ -118,12 +108,11 @@ public class WhereClause : ClauseBase, IWhereClause
     #region IsEmpty
 
     /// <inheritdoc />
-    public void IsEmpty(string column)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        ISqlCondition nullCondition = ConditionFactory.Create(column, null, OperatorEnum.Equal);
-        ISqlCondition emptyCondition = ConditionFactory.Create(column, "''", OperatorEnum.Equal, false);
-        And(new OrCondition(nullCondition, emptyCondition));
+    public void IsEmpty( string column ) {
+        column = ColumnCache.GetSafeColumn( column );
+        ISqlCondition nullCondition = ConditionFactory.Create( column , null , OperatorEnum.Equal );
+        ISqlCondition emptyCondition = ConditionFactory.Create( column , "''" , OperatorEnum.Equal , false );
+        And( new OrCondition( nullCondition , emptyCondition ) );
     }
 
     #endregion
@@ -131,12 +120,11 @@ public class WhereClause : ClauseBase, IWhereClause
     #region IsNotEmpty
 
     /// <inheritdoc />
-    public void IsNotEmpty(string column)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        ISqlCondition notNullCondition = ConditionFactory.Create(column, null, OperatorEnum.NotEqual);
-        ISqlCondition notEmptyCondition = ConditionFactory.Create(column, "''", OperatorEnum.NotEqual, false);
-        And(new AndCondition(notNullCondition, notEmptyCondition));
+    public void IsNotEmpty( string column ) {
+        column = ColumnCache.GetSafeColumn( column );
+        ISqlCondition notNullCondition = ConditionFactory.Create( column , null , OperatorEnum.NotEqual );
+        ISqlCondition notEmptyCondition = ConditionFactory.Create( column , "''" , OperatorEnum.NotEqual , false );
+        And( new AndCondition( notNullCondition , notEmptyCondition ) );
     }
 
     #endregion
@@ -144,59 +132,51 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Between
 
     /// <inheritdoc />
-    public void Between(string column, int? min, int? max, BoundaryEnum boundary)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        if (min > max)
-        {
-            And(ConditionFactory.Create(column, max, min, boundary));
+    public void Between( string column , int? min , int? max , BoundaryEnum boundary ) {
+        column = ColumnCache.GetSafeColumn( column );
+        if( min > max ) {
+            And( ConditionFactory.Create( column , max , min , boundary ) );
             return;
         }
-        And(ConditionFactory.Create(column, min, max, boundary));
+        And( ConditionFactory.Create( column , min , max , boundary ) );
     }
 
     /// <inheritdoc />
-    public void Between(string column, double? min, double? max, BoundaryEnum boundary)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        if (min > max)
-        {
-            And(ConditionFactory.Create(column, max, min, boundary));
+    public void Between( string column , double? min , double? max , BoundaryEnum boundary ) {
+        column = ColumnCache.GetSafeColumn( column );
+        if( min > max ) {
+            And( ConditionFactory.Create( column , max , min , boundary ) );
             return;
         }
-        And(ConditionFactory.Create(column, min, max, boundary));
+        And( ConditionFactory.Create( column , min , max , boundary ) );
     }
 
     /// <inheritdoc />
-    public void Between(string column, decimal? min, decimal? max, BoundaryEnum boundary)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        if (min > max)
-        {
-            And(ConditionFactory.Create(column, max, min, boundary));
+    public void Between( string column , decimal? min , decimal? max , BoundaryEnum boundary ) {
+        column = ColumnCache.GetSafeColumn( column );
+        if( min > max ) {
+            And( ConditionFactory.Create( column , max , min , boundary ) );
             return;
         }
-        And(ConditionFactory.Create(column, min, max, boundary));
+        And( ConditionFactory.Create( column , min , max , boundary ) );
     }
 
     /// <inheritdoc />
-    public void Between(string column, DateTime? min, DateTime? max, bool includeTime, BoundaryEnum? boundary)
-    {
-        column = ColumnCache.GetSafeColumn(column);
-        And(ConditionFactory.Create(column, GetMin(min, max, includeTime), GetMax(min, max, includeTime), GetBoundary(boundary, includeTime)));
+    public void Between( string column , DateTime? min , DateTime? max , bool includeTime , BoundaryEnum? boundary ) {
+        column = ColumnCache.GetSafeColumn( column );
+        And( ConditionFactory.Create( column , GetMin( min , max , includeTime ) , GetMax( min , max , includeTime ) , GetBoundary( boundary , includeTime ) ) );
     }
 
     /// <summary>
     /// 获取最小日期
     /// </summary>
-    private DateTime? GetMin(DateTime? min, DateTime? max, bool includeTime)
-    {
-        if (min == null)
+    private DateTime? GetMin( DateTime? min , DateTime? max , bool includeTime ) {
+        if( min == null )
             return null;
         DateTime? result = min;
-        if (min > max)
+        if( min > max )
             result = max;
-        if (includeTime)
+        if( includeTime )
             return result;
         return result.SafeValue().Date;
     }
@@ -204,26 +184,24 @@ public class WhereClause : ClauseBase, IWhereClause
     /// <summary>
     /// 获取最大日期
     /// </summary>
-    private DateTime? GetMax(DateTime? min, DateTime? max, bool includeTime)
-    {
-        if (max == null)
+    private DateTime? GetMax( DateTime? min , DateTime? max , bool includeTime ) {
+        if( max == null )
             return null;
         DateTime? result = max;
-        if (min > max)
+        if( min > max )
             result = min;
-        if (includeTime)
+        if( includeTime )
             return result;
-        return result.SafeValue().Date.AddDays(1);
+        return result.SafeValue().Date.AddDays( 1 );
     }
 
     /// <summary>
     /// 获取日期范围查询条件边界
     /// </summary>
-    private BoundaryEnum GetBoundary(BoundaryEnum? boundary, bool includeTime)
-    {
-        if (boundary != null)
+    private BoundaryEnum GetBoundary( BoundaryEnum? boundary , bool includeTime ) {
+        if( boundary != null )
             return boundary.SafeValue();
-        if (includeTime)
+        if( includeTime )
             return BoundaryEnum.Both;
         return BoundaryEnum.Left;
     }
@@ -233,21 +211,19 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Exists
 
     /// <inheritdoc />
-    public void Exists(ISqlBuilder builder)
-    {
-        if (builder == null)
+    public void Exists( ISqlBuilder builder ) {
+        if( builder == null )
             return;
-        And(new ExistsCondition(builder));
+        And( new ExistsCondition( builder ) );
     }
 
     /// <inheritdoc />
-    public void Exists(Action<ISqlBuilder> action)
-    {
-        if (action == null)
+    public void Exists( Action<ISqlBuilder> action ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        Exists(builder);
+        action( builder );
+        Exists( builder );
     }
 
     #endregion
@@ -255,21 +231,19 @@ public class WhereClause : ClauseBase, IWhereClause
     #region NotExists
 
     /// <inheritdoc />
-    public void NotExists(ISqlBuilder builder)
-    {
-        if (builder == null)
+    public void NotExists( ISqlBuilder builder ) {
+        if( builder == null )
             return;
-        And(new NotExistsCondition(builder));
+        And( new NotExistsCondition( builder ) );
     }
 
     /// <inheritdoc />
-    public void NotExists(Action<ISqlBuilder> action)
-    {
-        if (action == null)
+    public void NotExists( Action<ISqlBuilder> action ) {
+        if( action == null )
             return;
         ISqlBuilder builder = SqlBuilder.New();
-        action(builder);
-        NotExists(builder);
+        action( builder );
+        NotExists( builder );
     }
 
     #endregion
@@ -277,16 +251,14 @@ public class WhereClause : ClauseBase, IWhereClause
     #region AppendSql
 
     /// <inheritdoc />
-    public void AppendSql(string sql, bool raw)
-    {
-        if (string.IsNullOrWhiteSpace(sql))
+    public void AppendSql( string sql , bool raw ) {
+        if( string.IsNullOrWhiteSpace( sql ) )
             return;
-        if (raw)
-        {
-            And(new SqlCondition(sql));
+        if( raw ) {
+            And( new SqlCondition( sql ) );
             return;
         }
-        And(new SqlCondition(ReplaceRawSql(sql)));
+        And( new SqlCondition( ReplaceRawSql( sql ) ) );
     }
 
     #endregion
@@ -294,8 +266,7 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Validate
 
     /// <inheritdoc />
-    public bool Validate()
-    {
+    public bool Validate() {
         return Result.Length > 0;
     }
 
@@ -304,13 +275,12 @@ public class WhereClause : ClauseBase, IWhereClause
     #region AppendTo
 
     /// <inheritdoc />
-    public void AppendTo(StringBuilder builder)
-    {
-        builder.CheckNull(nameof(builder));
-        if (Validate() == false)
+    public void AppendTo( StringBuilder builder ) {
+        builder.CheckNull( nameof( builder ) );
+        if( Validate() == false )
             return;
-        builder.Append("Where ");
-        builder.Append(Result);
+        builder.Append( "Where " );
+        builder.Append( Result );
     }
 
     #endregion
@@ -318,8 +288,7 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Clear
 
     /// <inheritdoc />
-    public void Clear()
-    {
+    public void Clear() {
         Result.Clear();
     }
 
@@ -328,11 +297,10 @@ public class WhereClause : ClauseBase, IWhereClause
     #region Clone
 
     /// <inheritdoc />
-    public virtual IWhereClause Clone(SqlBuilderBase builder)
-    {
+    public virtual IWhereClause Clone( SqlBuilderBase builder ) {
         StringBuilder result = new StringBuilder();
-        result.Append(Result);
-        return new WhereClause(builder, result);
+        result.Append( Result );
+        return new WhereClause( builder , result );
     }
 
     #endregion

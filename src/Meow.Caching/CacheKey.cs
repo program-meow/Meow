@@ -3,8 +3,7 @@
 /// <summary>
 /// 缓存键
 /// </summary>
-public class CacheKey
-{
+public class CacheKey {
     /// <summary>
     /// 缓存键
     /// </summary>
@@ -13,8 +12,7 @@ public class CacheKey
     /// <summary>
     /// 初始化缓存键
     /// </summary>
-    public CacheKey()
-    {
+    public CacheKey() {
     }
 
     /// <summary>
@@ -22,16 +20,14 @@ public class CacheKey
     /// </summary>
     /// <param name="key">缓存键</param>
     /// <param name="parameters">缓存键参数</param>
-    public CacheKey(string key, params object[] parameters)
-    {
-        _key = string.Format(key, parameters);
+    public CacheKey( string key , params object[] parameters ) {
+        _key = string.Format( key , parameters );
     }
 
     /// <summary>
     /// 缓存键
     /// </summary>
-    public string Key
-    {
+    public string Key {
         get => $"{Prefix}{_key}";
         set => _key = value;
     }
