@@ -1,10 +1,9 @@
-﻿namespace Meow.Application.WebApi.Model;
+﻿namespace Meow.Application.Model;
 
 /// <summary>
 /// 保存参数
 /// </summary>
-public class SaveModel
-{
+public class SaveModel {
     /// <summary>
     /// 创建列表
     /// </summary>

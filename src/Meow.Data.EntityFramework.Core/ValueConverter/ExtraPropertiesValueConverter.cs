@@ -1,6 +1,6 @@
-﻿using Meow.Domain.Extending;
+﻿using Meow.Converter;
+using Meow.Domain.Extending;
 using Meow.Extension;
-using Meow.SystemTextJson;
 
 namespace Meow.Data.EntityFrameworkCore.ValueConverter;
 

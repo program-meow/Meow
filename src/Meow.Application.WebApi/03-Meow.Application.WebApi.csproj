@@ -3,12 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Application.WebApi</AssemblyName>
-		<RootNamespace>Meow.Application.WebApi</RootNamespace>
+		<RootNamespace>Meow.Application</RootNamespace>
 		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Application.WebApi 是 Meow 应用框架基于 Asp.Net Core Web Api 的应用层类库。
+			Meow.Application.WebApi 是 Meow 基于 Asp.Net Core Web Api 的应用层类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Application\01-Meow.Application.csproj" />
+		<ProjectReference Include="..\Meow.Application\01-Meow.Application.csproj" />
 	</ItemGroup>
 
 </Project>

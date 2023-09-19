@@ -1,15 +1,13 @@
-﻿using System.Text;
-using Meow.Data.Sql;
+﻿using Meow.Data.Sql;
 using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Extension;
 
-namespace Meow.Data.Dapper.SqlServer.Sql.Builder;
+namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// 判断是否存在Sql生成器
 /// </summary>
-public class SqlServerExistsSqlBuilder : IExistsSqlBuilder
-{
+public class SqlServerExistsSqlBuilder : IExistsSqlBuilder {
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -19,16 +17,14 @@ public class SqlServerExistsSqlBuilder : IExistsSqlBuilder
     /// 初始化判断是否存在Sql生成器
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
-    public SqlServerExistsSqlBuilder(ISqlBuilder sqlBuilder)
-    {
+    public SqlServerExistsSqlBuilder( ISqlBuilder sqlBuilder ) {
         _sqlBuilder = sqlBuilder;
     }
 
     /// <summary>
     /// 获取Sql
     /// </summary>
-    public string GetSql()
-    {
+    public string GetSql() {
         InitSelect();
         return GetResult();
     }
@@ -36,25 +32,23 @@ public class SqlServerExistsSqlBuilder : IExistsSqlBuilder
     /// <summary>
     /// 将Select子句初始化为1
     /// </summary>
-    private void InitSelect()
-    {
+    private void InitSelect() {
         _sqlBuilder.ClearSelect();
-        _sqlBuilder.AppendSelect("1");
+        _sqlBuilder.AppendSelect( "1" );
     }
 
     /// <summary>
     /// 获取结果
     /// </summary>
-    private string GetResult()
-    {
+    private string GetResult() {
         StringBuilder result = new StringBuilder();
-        result.AppendLine("Select Case");
-        result.AppendLine("  When Exists (");
-        _sqlBuilder.AppendTo(result);
-        result.AppendLine(")");
-        result.AppendLine("  Then Cast(1 As Bit)");
-        result.AppendLine("  Else Cast(0 As Bit) ");
-        result.Append("End");
+        result.AppendLine( "Select Case" );
+        result.AppendLine( "  When Exists (" );
+        _sqlBuilder.AppendTo( result );
+        result.AppendLine( ")" );
+        result.AppendLine( "  Then Cast(1 As Bit)" );
+        result.AppendLine( "  Else Cast(0 As Bit) " );
+        result.Append( "End" );
         return result.ToString();
     }
 }

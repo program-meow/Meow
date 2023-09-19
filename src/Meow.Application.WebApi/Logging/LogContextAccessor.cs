@@ -1,13 +1,12 @@
 ﻿using Meow.Helper;
 using Meow.Logging;
 
-namespace Meow.Application.WebApi.Logging;
+namespace Meow.Application.Logging;
 
 /// <summary>
 /// 日志上下文访问器
 /// </summary>
-public class LogContextAccessor : ILogContextAccessor
-{
+public class LogContextAccessor : ILogContextAccessor {
     /// <summary>
     /// 日志上下文键名
     /// </summary>
@@ -16,9 +15,8 @@ public class LogContextAccessor : ILogContextAccessor
     /// <summary>
     /// 日志上下文
     /// </summary>
-    public LogContext Context
-    {
-        get => Convert.To<LogContext>(Web.HttpContext.Items[LogContextKey]);
-        set => Web.HttpContext.Items[LogContextKey] = value;
+    public LogContext Context {
+        get => Meow.Helper.Convert.To<LogContext>( Web.HttpContext.Items[ LogContextKey ] );
+        set => Web.HttpContext.Items[ LogContextKey ] = value;
     }
 }

@@ -3,8 +3,7 @@
 /// <summary>
 /// 数据传输对象
 /// </summary>
-public interface IDto : IRequest
-{
+public interface IDto : IRequest {
     /// <summary>
     /// 标识
     /// </summary>

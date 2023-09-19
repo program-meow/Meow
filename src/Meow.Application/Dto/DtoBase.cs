@@ -3,8 +3,7 @@
 /// <summary>
 /// 数据传输对象
 /// </summary>
-public abstract class DtoBase : RequestBase, IDto
-{
+public abstract class DtoBase : RequestBase, IDto {
     /// <summary>
     /// 标识
     /// </summary>

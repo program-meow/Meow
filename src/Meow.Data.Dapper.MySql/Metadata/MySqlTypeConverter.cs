@@ -1,22 +1,17 @@
-﻿using System;
-using System.Data;
-using Meow.Data.Metadata;
+﻿using Meow.Data.Metadata;
 using Meow.Extension;
 
-namespace Meow.Data.Dapper.MySql.Metadata;
+namespace Meow.Data.Dapper.Metadata;
 
 /// <summary>
 /// MySql数据类型转换器
 /// </summary>
-public class MySqlTypeConverter : ITypeConverter
-{
+public class MySqlTypeConverter : ITypeConverter {
     /// <inheritdoc />
-    public DbType? ToType(string dataType, int? length = null)
-    {
-        if (dataType.IsEmpty())
+    public DbType? ToType( string dataType , int? length = null ) {
+        if( dataType.IsEmpty() )
             return null;
-        switch (dataType.ToLower())
-        {
+        switch( dataType.ToLower() ) {
             case "char":
                 return length == 36 ? DbType.Guid : DbType.String;
             case "varchar":
@@ -57,6 +52,6 @@ public class MySqlTypeConverter : ITypeConverter
             case "blob":
                 return DbType.Binary;
         }
-        throw new NotImplementedException(dataType);
+        throw new NotImplementedException( dataType );
     }
 }

@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Meow.Application.Dto;
+﻿using Meow.Application.Dto;
 
 namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形参数
 /// </summary>
-public abstract class TreeDtoBase<TNode> : TreeDtoBase, ITreeNode<TNode> where TNode : ITreeNode<TNode>
-{
+public abstract class TreeDtoBase<TNode> : TreeDtoBase, ITreeNode<TNode> where TNode : ITreeNode<TNode> {
     /// <summary>
     /// 初始化树形参数
     /// </summary>
-    protected TreeDtoBase()
-    {
+    protected TreeDtoBase() {
         Children = new List<TNode>();
     }
 
@@ -26,8 +22,7 @@ public abstract class TreeDtoBase<TNode> : TreeDtoBase, ITreeNode<TNode> where T
 /// <summary>
 /// 树形参数
 /// </summary>
-public abstract class TreeDtoBase : DtoBase, ITreeNode
-{
+public abstract class TreeDtoBase : DtoBase, ITreeNode {
     /// <summary>
     /// 父标识
     /// </summary>
@@ -35,7 +30,7 @@ public abstract class TreeDtoBase : DtoBase, ITreeNode
     /// <summary>
     /// 父名称
     /// </summary>
-    [Display(Name = "meow.parentName")]
+    [Display( Name = "meow.parentName" )]
     public string ParentName { get; set; }
     /// <summary>
     /// 路径
@@ -48,22 +43,22 @@ public abstract class TreeDtoBase : DtoBase, ITreeNode
     /// <summary>
     /// 启用
     /// </summary>
-    [Display(Name = "meow.enabled")]
+    [Display( Name = "meow.enabled" )]
     public bool? Enabled { get; set; } = true;
     /// <summary>
     /// 排序号
     /// </summary>
-    [Display(Name = "meow.sortId")]
+    [Display( Name = "meow.sortId" )]
     public int? SortId { get; set; }
     /// <summary>
     /// 是否展开
     /// </summary>
-    [Display(Name = "meow.expanded")]
+    [Display( Name = "meow.expanded" )]
     public bool? Expanded { get; set; }
     /// <summary>
     /// 图标
     /// </summary>
-    [Display(Name = "meow.icon")]
+    [Display( Name = "meow.icon" )]
     public string Icon { get; set; }
     /// <summary>
     /// 是否禁用复选框

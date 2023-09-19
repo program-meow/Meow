@@ -3,45 +3,39 @@ using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Builder.Cache;
 using Meow.Data.Sql.Builder.Param;
 
-namespace Meow.Data.Dapper.PostgreSql.Sql.Builder;
+namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// PostgreSql Sql生成器
 /// </summary>
-public class PostgreSqlBuilder : SqlBuilderBase
-{
+public class PostgreSqlBuilder : SqlBuilderBase {
     /// <summary>
     /// 初始化PostgreSql Sql生成器
     /// </summary>
     /// <param name="parameterManager">Sql参数管理器</param>
-    public PostgreSqlBuilder(IParameterManager parameterManager = null)
-        : base(parameterManager)
-    {
+    public PostgreSqlBuilder( IParameterManager parameterManager = null )
+        : base( parameterManager ) {
     }
 
     /// <inheritdoc />
-    protected override IDialect CreateDialect()
-    {
+    protected override IDialect CreateDialect() {
         return PostgreSqlDialect.Instance;
     }
 
     /// <inheritdoc />
-    protected override IColumnCache CreateColumnCache()
-    {
+    protected override IColumnCache CreateColumnCache() {
         return PostgreSqlColumnCache.Instance;
     }
 
     /// <inheritdoc />
-    public override ISqlBuilder New()
-    {
-        return new PostgreSqlBuilder(ParameterManager);
+    public override ISqlBuilder New() {
+        return new PostgreSqlBuilder( ParameterManager );
     }
 
     /// <inheritdoc />
-    public override ISqlBuilder Clone()
-    {
-        var result = new PostgreSqlBuilder();
-        result.Clone(this);
+    public override ISqlBuilder Clone() {
+        PostgreSqlBuilder result = new PostgreSqlBuilder();
+        result.Clone( this );
         return result;
     }
 }

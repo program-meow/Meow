@@ -1,24 +1,21 @@
-﻿using System.Collections.Concurrent;
-using Meow.Data.Sql.Builder.Cache;
+﻿using Meow.Data.Sql.Builder.Cache;
 
-namespace Meow.Data.Dapper.PostgreSql.Sql.Builder;
+namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// PostgreSql列缓存
 /// </summary>
-public class PostgreSqlColumnCache : ColumnCacheBase
-{
+public class PostgreSqlColumnCache : ColumnCacheBase {
     /// <summary>
     /// 列名缓存
     /// </summary>
-    private readonly ConcurrentDictionary<int, string> _cache;
+    private readonly ConcurrentDictionary<int , string> _cache;
 
     /// <summary>
     /// 封闭构造方法
     /// </summary>
-    private PostgreSqlColumnCache() : base(PostgreSqlDialect.Instance)
-    {
-        _cache = new ConcurrentDictionary<int, string>();
+    private PostgreSqlColumnCache() : base( PostgreSqlDialect.Instance ) {
+        _cache = new ConcurrentDictionary<int , string>();
     }
 
     /// <summary>
@@ -27,14 +24,12 @@ public class PostgreSqlColumnCache : ColumnCacheBase
     public static readonly IColumnCache Instance = new PostgreSqlColumnCache();
 
     /// <inheritdoc />
-    public override string GetSafeColumns(string columns)
-    {
-        return _cache.GetOrAdd(columns.GetHashCode(), key => NormalizeColumns(columns));
+    public override string GetSafeColumns( string columns ) {
+        return _cache.GetOrAdd( columns.GetHashCode() , key => NormalizeColumns( columns ) );
     }
 
     /// <inheritdoc />
-    public override string GetSafeColumn(string column)
-    {
-        return _cache.GetOrAdd(column.GetHashCode(), key => NormalizeColumn(column));
+    public override string GetSafeColumn( string column ) {
+        return _cache.GetOrAdd( column.GetHashCode() , key => NormalizeColumn( column ) );
     }
 }

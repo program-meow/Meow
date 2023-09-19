@@ -1,13 +1,11 @@
 ﻿using Meow.Dependency;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Meow.Application.WebApi;
+namespace Meow.Application;
 
 /// <summary>
 /// 返回结果工厂
 /// </summary>
-public interface IResultFactory : ISingletonDependency
-{
+public interface IResultFactory : ISingletonDependency {
     /// <summary>
     /// 创建返回结果
     /// </summary>
@@ -15,5 +13,6 @@ public interface IResultFactory : ISingletonDependency
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    IActionResult CreateResult(string code, string message, dynamic data, int? httpStatusCode);
+    /// <param name="options">Json序列化配置</param>
+    IActionResult CreateResult( string code , string message , dynamic data , int? httpStatusCode , JsonSerializerOptions options );
 }

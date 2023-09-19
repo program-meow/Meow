@@ -1,22 +1,17 @@
-﻿using System;
-using System.Data;
-using Meow.Data.Metadata;
+﻿using Meow.Data.Metadata;
 using Meow.Extension;
 
-namespace Meow.Data.Dapper.PostgreSql.Metadata;
+namespace Meow.Data.Dapper.Metadata;
 
 /// <summary>
 /// PostgreSql数据类型转换器
 /// </summary>
-public class PostgreSqlTypeConverter : ITypeConverter
-{
+public class PostgreSqlTypeConverter : ITypeConverter {
     /// <inheritdoc />
-    public DbType? ToType(string dataType, int? length = null)
-    {
-        if (dataType.IsEmpty())
+    public DbType? ToType( string dataType , int? length = null ) {
+        if( dataType.IsEmpty() )
             return null;
-        switch (dataType.ToLower())
-        {
+        switch( dataType.ToLower() ) {
             case "uuid":
                 return DbType.Guid;
             case "varchar":
@@ -53,6 +48,6 @@ public class PostgreSqlTypeConverter : ITypeConverter
             case "bytea":
                 return DbType.Binary;
         }
-        throw new NotImplementedException(dataType);
+        throw new NotImplementedException( dataType );
     }
 }

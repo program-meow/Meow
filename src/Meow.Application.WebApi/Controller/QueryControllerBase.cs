@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Meow.Application.Dto;
+﻿using Meow.Application.Dto;
 using Meow.Extension;
 using Meow.Model;
 using Meow.Query;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Meow.Application.WebApi.Controller; 
+namespace Meow.Application.Controller;
 
 /// <summary>
 /// 查询控制器
@@ -24,7 +19,7 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// <summary>
     /// 查询服务
     /// </summary>
-    private readonly IQueryService<TDto, TQuery> _service;
+    private readonly IQueryService<TDto , TQuery> _service;
 
     #endregion
 
@@ -34,7 +29,7 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// 初始化查询控制器
     /// </summary>
     /// <param name="service">查询服务</param>
-    protected QueryControllerBase( IQueryService<TDto, TQuery> service ) {
+    protected QueryControllerBase( IQueryService<TDto , TQuery> service ) {
         _service = service;
     }
 
@@ -47,7 +42,7 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     /// <param name="id">标识</param>
     protected async Task<IActionResult> GetAsync( string id ) {
-        var result = await _service.GetByIdAsync( id );
+        TDto result = await _service.GetByIdAsync( id );
         return Success( result );
     }
 
@@ -60,11 +55,11 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     /// <param name="query">查询参数</param>
     protected async Task<IActionResult> QueryAsync( TQuery query ) {
-        if ( query == null )
-            return Fail("查询参数不能为空");
+        if( query == null )
+            return Fail( "查询参数不能为空" );
         QueryBefore( query );
-        var list = await _service.QueryAsync( query );
-        var result = QueryAfter( list );
+        List<TDto> list = await _service.QueryAsync( query );
+        dynamic result = QueryAfter( list );
         return Success( result );
     }
 
@@ -92,11 +87,11 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     /// <param name="query">查询参数</param>
     protected async Task<IActionResult> PageQueryAsync( TQuery query ) {
-        if ( query == null )
-            return Fail("查询参数不能为空");
+        if( query == null )
+            return Fail( "查询参数不能为空" );
         PageQueryBefore( query );
-        var pageList = await _service.PageQueryAsync( query );
-        var result = PageQueryAfter( pageList );
+        PageList<TDto> pageList = await _service.PageQueryAsync( query );
+        dynamic result = PageQueryAfter( pageList );
         return Success( result );
     }
 
@@ -124,22 +119,22 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     /// <param name="query">查询参数</param>
     protected async Task<IActionResult> GetItemsAsync( TQuery query ) {
-        if ( query == null )
-            return Fail("查询参数不能为空");
-        var result = new List<TDto>();
+        if( query == null )
+            return Fail( "查询参数不能为空" );
+        List<TDto> result = new List<TDto>();
         await LoadSelectedItems( result );
-        await LoadItemsByQuery( result, query );
-        return Success( result.Select( dto => ToItem( dto, query ) ) );
+        await LoadItemsByQuery( result , query );
+        return Success( result.Select( dto => ToItem( dto , query ) ) );
     }
 
     /// <summary>
     /// 加载选中项
     /// </summary>
     protected virtual async Task LoadSelectedItems( List<TDto> items ) {
-        var keys = GetLoadKeys();
-        if ( keys.IsEmpty() )
+        string keys = GetLoadKeys();
+        if( keys.IsEmpty() )
             return;
-        var selectedItems = await _service.GetByIdsAsync( keys );
+        List<TDto> selectedItems = await _service.GetByIdsAsync( keys );
         items.AddRange( selectedItems );
     }
 
@@ -147,14 +142,14 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// 获取选中项标识列表
     /// </summary>
     protected string GetLoadKeys() {
-        return Request.Query["load_keys"].SafeString();
+        return Request.Query[ "load_keys" ].SafeString();
     }
 
     /// <summary>
     /// 查询加载项
     /// </summary>
-    protected virtual async Task LoadItemsByQuery( List<TDto> items, TQuery query ) {
-        var pageList = await _service.PageQueryAsync( query );
+    protected virtual async Task LoadItemsByQuery( List<TDto> items , TQuery query ) {
+        PageList<TDto> pageList = await _service.PageQueryAsync( query );
         items.AddRange( pageList.Data );
     }
 
@@ -163,7 +158,7 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     /// <param name="dto">数据传输对象</param>
     /// <param name="query">查询参数</param>
-    protected virtual Item ToItem( TDto dto, TQuery query ) {
+    protected virtual Item ToItem( TDto dto , TQuery query ) {
         return ToItem( dto );
     }
 

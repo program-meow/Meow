@@ -91,7 +91,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-application", "12-applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Application", "src\Meow.Application\01-Meow.Application.csproj", "{190B9CB7-339F-480C-BADA-0EC305129A3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Application.EntityFramework", "src\Meow.Application.EntityFramework\02-Meow.Application.EntityFramework.csproj", "{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Application.EntityFrameworkCore", "src\Meow.Application.EntityFramework\02-Meow.Application.EntityFrameworkCore.csproj", "{801C85C9-89D4-44B3-BF7B-73B0C2A49BC5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-caching", "05-caching", "{3BA93F24-4424-4C4F-9BF7-9D27ECB1745F}"
 EndProject
@@ -127,13 +127,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Sample.Data.PgSql", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meow.Sample.Data.SqlServer", "sample\Meow.Sample.Data.SqlServer\Meow.Sample.Data.SqlServer.csproj", "{2002AE35-C288-4032-9446-A50619E27BF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Event.Abstraction", "src\Meow.Event.Abstraction\01-Meow.Event.Abstraction.csproj", "{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Event.Abstraction", "src\Meow.Event.Abstraction\01-Meow.Event.Abstraction.csproj", "{7040CE60-37D9-4A7C-8059-CFBB2FFB0990}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-tenant", "09-tenant", "{3728559E-FEE7-4578-9F16-5C2CF832ED6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Meow.Tenant.Abstraction", "src\Meow.Tenant.Abstraction\01-Meow.Tenant.Abstraction.csproj", "{EAD088BE-F6E5-4461-B726-B10849ECADBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Meow.Tenant.Abstraction", "src\Meow.Tenant.Abstraction\01-Meow.Tenant.Abstraction.csproj", "{EAD088BE-F6E5-4461-B726-B10849ECADBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Meow.Tenant", "src\Meow.Tenant\02-Meow.Tenant.csproj", "{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Meow.Tenant", "src\Meow.Tenant\02-Meow.Tenant.csproj", "{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meow.Application.Tree;
+﻿using Meow.Application.Tree;
 using Meow.Extension;
 using Meow.Query;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Meow.Application.WebApi.Controller;
+namespace Meow.Application.Controller;
 
 /// <summary>
 /// 树形查询控制器
@@ -14,15 +11,14 @@ namespace Meow.Application.WebApi.Controller;
 /// <typeparam name="TQuery">查询参数类型</typeparam>
 public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBase
     where TDto : class, ITreeNode, new()
-    where TQuery : class, ITreeQueryParameter
-{
+    where TQuery : class, ITreeQueryParameter {
 
     #region 字段
 
     /// <summary>
     /// 树形服务
     /// </summary>
-    private readonly ITreeQueryService<TDto, TQuery> _service;
+    private readonly ITreeQueryService<TDto , TQuery> _service;
 
     #endregion
 
@@ -32,9 +28,8 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// 初始化树形查询控制器
     /// </summary>
     /// <param name="service">树形服务</param>
-    protected TreeQueryControllerBase(ITreeQueryService<TDto, TQuery> service)
-    {
-        _service = service ?? throw new ArgumentNullException(nameof(service));
+    protected TreeQueryControllerBase( ITreeQueryService<TDto , TQuery> service ) {
+        _service = service ?? throw new ArgumentNullException( nameof( service ) );
     }
 
     #endregion
@@ -44,8 +39,7 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 获取最大分页大小,默认值: 999
     /// </summary>
-    protected virtual int GetMaxPageSize()
-    {
+    protected virtual int GetMaxPageSize() {
         return 999;
     }
 
@@ -56,11 +50,10 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 获取加载模式,默认值: 同步加载模式
     /// </summary>
-    protected virtual LoadMode GetLoadMode()
-    {
-        var loadMode = Request.Query["loadMode"].SafeString();
-        var result = Meow.Helper.Enum.Parse<LoadMode?>(loadMode);
-        if (result != null)
+    protected virtual LoadMode GetLoadMode() {
+        string loadMode = Request.Query[ "loadMode" ].SafeString();
+        LoadMode? result = Meow.Helper.Enum.Parse<LoadMode?>( loadMode );
+        if( result != null )
             return result.Value;
         return LoadMode.Sync;
     }
@@ -72,10 +65,9 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 是否首次加载
     /// </summary>
-    protected virtual bool IsFirstLoad()
-    {
-        var isSearch = Request.Query["is_search"].SafeString();
-        if (isSearch == "false")
+    protected virtual bool IsFirstLoad() {
+        string isSearch = Request.Query[ "is_search" ].SafeString();
+        if( isSearch == "false" )
             return true;
         return false;
     }
@@ -87,10 +79,9 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 是否展开所有节点,仅对同步加载和同步查询有效
     /// </summary>
-    protected virtual bool IsExpandAll()
-    {
-        var isExpandAll = Request.Query["is_expand_all"].SafeString();
-        if (isExpandAll == "true")
+    protected virtual bool IsExpandAll() {
+        string isExpandAll = Request.Query[ "is_expand_all" ].SafeString();
+        if( isExpandAll == "true" )
             return true;
         return false;
     }
@@ -102,10 +93,9 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 根节点异步加载模式是否展开子节点,默认值: true
     /// </summary>
-    protected virtual bool IsExpandForRootAsync()
-    {
-        var isExpand = Request.Query["is_expand_for_root_async"].SafeString();
-        if (isExpand == "false")
+    protected virtual bool IsExpandForRootAsync() {
+        string isExpand = Request.Query[ "is_expand_for_root_async" ].SafeString();
+        if( isExpand == "false" )
             return false;
         return true;
     }
@@ -118,9 +108,8 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// 获取需要加载的标识列表,当异步模式首次加载时,将选中节点的相关父节点加载回来,标识列表以逗号分隔
     /// </summary>
     /// <param name="query">查询参数</param>
-    protected virtual string GetLoadKeys(TQuery query)
-    {
-        return Request.Query["load_keys"].SafeString();
+    protected virtual string GetLoadKeys( TQuery query ) {
+        return Request.Query[ "load_keys" ].SafeString();
     }
 
     #endregion
@@ -131,10 +120,9 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// 获取单个实体
     /// </summary>
     /// <param name="id">标识</param>
-    protected async Task<IActionResult> GetAsync(string id)
-    {
-        var result = await _service.GetByIdAsync(id);
-        return Success(result);
+    protected async Task<IActionResult> GetAsync( string id ) {
+        TDto result = await _service.GetByIdAsync( id );
+        return Success( result );
     }
 
     #endregion
@@ -145,20 +133,18 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// 树形表格查询
     /// </summary>
     /// <param name="query">查询参数</param>
-    protected async Task<IActionResult> QueryAsync(TQuery query)
-    {
-        var action = new TreeTableQueryAction<TDto, TQuery>(_service, GetLoadMode(), GetOperation(query),
-            GetMaxPageSize(), IsFirstLoad(), IsExpandAll(), IsExpandForRootAsync(), QueryBefore, QueryAfter);
-        var result = await action.QueryAsync(query);
-        return Success(result);
+    protected async Task<IActionResult> QueryAsync( TQuery query ) {
+        TreeTableQueryAction<TDto , TQuery> action = new TreeTableQueryAction<TDto , TQuery>( _service , GetLoadMode() , GetOperation( query ) ,
+            GetMaxPageSize() , IsFirstLoad() , IsExpandAll() , IsExpandForRootAsync() , QueryBefore , QueryAfter );
+        dynamic result = await action.QueryAsync( query );
+        return Success( result );
     }
 
     /// <summary>
     /// 获取加载操作
     /// </summary>
-    protected virtual LoadOperation GetOperation(TQuery query)
-    {
-        if (query.ParentId.IsEmpty())
+    protected virtual LoadOperation GetOperation( TQuery query ) {
+        if( query.ParentId.IsEmpty() )
             return LoadOperation.Query;
         return LoadOperation.LoadChildren;
     }
@@ -167,8 +153,7 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// 查询前操作
     /// </summary>
     /// <param name="query">查询参数</param>
-    protected virtual void QueryBefore(TQuery query)
-    {
+    protected virtual void QueryBefore( TQuery query ) {
     }
 
     /// <summary>
@@ -176,8 +161,7 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// </summary>
     /// <param name="data">数据列表</param>
     /// <param name="query">查询参数</param>
-    protected virtual void QueryAfter(PageList<TDto> data, TQuery query)
-    {
+    protected virtual void QueryAfter( PageList<TDto> data , TQuery query ) {
     }
 
     #endregion

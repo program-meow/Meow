@@ -1,22 +1,16 @@
-﻿using System;
-using System.Data;
-using Meow.Data.Metadata;
+﻿using Meow.Data.Metadata;
 using Meow.Extension;
 
-namespace Meow.Data.Dapper.SqlServer.Metadata
-{
+namespace Meow.Data.Dapper.Metadata {
     /// <summary>
     /// Sql Server数据类型转换器
     /// </summary>
-    public class SqlServerTypeConverter : ITypeConverter
-    {
+    public class SqlServerTypeConverter : ITypeConverter {
         /// <inheritdoc />
-        public DbType? ToType(string dataType, int? length = null)
-        {
-            if (dataType.IsEmpty())
+        public DbType? ToType( string dataType , int? length = null ) {
+            if( dataType.IsEmpty() )
                 return null;
-            switch (dataType.ToLower())
-            {
+            switch( dataType.ToLower() ) {
                 case "uniqueidentifier":
                     return DbType.Guid;
                 case "char":
@@ -71,7 +65,7 @@ namespace Meow.Data.Dapper.SqlServer.Metadata
                 case "sql_variant":
                     return DbType.Object;
             }
-            throw new NotImplementedException(dataType);
+            throw new NotImplementedException( dataType );
         }
     }
 }

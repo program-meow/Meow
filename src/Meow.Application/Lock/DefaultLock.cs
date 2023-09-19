@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meow.Caching;
+﻿using Meow.Caching;
 
 namespace Meow.Application.Lock;
 
 /// <summary>
 /// 业务锁
 /// </summary>
-public class DefaultLock : ILock
-{
+public class DefaultLock : ILock {
     /// <summary>
     /// 缓存
     /// </summary>
@@ -26,48 +23,25 @@ public class DefaultLock : ILock
     /// 初始化业务锁
     /// </summary>
     /// <param name="cache">缓存</param>
-    public DefaultLock(ICache cache)
-    {
+    public DefaultLock( ICache cache ) {
         _cache = cache;
     }
 
     /// <inheritdoc />
-    public bool Lock(string key, TimeSpan? expiration = null)
-    {
+    public async Task<bool> LockAsync( string key , TimeSpan? expiration = null ) {
         _key = key;
         _expiration = expiration;
-        if (_cache.Exists(key))
+        if( await _cache.ExistsAsync( key ) )
             return false;
-        return _cache.TrySet(key, 1, new CacheOptions { Expiration = expiration });
+        return await _cache.TrySetAsync( key , 1 , new CacheOptions { Expiration = expiration } );
     }
 
     /// <inheritdoc />
-    public async Task<bool> LockAsync(string key, TimeSpan? expiration = null)
-    {
-        _key = key;
-        _expiration = expiration;
-        if (await _cache.ExistsAsync(key))
-            return false;
-        return await _cache.TrySetAsync(key, 1, new CacheOptions { Expiration = expiration });
-    }
-
-    /// <inheritdoc />
-    public void UnLock()
-    {
-        if (_expiration != null)
+    public async Task UnLockAsync() {
+        if( _expiration != null )
             return;
-        if (_cache.Exists(_key) == false)
+        if( await _cache.ExistsAsync( _key ) == false )
             return;
-        _cache.Remove(_key);
-    }
-
-    /// <inheritdoc />
-    public async Task UnLockAsync()
-    {
-        if (_expiration != null)
-            return;
-        if (await _cache.ExistsAsync(_key) == false)
-            return;
-        await _cache.RemoveAsync(_key);
+        await _cache.RemoveAsync( _key );
     }
 }

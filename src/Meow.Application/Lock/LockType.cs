@@ -1,4 +1,4 @@
-﻿namespace Meow.Application.Lock; 
+﻿namespace Meow.Application.Lock;
 
 /// <summary>
 /// 业务锁类型

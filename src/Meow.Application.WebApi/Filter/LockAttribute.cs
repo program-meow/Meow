@@ -1,23 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meow.Application.Lock;
+﻿using Meow.Application.Lock;
 using Meow.Authentication.Session;
 using Meow.Extension;
 using Meow.Helper;
+using Meow.Option;
 using Meow.Response;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 
-namespace Meow.Application.WebApi.Filter;
+namespace Meow.Application.Filter;
 
 /// <summary>
 /// 请求锁过滤器,用于防止重复提交
 /// </summary>
-[AttributeUsage(AttributeTargets.Method)]
-public class LockAttribute : ActionFilterAttribute
-{
+[AttributeUsage( AttributeTargets.Method )]
+public class LockAttribute : ActionFilterAttribute {
     /// <summary>
     /// 业务标识
     /// </summary>
@@ -34,31 +28,25 @@ public class LockAttribute : ActionFilterAttribute
     /// <summary>
     /// 执行
     /// </summary>
-    public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-    {
-        context.CheckNull(nameof(context));
-        next.CheckNull(nameof(next));
-        var @lock = CreateLock(context);
-        var key = GetKey(context);
-        var isSuccess = false;
-        try
-        {
-            isSuccess = await @lock.LockAsync(key, GetExpiration());
-            if (isSuccess == false)
-            {
-                context.Result = GetResult(context, ResultStatusCodeEnum.Error.GetValue().SafeString(), GetFailMessage(context));
+    public override async Task OnActionExecutionAsync( ActionExecutingContext context , ActionExecutionDelegate next ) {
+        context.CheckNull( nameof( context ) );
+        next.CheckNull( nameof( next ) );
+        ILock @lock = CreateLock( context );
+        string key = GetKey( context );
+        bool isSuccess = false;
+        try {
+            isSuccess = await @lock.LockAsync( key , GetExpiration() );
+            if( isSuccess == false ) {
+                context.Result = GetResult( context , ResultStatusCodeEnum.Error.GetValue().SafeString() , GetFailMessage( context ) );
                 return;
             }
-            OnActionExecuting(context);
-            if (context.Result != null)
+            OnActionExecuting( context );
+            if( context.Result != null )
                 return;
             var executedContext = await next();
-            OnActionExecuted(executedContext);
-        }
-        finally
-        {
-            if (isSuccess)
-            {
+            OnActionExecuted( executedContext );
+        } finally {
+            if( isSuccess ) {
                 await @lock.UnLockAsync();
             }
         }
@@ -67,70 +55,73 @@ public class LockAttribute : ActionFilterAttribute
     /// <summary>
     /// 创建业务锁
     /// </summary>
-    protected virtual ILock CreateLock(ActionExecutingContext context)
-    {
+    protected virtual ILock CreateLock( ActionExecutingContext context ) {
         return context.HttpContext.RequestServices.GetService<ILock>() ?? NullLock.Instance;
     }
 
     /// <summary>
     /// 获取锁定标识
     /// </summary>
-    protected virtual string GetKey(ActionExecutingContext context)
-    {
-        var userId = string.Empty;
-        if (Type == LockType.User)
-            userId = $"{GetUserId(context)}_";
-        return string.IsNullOrWhiteSpace(Key) ? $"{userId}{Web.Request.Path}" : $"{userId}{Key}";
+    protected virtual string GetKey( ActionExecutingContext context ) {
+        string userId = string.Empty;
+        if( Type == LockType.User )
+            userId = $"{GetUserId( context )}_";
+        return string.IsNullOrWhiteSpace( Key ) ? $"{userId}{Web.Request.Path}" : $"{userId}{Key}";
     }
 
     /// <summary>
     /// 获取用户标识
     /// </summary>
-    protected string GetUserId(ActionExecutingContext context)
-    {
-        var session = context.HttpContext.RequestServices.GetService<ISession>();
+    protected string GetUserId( ActionExecutingContext context ) {
+        ISession session = context.HttpContext.RequestServices.GetService<ISession>();
         return session?.UserId;
     }
 
     /// <summary>
     /// 获取到期时间间隔
     /// </summary>
-    private TimeSpan? GetExpiration()
-    {
-        if (Interval == 0)
+    private TimeSpan? GetExpiration() {
+        if( Interval == 0 )
             return null;
-        return TimeSpan.FromSeconds(Interval);
+        return TimeSpan.FromSeconds( Interval );
     }
 
     /// <summary>
     /// 获取结果
     /// </summary>
-    private IActionResult GetResult(ActionExecutingContext context, string code, string message)
-    {
-        var resultFactory = context.HttpContext.RequestServices.GetService<IResultFactory>();
-        if (resultFactory == null)
-            return new Result(code, message);
-        return resultFactory.CreateResult(code, message, null, null);
+    private IActionResult GetResult( ActionExecutingContext context , string code , string message ) {
+        JsonSerializerOptions options = GetJsonSerializerOptions( context );
+        IResultFactory resultFactory = context.HttpContext.RequestServices.GetService<IResultFactory>();
+        if( resultFactory == null )
+            return new Result( code , message , options: options );
+        return resultFactory.CreateResult( code , message , null , null , options );
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetJsonSerializerOptions( ActionExecutingContext context ) {
+        IJsonSerializerOptionsFactory factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
+        factory.CheckNull( nameof( factory ) );
+        return factory.CreateOptions();
     }
 
     /// <summary>
     /// 获取失败消息
     /// </summary>
-    protected virtual string GetFailMessage(ActionExecutingContext context)
-    {
-        if (Type == LockType.User)
-            return GetLocalizedMessage(context, "请不要重复提交");
-        return GetLocalizedMessage(context, "其他用户正在执行该操作,请稍后再试");
+    protected virtual string GetFailMessage( ActionExecutingContext context ) {
+        if( Type == LockType.User )
+            return GetLocalizedMessage( context , "请不要重复提交" );
+        return GetLocalizedMessage( context , "其他用户正在执行该操作,请稍后再试" );
     }
 
     /// <summary>
     /// 获取本地化消息
     /// </summary>
-    protected virtual string GetLocalizedMessage(ActionExecutingContext context, string message)
-    {
-        var stringLocalizer = context.HttpContext.RequestServices.GetService<IStringLocalizer>();
-        if (stringLocalizer == null)
+    protected virtual string GetLocalizedMessage( ActionExecutingContext context , string message ) {
+        IStringLocalizer stringLocalizer = context.HttpContext.RequestServices.GetService<IStringLocalizer>();
+        if( stringLocalizer == null )
             return message;
-        return stringLocalizer[message];
+        return stringLocalizer[ message ];
     }
 }

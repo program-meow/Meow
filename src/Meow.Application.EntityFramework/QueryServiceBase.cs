@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Meow.Data;
+﻿using Meow.Data;
 using Meow.Data.EntityFrameworkCore.Extension;
 using Meow.Data.Extension;
 using Meow.Data.Store;
@@ -11,7 +7,7 @@ using Meow.Model;
 using Meow.Query;
 using Microsoft.EntityFrameworkCore;
 
-namespace Meow.Application.EntityFramework; 
+namespace Meow.Application;
 
 /// <summary>
 /// 查询服务
@@ -19,7 +15,7 @@ namespace Meow.Application.EntityFramework;
 /// <typeparam name="TEntity">实体类型</typeparam>
 /// <typeparam name="TDto">数据传输对象类型</typeparam>
 /// <typeparam name="TQuery">查询参数类型</typeparam>
-public abstract class QueryServiceBase<TEntity, TDto, TQuery> : QueryServiceBase<TEntity, TDto, TQuery, Guid>
+public abstract class QueryServiceBase<TEntity, TDto, TQuery> : QueryServiceBase<TEntity , TDto , TQuery , Guid>
     where TEntity : class, IKey<Guid>
     where TDto : new()
     where TQuery : IPage {
@@ -28,7 +24,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery> : QueryServiceBase
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="store">查询存储器</param>
-    protected QueryServiceBase( IServiceProvider serviceProvider, IQueryStore<TEntity, Guid> store ) : base( serviceProvider,store ) {
+    protected QueryServiceBase( IServiceProvider serviceProvider , IQueryStore<TEntity , Guid> store ) : base( serviceProvider , store ) {
     }
 }
 
@@ -39,7 +35,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery> : QueryServiceBase
 /// <typeparam name="TDto">数据传输对象类型</typeparam>
 /// <typeparam name="TQuery">查询参数类型</typeparam>
 /// <typeparam name="TKey">实体标识类型</typeparam>
-public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBase, IQueryService<TDto, TQuery>
+public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBase, IQueryService<TDto , TQuery>
     where TEntity : class, IKey<TKey>
     where TDto : new()
     where TQuery : IPage {
@@ -49,7 +45,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
     /// <summary>
     /// 查询存储器
     /// </summary>
-    private readonly IQueryStore<TEntity, TKey> _store;
+    private readonly IQueryStore<TEntity , TKey> _store;
 
     #endregion
 
@@ -60,7 +56,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="store">查询存储器</param>
-    protected QueryServiceBase( IServiceProvider serviceProvider,IQueryStore<TEntity, TKey> store ) : base( serviceProvider ) {
+    protected QueryServiceBase( IServiceProvider serviceProvider , IQueryStore<TEntity , TKey> store ) : base( serviceProvider ) {
         _store = store ?? throw new ArgumentNullException( nameof( store ) );
     }
 
@@ -91,14 +87,14 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
 
     /// <inheritdoc />
     public virtual async Task<List<TDto>> GetAllAsync() {
-        var entities = await GetStore().FindAllAsync();
+        List<TEntity> entities = await GetStore().FindAllAsync();
         return entities.Select( ToDto ).ToList();
     }
 
     /// <summary>
     /// 获取查询存储器
     /// </summary>
-    private IQueryStore<TEntity, TKey> GetStore() {
+    private IQueryStore<TEntity , TKey> GetStore() {
         if( IsTracking )
             return _store;
         return _store.NoTracking();
@@ -110,7 +106,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
 
     /// <inheritdoc />
     public virtual async Task<TDto> GetByIdAsync( object id ) {
-        var key = Meow.Helper.Convert.To<TKey>( id );
+        TKey key = Meow.Helper.Convert.To<TKey>( id );
         return ToDto( await GetStore().FindByIdAsync( key ) );
     }
 
@@ -120,7 +116,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
 
     /// <inheritdoc />
     public virtual async Task<List<TDto>> GetByIdsAsync( string ids ) {
-        var entities = await GetStore().FindByIdsAsync( ids );
+        List<TEntity> entities = await GetStore().FindByIdsAsync( ids );
         return entities.Select( ToDto ).ToList();
     }
 
@@ -132,21 +128,21 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
     public virtual async Task<List<TDto>> QueryAsync( TQuery param ) {
         if( param == null )
             return new List<TDto>();
-        var queryable = GetStore().Find();
-        queryable = AddConditions( queryable, param );
-        queryable = Filter( queryable, param );
-        var result = await queryable.OrderBy( param ).ToListAsync();
+        IQueryable<TEntity> queryable = GetStore().Find();
+        queryable = AddConditions( queryable , param );
+        queryable = Filter( queryable , param );
+        List<TEntity> result = await queryable.OrderBy( param ).ToListAsync();
         return result.Select( ToDto ).ToList();
     }
 
     /// <summary>
     /// 添加条件列表
     /// </summary>
-    private IQueryable<TEntity> AddConditions( IQueryable<TEntity> queryable, TQuery param ) {
-        var conditions = GetConditions( param );
-        if ( conditions == null )
+    private IQueryable<TEntity> AddConditions( IQueryable<TEntity> queryable , TQuery param ) {
+        IEnumerable<ICondition<TEntity>> conditions = GetConditions( param );
+        if( conditions == null )
             return queryable;
-        foreach ( var condition in conditions ) 
+        foreach( ICondition<TEntity> condition in conditions )
             queryable = queryable.Where( condition );
         return queryable;
     }
@@ -161,7 +157,7 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
     /// <summary>
     /// 过滤
     /// </summary>
-    protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQuery param ) {
+    protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable , TQuery param ) {
         return queryable;
     }
 
@@ -173,10 +169,10 @@ public abstract class QueryServiceBase<TEntity, TDto, TQuery, TKey> : ServiceBas
     public virtual async Task<PageList<TDto>> PageQueryAsync( TQuery param ) {
         if( param == null )
             return new PageList<TDto>();
-        var queryable = GetStore().Find();
-        queryable = AddConditions( queryable, param );
-        queryable = Filter( queryable, param );
-        var result = await queryable.ToPageListAsync( param );
+        IQueryable<TEntity> queryable = GetStore().Find();
+        queryable = AddConditions( queryable , param );
+        queryable = Filter( queryable , param );
+        PageList<TEntity> result = await queryable.ToPageListAsync( param );
         return result.Convert( ToDto );
     }
 

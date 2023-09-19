@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
-using Meow.Data.Sql;
+﻿using Meow.Data.Sql;
 using Meow.Data.Sql.Builder;
 using Meow.Data.Sql.Builder.Clause;
 using Meow.Data.Sql.Builder.Core;
@@ -14,17 +7,15 @@ using Meow.Data.Sql.Builder.Set;
 using Meow.Data.Sql.Config;
 using Meow.Data.Sql.Database;
 using Meow.Extension;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using Meow.Helper;
 
 namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// Sql查询对象
 /// </summary>
-public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAccessor, IGetParameter, IClearParameters, IConnectionManager, ITransactionManager
-{
+public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAccessor, IGetParameter, IClearParameters, IConnectionManager, ITransactionManager {
+
     #region 字段
 
     /// <summary>
@@ -70,25 +61,23 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    protected SqlQueryBase(IServiceProvider serviceProvider, SqlOptions options, IDatabase database)
-    {
-        ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-        Options = options ?? throw new ArgumentNullException(nameof(options));
+    protected SqlQueryBase( IServiceProvider serviceProvider , SqlOptions options , IDatabase database ) {
+        ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
+        Options = options ?? throw new ArgumentNullException( nameof( options ) );
         Logger = CreateLogger();
         _connection = options.Connection;
         _database = database;
-        ContextId = Meow.Helper.Id.Create();
+        ContextId = Id.Create();
     }
 
     /// <summary>
     /// 创建日志
     /// </summary>
-    private ILogger CreateLogger()
-    {
+    private ILogger CreateLogger() {
         ILoggerFactory loggerFactory = ServiceProvider.GetService<ILoggerFactory>();
-        if (loggerFactory == null)
+        if( loggerFactory == null )
             return NullLogger.Instance;
-        return loggerFactory.CreateLogger(Options.LogCategory);
+        return loggerFactory.CreateLogger( Options.LogCategory );
     }
 
     #endregion
@@ -118,11 +107,11 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// Sql方言
     /// </summary>
-    public IDialect Dialect => ((ISqlPartAccessor)SqlBuilder).Dialect;
+    public IDialect Dialect => ( ( ISqlPartAccessor ) SqlBuilder ).Dialect;
     /// <summary>
     /// 参数管理器
     /// </summary>
-    public IParameterManager ParameterManager => ((ISqlPartAccessor)SqlBuilder).ParameterManager;
+    public IParameterManager ParameterManager => ( ( ISqlPartAccessor ) SqlBuilder ).ParameterManager;
     /// <summary>
     /// 参数字面值解析器
     /// </summary>
@@ -130,53 +119,51 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 起始子句
     /// </summary>
-    public IStartClause StartClause => ((ISqlPartAccessor)SqlBuilder).StartClause;
+    public IStartClause StartClause => ( ( ISqlPartAccessor ) SqlBuilder ).StartClause;
     /// <summary>
     /// Insert子句
     /// </summary>
-    public IFromClause FromClause => ((ISqlPartAccessor)SqlBuilder).FromClause;
+    public IFromClause FromClause => ( ( ISqlPartAccessor ) SqlBuilder ).FromClause;
     /// <summary>
     /// Join子句
     /// </summary>
-    public IJoinClause JoinClause => ((ISqlPartAccessor)SqlBuilder).JoinClause;
+    public IJoinClause JoinClause => ( ( ISqlPartAccessor ) SqlBuilder ).JoinClause;
     /// <summary>
     /// Where子句
     /// </summary>
-    public IWhereClause WhereClause => ((ISqlPartAccessor)SqlBuilder).WhereClause;
+    public IWhereClause WhereClause => ( ( ISqlPartAccessor ) SqlBuilder ).WhereClause;
     /// <summary>
     /// GroupBy子句
     /// </summary>
-    public IInsertClause InsertClause => ((ISqlPartAccessor)SqlBuilder).InsertClause;
+    public IInsertClause InsertClause => ( ( ISqlPartAccessor ) SqlBuilder ).InsertClause;
     /// <summary>
     /// Select子句
     /// </summary>
-    public ISelectClause SelectClause => ((ISqlPartAccessor)SqlBuilder).SelectClause;
+    public ISelectClause SelectClause => ( ( ISqlPartAccessor ) SqlBuilder ).SelectClause;
     /// <summary>
     /// From子句
     /// </summary>
-    public IGroupByClause GroupByClause => ((ISqlPartAccessor)SqlBuilder).GroupByClause;
+    public IGroupByClause GroupByClause => ( ( ISqlPartAccessor ) SqlBuilder ).GroupByClause;
     /// <summary>
     /// OrderBy子句
     /// </summary>
-    public IOrderByClause OrderByClause => ((ISqlPartAccessor)SqlBuilder).OrderByClause;
+    public IOrderByClause OrderByClause => ( ( ISqlPartAccessor ) SqlBuilder ).OrderByClause;
     /// <summary>
     /// 结束子句
     /// </summary>
-    public IEndClause EndClause => ((ISqlPartAccessor)SqlBuilder).EndClause;
+    public IEndClause EndClause => ( ( ISqlPartAccessor ) SqlBuilder ).EndClause;
     /// <summary>
     /// Sql生成器集合
     /// </summary>
-    public ISqlBuilderSet SqlBuilderSet => ((ISqlPartAccessor)SqlBuilder).SqlBuilderSet;
+    public ISqlBuilderSet SqlBuilderSet => ( ( ISqlPartAccessor ) SqlBuilder ).SqlBuilderSet;
     /// <summary>
     /// 获取动态参数列表
     /// </summary>
-    protected DynamicParameters Params
-    {
-        get
-        {
+    protected DynamicParameters Params {
+        get {
             _parameters = new DynamicParameters();
-            ParameterManager.GetParams().ToList().ForEach(t => _parameters.Add(t.Name, t.Value, t.DbType, t.Direction, t.Size, t.Precision, t.Scale));
-            ParameterManager.GetDynamicParams().ToList().ForEach(p => _parameters.AddDynamicParams(p));
+            ParameterManager.GetParams().ToList().ForEach( t => _parameters.Add( t.Name , t.Value , t.DbType , t.Direction , t.Size , t.Precision , t.Scale ) );
+            ParameterManager.GetDynamicParams().ToList().ForEach( p => _parameters.AddDynamicParams( p ) );
             return _parameters;
         }
     }
@@ -196,14 +183,13 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 创建数据库信息
     /// </summary>
-    protected virtual IDatabase CreateDatabase()
-    {
-        if (Options.ConnectionString.IsEmpty())
-            throw new InvalidOperationException("数据库连接字符串不能为空");
+    protected virtual IDatabase CreateDatabase() {
+        if( Options.ConnectionString.IsEmpty() )
+            throw new InvalidOperationException( "数据库连接字符串不能为空" );
         IDatabaseFactory factory = CreateDatabaseFactory();
-        if (factory == null)
-            throw new InvalidOperationException("数据库工厂不能为空");
-        return factory.Create(Options.ConnectionString);
+        if( factory == null )
+            throw new InvalidOperationException( "数据库工厂不能为空" );
+        return factory.Create( Options.ConnectionString );
     }
 
     /// <summary>
@@ -215,13 +201,12 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 创建判断是否存在Sql生成器
     /// </summary>
     /// <param name="sqlBuilder">Sql生成器</param>
-    protected abstract IExistsSqlBuilder CreatExistsSqlBuilder(ISqlBuilder sqlBuilder);
+    protected abstract IExistsSqlBuilder CreatExistsSqlBuilder( ISqlBuilder sqlBuilder );
 
     /// <summary>
     /// 创建参数字面值解析器
     /// </summary>
-    protected virtual IParamLiteralsResolver CreateParamLiteralsResolver()
-    {
+    protected virtual IParamLiteralsResolver CreateParamLiteralsResolver() {
         return new ParamLiteralsResolver();
     }
 
@@ -232,8 +217,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取Sql配置
     /// </summary>
-    public SqlOptions GetOptions()
-    {
+    public SqlOptions GetOptions() {
         return Options;
     }
 
@@ -246,11 +230,10 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// </summary>
     /// <typeparam name="T">参数值类型</typeparam>
     /// <param name="name">参数名</param>
-    public virtual T GetParam<T>(string name)
-    {
-        if (_parameters == null && PreviousSql != null)
-            return PreviousSql.GetParam<T>(name);
-        return Params.Get<T>(name);
+    public virtual T GetParam<T>( string name ) {
+        if( _parameters == null && PreviousSql != null )
+            return PreviousSql.GetParam<T>( name );
+        return Params.Get<T>( name );
     }
 
     #endregion
@@ -260,8 +243,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 清空Sql参数
     /// </summary>
-    public void ClearParams()
-    {
+    public void ClearParams() {
         ParameterManager.Clear();
         _parameters = null;
     }
@@ -273,13 +255,12 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取数据库连接
     /// </summary>
-    public IDbConnection GetConnection()
-    {
-        if (_connection != null)
+    public IDbConnection GetConnection() {
+        if( _connection != null )
             return _connection;
         _connection = Database.GetConnection();
-        if (_connection == null)
-            throw new InvalidOperationException("数据库连接字符串不能为空");
+        if( _connection == null )
+            throw new InvalidOperationException( "数据库工厂不能为空" );
         return _connection;
     }
 
@@ -291,9 +272,8 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 设置数据库连接
     /// </summary>
     /// <param name="connection">数据库连接</param>
-    public void SetConnection(IDbConnection connection)
-    {
-        if (connection == null)
+    public void SetConnection( IDbConnection connection ) {
+        if( connection == null )
             return;
         _connection = connection;
     }
@@ -305,8 +285,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取数据库事务
     /// </summary>
-    public IDbTransaction GetTransaction()
-    {
+    public IDbTransaction GetTransaction() {
         return _transaction;
     }
 
@@ -318,9 +297,8 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 设置数据库事务
     /// </summary>
     /// <param name="transaction">数据库事务</param>
-    public void SetTransaction(IDbTransaction transaction)
-    {
-        if (transaction == null)
+    public void SetTransaction( IDbTransaction transaction ) {
+        if( transaction == null )
             return;
         _transaction = transaction;
         _connection = transaction.Connection;
@@ -333,38 +311,32 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 开始事务
     /// </summary>
-    public IDbTransaction BeginTransaction()
-    {
-        return BeginTransactionImpl(null);
+    public IDbTransaction BeginTransaction() {
+        return BeginTransactionImpl( null );
     }
 
     /// <summary>
     /// 开始事务
     /// </summary>
     /// <param name="isolationLevel">隔离级别</param>
-    public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
-    {
-        return BeginTransactionImpl(isolationLevel);
+    public IDbTransaction BeginTransaction( IsolationLevel isolationLevel ) {
+        return BeginTransactionImpl( isolationLevel );
     }
 
     /// <summary>
     /// 开始事务
     /// </summary>
-    private IDbTransaction BeginTransactionImpl(IsolationLevel? isolationLevel)
-    {
-        try
-        {
-            if (_transaction != null)
+    private IDbTransaction BeginTransactionImpl( IsolationLevel? isolationLevel ) {
+        try {
+            if( _transaction != null )
                 return _transaction;
             IDbConnection connection = GetConnection();
-            if (connection.State == ConnectionState.Closed)
+            if( connection.State == ConnectionState.Closed )
                 connection.Open();
-            _transaction = isolationLevel == null ? connection.BeginTransaction() : connection.BeginTransaction(isolationLevel.SafeValue());
+            _transaction = isolationLevel == null ? connection.BeginTransaction() : connection.BeginTransaction( isolationLevel.SafeValue() );
             return _transaction;
-        }
-        catch
-        {
-            if (_connection?.State == ConnectionState.Open)
+        } catch {
+            if( _connection?.State == ConnectionState.Open )
                 _connection?.Close();
             _transaction?.Dispose();
             throw;
@@ -378,20 +350,14 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 提交事务
     /// </summary>
-    public void CommitTransaction()
-    {
-        try
-        {
+    public void CommitTransaction() {
+        try {
             _transaction?.Commit();
-        }
-        catch
-        {
+        } catch {
             _transaction?.Rollback();
             throw;
-        }
-        finally
-        {
-            if (_connection?.State == ConnectionState.Open)
+        } finally {
+            if( _connection?.State == ConnectionState.Open )
                 _connection?.Close();
             _transaction?.Dispose();
             _transaction = null;
@@ -405,16 +371,12 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 回滚事务
     /// </summary>
-    public void RollbackTransaction()
-    {
-        try
-        {
-            if (_connection.State != ConnectionState.Closed)
+    public void RollbackTransaction() {
+        try {
+            if( _connection.State != ConnectionState.Closed )
                 _transaction?.Rollback();
-        }
-        finally
-        {
-            if (_connection?.State == ConnectionState.Open)
+        } finally {
+            if( _connection?.State == ConnectionState.Open )
                 _connection?.Close();
             _transaction?.Dispose();
             _transaction = null;
@@ -428,21 +390,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 判断是否存在
     /// </summary>
-    public bool ExecuteExists()
-    {
+    public bool ExecuteExists() {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = CreatExistsSqlBuilder(SqlBuilder).GetSql();
+            _sql = CreatExistsSqlBuilder( SqlBuilder ).GetSql();
             IDbConnection connection = GetConnection();
-            result = connection.ExecuteScalar(GetSql(), Params, GetTransaction());
-            return Meow.Helper.Convert.ToBool(result);
-        }
-        finally
-        {
-            ExecuteAfter(result);
+            result = connection.ExecuteScalar( GetSql() , Params , GetTransaction() );
+            return Meow.Helper.Convert.ToBool( result );
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -453,21 +411,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 判断是否存在
     /// </summary>
-    public async Task<bool> ExecuteExistsAsync()
-    {
+    public async Task<bool> ExecuteExistsAsync() {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = CreatExistsSqlBuilder(SqlBuilder).GetSql();
+            _sql = CreatExistsSqlBuilder( SqlBuilder ).GetSql();
             IDbConnection connection = GetConnection();
-            result = await connection.ExecuteScalarAsync(GetSql(), Params, GetTransaction());
-            return Meow.Helper.Convert.ToBool(result);
-        }
-        finally
-        {
-            ExecuteAfter(result);
+            result = await connection.ExecuteScalarAsync( GetSql() , Params , GetTransaction() );
+            return Meow.Helper.Convert.ToBool( result );
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -478,29 +432,24 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取单值
     /// </summary>
-    public virtual object ExecuteScalar(int? timeout = null)
-    {
+    public virtual object ExecuteScalar( int? timeout = null ) {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.ExecuteScalar(GetSql(), Params, GetTransaction(), timeout);
+            result = connection.ExecuteScalar( GetSql() , Params , GetTransaction() , timeout );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取单值
     /// </summary>
-    public virtual T ExecuteScalar<T>(int? timeout = null)
-    {
-        return Meow.Helper.Convert.To<T>(ExecuteScalar(timeout));
+    public virtual T ExecuteScalar<T>( int? timeout = null ) {
+        return Meow.Helper.Convert.To<T>( ExecuteScalar( timeout ) );
     }
 
     #endregion
@@ -510,30 +459,25 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取单值
     /// </summary>
-    public virtual async Task<object> ExecuteScalarAsync(int? timeout = null)
-    {
+    public virtual async Task<object> ExecuteScalarAsync( int? timeout = null ) {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = await connection.ExecuteScalarAsync(GetSql(), Params, GetTransaction(), timeout);
+            result = await connection.ExecuteScalarAsync( GetSql() , Params , GetTransaction() , timeout );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取单值
     /// </summary>
-    public virtual async Task<T> ExecuteScalarAsync<T>(int? timeout = null)
-    {
-        object result = await ExecuteScalarAsync(timeout);
-        return Meow.Helper.Convert.To<T>(result);
+    public virtual async Task<T> ExecuteScalarAsync<T>( int? timeout = null ) {
+        object result = await ExecuteScalarAsync( timeout );
+        return Meow.Helper.Convert.To<T>( result );
     }
 
     #endregion
@@ -545,21 +489,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// </summary>
     /// <param name="procedure">存储过程</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public virtual object ExecuteProcedureScalar(string procedure, int? timeout = null)
-    {
+    public virtual object ExecuteProcedureScalar( string procedure , int? timeout = null ) {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.ExecuteScalar(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType());
+            result = connection.ExecuteScalar( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -570,9 +510,8 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// </summary>
     /// <param name="procedure">存储过程</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public virtual T ExecuteProcedureScalar<T>(string procedure, int? timeout = null)
-    {
-        return Meow.Helper.Convert.To<T>(ExecuteProcedureScalar(procedure, timeout));
+    public virtual T ExecuteProcedureScalar<T>( string procedure , int? timeout = null ) {
+        return Meow.Helper.Convert.To<T>( ExecuteProcedureScalar( procedure , timeout ) );
     }
 
     #endregion
@@ -584,21 +523,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// </summary>
     /// <param name="procedure">存储过程</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public virtual async Task<object> ExecuteProcedureScalarAsync(string procedure, int? timeout = null)
-    {
+    public virtual async Task<object> ExecuteProcedureScalarAsync( string procedure , int? timeout = null ) {
         object result = null;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = await connection.ExecuteScalarAsync(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType());
+            result = await connection.ExecuteScalarAsync( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -607,10 +542,9 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// </summary>
     /// <param name="procedure">存储过程</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public virtual async Task<T> ExecuteProcedureScalarAsync<T>(string procedure, int? timeout = null)
-    {
-        object result = await ExecuteProcedureScalarAsync(procedure, timeout);
-        return Meow.Helper.Convert.To<T>(result);
+    public virtual async Task<T> ExecuteProcedureScalarAsync<T>( string procedure , int? timeout = null ) {
+        object result = await ExecuteProcedureScalarAsync( procedure , timeout );
+        return Meow.Helper.Convert.To<T>( result );
     }
 
     #endregion
@@ -620,20 +554,16 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取单个实体
     /// </summary>
-    public virtual TEntity ExecuteSingle<TEntity>(int? timeout = null)
-    {
+    public virtual TEntity ExecuteSingle<TEntity>( int? timeout = null ) {
         TEntity result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.QueryFirstOrDefault<TEntity>(GetSql(), Params, GetTransaction(), timeout);
+            result = connection.QueryFirstOrDefault<TEntity>( GetSql() , Params , GetTransaction() , timeout );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -644,20 +574,16 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取单个实体
     /// </summary>
-    public virtual async Task<TEntity> ExecuteSingleAsync<TEntity>(int? timeout = null)
-    {
+    public virtual async Task<TEntity> ExecuteSingleAsync<TEntity>( int? timeout = null ) {
         TEntity result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = await connection.QueryFirstOrDefaultAsync<TEntity>(GetSql(), Params, GetTransaction(), timeout);
+            result = await connection.QueryFirstOrDefaultAsync<TEntity>( GetSql() , Params , GetTransaction() , timeout );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -668,21 +594,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 执行存储过程获取单个实体
     /// </summary>
-    public virtual TEntity ExecuteProcedureSingle<TEntity>(string procedure, int? timeout = null)
-    {
+    public virtual TEntity ExecuteProcedureSingle<TEntity>( string procedure , int? timeout = null ) {
         TEntity result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.QueryFirstOrDefault<TEntity>(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType());
+            result = connection.QueryFirstOrDefault<TEntity>( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -693,21 +615,17 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 执行存储过程获取单个实体
     /// </summary>
-    public virtual async Task<TEntity> ExecuteProcedureSingleAsync<TEntity>(string procedure, int? timeout = null)
-    {
+    public virtual async Task<TEntity> ExecuteProcedureSingleAsync<TEntity>( string procedure , int? timeout = null ) {
         TEntity result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = await connection.QueryFirstOrDefaultAsync<TEntity>(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType());
+            result = await connection.QueryFirstOrDefaultAsync<TEntity>( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() );
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -718,160 +636,128 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<dynamic> ExecuteQuery(int? timeout = null, bool buffered = true)
-    {
+    public virtual List<dynamic> ExecuteQuery( int? timeout = null , bool buffered = true ) {
         List<dynamic> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), Params, GetTransaction(), buffered, timeout).ToList();
+            result = connection.Query( GetSql() , Params , GetTransaction() , buffered , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<TEntity>(int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<TEntity>( int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query<TEntity>(GetSql(), Params, GetTransaction(), buffered, timeout).ToList();
+            result = connection.Query<TEntity>( GetSql() , Params , GetTransaction() , buffered , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, TEntity>(Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, TEntity>( Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, TEntity>(Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, TEntity>( Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, TEntity>(Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, TEntity>( Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, TEntity>(Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, T6, TEntity>(Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, T6, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, T6, T7, TEntity>(Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteQuery<T1, T2, T3, T4, T5, T6, T7, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -882,160 +768,128 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<dynamic>> ExecuteQueryAsync(int? timeout = null)
-    {
+    public virtual async Task<List<dynamic>> ExecuteQueryAsync( int? timeout = null ) {
         List<dynamic> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), Params, GetTransaction(), timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , Params , GetTransaction() , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<TEntity>(int? timeout = null)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<TEntity>( int? timeout = null ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync<TEntity>(GetSql(), Params, GetTransaction(), timeout)).ToList();
+            result = ( await connection.QueryAsync<TEntity>( GetSql() , Params , GetTransaction() , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, TEntity>(Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, TEntity>( Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, TEntity>(Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, TEntity>( Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, TEntity>(Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, TEntity>( Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, TEntity>(Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, T6, TEntity>(Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, T6, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>(Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteQueryAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>( Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout)).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -1046,168 +900,136 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<dynamic> ExecuteProcedureQuery(string procedure, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<dynamic> ExecuteProcedureQuery( string procedure , int? timeout = null , bool buffered = true ) {
         List<dynamic> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), Params, GetTransaction(), buffered, timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , Params , GetTransaction() , buffered , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<TEntity>(string procedure, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<TEntity>( string procedure , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query<TEntity>(GetSql(), Params, GetTransaction(), buffered, timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query<TEntity>( GetSql() , Params , GetTransaction() , buffered , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, TEntity>(string procedure, Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, TEntity>( string procedure , Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, TEntity>(string procedure, Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, TEntity>( string procedure , Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, TEntity>(string procedure, Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, T6, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, T6, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, T6, T7, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual List<TEntity> ExecuteProcedureQuery<T1, T2, T3, T4, T5, T6, T7, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = connection.Query(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType()).ToList();
+            result = connection.Query( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -1218,168 +1040,136 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<dynamic>> ExecuteProcedureQueryAsync(string procedure, int? timeout = null)
-    {
+    public virtual async Task<List<dynamic>> ExecuteProcedureQueryAsync( string procedure , int? timeout = null ) {
         List<dynamic> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<TEntity>(string procedure, int? timeout = null)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<TEntity>( string procedure , int? timeout = null ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync<TEntity>(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync<TEntity>( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, TEntity>(string procedure, Func<T1, T2, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, TEntity>( string procedure , Func<T1 , T2 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, TEntity>(string procedure, Func<T1, T2, T3, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, TEntity>( string procedure , Func<T1 , T2 , T3 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, TEntity>(string procedure, Func<T1, T2, T3, T4, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, T6, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, T6, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, T6, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , T6 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
     /// <summary>
     /// 执行存储过程获取实体集合
     /// </summary>
-    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>(string procedure, Func<T1, T2, T3, T4, T5, T6, T7, TEntity> map, int? timeout = null, bool buffered = true)
-    {
+    public virtual async Task<List<TEntity>> ExecuteProcedureQueryAsync<T1, T2, T3, T4, T5, T6, T7, TEntity>( string procedure , Func<T1 , T2 , T3 , T4 , T5 , T6 , T7 , TEntity> map , int? timeout = null , bool buffered = true ) {
         List<TEntity> result = default;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            _sql = GetProcedure(procedure);
+            _sql = GetProcedure( procedure );
             IDbConnection connection = GetConnection();
-            result = (await connection.QueryAsync(GetSql(), map, Params, GetTransaction(), buffered, "Id", timeout, GetProcedureCommandType())).ToList();
+            result = ( await connection.QueryAsync( GetSql() , map , Params , GetTransaction() , buffered , "Id" , timeout , GetProcedureCommandType() ) ).ToList();
             return result;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -1390,8 +1180,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 执行前操作,返回false停止执行
     /// </summary>
-    protected virtual bool ExecuteBefore()
-    {
+    protected virtual bool ExecuteBefore() {
         return true;
     }
 
@@ -1399,8 +1188,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 执行后操作
     /// </summary>
     /// <param name="result">结果</param>
-    protected virtual void ExecuteAfter(object result)
-    {
+    protected virtual void ExecuteAfter( object result ) {
         SetPreviousSql();
         Clear();
         WriteLog();
@@ -1413,8 +1201,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取Sql语句
     /// </summary>
-    public string GetSql()
-    {
+    public string GetSql() {
         return _sql ??= SqlBuilder.GetSql();
     }
 
@@ -1426,8 +1213,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 设置Sql语句
     /// </summary>
     /// <param name="sql">sql语句或存储过程名</param>
-    protected void SetSql(string sql)
-    {
+    protected void SetSql( string sql ) {
         _sql = sql;
     }
 
@@ -1439,9 +1225,8 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// 获取存储过程名称
     /// </summary>
     /// <param name="procedure">存储过程</param>
-    protected virtual string GetProcedure(string procedure)
-    {
-        return new TableItem(Dialect, procedure).ToResult();
+    protected virtual string GetProcedure( string procedure ) {
+        return new TableItem( Dialect , procedure ).ToResult();
     }
 
     #endregion
@@ -1451,8 +1236,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取存储过程命令类型
     /// </summary>
-    protected virtual CommandType GetProcedureCommandType()
-    {
+    protected virtual CommandType GetProcedureCommandType() {
         return CommandType.StoredProcedure;
     }
 
@@ -1463,10 +1247,9 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 设置前一次执行的Sql及参数
     /// </summary>
-    protected virtual void SetPreviousSql()
-    {
+    protected virtual void SetPreviousSql() {
         List<SqlParam> sqlParams = GetSqlParams();
-        PreviousSql = new SqlBuilderResult(_sql, sqlParams, ParamLiteralsResolver, ParameterManager);
+        PreviousSql = new SqlBuilderResult( _sql , sqlParams , ParamLiteralsResolver , ParameterManager );
     }
 
     #endregion
@@ -1476,23 +1259,20 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 获取Sql参数列表
     /// </summary>
-    protected List<SqlParam> GetSqlParams()
-    {
+    protected List<SqlParam> GetSqlParams() {
         List<SqlParam> result = new List<SqlParam>();
-        if (_parameters == null)
+        if( _parameters == null )
             return result;
-        foreach (string parameterName in _parameters.ParameterNames)
-        {
-            if (ParameterManager.Contains(parameterName))
-            {
-                SqlParam param = ParameterManager.GetParam(parameterName);
-                if (param.Direction != ParameterDirection.Input)
-                    param = new SqlParam(param.Name, _parameters.Get<object>(parameterName), param.DbType, param.Direction, param.Size, param.Precision, param.Scale);
-                result.Add(param);
+        foreach( string parameterName in _parameters.ParameterNames ) {
+            if( ParameterManager.Contains( parameterName ) ) {
+                SqlParam param = ParameterManager.GetParam( parameterName );
+                if( param.Direction != ParameterDirection.Input )
+                    param = new SqlParam( param.Name , _parameters.Get<object>( parameterName ) , param.DbType , param.Direction , param.Size , param.Precision , param.Scale );
+                result.Add( param );
                 continue;
             }
-            SqlParam sqlParam = new SqlParam(ParameterManager.NormalizeName(parameterName), _parameters.Get<object>(parameterName));
-            result.Add(sqlParam);
+            SqlParam sqlParam = new SqlParam( ParameterManager.NormalizeName( parameterName ) , _parameters.Get<object>( parameterName ) );
+            result.Add( sqlParam );
         }
         return result;
     }
@@ -1504,8 +1284,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 清理
     /// </summary>
-    protected void Clear()
-    {
+    protected void Clear() {
         _sql = null;
         SqlBuilder.Clear();
         ClearParams();
@@ -1518,54 +1297,46 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 写日志
     /// </summary>
-    protected virtual void WriteLog()
-    {
-        if (Logger.IsEnabled(LogLevel.Trace) == false)
+    protected virtual void WriteLog() {
+        if( Logger.IsEnabled( LogLevel.Trace ) == false )
             return;
         StringBuilder message = new StringBuilder();
-        message.AppendLine("标题: {Caption}");
-        message.AppendLine("原始Sql:");
-        message.AppendLine("{Sql}");
-        message.AppendLine("调试Sql:");
-        message.AppendLine("{DebugSql}");
-        message.AppendLine("Sql参数:");
-        foreach (SqlParam param in PreviousSql.GetParams())
-        {
-            message.Append("参数名: ");
-            message.Append(param.Name);
-            if (param.Value != null)
-            {
-                message.Append(",参数值: ");
-                message.Append(param.Value);
+        message.AppendLine( "标题: {Caption}" );
+        message.AppendLine( "原始Sql:" );
+        message.AppendLine( "{Sql}" );
+        message.AppendLine( "调试Sql:" );
+        message.AppendLine( "{DebugSql}" );
+        message.AppendLine( "Sql参数:" );
+        foreach( SqlParam param in PreviousSql.GetParams() ) {
+            message.Append( "参数名: " );
+            message.Append( param.Name );
+            if( param.Value != null ) {
+                message.Append( ",参数值: " );
+                message.Append( param.Value );
             }
-            if (param.DbType != null)
-            {
-                message.Append(",参数类型: ");
-                message.Append(param.DbType);
+            if( param.DbType != null ) {
+                message.Append( ",参数类型: " );
+                message.Append( param.DbType );
             }
-            if (param.Direction != null)
-            {
-                message.Append(",参数方向: ");
-                message.Append(param.Direction);
+            if( param.Direction != null ) {
+                message.Append( ",参数方向: " );
+                message.Append( param.Direction );
             }
-            if (param.Size != null)
-            {
-                message.Append(",Size: ");
-                message.Append(param.Size);
+            if( param.Size != null ) {
+                message.Append( ",Size: " );
+                message.Append( param.Size );
             }
-            if (param.Precision != null)
-            {
-                message.Append(",Precision: ");
-                message.Append(param.Precision);
+            if( param.Precision != null ) {
+                message.Append( ",Precision: " );
+                message.Append( param.Precision );
             }
-            if (param.Scale != null)
-            {
-                message.Append(",Scale: ");
-                message.Append(param.Scale);
+            if( param.Scale != null ) {
+                message.Append( ",Scale: " );
+                message.Append( param.Scale );
             }
             message.AppendLine();
         }
-        Logger.LogTrace(message.ToString(), "Sql日志", PreviousSql.GetSql(), PreviousSql.GetDebugSql());
+        Logger.LogTrace( message.ToString() , "Sql日志" , PreviousSql.GetSql() , PreviousSql.GetDebugSql() );
     }
 
     #endregion
@@ -1575,9 +1346,8 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
     /// <summary>
     /// 释放资源
     /// </summary>
-    public void Dispose()
-    {
-        if (_connection != null)
+    public void Dispose() {
+        if( _connection != null )
             _connection.Dispose();
         _transaction = null;
     }

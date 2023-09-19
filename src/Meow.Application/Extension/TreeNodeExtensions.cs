@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Meow.Application.Tree;
+﻿using Meow.Application.Tree;
 using Meow.Extension;
 
 namespace Meow.Application.Extension;
@@ -8,20 +6,18 @@ namespace Meow.Application.Extension;
 /// <summary>
 /// 树形节点扩展
 /// </summary>
-public static class TreeNodeExtensions
-{
+public static class TreeNodeExtensions {
     /// <summary>
     /// 从路径中获取所有上级节点标识
     /// </summary>
     /// <param name="node">树节点</param>
     /// <param name="excludeSelf">是否排除当前节点,默认排除自身</param>
-    public static List<string> GetParentIdsFromPath(this ITreeNode node, bool excludeSelf = true)
-    {
-        if (node == null || node.Path.IsEmpty())
+    public static List<string> GetParentIdsFromPath( this ITreeNode node , bool excludeSelf = true ) {
+        if( node == null || node.Path.IsEmpty() )
             return new List<string>();
-        var result = node.Path.Split(',').Where(id => !string.IsNullOrWhiteSpace(id) && id != ",").ToList();
-        if (excludeSelf)
-            result = result.Where(id => id.SafeString().ToLower() != node.Id.SafeString().ToLower()).ToList();
+        List<string> result = node.Path.Split( ',' ).Where( id => !string.IsNullOrWhiteSpace( id ) && id != "," ).ToList();
+        if( excludeSelf )
+            result = result.Where( id => id.SafeString().ToLower() != node.Id.SafeString().ToLower() ).ToList();
         return result;
     }
 
@@ -30,19 +26,17 @@ public static class TreeNodeExtensions
     /// </summary>
     /// <typeparam name="TNode">树节点类型</typeparam>
     /// <param name="nodes">树节点列表</param>
-    public static List<string> GetMissingParentIds<TNode>(this IEnumerable<TNode> nodes) where TNode : class, ITreeNode
-    {
-        var result = new List<string>();
-        if (nodes == null)
+    public static List<string> GetMissingParentIds<TNode>( this IEnumerable<TNode> nodes ) where TNode : class, ITreeNode {
+        List<string> result = new List<string>();
+        if( nodes == null )
             return result;
-        var list = nodes.ToList();
-        list.ForEach(entity =>
-        {
-            if (entity == null)
+        List<TNode> list = nodes.ToList();
+        list.ForEach( entity => {
+            if( entity == null )
                 return;
-            result.AddRange(entity.GetParentIdsFromPath().Select(t => t.SafeString()));
-        });
-        var ids = list.DistinctBy(t => t.Id).Select(t => t?.Id.SafeString());
-        return result.Except(ids).ToList();
+            result.AddRange( entity.GetParentIdsFromPath().Select( t => t.SafeString() ) );
+        } );
+        IEnumerable<string> ids = list.DistinctBy( t => t.Id ).Select( t => t?.Id.SafeString() );
+        return result.Except( ids ).ToList();
     }
 }

@@ -1,16 +1,15 @@
-﻿using System.Threading.Tasks;
-using Meow.Application.Dto;
+﻿using Meow.Application.Dto;
 using Meow.Query;
 using Meow.Validation.Validator;
 
-namespace Meow.Application.Tree; 
+namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形服务
 /// </summary>
 /// <typeparam name="TDto">数据传输对象类型</typeparam>
 /// <typeparam name="TQuery">查询参数类型</typeparam>
-public interface ITreeService<TDto, in TQuery> : ITreeService<TDto, TDto, TDto, TQuery>
+public interface ITreeService<TDto, in TQuery> : ITreeService<TDto , TDto , TDto , TQuery>
     where TDto : ITreeNode, new()
     where TQuery : ITreeQueryParameter {
 }
@@ -22,10 +21,10 @@ public interface ITreeService<TDto, in TQuery> : ITreeService<TDto, TDto, TDto, 
 /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
 /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
 /// <typeparam name="TQuery">查询参数类型</typeparam>
-public interface ITreeService<TDto, in TCreateRequest, in TUpdateRequest, in TQuery> : ITreeQueryService<TDto, TQuery>
+public interface ITreeService<TDto, in TCreateRequest, in TUpdateRequest, in TQuery> : ITreeQueryService<TDto , TQuery>
     where TDto : ITreeNode, new()
     where TCreateRequest : IRequest, new()
-    where TUpdateRequest : IDto,new()
+    where TUpdateRequest : IDto, new()
     where TQuery : ITreeQueryParameter {
     /// <summary>
     /// 创建

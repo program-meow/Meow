@@ -1,47 +1,40 @@
-﻿using System;
-using Meow.Data.Dapper.MySql.Sql.Builder;
-using Meow.Data.Dapper.Sql;
+﻿using Meow.Data.Dapper.Sql.Builder;
 using Meow.Data.Sql;
 using Meow.Data.Sql.Builder;
 
-namespace Meow.Data.Dapper.MySql.Sql;
+namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// MySql Sql执行器
 /// </summary>
-public abstract class MySqlExecutorBase : SqlExecutorBase
-{
+public abstract class MySqlExecutorBase : SqlExecutorBase {
     /// <summary>
     /// 初始化MySql Sql执行器
     /// </summary>
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    protected MySqlExecutorBase(IServiceProvider serviceProvider, SqlOptions options, IDatabase database) : base(serviceProvider, options, database)
-    {
+    protected MySqlExecutorBase( IServiceProvider serviceProvider , SqlOptions options , IDatabase database ) : base( serviceProvider , options , database ) {
     }
 
     /// <summary>
     /// 创建Sql生成器
     /// </summary>
-    protected override ISqlBuilder CreateSqlBuilder()
-    {
+    protected override ISqlBuilder CreateSqlBuilder() {
         return new MySqlBuilder();
     }
 
     /// <summary>
     /// 创建判断是否存在Sql生成器
     /// </summary>
-    protected override IExistsSqlBuilder CreatExistsSqlBuilder(ISqlBuilder sqlBuilder)
-    {
-        return new MySqlExistsSqlBuilder(sqlBuilder);
+    protected override IExistsSqlBuilder CreatExistsSqlBuilder( ISqlBuilder sqlBuilder ) {
+        return new MySqlExistsSqlBuilder( sqlBuilder );
     }
 
     /// <summary>
     /// 创建数据库工厂
     /// </summary>
-    protected override IDatabaseFactory CreateDatabaseFactory()
-    {
+    protected override IDatabaseFactory CreateDatabaseFactory() {
         return new MySqlDatabaseFactory();
     }
 }

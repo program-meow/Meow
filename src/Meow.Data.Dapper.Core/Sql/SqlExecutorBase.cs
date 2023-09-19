@@ -1,17 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Threading.Tasks;
-using Dapper;
-using Meow.Data.Sql;
-using SystemException = System.Exception;
+﻿using Meow.Data.Sql;
 
 namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// Sql执行器
 /// </summary>
-public abstract class SqlExecutorBase : SqlQueryBase, ISqlExecutor
-{
+public abstract class SqlExecutorBase : SqlQueryBase, ISqlExecutor {
+
     #region 构造方法
 
     /// <summary>
@@ -20,8 +15,7 @@ public abstract class SqlExecutorBase : SqlQueryBase, ISqlExecutor
     /// <param name="serviceProvider">服务提供器</param>
     /// <param name="options">Sql配置</param>
     /// <param name="database">数据库信息,用于接入其它数据源,比如EF DbContext</param>
-    protected SqlExecutorBase(IServiceProvider serviceProvider, SqlOptions options, IDatabase database) : base(serviceProvider, options, database)
-    {
+    protected SqlExecutorBase( IServiceProvider serviceProvider , SqlOptions options , IDatabase database ) : base( serviceProvider , options , database ) {
     }
 
     #endregion
@@ -32,25 +26,19 @@ public abstract class SqlExecutorBase : SqlQueryBase, ISqlExecutor
     /// 执行增删改操作
     /// </summary>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public virtual async Task<int> ExecuteAsync(int? timeout = null)
-    {
+    public virtual async Task<int> ExecuteAsync( int? timeout = null ) {
         int result = 0;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return 0;
             IDbConnection connection = GetConnection();
-            result = await connection.ExecuteAsync(GetSql(), Params, GetTransaction(), timeout);
+            result = await connection.ExecuteAsync( GetSql() , Params , GetTransaction() , timeout );
             return result;
-        }
-        catch (SystemException)
-        {
+        } catch( System.Exception ) {
             RollbackTransaction();
             throw;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 
@@ -63,26 +51,20 @@ public abstract class SqlExecutorBase : SqlQueryBase, ISqlExecutor
     /// </summary>
     /// <param name="procedure">存储过程</param>
     /// <param name="timeout">执行超时时间,单位:秒</param>
-    public async Task<int> ExecuteProcedureAsync(string procedure, int? timeout = null)
-    {
+    public async Task<int> ExecuteProcedureAsync( string procedure , int? timeout = null ) {
         int result = 0;
-        try
-        {
-            if (ExecuteBefore() == false)
+        try {
+            if( ExecuteBefore() == false )
                 return default;
-            SetSql(GetProcedure(procedure));
+            SetSql( GetProcedure( procedure ) );
             IDbConnection connection = GetConnection();
-            result = await connection.ExecuteAsync(GetSql(), Params, GetTransaction(), timeout, GetProcedureCommandType());
+            result = await connection.ExecuteAsync( GetSql() , Params , GetTransaction() , timeout , GetProcedureCommandType() );
             return result;
-        }
-        catch (SystemException)
-        {
+        } catch( System.Exception ) {
             RollbackTransaction();
             throw;
-        }
-        finally
-        {
-            ExecuteAfter(result);
+        } finally {
+            ExecuteAfter( result );
         }
     }
 

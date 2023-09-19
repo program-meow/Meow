@@ -1,17 +1,11 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
-using System.Threading.Tasks;
-using Meow.Converter;
-using Microsoft.AspNetCore.Mvc;
+﻿using Meow.Converter;
 
-namespace Meow.Application.WebApi;
+namespace Meow.Application;
 
 /// <summary>
 /// 返回结果
 /// </summary>
-public class Result : JsonResult
-{
+public class Result : JsonResult {
     /// <summary>
     /// 业务状态码
     /// </summary>
@@ -32,34 +26,41 @@ public class Result : JsonResult
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public Result(string code, string message, dynamic data = null, int? httpStatusCode = null) : base(null)
-    {
+    /// <param name="options">Json序列化配置</param>
+    public Result( string code , string message , dynamic data = null , int? httpStatusCode = null , JsonSerializerOptions options = null ) : base( null ) {
         Code = code;
         Message = message;
         Data = data;
-        SerializerSettings = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+        SerializerSettings = GetOptions( options );
+        StatusCode = httpStatusCode;
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetOptions( JsonSerializerOptions options ) {
+        if( options != null )
+            return options;
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase ,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
             Converters = {
                 new DateTimeJsonConverter(),
                 new NullableDateTimeJsonConverter()
             }
         };
-        StatusCode = httpStatusCode;
     }
 
     /// <summary>
     /// 执行结果
     /// </summary>
-    public override Task ExecuteResultAsync(ActionContext context)
-    {
-        Value = new
-        {
-            Code,
-            Message,
+    public override Task ExecuteResultAsync( ActionContext context ) {
+        Value = new {
+            Code ,
+            Message ,
             Data
         };
-        return base.ExecuteResultAsync(context);
+        return base.ExecuteResultAsync( context );
     }
 }

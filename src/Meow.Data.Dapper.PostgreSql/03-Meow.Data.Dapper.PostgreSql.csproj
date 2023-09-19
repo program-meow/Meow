@@ -3,12 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Dapper.PostgreSql</AssemblyName>
-		<RootNamespace>Meow.Data.Dapper.PostgreSql</RootNamespace>
+		<RootNamespace>Meow.Data.Dapper</RootNamespace>
 		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Data.Dapper.PostgreSql 是 Meow 应用框架基于 Dapper 的数据访问封装类库,用于处理 PostgreSql 数据库。
+			Meow.Data.Dapper.PostgreSql 是 Meow 基于 Dapper 的数据访问封装类库,用于处理 PostgreSql 数据库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
@@ -32,11 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="7.0.4" />
+		<PackageReference Include="Npgsql" Version="7.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Data.Dapper.Core\01-Meow.Data.Dapper.Core.csproj" />
+		<ProjectReference Include="..\Meow.Data.Dapper.Core\01-Meow.Data.Dapper.Core.csproj" />
 	</ItemGroup>
 
 </Project>

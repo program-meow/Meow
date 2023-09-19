@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Application 是 Meow 应用框架的应用层基础类库。
+			Meow.Application 是 Meow 应用层基础类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

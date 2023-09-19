@@ -3,12 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Dapper.MySql</AssemblyName>
-		<RootNamespace>Meow.Data.Dapper.MySql</RootNamespace>
+		<RootNamespace>Meow.Data.Dapper</RootNamespace>
 		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Data.Dapper.MySql 是 Meow 应用框架基于 Dapper 的数据访问封装类库,用于处理 MySql 数据库。
+			Meow.Data.Dapper.MySql 是 Meow 基于 Dapper 的数据访问封装类库,用于处理 MySql 数据库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

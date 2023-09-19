@@ -8,7 +8,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Data.Dapper.Core 是 Meow 应用框架基于 Dapper 的数据访问封装基础类库。
+			Meow.Data.Dapper.Core 是 Meow 基于 Dapper 的数据访问封装基础类库。
 			$(Tips)
 		</Description>
 	</PropertyGroup>

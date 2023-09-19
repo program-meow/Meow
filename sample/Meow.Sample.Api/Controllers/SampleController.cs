@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Meow.Application.WebApi.Controller;
-using Meow.Application.WebApi.Model;
+using Meow.Application.Controller;
+using Meow.Application.Model;
 using Meow.Sample.Application.Dtos;
 using Meow.Sample.Application.Services.Abstractions;
 using Meow.Sample.Domain.Queries;

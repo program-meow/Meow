@@ -3,8 +3,7 @@
 /// <summary>
 /// 加载操作
 /// </summary>
-public enum LoadOperation
-{
+public enum LoadOperation {
     /// <summary>
     /// 查询
     /// </summary>

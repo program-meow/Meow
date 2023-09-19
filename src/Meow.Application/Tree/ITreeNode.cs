@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using Meow.Application.Dto;
+﻿using Meow.Application.Dto;
 
 namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树节点
 /// </summary>
-public interface ITreeNode<TNode> : ITreeNode where TNode : ITreeNode<TNode>
-{
+public interface ITreeNode<TNode> : ITreeNode where TNode : ITreeNode<TNode> {
     /// <summary>
     /// 子节点列表
     /// </summary>
@@ -17,8 +15,7 @@ public interface ITreeNode<TNode> : ITreeNode where TNode : ITreeNode<TNode>
 /// <summary>
 /// 树节点
 /// </summary>
-public interface ITreeNode : IDto
-{
+public interface ITreeNode : IDto {
     /// <summary>
     /// 父标识
     /// </summary>
