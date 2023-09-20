@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace Meow.Extension;
+﻿namespace Meow.Extension;
 
 /// <summary>
 /// 随机数扩展
 /// </summary>
-public static class RandomExtensions
-{
+public static class RandomExtensions {
     /// <summary>
     /// 从集合中随机获取值
     /// </summary>
     /// <param name="array">集合</param>
-    public static T GetRandomValue<T>(this IEnumerable<T> array)
-    {
-        return Meow.Helper.Random.GetValue<T>(array);
+    public static T GetRandomValue<T>( this IEnumerable<T> array ) {
+        return Meow.Helper.Random.GetValue<T>( array );
     }
 
     /// <summary>
@@ -21,8 +17,7 @@ public static class RandomExtensions
     /// </summary>
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
-    public static List<T> OrderByRandom<T>(this IEnumerable<T> array)
-    {
-        return Meow.Helper.Random.Order<T>(array);
+    public static List<T> OrderByRandom<T>( this IEnumerable<T> array ) {
+        return Meow.Helper.Random.Order<T>( array );
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Meow.Extension;
 using Meow.Math;
-using SystemExpression = System.Linq.Expressions.Expression;
 
 namespace Meow.Expression;
 

@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Authentication.Session;
+﻿namespace Meow.Authentication.Session;
 
 /// <summary>
 /// 用户会话

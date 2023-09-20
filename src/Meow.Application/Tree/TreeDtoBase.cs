@@ -1,6 +1,4 @@
-﻿using Meow.Application.Dto;
-
-namespace Meow.Application.Tree;
+﻿namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形参数

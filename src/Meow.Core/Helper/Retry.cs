@@ -1,32 +1,27 @@
-﻿using System.Threading.Tasks;
-using System;
-using Meow.Extension;
+﻿using Meow.Extension;
 using Meow.Response;
-using SystemException = System.Exception;
-using SystemAction = System.Action;
-
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 重试操作
 /// </summary>
-public static class Retry
-{
+public static class Retry {
+
     #region 默认配置
 
     /// <summary>
     /// 校验bool值结果默认方法
     /// </summary>
-    private static Func<bool?, bool> _validateBoolDefaultFunc() => ((result) => result.SafeValue());
+    private static Func<bool? , bool> _validateBoolDefaultFunc() => ( ( result ) => result.SafeValue() );
     /// <summary>
     /// 校验结果默认方法
     /// </summary>
-    private static Func<TResult, bool> _validateDefaultFunc<TResult>() => ((result) => result != null);
+    private static Func<TResult , bool> _validateDefaultFunc<TResult>() => ( ( result ) => result != null );
     /// <summary>
     /// 设置延迟时间默认方法
     /// </summary>
-    private static Func<int, TimeSpan> _delayDefaultAction() => ((time) => new TimeSpan(0, 0, 0, 0, 1000));
+    private static Func<int , TimeSpan> _delayDefaultAction() => ( ( time ) => new TimeSpan( 0 , 0 , 0 , 0 , 1000 ) );
 
     #endregion
 
@@ -39,40 +34,35 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<bool> TryInvoke(SystemAction action, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        action.CheckNull(nameof(action));
+    public static Result<bool> TryInvoke( SystemAction action , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        action.CheckNull( nameof( action ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 action();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                return new Result<bool>(statusCode, statusCode.GetDescription(), true);
-            }
-            catch (SystemException ex)
-            {
+                return new Result<bool>( statusCode , statusCode.GetDescription() , true );
+            } catch( SystemException ex ) {
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<bool>(statusCode, exception?.Message, false);
+        return new Result<bool>( statusCode , exception?.Message , false );
     }
 
     /// <summary>
@@ -83,9 +73,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<bool?> TryInvoke(Func<bool> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<bool?> TryInvoke( Func<bool> func , Func<bool? , bool> validateResultFunc = null , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -95,34 +84,30 @@ public static class Retry
         bool? result;
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 result = func();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
+                if( validateResultFunc( result ) )
+                    return new Result<bool?>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
                 result = null;
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<bool?>(statusCode, exception?.Message, result);
+        return new Result<bool?>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -133,9 +118,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<TResult>(Func<TResult> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<TResult> TryInvoke<TResult>( Func<TResult> func , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -145,34 +129,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 result = func();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -184,9 +164,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, TResult>(Func<T1, TResult> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<TResult> TryInvoke<T1, TResult>( Func<T1 , TResult> func , T1 t1 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -196,34 +175,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = func(t1);
+        do {
+            try {
+                result = func( t1 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -236,9 +211,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, TResult>(Func<T1, T2, TResult> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<TResult> TryInvoke<T1, T2, TResult>( Func<T1 , T2 , TResult> func , T1 t1 , T2 t2 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -248,34 +222,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = func(t1, t2);
+        do {
+            try {
+                result = func( t1 , t2 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -289,9 +259,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<TResult> TryInvoke<T1, T2, T3, TResult>( Func<T1 , T2 , T3 , TResult> func , T1 t1 , T2 t2 , T3 t3 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -301,34 +270,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = func(t1, t2, t3);
+        do {
+            try {
+                result = func( t1 , t2 , t3 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -343,9 +308,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>( Func<T1 , T2 , T3 , T4 , TResult> func , T1 t1 , T2 t2 , T3 t3 , T4 t4 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -355,34 +319,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = func(t1, t2, t3, t4);
+        do {
+            try {
+                result = func( t1 , t2 , t3 , t4 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     #endregion
@@ -396,40 +356,35 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<bool>> TryInvokeAsync(Func<Task> action, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        action.CheckNull(nameof(action));
+    public static async Task<Result<bool>> TryInvokeAsync( Func<Task> action , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        action.CheckNull( nameof( action ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 await action();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                return new Result<bool>(statusCode, statusCode.GetDescription(), true);
-            }
-            catch (SystemException ex)
-            {
+                return new Result<bool>( statusCode , statusCode.GetDescription() , true );
+            } catch( SystemException ex ) {
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<bool>(statusCode, exception?.Message, false);
+        return new Result<bool>( statusCode , exception?.Message , false );
     }
 
     /// <summary>
@@ -440,9 +395,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<bool?>> TryInvokeAsync(Func<Task<bool>> func, Func<bool?, bool> validateResultFunc = null, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<bool?>> TryInvokeAsync( Func<Task<bool>> func , Func<bool? , bool> validateResultFunc = null , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -452,34 +406,30 @@ public static class Retry
         bool? result;
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 result = await func();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<bool?>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
+                if( validateResultFunc( result ) )
+                    return new Result<bool?>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
                 result = null;
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<bool?>(statusCode, exception?.Message, result);
+        return new Result<bool?>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -490,9 +440,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<TResult>(Func<Task<TResult>> func, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<TResult>> TryInvokeAsync<TResult>( Func<Task<TResult>> func , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -502,34 +451,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 result = await func();
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -541,9 +486,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>(Func<T1, Task<TResult>> func, T1 t1, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>( Func<T1 , Task<TResult>> func , T1 t1 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -553,34 +497,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = await func(t1);
+        do {
+            try {
+                result = await func( t1 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -593,9 +533,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> func, T1 t1, T2 t2, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>( Func<T1 , T2 , Task<TResult>> func , T1 t1 , T2 t2 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -605,34 +544,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = await func(t1, t2);
+        do {
+            try {
+                result = await func( t1 , t2 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -646,9 +581,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> func, T1 t1, T2 t2, T3 t3, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>( Func<T1 , T2 , T3 , Task<TResult>> func , T1 t1 , T2 t2 , T3 t3 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -658,34 +592,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = await func(t1, t2, t3);
+        do {
+            try {
+                result = await func( t1 , t2 , t3 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     /// <summary>
@@ -700,9 +630,8 @@ public static class Retry
     /// <param name="maxRetryTimes">最大重试次数</param>
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     /// <param name="delayFunc">设置延迟时间方法</param>
-    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> func, T1 t1, T2 t2, T3 t3, T4 t4, Func<TResult, bool> validateResultFunc, int maxRetryTimes = 3, Action<int, TimeSpan, SystemException> listenerExceptionFunc = null, Func<int, TimeSpan> delayFunc = null)
-    {
-        func.CheckNull(nameof(func));
+    public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>( Func<T1 , T2 , T3 , T4 , Task<TResult>> func , T1 t1 , T2 t2 , T3 t3 , T4 t4 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
+        func.CheckNull( nameof( func ) );
 
         ResultStatusCodeEnum statusCode;
         SystemException exception;
@@ -712,34 +641,30 @@ public static class Retry
         TResult result;
 
         int time = 0;
-        do
-        {
-            try
-            {
-                result = await func(t1, t2, t3, t4);
+        do {
+            try {
+                result = await func( t1 , t2 , t3 , t4 );
 
                 statusCode = ResultStatusCodeEnum.Ok;
                 exception = null;
 
-                if (validateResultFunc(result))
-                    return new Result<TResult>(statusCode, statusCode.GetDescription(), result);
-            }
-            catch (SystemException ex)
-            {
-                result = default(TResult);
+                if( validateResultFunc( result ) )
+                    return new Result<TResult>( statusCode , statusCode.GetDescription() , result );
+            } catch( SystemException ex ) {
+                result = default( TResult );
 
                 statusCode = ResultStatusCodeEnum.Error;
                 exception = ex;
 
                 time++;
-                TimeSpan? delay = delayFunc?.Invoke(time);
-                listenerExceptionFunc?.Invoke(time, delay.GetValueOrDefault(), ex);
-                if (delay.HasValue)
-                    System.Threading.Thread.Sleep(delay.Value);
+                TimeSpan? delay = delayFunc?.Invoke( time );
+                listenerExceptionFunc?.Invoke( time , delay.GetValueOrDefault() , ex );
+                if( delay.HasValue )
+                    System.Threading.Thread.Sleep( delay.Value );
             }
-        } while (time <= maxRetryTimes);
+        } while( time <= maxRetryTimes );
 
-        return new Result<TResult>(statusCode, exception?.Message, result);
+        return new Result<TResult>( statusCode , exception?.Message , result );
     }
 
     #endregion 

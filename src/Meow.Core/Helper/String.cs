@@ -1,9 +1,4 @@
-﻿using System;
-using System.Buffers;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Helper;
 
@@ -313,8 +308,10 @@ public static class String {
         if( info.IsEmpty() )
             return string.Empty;
 
-        if( right < 0 ) right = 0;
-        if( left < 0 ) left = 0;
+        if( right < 0 )
+            right = 0;
+        if( left < 0 )
+            left = 0;
 
         if( info.Length - left - right > 0 ) {
             return info.Substring( 0 , left )

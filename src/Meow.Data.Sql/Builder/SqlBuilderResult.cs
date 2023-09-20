@@ -1,6 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Param;
-
-namespace Meow.Data.Sql.Builder;
+﻿namespace Meow.Data.Sql.Builder;
 
 /// <summary>
 /// Sql生成器结果

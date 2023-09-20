@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 空租户存储器

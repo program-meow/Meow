@@ -1,8 +1,4 @@
-﻿using Meow.Application.Lock;
-using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Application.Extension;
+﻿namespace Meow.Application.Extension;
 
 /// <summary>
 /// 业务锁操作扩展

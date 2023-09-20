@@ -1,7 +1,4 @@
-﻿using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Data.EntityFrameworkCore;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// Sql Server工作单元操作扩展

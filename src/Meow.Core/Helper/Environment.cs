@@ -5,8 +5,7 @@ namespace Meow.Helper;
 /// <summary>
 /// 环境操作
 /// </summary>
-public static class Environment
-{
+public static class Environment {
     /// <summary>
     /// DOTNET_ENVIRONMENT
     /// </summary>
@@ -25,43 +24,39 @@ public static class Environment
     /// </summary>
     /// <param name="name">环境变量名</param>
     /// <param name="value">值</param>
-    public static void SetEnvironmentVariable(string name, string value)
-    {
-        System.Environment.SetEnvironmentVariable(name, value);
+    public static void SetEnvironmentVariable( string name , string value ) {
+        System.Environment.SetEnvironmentVariable( name , value );
     }
 
     /// <summary>
     /// 获取环境变量
     /// </summary>
     /// <param name="name">环境变量名</param>
-    public static string GetEnvironmentVariable(string name)
-    {
-        return System.Environment.GetEnvironmentVariable(name);
+    public static string GetEnvironmentVariable( string name ) {
+        return System.Environment.GetEnvironmentVariable( name );
     }
 
     /// <summary>
     /// 获取环境名称
     /// </summary>
-    public static string GetEnvironmentName()
-    {
-        var environment = GetEnvironmentVariable(ASPNETCORE_ENVIRONMENT);
-        if (environment.IsEmpty() == false)
+    public static string GetEnvironmentName() {
+        string environment = GetEnvironmentVariable( ASPNETCORE_ENVIRONMENT );
+        if( environment.IsEmpty() == false )
             return environment;
-        return GetEnvironmentVariable(DOTNET_ENVIRONMENT);
+        return GetEnvironmentVariable( DOTNET_ENVIRONMENT );
     }
 
     /// <summary>
     /// 设置开发环境变量,如果环境变量已设置则忽略
     /// </summary>
-    public static void SetDevelopment()
-    {
-        var environment = GetEnvironmentVariable(DOTNET_ENVIRONMENT);
-        if (environment.IsEmpty() == false)
+    public static void SetDevelopment() {
+        string environment = GetEnvironmentVariable( DOTNET_ENVIRONMENT );
+        if( environment.IsEmpty() == false )
             return;
-        environment = GetEnvironmentVariable(ASPNETCORE_ENVIRONMENT);
-        if (environment.IsEmpty() == false)
+        environment = GetEnvironmentVariable( ASPNETCORE_ENVIRONMENT );
+        if( environment.IsEmpty() == false )
             return;
-        SetEnvironmentVariable(DOTNET_ENVIRONMENT, Development);
-        SetEnvironmentVariable(ASPNETCORE_ENVIRONMENT, Development);
+        SetEnvironmentVariable( DOTNET_ENVIRONMENT , Development );
+        SetEnvironmentVariable( ASPNETCORE_ENVIRONMENT , Development );
     }
 }

@@ -1,6 +1,4 @@
-﻿using Meow.Infrastructure;
-
-namespace Meow.Data.EntityFrameworkCore.Infrastructure;
+﻿namespace Meow.Data.EntityFrameworkCore.Infrastructure;
 
 /// <summary>
 /// EntityFrameworkCore服务注册器配置扩展

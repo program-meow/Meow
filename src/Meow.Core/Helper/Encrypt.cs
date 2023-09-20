@@ -1,26 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Meow.Extension;
-using RSAExtensions;
+﻿using Meow.Extension;
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 加密操作
 /// </summary>
-public static class Encrypt
-{
+public static class Encrypt {
+
     #region Md5加密
 
     /// <summary>
     /// Md5加密，返回16位结果
     /// </summary>
     /// <param name="value">值</param>
-    public static string Md5By16(string value)
-    {
-        return Md5By16(value, Encoding.UTF8);
+    public static string Md5By16( string value ) {
+        return Md5By16( value , Encoding.UTF8 );
     }
 
     /// <summary>
@@ -28,39 +22,33 @@ public static class Encrypt
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="encoding">字符编码</param>
-    public static string Md5By16(string value, Encoding encoding)
-    {
-        return Md5(value, encoding, 4, 8);
+    public static string Md5By16( string value , Encoding encoding ) {
+        return Md5( value , encoding , 4 , 8 );
     }
 
     /// <summary>
     /// Md5加密
     /// </summary>
-    private static string Md5(string value, Encoding encoding, int? startIndex, int? length)
-    {
-        if (string.IsNullOrWhiteSpace(value))
+    private static string Md5( string value , Encoding encoding , int? startIndex , int? length ) {
+        if( string.IsNullOrWhiteSpace( value ) )
             return string.Empty;
         MD5 md5 = MD5.Create();
         string result;
-        try
-        {
-            byte[] hash = md5.ComputeHash(encoding.GetBytes(value));
-            result = startIndex == null ? BitConverter.ToString(hash) : BitConverter.ToString(hash, startIndex.SafeValue(), length.SafeValue());
-        }
-        finally
-        {
+        try {
+            byte[] hash = md5.ComputeHash( encoding.GetBytes( value ) );
+            result = startIndex == null ? BitConverter.ToString( hash ) : BitConverter.ToString( hash , startIndex.SafeValue() , length.SafeValue() );
+        } finally {
             md5.Clear();
         }
-        return result.Replace("-", "");
+        return result.Replace( "-" , "" );
     }
 
     /// <summary>
     /// Md5加密，返回32位结果
     /// </summary>
     /// <param name="value">值</param>
-    public static string Md5By32(string value)
-    {
-        return Md5By32(value, Encoding.UTF8);
+    public static string Md5By32( string value ) {
+        return Md5By32( value , Encoding.UTF8 );
     }
 
     /// <summary>
@@ -68,9 +56,8 @@ public static class Encrypt
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="encoding">字符编码</param>
-    public static string Md5By32(string value, Encoding encoding)
-    {
-        return Md5(value, encoding, null, null);
+    public static string Md5By32( string value , Encoding encoding ) {
+        return Md5( value , encoding , null , null );
     }
 
     #endregion
@@ -86,9 +73,8 @@ public static class Encrypt
     /// DES加密
     /// </summary>
     /// <param name="value">待加密的值</param>
-    public static string DesEncrypt(object value)
-    {
-        return DesEncrypt(value, DesKey);
+    public static string DesEncrypt( object value ) {
+        return DesEncrypt( value , DesKey );
     }
 
     /// <summary>
@@ -99,21 +85,19 @@ public static class Encrypt
     /// <param name="encoding">编码</param>
     /// <param name="cipherMode">加密模式</param>
     /// <param name="paddingMode">填充模式</param>
-    public static string DesEncrypt(object value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
-    {
+    public static string DesEncrypt( object value , string key , Encoding encoding = null , CipherMode cipherMode = CipherMode.ECB , PaddingMode paddingMode = PaddingMode.PKCS7 ) {
         string text = value.SafeString();
-        if (ValidateDes(text, key) == false)
+        if( ValidateDes( text , key ) == false )
             return string.Empty;
-        using ICryptoTransform transform = CreateDesProvider(key, cipherMode, paddingMode).CreateEncryptor();
-        return GetEncryptResult(text, encoding, transform);
+        using ICryptoTransform transform = CreateDesProvider( key , cipherMode , paddingMode ).CreateEncryptor();
+        return GetEncryptResult( text , encoding , transform );
     }
 
     /// <summary>
     /// 验证Des加密参数
     /// </summary>
-    private static bool ValidateDes(string text, string key)
-    {
-        if (text.IsEmpty() || key.IsEmpty())
+    private static bool ValidateDes( string text , string key ) {
+        if( text.IsEmpty() || key.IsEmpty() )
             return false;
         return key.Length == 24;
     }
@@ -121,10 +105,9 @@ public static class Encrypt
     /// <summary>
     /// 创建Des加密服务提供程序
     /// </summary>
-    private static TripleDES CreateDesProvider(string key, CipherMode cipherMode, PaddingMode paddingMode)
-    {
+    private static TripleDES CreateDesProvider( string key , CipherMode cipherMode , PaddingMode paddingMode ) {
         TripleDES result = TripleDES.Create();
-        result.Key = Encoding.ASCII.GetBytes(key);
+        result.Key = Encoding.ASCII.GetBytes( key );
         result.Mode = cipherMode;
         result.Padding = paddingMode;
         return result;
@@ -133,21 +116,19 @@ public static class Encrypt
     /// <summary>
     /// 获取加密结果
     /// </summary>
-    private static string GetEncryptResult(string value, Encoding encoding, ICryptoTransform transform)
-    {
+    private static string GetEncryptResult( string value , Encoding encoding , ICryptoTransform transform ) {
         encoding ??= Encoding.UTF8;
-        byte[] bytes = encoding.GetBytes(value);
-        byte[] result = transform.TransformFinalBlock(bytes, 0, bytes.Length);
-        return System.Convert.ToBase64String(result);
+        byte[] bytes = encoding.GetBytes( value );
+        byte[] result = transform.TransformFinalBlock( bytes , 0 , bytes.Length );
+        return System.Convert.ToBase64String( result );
     }
 
     /// <summary>
     /// DES解密
     /// </summary>
     /// <param name="value">加密后的值</param>
-    public static string DesDecrypt(object value)
-    {
-        return DesDecrypt(value, DesKey);
+    public static string DesDecrypt( object value ) {
+        return DesDecrypt( value , DesKey );
     }
 
     /// <summary>
@@ -158,24 +139,22 @@ public static class Encrypt
     /// <param name="encoding">编码</param>
     /// <param name="cipherMode">加密模式</param>
     /// <param name="paddingMode">填充模式</param>
-    public static string DesDecrypt(object value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
-    {
+    public static string DesDecrypt( object value , string key , Encoding encoding = null , CipherMode cipherMode = CipherMode.ECB , PaddingMode paddingMode = PaddingMode.PKCS7 ) {
         string text = value.SafeString();
-        if (!ValidateDes(text, key))
+        if( !ValidateDes( text , key ) )
             return string.Empty;
-        using ICryptoTransform transform = CreateDesProvider(key, cipherMode, paddingMode).CreateDecryptor();
-        return GetDecryptResult(text, encoding, transform);
+        using ICryptoTransform transform = CreateDesProvider( key , cipherMode , paddingMode ).CreateDecryptor();
+        return GetDecryptResult( text , encoding , transform );
     }
 
     /// <summary>
     /// 获取解密结果
     /// </summary>
-    private static string GetDecryptResult(string value, Encoding encoding, ICryptoTransform transform)
-    {
+    private static string GetDecryptResult( string value , Encoding encoding , ICryptoTransform transform ) {
         encoding ??= Encoding.UTF8;
-        byte[] bytes = System.Convert.FromBase64String(value);
-        byte[] result = transform.TransformFinalBlock(bytes, 0, bytes.Length);
-        return encoding.GetString(result);
+        byte[] bytes = System.Convert.FromBase64String( value );
+        byte[] result = transform.TransformFinalBlock( bytes , 0 , bytes.Length );
+        return encoding.GetString( result );
     }
 
     #endregion
@@ -189,16 +168,13 @@ public static class Encrypt
     /// <summary>
     /// 128位0向量
     /// </summary>
-    private static byte[] Iv
-    {
-        get
-        {
-            if (_iv == null)
-            {
+    private static byte[] Iv {
+        get {
+            if( _iv == null ) {
                 int size = 16;
-                _iv = new byte[size];
-                for (int i = 0; i < size; i++)
-                    _iv[i] = 0;
+                _iv = new byte[ size ];
+                for( int i = 0 ; i < size ; i++ )
+                    _iv[ i ] = 0;
             }
             return _iv;
         }
@@ -213,9 +189,8 @@ public static class Encrypt
     /// AES加密
     /// </summary>
     /// <param name="value">待加密的值</param>
-    public static string AesEncrypt(string value)
-    {
-        return AesEncrypt(value, AesKey);
+    public static string AesEncrypt( string value ) {
+        return AesEncrypt( value , AesKey );
     }
 
     /// <summary>
@@ -227,23 +202,21 @@ public static class Encrypt
     /// <param name="cipherMode">加密模式</param>
     /// <param name="paddingMode">填充模式</param>
     /// <param name="iv">初始化向量</param>
-    public static string AesEncrypt(string value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.CBC, PaddingMode paddingMode = PaddingMode.PKCS7, byte[] iv = null)
-    {
-        if (value.IsEmpty() || key.IsEmpty())
+    public static string AesEncrypt( string value , string key , Encoding encoding = null , CipherMode cipherMode = CipherMode.CBC , PaddingMode paddingMode = PaddingMode.PKCS7 , byte[] iv = null ) {
+        if( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         iv ??= Iv;
-        Aes aes = CreateAes(key, cipherMode, paddingMode, iv);
-        using ICryptoTransform transform = aes.CreateEncryptor(aes.Key, aes.IV);
-        return GetEncryptResult(value, encoding, transform);
+        Aes aes = CreateAes( key , cipherMode , paddingMode , iv );
+        using ICryptoTransform transform = aes.CreateEncryptor( aes.Key , aes.IV );
+        return GetEncryptResult( value , encoding , transform );
     }
 
     /// <summary>
     /// 创建Aes
     /// </summary>
-    private static Aes CreateAes(string key, CipherMode cipherMode, PaddingMode paddingMode, byte[] iv)
-    {
+    private static Aes CreateAes( string key , CipherMode cipherMode , PaddingMode paddingMode , byte[] iv ) {
         Aes result = Aes.Create();
-        result.Key = Encoding.ASCII.GetBytes(key);
+        result.Key = Encoding.ASCII.GetBytes( key );
         result.Mode = cipherMode;
         result.Padding = paddingMode;
         result.IV = iv;
@@ -254,9 +227,8 @@ public static class Encrypt
     /// AES解密
     /// </summary>
     /// <param name="value">加密后的值</param>
-    public static string AesDecrypt(string value)
-    {
-        return AesDecrypt(value, AesKey);
+    public static string AesDecrypt( string value ) {
+        return AesDecrypt( value , AesKey );
     }
 
     /// <summary>
@@ -268,14 +240,13 @@ public static class Encrypt
     /// <param name="cipherMode">加密模式</param>
     /// <param name="paddingMode">填充模式</param>
     /// <param name="iv">初始化向量</param>
-    public static string AesDecrypt(string value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.CBC, PaddingMode paddingMode = PaddingMode.PKCS7, byte[] iv = null)
-    {
-        if (value.IsEmpty() || key.IsEmpty())
+    public static string AesDecrypt( string value , string key , Encoding encoding = null , CipherMode cipherMode = CipherMode.CBC , PaddingMode paddingMode = PaddingMode.PKCS7 , byte[] iv = null ) {
+        if( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         iv ??= Iv;
-        Aes aes = CreateAes(key, cipherMode, paddingMode, iv);
-        using ICryptoTransform transform = aes.CreateDecryptor(aes.Key, aes.IV);
-        return GetDecryptResult(value, encoding, transform);
+        Aes aes = CreateAes( key , cipherMode , paddingMode , iv );
+        using ICryptoTransform transform = aes.CreateDecryptor( aes.Key , aes.IV );
+        return GetDecryptResult( value , encoding , transform );
     }
 
     #endregion
@@ -288,14 +259,13 @@ public static class Encrypt
     /// <param name="value">值</param>
     /// <param name="key">密钥</param>
     /// <param name="encoding">字符编码</param>
-    public static string HmacSha256(string value, string key, Encoding encoding = null)
-    {
-        if (value.IsEmpty() || key.IsEmpty())
+    public static string HmacSha256( string value , string key , Encoding encoding = null ) {
+        if( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         encoding ??= Encoding.UTF8;
-        HMACSHA256 sha256 = new HMACSHA256(Encoding.ASCII.GetBytes(key));
-        byte[] hash = sha256.ComputeHash(encoding.GetBytes(value));
-        return string.Join("", hash.ToList().Select(t => t.ToString("x2")).ToArray());
+        HMACSHA256 sha256 = new HMACSHA256( Encoding.ASCII.GetBytes( key ) );
+        byte[] hash = sha256.ComputeHash( encoding.GetBytes( value ) );
+        return string.Join( "" , hash.ToList().Select( t => t.ToString( "x2" ) ).ToArray() );
     }
 
     #endregion
@@ -310,24 +280,22 @@ public static class Encrypt
     /// <param name="encoding">编码</param>
     /// <param name="hashAlgorithm">加密算法,默认值: HashAlgorithmName.SHA1</param>
     /// <param name="rsaKeyType">Rsa密钥类型,默认值: Pkcs1</param>
-    public static string RsaSign(string value, string privateKey, Encoding encoding = null, HashAlgorithmName? hashAlgorithm = null, RSAKeyType rsaKeyType = RSAKeyType.Pkcs1)
-    {
-        if (value.IsEmpty() || privateKey.IsEmpty())
+    public static string RsaSign( string value , string privateKey , Encoding encoding = null , HashAlgorithmName? hashAlgorithm = null , RSAKeyType rsaKeyType = RSAKeyType.Pkcs1 ) {
+        if( value.IsEmpty() || privateKey.IsEmpty() )
             return string.Empty;
         RSA rsa = RSA.Create();
-        ImportPrivateKey(rsa, privateKey, rsaKeyType);
+        ImportPrivateKey( rsa , privateKey , rsaKeyType );
         encoding ??= Encoding.UTF8;
         hashAlgorithm ??= HashAlgorithmName.SHA1;
-        byte[] result = rsa.SignData(encoding.GetBytes(value), hashAlgorithm.Value, RSASignaturePadding.Pkcs1);
-        return System.Convert.ToBase64String(result);
+        byte[] result = rsa.SignData( encoding.GetBytes( value ) , hashAlgorithm.Value , RSASignaturePadding.Pkcs1 );
+        return System.Convert.ToBase64String( result );
     }
 
     /// <summary>
     /// 导入私钥
     /// </summary>
-    private static void ImportPrivateKey(RSA rsa, string privateKey, RSAKeyType rsaKeyType)
-    {
-        rsa.ImportPrivateKey(rsaKeyType, privateKey);
+    private static void ImportPrivateKey( RSA rsa , string privateKey , RSAKeyType rsaKeyType ) {
+        rsa.ImportPrivateKey( rsaKeyType , privateKey );
     }
 
     /// <summary>
@@ -338,25 +306,23 @@ public static class Encrypt
     /// <param name="sign">签名</param>
     /// <param name="encoding">编码</param>
     /// <param name="hashAlgorithm">加密算法,默认值: HashAlgorithmName.SHA1</param>
-    public static bool RsaVerify(string value, string publicKey, string sign, Encoding encoding = null, HashAlgorithmName? hashAlgorithm = null)
-    {
-        if (value.IsEmpty() || publicKey.IsEmpty() || sign.IsEmpty())
+    public static bool RsaVerify( string value , string publicKey , string sign , Encoding encoding = null , HashAlgorithmName? hashAlgorithm = null ) {
+        if( value.IsEmpty() || publicKey.IsEmpty() || sign.IsEmpty() )
             return false;
         RSA rsa = RSA.Create();
-        ImportPublicKey(rsa, publicKey);
+        ImportPublicKey( rsa , publicKey );
         encoding ??= Encoding.UTF8;
-        byte[] signData = System.Convert.FromBase64String(sign);
+        byte[] signData = System.Convert.FromBase64String( sign );
         hashAlgorithm ??= HashAlgorithmName.SHA1;
-        return rsa.VerifyData(encoding.GetBytes(value), signData, hashAlgorithm.Value, RSASignaturePadding.Pkcs1);
+        return rsa.VerifyData( encoding.GetBytes( value ) , signData , hashAlgorithm.Value , RSASignaturePadding.Pkcs1 );
     }
 
     /// <summary>
     /// 导入公钥
     /// </summary>
-    private static void ImportPublicKey(RSA rsa, string publicKey)
-    {
-        byte[] key = System.Convert.FromBase64String(publicKey);
-        rsa.ImportSubjectPublicKeyInfo(key, out _);
+    private static void ImportPublicKey( RSA rsa , string publicKey ) {
+        byte[] key = System.Convert.FromBase64String( publicKey );
+        rsa.ImportSubjectPublicKeyInfo( key , out _ );
     }
 
     /// <summary>
@@ -364,13 +330,12 @@ public static class Encrypt
     /// </summary>
     /// <param name="value">待加密的值</param>
     /// <param name="publicKey">公钥</param>
-    public static string RsaEncrypt(string value, string publicKey)
-    {
-        if (value.IsEmpty() || publicKey.IsEmpty())
+    public static string RsaEncrypt( string value , string publicKey ) {
+        if( value.IsEmpty() || publicKey.IsEmpty() )
             return string.Empty;
         RSA rsa = RSA.Create();
-        ImportPublicKey(rsa, publicKey);
-        return rsa.EncryptBigData(value, RSAEncryptionPadding.Pkcs1);
+        ImportPublicKey( rsa , publicKey );
+        return rsa.EncryptBigData( value , RSAEncryptionPadding.Pkcs1 );
     }
 
     /// <summary>
@@ -378,13 +343,12 @@ public static class Encrypt
     /// </summary>
     /// <param name="value">加密后的值</param>
     /// <param name="privateKey">私钥</param>
-    public static string RsaDecrypt(string value, string privateKey)
-    {
-        if (value.IsEmpty() || privateKey.IsEmpty())
+    public static string RsaDecrypt( string value , string privateKey ) {
+        if( value.IsEmpty() || privateKey.IsEmpty() )
             return string.Empty;
         RSA rsa = RSA.Create();
-        ImportPrivateKey(rsa, privateKey, RSAKeyType.Pkcs1);
-        return rsa.DecryptBigData(value, RSAEncryptionPadding.Pkcs1);
+        ImportPrivateKey( rsa , privateKey , RSAKeyType.Pkcs1 );
+        return rsa.DecryptBigData( value , RSAEncryptionPadding.Pkcs1 );
     }
 
     #endregion

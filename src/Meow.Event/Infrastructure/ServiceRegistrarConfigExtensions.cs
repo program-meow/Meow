@@ -1,6 +1,4 @@
-﻿using Meow.Infrastructure;
-
-namespace Meow.Event.Infrastructure;
+﻿namespace Meow.Event.Infrastructure;
 
 /// <summary>
 /// 本地事件总线服务注册器配置扩展

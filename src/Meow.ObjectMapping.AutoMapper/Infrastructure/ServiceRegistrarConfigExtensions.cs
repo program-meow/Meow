@@ -1,6 +1,4 @@
-﻿using Meow.Infrastructure;
-
-namespace Meow.ObjectMapping.Infrastructure;
+﻿namespace Meow.ObjectMapping.Infrastructure;
 
 /// <summary>
 /// AutoMapper服务注册器配置扩展

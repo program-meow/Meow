@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Tenant.Resolver;
+﻿namespace Meow.Tenant.Resolver;
 
 /// <summary>
 /// 基于域名的租户解析器

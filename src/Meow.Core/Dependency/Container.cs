@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.Dependency;
+﻿namespace Meow.Dependency;
 
 /// <summary>
 /// 容器

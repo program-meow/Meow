@@ -1,10 +1,4 @@
-﻿using Meow.Data.EntityFrameworkCore.Filter;
-using Meow.Domain.Operation;
-using Meow.Infrastructure;
-using Meow.Tenant;
-using SystemAction = System.Action;
-
-namespace Meow.Data.EntityFrameworkCore.Infrastructure;
+﻿namespace Meow.Data.EntityFrameworkCore.Infrastructure;
 
 /// <summary>
 /// EntityFrameworkCore服务注册器

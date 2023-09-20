@@ -1,14 +1,11 @@
-﻿using System;
-using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 64进制URL编码操作
 /// </summary>
-public static class EncodeByBase64Url
-{
+public static class EncodeByBase64Url {
     private const char Base64PadCharacter = '=';
     private const string DoubleBase64PadCharacter = "==";
     private const char Base64Character62 = '+';
@@ -24,12 +21,11 @@ public static class EncodeByBase64Url
     /// </summary>
     /// <param name="value">要编码的字符串</param>
     /// <returns>Base 64 Url 的 UTF8 字节编码</returns>
-    public static string Encode(string value)
-    {
-        if (value.IsEmpty())
+    public static string Encode( string value ) {
+        if( value.IsEmpty() )
             return string.Empty;
-        byte[] inArray = Encoding.UTF8.GetBytes(value);
-        return Encode(inArray);
+        byte[] inArray = Encoding.UTF8.GetBytes( value );
+        return Encode( inArray );
     }
 
     /// <summary>
@@ -40,14 +36,13 @@ public static class EncodeByBase64Url
     /// <param name="length">inArray 中的偏移量</param>
     /// <param name="offset">要转换的 inArray 元素的数量</param>
     /// <returns>inArray 的长度元素的 base64 url编码的字符串表示形式，从位置偏移开始</returns>
-    public static string Encode(byte[] inArray, int offset, int length)
-    {
-        if (inArray.IsEmpty())
+    public static string Encode( byte[] inArray , int offset , int length ) {
+        if( inArray.IsEmpty() )
             return string.Empty;
-        return System.Convert.ToBase64String(inArray, offset, length)
-            .Split(Base64PadCharacter)[0]
-            .Replace(Base64Character62, Base64UrlCharacter62)
-            .Replace(Base64Character63, Base64UrlCharacter63);
+        return System.Convert.ToBase64String( inArray , offset , length )
+            .Split( Base64PadCharacter )[ 0 ]
+            .Replace( Base64Character62 , Base64UrlCharacter62 )
+            .Replace( Base64Character63 , Base64UrlCharacter63 );
     }
 
     /// <summary>
@@ -56,14 +51,13 @@ public static class EncodeByBase64Url
     /// </summary>
     /// <param name="inArray">由8位无符号整数组成的数组</param>
     /// <returns>inArray 的长度元素的64进制 url 编码的字符串表示形式，从位置偏移开始</returns>
-    public static string Encode(byte[] inArray)
-    {
-        if (inArray.IsEmpty())
+    public static string Encode( byte[] inArray ) {
+        if( inArray.IsEmpty() )
             return string.Empty;
-        return System.Convert.ToBase64String(inArray, 0, inArray.Length)
-            .Split(Base64PadCharacter)[0]
-            .Replace(Base64Character62, Base64UrlCharacter62)
-            .Replace(Base64Character63, Base64UrlCharacter63);
+        return System.Convert.ToBase64String( inArray , 0 , inArray.Length )
+            .Split( Base64PadCharacter )[ 0 ]
+            .Replace( Base64Character62 , Base64UrlCharacter62 )
+            .Replace( Base64Character63 , Base64UrlCharacter63 );
     }
 
     /// <summary>
@@ -71,16 +65,14 @@ public static class EncodeByBase64Url
     /// </summary>
     /// <param name="value">base64Url 编码字符串</param>
     /// <returns>UTF8 bytes</returns>
-    public static byte[] DecodeToBytes(string value)
-    {
-        if (value.IsEmpty())
+    public static byte[] DecodeToBytes( string value ) {
+        if( value.IsEmpty() )
             return Array.Empty<byte>();
-        value = value.Replace(Base64UrlCharacter62, Base64Character62);
-        value = value.Replace(Base64UrlCharacter63, Base64Character63);
-        switch (value.Length % 4)
-        {
+        value = value.Replace( Base64UrlCharacter62 , Base64Character62 );
+        value = value.Replace( Base64UrlCharacter63 , Base64Character63 );
+        switch( value.Length % 4 ) {
             case 0:
-                return System.Convert.FromBase64String(value);
+                return System.Convert.FromBase64String( value );
             case 2:
                 value += DoubleBase64PadCharacter;
                 goto case 0;
@@ -88,7 +80,7 @@ public static class EncodeByBase64Url
                 value += Base64PadCharacter.ToString();
                 goto case 0;
             default:
-                throw new FormatException($"IDX10400: Unable to decode: '{value}' as Base64url encoded string.");
+                throw new FormatException( $"IDX10400: Unable to decode: '{value}' as Base64url encoded string." );
         }
     }
 
@@ -97,10 +89,9 @@ public static class EncodeByBase64Url
     /// </summary>
     /// <param name="value">要解码的字符串</param>
     /// <returns>UTF8 字符串</returns>
-    public static string Decode(string value)
-    {
-        if (value.IsEmpty())
+    public static string Decode( string value ) {
+        if( value.IsEmpty() )
             return string.Empty;
-        return Encoding.UTF8.GetString(DecodeToBytes(value));
+        return Encoding.UTF8.GetString( DecodeToBytes( value ) );
     }
 }

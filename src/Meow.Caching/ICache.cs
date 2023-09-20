@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.Caching;
+﻿namespace Meow.Caching;
 
 /// <summary>
 /// 缓存

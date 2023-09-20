@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Operation;
-
-namespace Meow.Data.EntityFrameworkCore;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// SqlServer工作单元基类

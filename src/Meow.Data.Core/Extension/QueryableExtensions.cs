@@ -1,14 +1,10 @@
-﻿using Meow.Data.Query;
-using Meow.Data.Query.Condition;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Data.Extension;
+﻿namespace Meow.Data.Extension;
 
 /// <summary>
 /// 查询对象扩展
 /// </summary>
 public static class QueryableExtensions {
+
     #region Where  [添加查询条件对象]
 
     /// <summary>

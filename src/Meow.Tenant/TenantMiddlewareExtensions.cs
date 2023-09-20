@@ -1,6 +1,4 @@
-﻿using Meow.Tenant.Middleware;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 租户处理中间件扩展

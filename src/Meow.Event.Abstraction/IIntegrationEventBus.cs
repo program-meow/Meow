@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Event;
+﻿namespace Meow.Event;
 
 /// <summary>
 /// 基于消息的集成事件总线

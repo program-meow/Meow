@@ -1,7 +1,4 @@
-﻿using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Operation;
-
-namespace Meow.Data.Sql.Extension;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Insert子句操作扩展

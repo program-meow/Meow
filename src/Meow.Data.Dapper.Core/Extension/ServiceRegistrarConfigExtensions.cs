@@ -1,7 +1,4 @@
-﻿using Meow.Data.Dapper.Infrastructure;
-using Meow.Infrastructure;
-
-namespace Meow.Data.Dapper.Extension;
+﻿namespace Meow.Data.Dapper.Extension;
 
 /// <summary>
 /// Dapper服务注册器配置扩展

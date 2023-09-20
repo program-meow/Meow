@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Helper;
-
-namespace Meow.Logging.Serilog.Enricher;
+﻿namespace Meow.Logging.Serilog.Enricher;
 
 /// <summary>
 /// 日志上下文扩展属性

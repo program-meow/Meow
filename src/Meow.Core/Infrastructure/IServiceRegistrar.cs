@@ -1,5 +1,4 @@
 ﻿namespace Meow.Infrastructure;
-using SystemAction = System.Action;
 
 /// <summary>
 /// 服务注册器

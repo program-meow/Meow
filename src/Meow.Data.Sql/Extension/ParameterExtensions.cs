@@ -1,9 +1,4 @@
-﻿using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Operation;
-using Meow.Data.Sql.Builder.Param;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Extension;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql参数操作扩展

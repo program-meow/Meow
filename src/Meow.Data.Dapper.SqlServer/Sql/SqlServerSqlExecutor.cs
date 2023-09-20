@@ -1,6 +1,4 @@
-﻿using Meow.Data.Sql;
-
-namespace Meow.Data.Dapper.Sql;
+﻿namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// Sql Server Sql执行器

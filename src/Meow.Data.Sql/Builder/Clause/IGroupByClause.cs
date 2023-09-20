@@ -1,6 +1,4 @@
-﻿using Meow.Math;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Group By子句

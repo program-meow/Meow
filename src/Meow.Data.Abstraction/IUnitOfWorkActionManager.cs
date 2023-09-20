@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Data;
+﻿namespace Meow.Data;
 
 /// <summary>
 /// 工作单元操作管理器,用于将操作延迟到工作单元提交后执行

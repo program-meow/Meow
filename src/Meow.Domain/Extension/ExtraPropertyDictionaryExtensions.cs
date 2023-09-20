@@ -1,8 +1,4 @@
-﻿using Meow.Domain.Extending;
-using Meow.Extension;
-using Meow.Option;
-
-namespace Meow.Domain.Extension;
+﻿namespace Meow.Domain.Extension;
 
 /// <summary>
 /// 扩展属性字典扩展

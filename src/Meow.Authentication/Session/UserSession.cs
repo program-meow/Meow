@@ -1,8 +1,4 @@
-﻿using Meow.Authentication.Extension;
-using Meow.Authentication.Helper;
-using Meow.Extension;
-
-namespace Meow.Authentication.Session;
+﻿namespace Meow.Authentication.Session;
 
 /// <summary>
 /// 用户会话
@@ -22,16 +18,16 @@ public class UserSession : ISession {
     public virtual IServiceProvider ServiceProvider => Meow.Helper.Web.ServiceProvider;
 
     /// <inheritdoc />
-    public virtual bool IsAuthenticated => Web.Identity.IsAuthenticated;
+    public virtual bool IsAuthenticated => Meow.Authentication.Helper.Web.Identity.IsAuthenticated;
 
     /// <inheritdoc />
     public virtual string UserId {
         get {
-            string result = Web.Identity.GetValue( ClaimTypes.UserId );
-            return result.IsEmpty() ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
+            string result = Meow.Authentication.Helper.Web.Identity.GetValue( ClaimTypes.UserId );
+            return result.IsEmpty() ? Meow.Authentication.Helper.Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
         }
     }
 
     /// <inheritdoc />
-    public virtual string TenantId => Web.Identity.GetValue( ClaimTypes.TenantId );
+    public virtual string TenantId => Meow.Authentication.Helper.Web.Identity.GetValue( ClaimTypes.TenantId );
 }

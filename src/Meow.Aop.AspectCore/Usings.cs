@@ -6,3 +6,5 @@ global using AspectCore.DynamicProxy;
 global using AspectCore.DynamicProxy.Parameters;
 global using AspectCore.Extensions.AspectScope;
 global using AspectCore.Extensions.DependencyInjection;
+global using Meow.Config;
+global using Meow.Extension;

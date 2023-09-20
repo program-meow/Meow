@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql查询对象操作扩展 - 获取单值扩展

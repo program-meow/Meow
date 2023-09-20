@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Domain.Compare;
+﻿namespace Meow.Domain.Compare;
 
 /// <summary>
 /// 变更值集合

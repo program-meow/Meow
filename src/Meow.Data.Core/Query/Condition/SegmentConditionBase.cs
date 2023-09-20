@@ -1,9 +1,4 @@
-﻿using Meow.Math;
-using Meow.Expression;
-using SystemExpression = System.Linq.Expressions.Expression;
-using SystemType = System.Type;
-
-namespace Meow.Data.Query.Condition;
+﻿namespace Meow.Data.Query.Condition;
 
 /// <summary>
 /// 范围过滤条件

@@ -1,6 +1,4 @@
-﻿using Meow.Response;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 授权中间件结果处理器

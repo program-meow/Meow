@@ -1,6 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Param;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Sql大于查询条件

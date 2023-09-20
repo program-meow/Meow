@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Logging.Serilog.Extension;
+﻿namespace Meow.Logging.Serilog.Extension;
 
 /// <summary>
 /// Serilog日志配置操作扩展

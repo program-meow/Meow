@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Logging.Serilog.Enricher;
-
-namespace Meow.Logging.Serilog.Extension;
+﻿namespace Meow.Logging.Serilog.Extension;
 
 /// <summary>
 /// Serilog扩展属性配置扩展

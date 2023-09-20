@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Operation;
-
-namespace Meow.Domain.Entity;
+﻿namespace Meow.Domain.Entity;
 
 /// <summary>
 /// 聚合根

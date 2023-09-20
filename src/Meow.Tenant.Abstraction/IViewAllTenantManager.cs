@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 查看租户管理器

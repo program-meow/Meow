@@ -1,8 +1,4 @@
-﻿using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Operation;
-using Meow.Data.Sql.Config;
-
-namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql查询对象

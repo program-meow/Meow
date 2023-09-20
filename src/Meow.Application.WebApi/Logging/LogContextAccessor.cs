@@ -1,7 +1,4 @@
-﻿using Meow.Helper;
-using Meow.Logging;
-
-namespace Meow.Application.Logging;
+﻿namespace Meow.Application.Logging;
 
 /// <summary>
 /// 日志上下文访问器

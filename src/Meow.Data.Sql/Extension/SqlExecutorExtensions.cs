@@ -1,7 +1,4 @@
-﻿using Meow.Data.Sql.Database;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Extension;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql执行器操作扩展

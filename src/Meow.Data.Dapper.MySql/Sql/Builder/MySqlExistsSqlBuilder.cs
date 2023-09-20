@@ -1,8 +1,4 @@
-﻿using Meow.Data.Sql;
-using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Extension;
-
-namespace Meow.Data.Dapper.Sql.Builder;
+﻿namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// 判断是否存在Sql生成器

@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace Meow.Extension;
+﻿namespace Meow.Extension;
 
 /// <summary>
 /// 文件扩展
 /// </summary>
-public static class FileExtensions
-{
+public static class FileExtensions {
+
     #region Write  [将字符串写入文件]
 
     /// <summary>
@@ -14,9 +12,8 @@ public static class FileExtensions
     /// </summary>
     /// <param name="content">内容</param>
     /// <param name="filePath">文件绝对路径</param>
-    public static void FileWrite(this string content, string filePath)
-    {
-        Meow.Helper.File.Write(filePath, content);
+    public static void FileWrite( this string content , string filePath ) {
+        Meow.Helper.File.Write( filePath , content );
     }
 
     /// <summary>
@@ -24,9 +21,8 @@ public static class FileExtensions
     /// </summary>
     /// <param name="content">内容</param>
     /// <param name="filePath">文件绝对路径</param>
-    public static void FileWrite(this byte[] content, string filePath)
-    {
-        Meow.Helper.File.Write(filePath, content);
+    public static void FileWrite( this byte[] content , string filePath ) {
+        Meow.Helper.File.Write( filePath , content );
     }
 
     #endregion
@@ -38,9 +34,8 @@ public static class FileExtensions
     /// </summary>
     /// <param name="content">内容</param>
     /// <param name="filePath">文件绝对路径</param>
-    public static async Task FileWriteAsync(this string content, string filePath)
-    {
-        await Meow.Helper.File.WriteAsync(filePath, content);
+    public static async Task FileWriteAsync( this string content , string filePath ) {
+        await Meow.Helper.File.WriteAsync( filePath , content );
     }
 
     /// <summary>
@@ -48,9 +43,8 @@ public static class FileExtensions
     /// </summary>
     /// <param name="content">内容</param>
     /// <param name="filePath">文件绝对路径</param>
-    public static async Task FileWriteAsync(this byte[] content, string filePath)
-    {
-        await Meow.Helper.File.WriteAsync(filePath, content);
+    public static async Task FileWriteAsync( this byte[] content , string filePath ) {
+        await Meow.Helper.File.WriteAsync( filePath , content );
     }
 
     #endregion

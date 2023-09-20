@@ -1,9 +1,4 @@
-﻿using Meow.Converter;
-using Meow.Helper;
-using Meow.Http;
-using Meow.Infrastructure;
-
-namespace Meow.Authentication.Infrastructure;
+﻿namespace Meow.Authentication.Infrastructure;
 
 /// <summary>
 /// AspNetCore服务注册器
@@ -45,14 +40,14 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar {
     private void RegisterHttpContextAccessor( IServiceCollection services ) {
         HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
         services.TryAddSingleton<IHttpContextAccessor>( httpContextAccessor );
-        Web.HttpContextAccessor = httpContextAccessor;
+        Meow.Helper.Web.HttpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
     /// 注册服务定位器
     /// </summary>
     private void RegisterServiceLocator() {
-        Ioc.SetServiceProviderAction( () => Web.ServiceProvider );
+        Ioc.SetServiceProviderAction( () => Meow.Helper.Web.ServiceProvider );
     }
 
     /// <summary>

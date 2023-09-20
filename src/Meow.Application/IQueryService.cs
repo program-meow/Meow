@@ -1,6 +1,4 @@
-﻿using Meow.Query;
-
-namespace Meow.Application;
+﻿namespace Meow.Application;
 
 /// <summary>
 /// 查询服务

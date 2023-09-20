@@ -1,7 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Clause;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Set;
+﻿namespace Meow.Data.Sql.Builder.Set;
 
 /// <summary>
 /// Sql生成器集合

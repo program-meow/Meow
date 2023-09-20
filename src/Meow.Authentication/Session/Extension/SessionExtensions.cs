@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Authentication.Session.Extension;
+﻿namespace Meow.Authentication.Session.Extension;
 
 /// <summary>
 /// 用户会话扩展

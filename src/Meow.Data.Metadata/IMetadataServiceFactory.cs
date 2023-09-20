@@ -1,6 +1,4 @@
-﻿using Meow.Database;
-
-namespace Meow.Data.Metadata;
+﻿namespace Meow.Data.Metadata;
 
 /// <summary>
 /// 数据库元数据服务工厂

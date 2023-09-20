@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Meow.Expression;
+﻿using Meow.Expression;
 using Meow.Extension;
-using SystemExpression = System.Linq.Expressions.Expression;
-using SystemType = System.Type;
 
 namespace Meow.Helper;
 
@@ -14,6 +7,7 @@ namespace Meow.Helper;
 /// 表达式操作
 /// </summary>
 public static class Expression {
+
     #region GetType  [获取类型]
 
     /// <summary>
@@ -21,7 +15,7 @@ public static class Expression {
     /// </summary>
     /// <param name="expression">表达式,范例：t => t.Name</param>
     public static SystemType GetType( SystemExpression expression ) {
-        var memberExpression = GetMemberExpression( expression );
+        MemberExpression memberExpression = GetMemberExpression( expression );
         return memberExpression?.Type;
     }
 
@@ -328,7 +322,7 @@ public static class Expression {
     /// 获取方法调用表达式的值
     /// </summary>
     private static Meow.Math.OperatorEnum? GetMethodCallExpressionOperator( SystemExpression expression ) {
-        var methodCallExpression = ( MethodCallExpression ) expression;
+        MethodCallExpression methodCallExpression = ( MethodCallExpression ) expression;
         switch( methodCallExpression?.Method?.Name?.ToLower() ) {
             case "contains":
                 return Meow.Math.OperatorEnum.Contains;

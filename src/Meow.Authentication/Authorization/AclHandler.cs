@@ -1,7 +1,4 @@
-﻿using Meow.Authentication.Extension;
-using Meow.Extension;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 授权处理器

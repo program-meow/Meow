@@ -1,6 +1,4 @@
-﻿using Meow.Exception;
-
-namespace Meow.Validation;
+﻿namespace Meow.Validation;
 
 /// <summary>
 /// 验证失败，抛出异常

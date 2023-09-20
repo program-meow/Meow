@@ -1,6 +1,5 @@
 ﻿using Meow.Dependency;
 using Meow.Reflection;
-using SystemType = System.Type;
 
 namespace Meow.Infrastructure;
 

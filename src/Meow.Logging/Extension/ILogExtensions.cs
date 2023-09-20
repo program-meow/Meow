@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Logging.Extension;
+﻿namespace Meow.Logging.Extension;
 
 /// <summary>
 /// 日志操作扩展

@@ -1,6 +1,4 @@
-﻿using Meow.Tenant.Resolver;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 租户配置

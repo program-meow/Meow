@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Data.EntityFrameworkCore.Migration;
+﻿namespace Meow.Data.EntityFrameworkCore.Migration;
 
 /// <summary>
 /// 迁移文件服务

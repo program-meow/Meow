@@ -1,13 +1,4 @@
-﻿using Meow.Application.Filter;
-using Meow.Authentication.Session;
-using Meow.Extension;
-using Meow.Helper;
-using Meow.Logging;
-using Meow.Option;
-using Meow.Response;
-using SystemStream = System.IO.Stream;
-
-namespace Meow.Application.Controller;
+﻿namespace Meow.Application.Controller;
 
 /// <summary>
 /// WebApi控制器基类
@@ -21,7 +12,7 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// <summary>
     /// 会话
     /// </summary>
-    protected virtual ISession Session => UserSession.Instance;
+    protected virtual IMeowSession Session => UserSession.Instance;
 
     /// <summary>
     /// 获取日志操作

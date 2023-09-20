@@ -1,6 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Operation;
-
-namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql;
 
 /// <summary>
 /// Sql执行器

@@ -1,15 +1,12 @@
 ﻿using Meow.Enum;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Meow.Extension;
 
 /// <summary>
 /// 类型扩展
 /// </summary>
-public static class ConvertExtensions
-{
+public static class ConvertExtensions {
+
     #region To  [通用泛型转换]
 
     /// <summary>
@@ -17,9 +14,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
     /// <param name="value">值</param>
-    public static T To<T>(this object value)
-    {
-        return Meow.Helper.Convert.To<T>(value);
+    public static T To<T>( this object value ) {
+        return Meow.Helper.Convert.To<T>( value );
     }
 
     #endregion
@@ -31,9 +27,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
     /// <param name="array">集合</param>
-    public static List<string> ToListString<T>(this IEnumerable<T> array)
-    {
-        return Meow.Helper.Convert.ToListString(array);
+    public static List<string> ToListString<T>( this IEnumerable<T> array ) {
+        return Meow.Helper.Convert.ToListString( array );
     }
 
     /// <summary>
@@ -41,9 +36,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
     /// <param name="array">集合</param>
-    public static List<T> ToList<T>(this IEnumerable<object> array)
-    {
-        return Meow.Helper.Convert.ToList<T>(array);
+    public static List<T> ToList<T>( this IEnumerable<object> array ) {
+        return Meow.Helper.Convert.ToList<T>( array );
     }
 
     /// <summary>
@@ -52,9 +46,8 @@ public static class ConvertExtensions
     /// <typeparam name="T">目标元素类型</typeparam>
     /// <param name="value">以字符分隔的元素集合字符串</param>
     /// <param name="separator">分隔符，默认逗号作为分隔符</param>
-    public static List<T> ToList<T>(this string value, string separator = ",")
-    {
-        return Meow.Helper.Convert.ToList<T>(value, separator);
+    public static List<T> ToList<T>( this string value , string separator = "," ) {
+        return Meow.Helper.Convert.ToList<T>( value , separator );
     }
 
     /// <summary>
@@ -64,9 +57,8 @@ public static class ConvertExtensions
     /// <typeparam name="TKey">键元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<TKey> ToListBy<TSource, TKey>(this IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
-    {
-        return Meow.Helper.Convert.ToListBy(array, keySelector);
+    public static List<TKey> ToListBy<TSource, TKey>( this IEnumerable<TSource> array , Func<TSource , TKey> keySelector ) {
+        return Meow.Helper.Convert.ToListBy( array , keySelector );
     }
 
     /// <summary>
@@ -76,9 +68,8 @@ public static class ConvertExtensions
     /// <typeparam name="TKey">键元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<TKey> ToListRangeBy<TSource, TKey>(this IEnumerable<TSource> array, Func<TSource, IEnumerable<TKey>> keySelector)
-    {
-        return Meow.Helper.Convert.ToListRangeBy(array, keySelector);
+    public static List<TKey> ToListRangeBy<TSource, TKey>( this IEnumerable<TSource> array , Func<TSource , IEnumerable<TKey>> keySelector ) {
+        return Meow.Helper.Convert.ToListRangeBy( array , keySelector );
     }
 
     #endregion
@@ -89,18 +80,16 @@ public static class ConvertExtensions
     /// 转换为32位整型
     /// </summary>
     /// <param name="value">值</param>
-    public static int ToInt(this object value)
-    {
-        return Meow.Helper.Convert.ToInt(value);
+    public static int ToInt( this object value ) {
+        return Meow.Helper.Convert.ToInt( value );
     }
 
     /// <summary>
     /// 转换为32位可空整型
     /// </summary>
     /// <param name="value">值</param>
-    public static int? ToIntOrNull(this object value)
-    {
-        return Meow.Helper.Convert.ToIntOrNull(value);
+    public static int? ToIntOrNull( this object value ) {
+        return Meow.Helper.Convert.ToIntOrNull( value );
     }
 
     #endregion
@@ -112,9 +101,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static float ToFloat(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToFloat(value, digits);
+    public static float ToFloat( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToFloat( value , digits );
     }
 
     /// <summary>
@@ -122,9 +110,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static float? ToFloatOrNull(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToFloatOrNull(value, digits);
+    public static float? ToFloatOrNull( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToFloatOrNull( value , digits );
     }
 
     #endregion
@@ -136,9 +123,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static double ToDouble(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToDouble(value, digits);
+    public static double ToDouble( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToDouble( value , digits );
     }
 
     /// <summary>
@@ -146,9 +132,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static double? ToDoubleOrNull(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToDoubleOrNull(value, digits);
+    public static double? ToDoubleOrNull( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToDoubleOrNull( value , digits );
     }
 
     #endregion
@@ -159,18 +144,16 @@ public static class ConvertExtensions
     /// 转换为64位整型
     /// </summary>
     /// <param name="value">值</param>
-    public static long ToLong(this object value)
-    {
-        return Meow.Helper.Convert.ToLong(value);
+    public static long ToLong( this object value ) {
+        return Meow.Helper.Convert.ToLong( value );
     }
 
     /// <summary>
     /// 转换为64位可空整型
     /// </summary>
     /// <param name="value">值</param>
-    public static long? ToLongOrNull(this object value)
-    {
-        return Meow.Helper.Convert.ToLongOrNull(value);
+    public static long? ToLongOrNull( this object value ) {
+        return Meow.Helper.Convert.ToLongOrNull( value );
     }
 
     #endregion
@@ -182,9 +165,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static decimal ToDecimal(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToDecimal(value, digits);
+    public static decimal ToDecimal( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToDecimal( value , digits );
     }
 
     /// <summary>
@@ -192,9 +174,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="digits">小数位数</param>
-    public static decimal? ToDecimalOrNull(this object value, int? digits = null)
-    {
-        return Meow.Helper.Convert.ToDecimalOrNull(value, digits);
+    public static decimal? ToDecimalOrNull( this object value , int? digits = null ) {
+        return Meow.Helper.Convert.ToDecimalOrNull( value , digits );
     }
 
     #endregion
@@ -205,18 +186,16 @@ public static class ConvertExtensions
     /// 转换为日期
     /// </summary>
     /// <param name="value">值</param>
-    public static DateTime ToDateTime(this object value)
-    {
-        return Meow.Helper.Convert.ToDateTime(value);
+    public static DateTime ToDateTime( this object value ) {
+        return Meow.Helper.Convert.ToDateTime( value );
     }
 
     /// <summary>
     /// 转换为可空日期
     /// </summary>
     /// <param name="value">值</param>
-    public static DateTime? ToDateTimeOrNull(this object value)
-    {
-        return Meow.Helper.Convert.ToDateTimeOrNull(value);
+    public static DateTime? ToDateTimeOrNull( this object value ) {
+        return Meow.Helper.Convert.ToDateTimeOrNull( value );
     }
 
     #endregion
@@ -227,18 +206,16 @@ public static class ConvertExtensions
     /// 转换为布尔值
     /// </summary>
     /// <param name="value">值</param>
-    public static bool ToBool(this object value)
-    {
-        return Meow.Helper.Convert.ToBool(value);
+    public static bool ToBool( this object value ) {
+        return Meow.Helper.Convert.ToBool( value );
     }
 
     /// <summary>
     /// 转换为可空布尔值
     /// </summary>
     /// <param name="value">输入值</param>
-    public static bool? ToBoolOrNull(this object value)
-    {
-        return Meow.Helper.Convert.ToBoolOrNull(value);
+    public static bool? ToBoolOrNull( this object value ) {
+        return Meow.Helper.Convert.ToBoolOrNull( value );
     }
 
     #endregion
@@ -249,18 +226,16 @@ public static class ConvertExtensions
     /// 转换为Guid
     /// </summary>
     /// <param name="value">值</param>
-    public static Guid ToGuid(this object value)
-    {
-        return Meow.Helper.Convert.ToGuid(value);
+    public static Guid ToGuid( this object value ) {
+        return Meow.Helper.Convert.ToGuid( value );
     }
 
     /// <summary>
     /// 转换为可空Guid
     /// </summary>
     /// <param name="value">值</param>
-    public static Guid? ToGuidOrNull(this object value)
-    {
-        return Meow.Helper.Convert.ToGuidOrNull(value);
+    public static Guid? ToGuidOrNull( this object value ) {
+        return Meow.Helper.Convert.ToGuidOrNull( value );
     }
 
     #endregion
@@ -272,18 +247,16 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">以逗号分隔的Guid集合字符串</param>
     /// <param name="separator">分隔符，默认逗号作为分隔符</param>
-    public static List<Guid> ToGuidList(this string value, string separator = ",")
-    {
-        return Meow.Helper.Convert.ToGuidList(value, separator);
+    public static List<Guid> ToGuidList( this string value , string separator = "," ) {
+        return Meow.Helper.Convert.ToGuidList( value , separator );
     }
 
     /// <summary>
     /// 转换为Guid集合
     /// </summary>
     /// <param name="array">字符串集合</param>
-    public static List<Guid> ToGuidList(this IEnumerable<string> array)
-    {
-        return Meow.Helper.Convert.ToGuidList(array);
+    public static List<Guid> ToGuidList( this IEnumerable<string> array ) {
+        return Meow.Helper.Convert.ToGuidList( array );
     }
 
     /// <summary>
@@ -291,18 +264,16 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">以逗号分隔的Guid集合字符串</param>
     /// <param name="separator">分隔符，默认逗号作为分隔符</param>
-    public static List<Guid?> ToGuidOrNullList(this string value, string separator = ",")
-    {
-        return Meow.Helper.Convert.ToGuidOrNullList(value, separator);
+    public static List<Guid?> ToGuidOrNullList( this string value , string separator = "," ) {
+        return Meow.Helper.Convert.ToGuidOrNullList( value , separator );
     }
 
     /// <summary>
     /// 转换为可空Guid集合
     /// </summary>
     /// <param name="array">字符串集合</param>
-    public static List<Guid?> ToGuidOrNullList(this IEnumerable<string> array)
-    {
-        return Meow.Helper.Convert.ToGuidOrNullList(array);
+    public static List<Guid?> ToGuidOrNullList( this IEnumerable<string> array ) {
+        return Meow.Helper.Convert.ToGuidOrNullList( array );
     }
 
     #endregion
@@ -313,9 +284,8 @@ public static class ConvertExtensions
     /// 转换为字节数组
     /// </summary>
     /// <param name="value">值</param>        
-    public static byte[] ToBytes(this string value)
-    {
-        return Meow.Helper.Convert.ToBytes(value);
+    public static byte[] ToBytes( this string value ) {
+        return Meow.Helper.Convert.ToBytes( value );
     }
 
     /// <summary>
@@ -323,9 +293,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="encoding">字符编码</param>
-    public static byte[] ToBytes(this string value, Encoding encoding)
-    {
-        return Meow.Helper.Convert.ToBytes(value, encoding);
+    public static byte[] ToBytes( this string value , Encoding encoding ) {
+        return Meow.Helper.Convert.ToBytes( value , encoding );
     }
 
     #endregion
@@ -336,9 +305,8 @@ public static class ConvertExtensions
     /// 对象转换为属性名值对
     /// </summary>
     /// <param name="data">对象</param>
-    public static IDictionary<string, object> ToDictionary(this object data)
-    {
-        return Meow.Helper.Convert.ToDictionary(data);
+    public static IDictionary<string , object> ToDictionary( this object data ) {
+        return Meow.Helper.Convert.ToDictionary( data );
     }
 
     /// <summary>
@@ -346,9 +314,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <typeparam name="TValue">键值对值元素类型</typeparam>
     /// <param name="data">对象</param>
-    public static IDictionary<string, TValue> ToDictionary<TValue>(this object data)
-    {
-        return Meow.Helper.Convert.ToDictionary<TValue>(data);
+    public static IDictionary<string , TValue> ToDictionary<TValue>( this object data ) {
+        return Meow.Helper.Convert.ToDictionary<TValue>( data );
     }
 
     #endregion
@@ -360,9 +327,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn(decimal? money, bool isIgnoreSgn = true)
-    {
-        return Meow.Helper.Convert.ToMoneyByRmbCn(money, isIgnoreSgn);
+    public static string ToMoneyByRmbCn( decimal? money , bool isIgnoreSgn = true ) {
+        return Meow.Helper.Convert.ToMoneyByRmbCn( money , isIgnoreSgn );
     }
 
     /// <summary>
@@ -370,9 +336,8 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn(this decimal money, bool isIgnoreSgn = true)
-    {
-        return Meow.Helper.Convert.ToMoneyByRmbCn(money, isIgnoreSgn);
+    public static string ToMoneyByRmbCn( this decimal money , bool isIgnoreSgn = true ) {
+        return Meow.Helper.Convert.ToMoneyByRmbCn( money , isIgnoreSgn );
     }
 
     #endregion
@@ -385,9 +350,8 @@ public static class ConvertExtensions
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum(this decimal? money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
-    {
-        return Meow.Helper.Convert.ToMoneyByNum(money, moneyType, isIgnoreSgn);
+    public static string ToMoneyByNum( this decimal? money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+        return Meow.Helper.Convert.ToMoneyByNum( money , moneyType , isIgnoreSgn );
     }
 
     /// <summary>
@@ -396,9 +360,8 @@ public static class ConvertExtensions
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum(this decimal money, MoneyEnum? moneyType = null, bool isIgnoreSgn = false)
-    {
-        return Meow.Helper.Convert.ToMoneyByNum(money, moneyType, isIgnoreSgn);
+    public static string ToMoneyByNum( this decimal money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+        return Meow.Helper.Convert.ToMoneyByNum( money , moneyType , isIgnoreSgn );
     }
 
     #endregion

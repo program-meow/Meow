@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.EntityFrameworkCore.Extension;
+﻿namespace Meow.Data.EntityFrameworkCore.Extension;
 
 /// <summary>
 /// 工作单元扩展

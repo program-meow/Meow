@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Domain.Service;
+﻿namespace Meow.Domain.Service;
 
 /// <summary>
 /// 领域服务

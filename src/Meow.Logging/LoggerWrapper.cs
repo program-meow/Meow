@@ -1,6 +1,4 @@
-﻿using SystemException = System.Exception;
-
-namespace Meow.Logging;
+﻿namespace Meow.Logging;
 
 /// <summary>
 /// 日志记录包装器

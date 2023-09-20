@@ -1,30 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using Meow.Extension;
+﻿using Meow.Extension;
 using Meow.Type;
-using SystemType = System.Type;
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 反射操作
 /// </summary>
-public static class Reflection
-{
+public static class Reflection {
+
     #region GetDescription  [获取描述]
 
     /// <summary>
     /// 获取类型描述，使用DescriptionAttribute设置描述
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static string GetDescription<T>()
-    {
-        return GetDescription(Common.GetType<T>());
+    public static string GetDescription<T>() {
+        return GetDescription( Common.GetType<T>() );
     }
 
     /// <summary>
@@ -32,9 +23,8 @@ public static class Reflection
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
     /// <param name="memberName">成员名称</param>
-    public static string GetDescription<T>(string memberName)
-    {
-        return GetDescription(Common.GetType<T>(), memberName);
+    public static string GetDescription<T>( string memberName ) {
+        return GetDescription( Common.GetType<T>() , memberName );
     }
 
     /// <summary>
@@ -42,22 +32,20 @@ public static class Reflection
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="memberName">成员名称</param>
-    public static string GetDescription(SystemType type, string memberName)
-    {
-        if (type == null)
+    public static string GetDescription( SystemType type , string memberName ) {
+        if( type == null )
             return string.Empty;
-        if (memberName.IsEmpty())
+        if( memberName.IsEmpty() )
             return string.Empty;
-        return GetDescription(type.GetTypeInfo().GetMember(memberName).FirstOrDefault());
+        return GetDescription( type.GetTypeInfo().GetMember( memberName ).FirstOrDefault() );
     }
 
     /// <summary>
     /// 获取类型成员描述，使用DescriptionAttribute设置描述
     /// </summary>
     /// <param name="member">成员</param>
-    public static string GetDescription(MemberInfo member)
-    {
-        if (member == null)
+    public static string GetDescription( MemberInfo member ) {
+        if( member == null )
             return string.Empty;
         return member.GetCustomAttribute<DescriptionAttribute>() is { } attribute ? attribute.Description : member.Name;
     }
@@ -70,21 +58,19 @@ public static class Reflection
     /// 获取显示名称，使用DisplayNameAttribute设置显示名称
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static string GetDisplayName<T>()
-    {
-        return GetDisplayName(Common.GetType<T>());
+    public static string GetDisplayName<T>() {
+        return GetDisplayName( Common.GetType<T>() );
     }
 
     /// <summary>
     /// 获取显示名称，使用DisplayAttribute或DisplayNameAttribute设置显示名称
     /// </summary>
-    public static string GetDisplayName(MemberInfo member)
-    {
-        if (member == null)
+    public static string GetDisplayName( MemberInfo member ) {
+        if( member == null )
             return string.Empty;
-        if (member.GetCustomAttribute<DisplayAttribute>() is { } displayAttribute)
+        if( member.GetCustomAttribute<DisplayAttribute>() is { } displayAttribute )
             return displayAttribute.Name;
-        if (member.GetCustomAttribute<DisplayNameAttribute>() is { } displayNameAttribute)
+        if( member.GetCustomAttribute<DisplayNameAttribute>() is { } displayNameAttribute )
             return displayNameAttribute.DisplayName;
         return string.Empty;
     }
@@ -97,18 +83,16 @@ public static class Reflection
     /// 获取显示名称或描述,使用DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static string GetDisplayNameOrDescription<T>()
-    {
-        return GetDisplayNameOrDescription(Common.GetType<T>());
+    public static string GetDisplayNameOrDescription<T>() {
+        return GetDisplayNameOrDescription( Common.GetType<T>() );
     }
 
     /// <summary>
     /// 获取属性显示名称或描述,使用DisplayAttribute或DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
     /// </summary>
-    public static string GetDisplayNameOrDescription(MemberInfo member)
-    {
-        string result = GetDisplayName(member);
-        return result.IsEmpty() ? GetDescription(member) : result;
+    public static string GetDisplayNameOrDescription( MemberInfo member ) {
+        string result = GetDisplayName( member );
+        return result.IsEmpty() ? GetDescription( member ) : result;
     }
 
     #endregion
@@ -121,9 +105,8 @@ public static class Reflection
     /// <typeparam name="T">目标类型</typeparam>
     /// <param name="type">类型</param>
     /// <param name="parameters">传递给构造函数的参数</param>        
-    public static T CreateInstance<T>(SystemType type, params object[] parameters)
-    {
-        return Convert.To<T>(Activator.CreateInstance(type, parameters));
+    public static T CreateInstance<T>( SystemType type , params object[] parameters ) {
+        return Convert.To<T>( Activator.CreateInstance( type , parameters ) );
     }
 
     #endregion
@@ -135,9 +118,8 @@ public static class Reflection
     /// </summary>
     /// <typeparam name="TFind">查找类型</typeparam>
     /// <param name="assemblies">待查找的程序集列表</param>
-    public static List<SystemType> FindImplementTypes<TFind>(params Assembly[] assemblies)
-    {
-        return FindImplementTypes(typeof(TFind), assemblies);
+    public static List<SystemType> FindImplementTypes<TFind>( params Assembly[] assemblies ) {
+        return FindImplementTypes( typeof( TFind ) , assemblies );
     }
 
     /// <summary>
@@ -145,61 +127,53 @@ public static class Reflection
     /// </summary>
     /// <param name="findType">查找类型</param>
     /// <param name="assemblies">待查找的程序集列表</param>
-    public static List<SystemType> FindImplementTypes(SystemType findType, params Assembly[] assemblies)
-    {
+    public static List<SystemType> FindImplementTypes( SystemType findType , params Assembly[] assemblies ) {
         List<SystemType> result = new List<SystemType>();
-        foreach (Assembly assembly in assemblies)
-            result.AddRange(GetTypes(findType, assembly));
+        foreach( Assembly assembly in assemblies )
+            result.AddRange( GetTypes( findType , assembly ) );
         return result.Distinct().ToList();
     }
 
     /// <summary>
     /// 获取类型列表
     /// </summary>
-    private static List<SystemType> GetTypes(SystemType findType, Assembly assembly)
-    {
+    private static List<SystemType> GetTypes( SystemType findType , Assembly assembly ) {
         List<SystemType> result = new List<SystemType>();
-        if (assembly == null)
+        if( assembly == null )
             return result;
         SystemType[] types;
-        try
-        {
+        try {
             types = assembly.GetTypes();
-        }
-        catch (ReflectionTypeLoadException)
-        {
+        } catch( ReflectionTypeLoadException ) {
             return result;
         }
-        foreach (SystemType type in types)
-            AddType(result, findType, type);
+        foreach( SystemType type in types )
+            AddType( result , findType , type );
         return result;
     }
 
     /// <summary>
     /// 添加类型
     /// </summary>
-    private static void AddType(List<SystemType> result, SystemType findType, SystemType type)
-    {
-        if (type.IsInterface || type.IsAbstract)
+    private static void AddType( List<SystemType> result , SystemType findType , SystemType type ) {
+        if( type.IsInterface || type.IsAbstract )
             return;
-        if (findType.IsAssignableFrom(type) == false && MatchGeneric(findType, type) == false)
+        if( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType , type ) == false )
             return;
-        result.Add(type);
+        result.Add( type );
     }
 
     /// <summary>
     /// 泛型匹配
     /// </summary>
-    private static bool MatchGeneric(SystemType findType, SystemType type)
-    {
-        if (findType.IsGenericTypeDefinition == false)
+    private static bool MatchGeneric( SystemType findType , SystemType type ) {
+        if( findType.IsGenericTypeDefinition == false )
             return false;
         SystemType definition = findType.GetGenericTypeDefinition();
-        foreach (SystemType implementedInterface in type.FindInterfaces((filter, criteria) => true, null))
-        {
-            if (implementedInterface.IsGenericType == false)
+        foreach( SystemType implementedInterface in type.FindInterfaces( ( filter , criteria ) => true , null ) ) {
+            if( implementedInterface.IsGenericType == false )
                 continue;
-            return definition.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition());
+            return definition.IsAssignableFrom( implementedInterface.GetGenericTypeDefinition() );
         }
         return false;
     }
@@ -213,9 +187,8 @@ public static class Reflection
     /// </summary>
     /// <typeparam name="T">在该类型上查找接口</typeparam>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
-    public static List<SystemType> GetDirectInterfaceTypes<T>(params SystemType[] baseInterfaceTypes)
-    {
-        return GetDirectInterfaceTypes(typeof(T), baseInterfaceTypes);
+    public static List<SystemType> GetDirectInterfaceTypes<T>( params SystemType[] baseInterfaceTypes ) {
+        return GetDirectInterfaceTypes( typeof( T ) , baseInterfaceTypes );
     }
 
     /// <summary>
@@ -223,23 +196,20 @@ public static class Reflection
     /// </summary>
     /// <param name="type">在该类型上查找接口</param>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
-    public static List<SystemType> GetDirectInterfaceTypes(SystemType type, params SystemType[] baseInterfaceTypes)
-    {
+    public static List<SystemType> GetDirectInterfaceTypes( SystemType type , params SystemType[] baseInterfaceTypes ) {
         SystemType[] interfaceTypes = type.GetInterfaces();
-        List<SystemType> directInterfaceTypes = interfaceTypes.Except(interfaceTypes.SelectMany(t => t.GetInterfaces())).ToList();
-        if (baseInterfaceTypes == null || baseInterfaceTypes.Length == 0)
+        List<SystemType> directInterfaceTypes = interfaceTypes.Except( interfaceTypes.SelectMany( t => t.GetInterfaces() ) ).ToList();
+        if( baseInterfaceTypes == null || baseInterfaceTypes.Length == 0 )
             return directInterfaceTypes;
         List<SystemType> result = new List<SystemType>();
-        foreach (SystemType interfaceType in directInterfaceTypes)
-        {
-            if (interfaceType.GetInterfaces().Any(baseInterfaceTypes.Contains) == false)
+        foreach( SystemType interfaceType in directInterfaceTypes ) {
+            if( interfaceType.GetInterfaces().Any( baseInterfaceTypes.Contains ) == false )
                 continue;
-            if (interfaceType.IsGenericType && !interfaceType.IsGenericTypeDefinition && interfaceType.FullName == null)
-            {
-                result.Add(interfaceType.GetGenericTypeDefinition());
+            if( interfaceType.IsGenericType && !interfaceType.IsGenericTypeDefinition && interfaceType.FullName == null ) {
+                result.Add( interfaceType.GetGenericTypeDefinition() );
                 continue;
             }
-            result.Add(interfaceType);
+            result.Add( interfaceType );
         }
         return result;
     }
@@ -252,11 +222,10 @@ public static class Reflection
     /// 是否集合
     /// </summary>
     /// <param name="type">类型</param>
-    public static bool IsCollection(SystemType type)
-    {
-        if (type.IsArray)
+    public static bool IsCollection( SystemType type ) {
+        if( type.IsArray )
             return true;
-        return IsGenericCollection(type);
+        return IsGenericCollection( type );
     }
 
     #endregion
@@ -267,17 +236,16 @@ public static class Reflection
     /// 是否泛型集合
     /// </summary>
     /// <param name="type">类型</param>
-    public static bool IsGenericCollection(SystemType type)
-    {
-        if (!type.IsGenericType)
+    public static bool IsGenericCollection( SystemType type ) {
+        if( !type.IsGenericType )
             return false;
         SystemType typeDefinition = type.GetGenericTypeDefinition();
-        return typeDefinition == typeof(IEnumerable<>)
-               || typeDefinition == typeof(IReadOnlyCollection<>)
-               || typeDefinition == typeof(IReadOnlyList<>)
-               || typeDefinition == typeof(ICollection<>)
-               || typeDefinition == typeof(IList<>)
-               || typeDefinition == typeof(List<>);
+        return typeDefinition == typeof( IEnumerable<> )
+               || typeDefinition == typeof( IReadOnlyCollection<> )
+               || typeDefinition == typeof( IReadOnlyList<> )
+               || typeDefinition == typeof( ICollection<> )
+               || typeDefinition == typeof( IList<> )
+               || typeDefinition == typeof( List<> );
     }
 
     #endregion
@@ -288,16 +256,14 @@ public static class Reflection
     /// 是否布尔类型
     /// </summary>
     /// <param name="member">成员</param>
-    public static bool IsBool(MemberInfo member)
-    {
-        if (member == null)
+    public static bool IsBool( MemberInfo member ) {
+        if( member == null )
             return false;
-        switch (member.MemberType)
-        {
+        switch( member.MemberType ) {
             case MemberTypes.TypeInfo:
                 return member.ToString() == Meow.Type.TypeFullName.Bool;
             case MemberTypes.Property:
-                return IsBool((PropertyInfo)member);
+                return IsBool( ( PropertyInfo ) member );
         }
         return false;
     }
@@ -305,9 +271,8 @@ public static class Reflection
     /// <summary>
     /// 是否布尔类型
     /// </summary>
-    private static bool IsBool(PropertyInfo property)
-    {
-        return property.PropertyType == typeof(bool) || property.PropertyType == typeof(bool?);
+    private static bool IsBool( PropertyInfo property ) {
+        return property.PropertyType == typeof( bool ) || property.PropertyType == typeof( bool? );
     }
 
     #endregion
@@ -318,16 +283,14 @@ public static class Reflection
     /// 是否枚举类型
     /// </summary>
     /// <param name="member">成员</param>
-    public static bool IsEnum(MemberInfo member)
-    {
-        if (member == null)
+    public static bool IsEnum( MemberInfo member ) {
+        if( member == null )
             return false;
-        switch (member.MemberType)
-        {
+        switch( member.MemberType ) {
             case MemberTypes.TypeInfo:
-                return ((TypeInfo)member).IsEnum;
+                return ( ( TypeInfo ) member ).IsEnum;
             case MemberTypes.Property:
-                return IsEnum((PropertyInfo)member);
+                return IsEnum( ( PropertyInfo ) member );
         }
         return false;
     }
@@ -335,12 +298,11 @@ public static class Reflection
     /// <summary>
     /// 是否枚举类型
     /// </summary>
-    private static bool IsEnum(PropertyInfo property)
-    {
-        if (property.PropertyType.GetTypeInfo().IsEnum)
+    private static bool IsEnum( PropertyInfo property ) {
+        if( property.PropertyType.GetTypeInfo().IsEnum )
             return true;
-        SystemType value = Nullable.GetUnderlyingType(property.PropertyType);
-        if (value == null)
+        SystemType value = Nullable.GetUnderlyingType( property.PropertyType );
+        if( value == null )
             return false;
         return value.GetTypeInfo().IsEnum;
     }
@@ -353,16 +315,14 @@ public static class Reflection
     /// 是否日期类型
     /// </summary>
     /// <param name="member">成员</param>
-    public static bool IsDate(MemberInfo member)
-    {
-        if (member == null)
+    public static bool IsDate( MemberInfo member ) {
+        if( member == null )
             return false;
-        switch (member.MemberType)
-        {
+        switch( member.MemberType ) {
             case MemberTypes.TypeInfo:
                 return member.ToString() == Meow.Type.TypeFullName.DateTime;
             case MemberTypes.Property:
-                return IsDate((PropertyInfo)member);
+                return IsDate( ( PropertyInfo ) member );
         }
         return false;
     }
@@ -370,11 +330,10 @@ public static class Reflection
     /// <summary>
     /// 是否日期类型
     /// </summary>
-    private static bool IsDate(PropertyInfo property)
-    {
-        if (property.PropertyType == typeof(DateTime))
+    private static bool IsDate( PropertyInfo property ) {
+        if( property.PropertyType == typeof( DateTime ) )
             return true;
-        if (property.PropertyType == typeof(DateTime?))
+        if( property.PropertyType == typeof( DateTime? ) )
             return true;
         return false;
     }
@@ -387,16 +346,14 @@ public static class Reflection
     /// 是否整型
     /// </summary>
     /// <param name="member">成员</param>
-    public static bool IsInt(MemberInfo member)
-    {
-        if (member == null)
+    public static bool IsInt( MemberInfo member ) {
+        if( member == null )
             return false;
-        switch (member.MemberType)
-        {
+        switch( member.MemberType ) {
             case MemberTypes.TypeInfo:
                 return member.ToString() == Meow.Type.TypeFullName.Int || member.ToString() == Meow.Type.TypeFullName.Short || member.ToString() == Meow.Type.TypeFullName.Long;
             case MemberTypes.Property:
-                return IsInt((PropertyInfo)member);
+                return IsInt( ( PropertyInfo ) member );
         }
         return false;
     }
@@ -404,19 +361,18 @@ public static class Reflection
     /// <summary>
     /// 是否整型
     /// </summary>
-    private static bool IsInt(PropertyInfo property)
-    {
-        if (property.PropertyType == typeof(int))
+    private static bool IsInt( PropertyInfo property ) {
+        if( property.PropertyType == typeof( int ) )
             return true;
-        if (property.PropertyType == typeof(int?))
+        if( property.PropertyType == typeof( int? ) )
             return true;
-        if (property.PropertyType == typeof(short))
+        if( property.PropertyType == typeof( short ) )
             return true;
-        if (property.PropertyType == typeof(short?))
+        if( property.PropertyType == typeof( short? ) )
             return true;
-        if (property.PropertyType == typeof(long))
+        if( property.PropertyType == typeof( long ) )
             return true;
-        if (property.PropertyType == typeof(long?))
+        if( property.PropertyType == typeof( long? ) )
             return true;
         return false;
     }
@@ -429,18 +385,16 @@ public static class Reflection
     /// 是否浮点型
     /// </summary>
     /// <param name="member">成员</param>
-    public static bool IsNumber(MemberInfo member)
-    {
-        if (member == null)
+    public static bool IsNumber( MemberInfo member ) {
+        if( member == null )
             return false;
-        if (IsInt(member))
+        if( IsInt( member ) )
             return true;
-        switch (member.MemberType)
-        {
+        switch( member.MemberType ) {
             case MemberTypes.TypeInfo:
                 return member.ToString() == Meow.Type.TypeFullName.Double || member.ToString() == Meow.Type.TypeFullName.Decimal || member.ToString() == Meow.Type.TypeFullName.Float;
             case MemberTypes.Property:
-                return IsNumber((PropertyInfo)member);
+                return IsNumber( ( PropertyInfo ) member );
         }
         return false;
     }
@@ -448,19 +402,18 @@ public static class Reflection
     /// <summary>
     /// 是否数值类型
     /// </summary>
-    private static bool IsNumber(PropertyInfo property)
-    {
-        if (property.PropertyType == typeof(double))
+    private static bool IsNumber( PropertyInfo property ) {
+        if( property.PropertyType == typeof( double ) )
             return true;
-        if (property.PropertyType == typeof(double?))
+        if( property.PropertyType == typeof( double? ) )
             return true;
-        if (property.PropertyType == typeof(decimal))
+        if( property.PropertyType == typeof( decimal ) )
             return true;
-        if (property.PropertyType == typeof(decimal?))
+        if( property.PropertyType == typeof( decimal? ) )
             return true;
-        if (property.PropertyType == typeof(float))
+        if( property.PropertyType == typeof( float ) )
             return true;
-        if (property.PropertyType == typeof(float?))
+        if( property.PropertyType == typeof( float? ) )
             return true;
         return false;
     }
@@ -473,16 +426,15 @@ public static class Reflection
     /// 获取元素类型，如果是集合，返回集合的元素类型
     /// </summary>
     /// <param name="type">类型</param>
-    public static SystemType GetElementType(SystemType type)
-    {
-        if (IsCollection(type) == false)
+    public static SystemType GetElementType( SystemType type ) {
+        if( IsCollection( type ) == false )
             return type;
-        if (type.IsArray)
+        if( type.IsArray )
             return type.GetElementType();
         SystemType[] genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
-        if (genericArgumentsTypes == null || genericArgumentsTypes.Length == 0)
-            throw new ArgumentException(nameof(genericArgumentsTypes));
-        return genericArgumentsTypes[0];
+        if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
+            throw new ArgumentException( nameof( genericArgumentsTypes ) );
+        return genericArgumentsTypes[ 0 ];
     }
 
     #endregion
@@ -493,24 +445,22 @@ public static class Reflection
     /// 获取顶级基类
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
-    public static SystemType GetTopBaseType<T>()
-    {
-        return GetTopBaseType(typeof(T));
+    public static SystemType GetTopBaseType<T>() {
+        return GetTopBaseType( typeof( T ) );
     }
 
     /// <summary>
     /// 获取顶级基类
     /// </summary>
     /// <param name="type">类型</param>
-    public static SystemType GetTopBaseType(SystemType type)
-    {
-        if (type == null)
+    public static SystemType GetTopBaseType( SystemType type ) {
+        if( type == null )
             return null;
-        if (type.IsInterface)
+        if( type.IsInterface )
             return type;
-        if (type.BaseType == typeof(object))
+        if( type.BaseType == typeof( object ) )
             return type;
-        return GetTopBaseType(type.BaseType);
+        return GetTopBaseType( type.BaseType );
     }
 
     #endregion
@@ -521,24 +471,22 @@ public static class Reflection
     /// 获取类型枚举
     /// </summary>
     /// <param name="type">类型</param>
-    public static Meow.Type.TypeEnum? GetTypeEnum(object type)
-    {
-        if (type == null)
+    public static Meow.Type.TypeEnum? GetTypeEnum( object type ) {
+        if( type == null )
             return null;
-        return GetTypeEnumByType(type.GetType());
+        return GetTypeEnumByType( type.GetType() );
     }
 
     /// <summary>
     /// 获取类型枚举
     /// </summary>
     /// <param name="type">类型</param>
-    public static Meow.Type.TypeEnum? GetTypeEnumByType(SystemType type)
-    {
-        if (type == null)
+    public static Meow.Type.TypeEnum? GetTypeEnumByType( SystemType type ) {
+        if( type == null )
             return null;
-        if (IsCollection(type))
-            return GetCollectionType(type.Name);
-        return GetTypeEnumByMemberInfo(type.GetTypeInfo());
+        if( IsCollection( type ) )
+            return GetCollectionType( type.Name );
+        return GetTypeEnumByMemberInfo( type.GetTypeInfo() );
     }
 
     #region 实现
@@ -564,13 +512,12 @@ public static class Reflection
     /// 获取集合类型
     /// </summary>
     /// <param name="typeName">类型名称</param>
-    private static Meow.Type.TypeEnum? GetCollectionType(string typeName)
-    {
-        if (typeName.Contains(_matchTypeEnumArray))
+    private static Meow.Type.TypeEnum? GetCollectionType( string typeName ) {
+        if( typeName.Contains( _matchTypeEnumArray ) )
             return Meow.Type.TypeEnum.Array;
-        if (typeName.StartsWith(_matchTypeEnumDictionary))
+        if( typeName.StartsWith( _matchTypeEnumDictionary ) )
             return Meow.Type.TypeEnum.Dictionary;
-        if (typeName.StartsWith(_matchTypeEnumList))
+        if( typeName.StartsWith( _matchTypeEnumList ) )
             return Meow.Type.TypeEnum.List;
         return null;
     }
@@ -579,14 +526,12 @@ public static class Reflection
     /// 获取类型枚举
     /// </summary>
     /// <param name="memberInfo">成员信息</param>
-    private static Meow.Type.TypeEnum? GetTypeEnumByMemberInfo(MemberInfo memberInfo)
-    {
-        switch (memberInfo?.MemberType)
-        {
+    private static Meow.Type.TypeEnum? GetTypeEnumByMemberInfo( MemberInfo memberInfo ) {
+        switch( memberInfo?.MemberType ) {
             case MemberTypes.TypeInfo:
-                return GetTypeEnumByTypeInfo((TypeInfo)memberInfo);
+                return GetTypeEnumByTypeInfo( ( TypeInfo ) memberInfo );
             case MemberTypes.Property:
-                return GetTypeEnumByPropertyInfo((PropertyInfo)memberInfo);
+                return GetTypeEnumByPropertyInfo( ( PropertyInfo ) memberInfo );
             default:
                 return null;
         }
@@ -596,12 +541,10 @@ public static class Reflection
     /// 获取类型枚举
     /// </summary>
     /// <param name="typeInfo">类型信息</param>
-    private static Meow.Type.TypeEnum? GetTypeEnumByTypeInfo(TypeInfo typeInfo)
-    {
-        if (typeInfo.IsEnum)
+    private static Meow.Type.TypeEnum? GetTypeEnumByTypeInfo( TypeInfo typeInfo ) {
+        if( typeInfo.IsEnum )
             return Meow.Type.TypeEnum.Enum;
-        switch (typeInfo.ToString())
-        {
+        switch( typeInfo.ToString() ) {
             case Meow.Type.TypeFullName.Sbyte:
                 return Meow.Type.TypeEnum.Sbyte;
             case Meow.Type.TypeFullName.Byte:
@@ -639,7 +582,7 @@ public static class Reflection
             case Meow.Type.TypeFullName.DateTime:
                 return Meow.Type.TypeEnum.DateTime;
             default:
-                if (typeInfo.IsClass)
+                if( typeInfo.IsClass )
                     return Meow.Type.TypeEnum.Objects;
                 return null;
         }
@@ -649,47 +592,46 @@ public static class Reflection
     /// 获取类型枚举
     /// </summary>
     /// <param name="propertyInfo">属性信息</param>
-    private static Meow.Type.TypeEnum? GetTypeEnumByPropertyInfo(PropertyInfo propertyInfo)
-    {
-        if (IsEnum(propertyInfo))
+    private static Meow.Type.TypeEnum? GetTypeEnumByPropertyInfo( PropertyInfo propertyInfo ) {
+        if( IsEnum( propertyInfo ) )
             return Meow.Type.TypeEnum.Enum;
-        if (propertyInfo.PropertyType == typeof(sbyte) || propertyInfo.PropertyType == typeof(sbyte?))
+        if( propertyInfo.PropertyType == typeof( sbyte ) || propertyInfo.PropertyType == typeof( sbyte? ) )
             return Meow.Type.TypeEnum.Sbyte;
-        if (propertyInfo.PropertyType == typeof(byte) || propertyInfo.PropertyType == typeof(byte?))
+        if( propertyInfo.PropertyType == typeof( byte ) || propertyInfo.PropertyType == typeof( byte? ) )
             return Meow.Type.TypeEnum.Byte;
-        if (propertyInfo.PropertyType == typeof(short) || propertyInfo.PropertyType == typeof(short?))
+        if( propertyInfo.PropertyType == typeof( short ) || propertyInfo.PropertyType == typeof( short? ) )
             return Meow.Type.TypeEnum.Short;
-        if (propertyInfo.PropertyType == typeof(ushort) || propertyInfo.PropertyType == typeof(ushort?))
+        if( propertyInfo.PropertyType == typeof( ushort ) || propertyInfo.PropertyType == typeof( ushort? ) )
             return Meow.Type.TypeEnum.Ushort;
-        if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
+        if( propertyInfo.PropertyType == typeof( int ) || propertyInfo.PropertyType == typeof( int? ) )
             return Meow.Type.TypeEnum.Int;
-        if (propertyInfo.PropertyType == typeof(uint) || propertyInfo.PropertyType == typeof(uint?))
+        if( propertyInfo.PropertyType == typeof( uint ) || propertyInfo.PropertyType == typeof( uint? ) )
             return Meow.Type.TypeEnum.Uint;
-        if (propertyInfo.PropertyType == typeof(long) || propertyInfo.PropertyType == typeof(long?))
+        if( propertyInfo.PropertyType == typeof( long ) || propertyInfo.PropertyType == typeof( long? ) )
             return Meow.Type.TypeEnum.Long;
-        if (propertyInfo.PropertyType == typeof(ulong) || propertyInfo.PropertyType == typeof(ulong?))
+        if( propertyInfo.PropertyType == typeof( ulong ) || propertyInfo.PropertyType == typeof( ulong? ) )
             return Meow.Type.TypeEnum.Ulong;
-        if (propertyInfo.PropertyType == typeof(nint) || propertyInfo.PropertyType == typeof(nint?))
+        if( propertyInfo.PropertyType == typeof( nint ) || propertyInfo.PropertyType == typeof( nint? ) )
             return Meow.Type.TypeEnum.Nint;
-        if (propertyInfo.PropertyType == typeof(nuint) || propertyInfo.PropertyType == typeof(nuint?))
+        if( propertyInfo.PropertyType == typeof( nuint ) || propertyInfo.PropertyType == typeof( nuint? ) )
             return Meow.Type.TypeEnum.Nuint;
-        if (propertyInfo.PropertyType == typeof(float) || propertyInfo.PropertyType == typeof(float?))
+        if( propertyInfo.PropertyType == typeof( float ) || propertyInfo.PropertyType == typeof( float? ) )
             return Meow.Type.TypeEnum.Float;
-        if (propertyInfo.PropertyType == typeof(double) || propertyInfo.PropertyType == typeof(double?))
+        if( propertyInfo.PropertyType == typeof( double ) || propertyInfo.PropertyType == typeof( double? ) )
             return Meow.Type.TypeEnum.Double;
-        if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
+        if( propertyInfo.PropertyType == typeof( decimal ) || propertyInfo.PropertyType == typeof( decimal? ) )
             return Meow.Type.TypeEnum.Decimal;
-        if (propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(bool?))
+        if( propertyInfo.PropertyType == typeof( bool ) || propertyInfo.PropertyType == typeof( bool? ) )
             return Meow.Type.TypeEnum.Bool;
-        if (propertyInfo.PropertyType == typeof(char) || propertyInfo.PropertyType == typeof(char?))
+        if( propertyInfo.PropertyType == typeof( char ) || propertyInfo.PropertyType == typeof( char? ) )
             return Meow.Type.TypeEnum.Char;
-        if (propertyInfo.PropertyType == typeof(string))
+        if( propertyInfo.PropertyType == typeof( string ) )
             return Meow.Type.TypeEnum.String;
-        if (propertyInfo.PropertyType == typeof(Guid) || propertyInfo.PropertyType == typeof(Guid?))
+        if( propertyInfo.PropertyType == typeof( Guid ) || propertyInfo.PropertyType == typeof( Guid? ) )
             return Meow.Type.TypeEnum.Guid;
-        if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+        if( propertyInfo.PropertyType == typeof( DateTime ) || propertyInfo.PropertyType == typeof( DateTime? ) )
             return Meow.Type.TypeEnum.DateTime;
-        if (IsObjects(propertyInfo))
+        if( IsObjects( propertyInfo ) )
             return Meow.Type.TypeEnum.Objects;
         return null;
     }
@@ -698,12 +640,11 @@ public static class Reflection
     /// 是否对象类型
     /// </summary>
     /// <param name="propertyInfo">属性信息</param>
-    private static bool IsObjects(PropertyInfo propertyInfo)
-    {
-        if (propertyInfo.PropertyType.GetTypeInfo().IsClass)
+    private static bool IsObjects( PropertyInfo propertyInfo ) {
+        if( propertyInfo.PropertyType.GetTypeInfo().IsClass )
             return true;
-        SystemType value = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
-        if (value == null)
+        SystemType value = Nullable.GetUnderlyingType( propertyInfo.PropertyType );
+        if( value == null )
             return false;
         return value.GetTypeInfo().IsClass;
     }
@@ -718,11 +659,10 @@ public static class Reflection
     /// 解析对象
     /// </summary>
     /// <param name="value">值</param>
-    public static TypeItem Analyzing(object value)
-    {
-        if (value == null)
+    public static TypeItem Analyzing( object value ) {
+        if( value == null )
             return TypeItem.Default;
-        TypeItem result = AnalyzingByValue(value, null);
+        TypeItem result = AnalyzingByValue( value , null );
         return result ?? TypeItem.Default;
     }
 
@@ -733,12 +673,11 @@ public static class Reflection
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingByValue(object value, PropertyInfo parentProperty)
-    {
-        if (value == null)
+    private static TypeItem AnalyzingByValue( object value , PropertyInfo parentProperty ) {
+        if( value == null )
             return null;
-        TypeEnum? typeEnum = GetTypeEnum(value);
-        return AnalyzingByTypeEnum(typeEnum, value, parentProperty);
+        TypeEnum? typeEnum = GetTypeEnum( value );
+        return AnalyzingByTypeEnum( typeEnum , value , parentProperty );
     }
 
     /// <summary>
@@ -747,12 +686,11 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingByType(SystemType type, object value, PropertyInfo parentProperty)
-    {
-        if (type == null || value == null)
+    private static TypeItem AnalyzingByType( SystemType type , object value , PropertyInfo parentProperty ) {
+        if( type == null || value == null )
             return null;
-        TypeEnum? typeEnum = GetTypeEnumByType(type);
-        return AnalyzingByTypeEnum(typeEnum, value, parentProperty);
+        TypeEnum? typeEnum = GetTypeEnumByType( type );
+        return AnalyzingByTypeEnum( typeEnum , value , parentProperty );
     }
 
     /// <summary>
@@ -761,10 +699,8 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingByTypeEnum(TypeEnum? type, object value, PropertyInfo parentProperty)
-    {
-        switch (type)
-        {
+    private static TypeItem AnalyzingByTypeEnum( TypeEnum? type , object value , PropertyInfo parentProperty ) {
+        switch( type ) {
             case TypeEnum.Sbyte:
             case TypeEnum.Byte:
             case TypeEnum.Short:
@@ -784,19 +720,19 @@ public static class Reflection
             case TypeEnum.Guid:
             case TypeEnum.DateTime:
             case TypeEnum.Enum:
-                return AnalyzingSingle(type, value, parentProperty);
+                return AnalyzingSingle( type , value , parentProperty );
             case TypeEnum.Objects:
-                return AnalyzingObjects(type, value, parentProperty);
+                return AnalyzingObjects( type , value , parentProperty );
             case TypeEnum.Array:
-                return AnalyzingList(type, value as IList, parentProperty);
+                return AnalyzingList( type , value as IList , parentProperty );
             case TypeEnum.Dictionary:
                 return null;
             case TypeEnum.List:
-                return AnalyzingList(type, value as IList, parentProperty);
+                return AnalyzingList( type , value as IList , parentProperty );
             case null:
                 return null;
             default:
-                throw new ArgumentOutOfRangeException(nameof(type));
+                throw new ArgumentOutOfRangeException( nameof( type ) );
         }
     }
 
@@ -806,11 +742,10 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingSingle(TypeEnum? type, object value, PropertyInfo parentProperty)
-    {
-        if (value.SafeString().IsEmpty())
+    private static TypeItem AnalyzingSingle( TypeEnum? type , object value , PropertyInfo parentProperty ) {
+        if( value.SafeString().IsEmpty() )
             return null;
-        return new TypeItem(parentProperty?.Name, type, value);
+        return new TypeItem( parentProperty?.Name , type , value );
     }
 
     /// <summary>
@@ -819,25 +754,23 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingObjects(TypeEnum? type, object value, PropertyInfo parentProperty)
-    {
-        if (value == null)
+    private static TypeItem AnalyzingObjects( TypeEnum? type , object value , PropertyInfo parentProperty ) {
+        if( value == null )
             return null;
         List<TypeItem> subsets = new List<TypeItem>();
-        PropertyInfo[] propertyList = value.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-        foreach (PropertyInfo property in propertyList)
-        {
-            object itemValue = property.GetValue(value, null);
-            if (itemValue == null)
+        PropertyInfo[] propertyList = value.GetType().GetProperties( BindingFlags.Instance | BindingFlags.Public );
+        foreach( PropertyInfo property in propertyList ) {
+            object itemValue = property.GetValue( value , null );
+            if( itemValue == null )
                 continue;
-            TypeItem subsetItem = AnalyzingByType(property.PropertyType, itemValue, property);
-            if (subsetItem == null)
+            TypeItem subsetItem = AnalyzingByType( property.PropertyType , itemValue , property );
+            if( subsetItem == null )
                 continue;
-            subsets.Add(subsetItem);
+            subsets.Add( subsetItem );
         }
-        if (subsets.IsEmpty())
+        if( subsets.IsEmpty() )
             return null;
-        return new TypeItem(parentProperty?.Name, type, null, subsets);
+        return new TypeItem( parentProperty?.Name , type , null , subsets );
     }
 
     /// <summary>
@@ -846,21 +779,19 @@ public static class Reflection
     /// <param name="type">类型</param>
     /// <param name="value">值</param>
     /// <param name="parentProperty">父属性信息</param>
-    private static TypeItem AnalyzingList(TypeEnum? type, IList value, PropertyInfo parentProperty)
-    {
-        if (value == null)
+    private static TypeItem AnalyzingList( TypeEnum? type , IList value , PropertyInfo parentProperty ) {
+        if( value == null )
             return null;
         List<TypeItem> subsets = new List<TypeItem>();
-        foreach (object itemValue in value)
-        {
-            TypeItem subsetValue = AnalyzingByValue(itemValue, parentProperty);
-            if (subsetValue == null)
+        foreach( object itemValue in value ) {
+            TypeItem subsetValue = AnalyzingByValue( itemValue , parentProperty );
+            if( subsetValue == null )
                 continue;
-            subsets.Add(subsetValue);
+            subsets.Add( subsetValue );
         }
-        if (subsets.IsEmpty())
+        if( subsets.IsEmpty() )
             return null;
-        return new TypeItem(parentProperty?.Name, type, null, subsets);
+        return new TypeItem( parentProperty?.Name , type , null , subsets );
     }
 
     #endregion
@@ -873,29 +804,25 @@ public static class Reflection
     /// 解析对象到字典
     /// </summary>
     /// <param name="value">值</param>
-    public static Dictionary<string, object> AnalyzingToDictionary(object value)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        TypeItem objectTrees = AnalyzingByValue(value, null);
+    public static Dictionary<string , object> AnalyzingToDictionary( object value ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
+        TypeItem objectTrees = AnalyzingByValue( value , null );
 
-        switch (objectTrees.Type)
-        {
+        switch( objectTrees.Type ) {
             case TypeEnum.Objects:
-                foreach (TypeItem item in objectTrees.Data)
-                {
-                    Dictionary<string, object> itemResult = AnalyzingToDictionary(item, IsSingleType(item.Type) ? null : item.Text);
-                    result.AddRange(itemResult);
+                foreach( TypeItem item in objectTrees.Data ) {
+                    Dictionary<string , object> itemResult = AnalyzingToDictionary( item , IsSingleType( item.Type ) ? null : item.Text );
+                    result.AddRange( itemResult );
                 }
                 break;
             case TypeEnum.Array:
             case TypeEnum.List:
                 int count = 0;
-                foreach (TypeItem item in objectTrees.Data)
-                {
-                    Dictionary<string, object> itemResult = AnalyzingToDictionary(item, count);
-                    if (itemResult.IsEmpty())
+                foreach( TypeItem item in objectTrees.Data ) {
+                    Dictionary<string , object> itemResult = AnalyzingToDictionary( item , count );
+                    if( itemResult.IsEmpty() )
                         continue;
-                    result.AddRange(itemResult);
+                    result.AddRange( itemResult );
                     count += 1;
                 }
                 break;
@@ -911,10 +838,8 @@ public static class Reflection
     /// 是否单类型：包含值类型和String类型
     /// </summary>
     /// <param name="type">类型枚举</param>
-    private static bool IsSingleType(TypeEnum? type)
-    {
-        switch (type)
-        {
+    private static bool IsSingleType( TypeEnum? type ) {
+        switch( type ) {
             case TypeEnum.Sbyte:
             case TypeEnum.Byte:
             case TypeEnum.Short:
@@ -945,14 +870,12 @@ public static class Reflection
     /// </summary>
     /// <param name="item">项</param>
     /// <param name="count">计数</param>
-    private static Dictionary<string, object> AnalyzingToDictionary(TypeItem item, int count)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        foreach (TypeItem subset in item.Data)
-        {
-            TypeItem newSubset = new TypeItem($"{subset.Text}[{count}]", subset.Type, subset.Value, subset.Data);
-            Dictionary<string, object> subsetResult = AnalyzingToDictionary(newSubset, IsSingleType(newSubset.Type) ? null : newSubset.Text);
-            result.AddRange(subsetResult);
+    private static Dictionary<string , object> AnalyzingToDictionary( TypeItem item , int count ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
+        foreach( TypeItem subset in item.Data ) {
+            TypeItem newSubset = new TypeItem( $"{subset.Text}[{count}]" , subset.Type , subset.Value , subset.Data );
+            Dictionary<string , object> subsetResult = AnalyzingToDictionary( newSubset , IsSingleType( newSubset.Type ) ? null : newSubset.Text );
+            result.AddRange( subsetResult );
         }
         return result;
     }
@@ -962,19 +885,17 @@ public static class Reflection
     /// </summary>
     /// <param name="item">项</param>
     /// <param name="parentName">父名称</param>
-    private static Dictionary<string, object> AnalyzingToDictionary(TypeItem item, string parentName)
-    {
-        switch (item.Type)
-        {
+    private static Dictionary<string , object> AnalyzingToDictionary( TypeItem item , string parentName ) {
+        switch( item.Type ) {
             case null:
                 return null;
             case TypeEnum.Objects:
-                return AnalyzingToObjectDictionary(item.Data, parentName);
+                return AnalyzingToObjectDictionary( item.Data , parentName );
             case TypeEnum.Array:
             case TypeEnum.List:
-                return AnalyzingToCollectionDictionary(item.Data, parentName);
+                return AnalyzingToCollectionDictionary( item.Data , parentName );
             default:
-                return AnalyzingToSingleDictionary(item, parentName);
+                return AnalyzingToSingleDictionary( item , parentName );
         }
     }
 
@@ -983,16 +904,14 @@ public static class Reflection
     /// </summary>
     /// <param name="list">集合</param>
     /// <param name="parentName">父名称</param>
-    private static Dictionary<string, object> AnalyzingToCollectionDictionary(List<TypeItem> list, string parentName)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
+    private static Dictionary<string , object> AnalyzingToCollectionDictionary( List<TypeItem> list , string parentName ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
         int count = 0;
-        foreach (TypeItem item in list)
-        {
-            Dictionary<string, object> itemResult = AnalyzingToCollectionDictionary(item, $"{parentName}[{count}]");
-            if (itemResult.IsEmpty())
+        foreach( TypeItem item in list ) {
+            Dictionary<string , object> itemResult = AnalyzingToCollectionDictionary( item , $"{parentName}[{count}]" );
+            if( itemResult.IsEmpty() )
                 continue;
-            result.AddRange(itemResult);
+            result.AddRange( itemResult );
             count += 1;
         }
         return result;
@@ -1003,14 +922,12 @@ public static class Reflection
     /// </summary>
     /// <param name="item">项</param>
     /// <param name="itemName">项名称</param>
-    private static Dictionary<string, object> AnalyzingToCollectionDictionary(TypeItem item, string itemName)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        switch (item.Type)
-        {
+    private static Dictionary<string , object> AnalyzingToCollectionDictionary( TypeItem item , string itemName ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
+        switch( item.Type ) {
             case null:
             case TypeEnum.Dictionary:
-                return new Dictionary<string, object>();
+                return new Dictionary<string , object>();
             case TypeEnum.Sbyte:
             case TypeEnum.Byte:
             case TypeEnum.Short:
@@ -1030,21 +947,21 @@ public static class Reflection
             case TypeEnum.Guid:
             case TypeEnum.DateTime:
             case TypeEnum.Enum:
-                result.Add(itemName, item.Value);
+                result.Add( itemName , item.Value );
                 break;
             case TypeEnum.Objects:
-                IEnumerable<KeyValuePair<string, object>> objectsResult = AnalyzingToDictionary(item, itemName).Where(t => !t.Value.SafeString().IsEmpty());
-                result.AddRange(objectsResult);
+                IEnumerable<KeyValuePair<string , object>> objectsResult = AnalyzingToDictionary( item , itemName ).Where( t => !t.Value.SafeString().IsEmpty() );
+                result.AddRange( objectsResult );
                 break;
             case TypeEnum.Array:
             case TypeEnum.List:
-                IEnumerable<KeyValuePair<string, object>> collectionResult = AnalyzingToDictionary(item, itemName).Where(t => !t.Value.SafeString().IsEmpty());
-                result.AddRange(collectionResult);
+                IEnumerable<KeyValuePair<string , object>> collectionResult = AnalyzingToDictionary( item , itemName ).Where( t => !t.Value.SafeString().IsEmpty() );
+                result.AddRange( collectionResult );
                 break;
             default:
-                if (!item.Data.IsEmpty())
-                    if (!item.Data[0].Value.SafeString().IsEmpty())
-                        result.Add(itemName, item.Data[0].Value);
+                if( !item.Data.IsEmpty() )
+                    if( !item.Data[ 0 ].Value.SafeString().IsEmpty() )
+                        result.Add( itemName , item.Data[ 0 ].Value );
                 break;
         }
         return result;
@@ -1055,18 +972,16 @@ public static class Reflection
     /// </summary>
     /// <param name="list">集合</param>
     /// <param name="parentName">父名称</param>
-    private static Dictionary<string, object> AnalyzingToObjectDictionary(List<TypeItem> list, string parentName)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        foreach (TypeItem item in list)
-        {
-            TypeItem itemResult = AnalyzingToObjectItem(item, parentName);
-            if (item.Type != TypeEnum.Objects)
-                result.Add(itemResult.Text, itemResult.Value);
-            if (IsSingleType(item.Type))
+    private static Dictionary<string , object> AnalyzingToObjectDictionary( List<TypeItem> list , string parentName ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
+        foreach( TypeItem item in list ) {
+            TypeItem itemResult = AnalyzingToObjectItem( item , parentName );
+            if( item.Type != TypeEnum.Objects )
+                result.Add( itemResult.Text , itemResult.Value );
+            if( IsSingleType( item.Type ) )
                 continue;
-            Dictionary<string, object> subsets = AnalyzingToDictionary(item, itemResult.Text);
-            result.AddRangeNotNull(subsets);
+            Dictionary<string , object> subsets = AnalyzingToDictionary( item , itemResult.Text );
+            result.AddRangeNotNull( subsets );
         }
         return result;
     }
@@ -1076,10 +991,9 @@ public static class Reflection
     /// </summary>
     /// <param name="item">项</param>
     /// <param name="parentName">父名称</param>
-    private static TypeItem AnalyzingToObjectItem(TypeItem item, string parentName)
-    {
+    private static TypeItem AnalyzingToObjectItem( TypeItem item , string parentName ) {
         string name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
-        return new TypeItem(name, item.Type, item.Value, item.Data);
+        return new TypeItem( name , item.Type , item.Value , item.Data );
     }
 
     /// <summary>
@@ -1087,13 +1001,12 @@ public static class Reflection
     /// </summary>
     /// <param name="item">项</param>
     /// <param name="parentName">父名称</param>
-    private static Dictionary<string, object> AnalyzingToSingleDictionary(TypeItem item, string parentName)
-    {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        if (item.Value.SafeString().IsEmpty())
+    private static Dictionary<string , object> AnalyzingToSingleDictionary( TypeItem item , string parentName ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
+        if( item.Value.SafeString().IsEmpty() )
             return result;
         string name = parentName.IsEmpty() ? item.Text : $"{parentName}.{item.Text}";
-        result.Add(name, item.Value);
+        result.Add( name , item.Value );
         return result;
     }
 
@@ -1108,13 +1021,12 @@ public static class Reflection
     /// </summary>
     /// <param name="member">成员信息</param>
     /// <param name="instance">成员所在的类实例</param>
-    public static object GetPropertyValue(MemberInfo member, object instance)
-    {
-        if (member == null)
-            throw new ArgumentNullException(nameof(member));
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
-        return instance.GetType().GetProperty(member.Name)?.GetValue(instance);
+    public static object GetPropertyValue( MemberInfo member , object instance ) {
+        if( member == null )
+            throw new ArgumentNullException( nameof( member ) );
+        if( instance == null )
+            throw new ArgumentNullException( nameof( instance ) );
+        return instance.GetType().GetProperty( member.Name )?.GetValue( instance );
     }
 
     #endregion

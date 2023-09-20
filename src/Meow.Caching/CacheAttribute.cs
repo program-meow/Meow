@@ -1,7 +1,4 @@
-﻿using Meow.Aop;
-using SystemType = System.Type;
-
-namespace Meow.Caching;
+﻿namespace Meow.Caching;
 
 /// <summary>
 /// 缓存拦截器

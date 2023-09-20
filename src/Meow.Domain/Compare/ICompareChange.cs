@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Entity;
-
-namespace Meow.Domain.Compare;
+﻿namespace Meow.Domain.Compare;
 
 /// <summary>
 /// 通过对象比较获取变更属性集

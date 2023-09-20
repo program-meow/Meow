@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.Reflection;
+﻿namespace Meow.Reflection;
 
 /// <summary>
 /// 应用程序域类型查找器

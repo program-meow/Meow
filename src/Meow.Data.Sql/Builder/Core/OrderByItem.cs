@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Core;
+﻿namespace Meow.Data.Sql.Builder.Core;
 
 /// <summary>
 /// 排序项

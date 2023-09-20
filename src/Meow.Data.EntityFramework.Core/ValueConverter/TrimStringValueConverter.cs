@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.EntityFrameworkCore.ValueConverter;
+﻿namespace Meow.Data.EntityFrameworkCore.ValueConverter;
 
 /// <summary>
 /// 字符串值转换器,用于清除两端空白

@@ -3,7 +3,6 @@
 /// <summary>
 /// html操作
 /// </summary>
-public static class Html
-{
-       
+public static class Html {
+
 }

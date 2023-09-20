@@ -1,9 +1,4 @@
-﻿using Meow.Data.Extension;
-using Meow.Error;
-using Meow.Exception;
-using Meow.Extension;
-
-namespace Meow.Domain.Tree;
+﻿namespace Meow.Domain.Tree;
 
 /// <summary>
 /// 树形路径更新服务

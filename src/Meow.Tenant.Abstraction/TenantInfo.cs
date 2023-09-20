@@ -1,6 +1,4 @@
-﻿using Meow.Data;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 租户信息

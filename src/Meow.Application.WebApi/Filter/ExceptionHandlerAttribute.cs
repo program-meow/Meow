@@ -1,13 +1,4 @@
-﻿using Meow.Aop.Extension;
-using Meow.Application.Extension;
-using Meow.Exception;
-using Meow.Extension;
-using Meow.Helper;
-using Meow.Option;
-using Meow.Response;
-using SystemException = System.Exception;
-
-namespace Meow.Application.Filter;
+﻿namespace Meow.Application.Filter;
 
 /// <summary>
 /// 异常处理过滤器

@@ -1,7 +1,4 @@
-﻿using Meow.Error;
-using Meow.Extension;
-
-namespace Meow.Validation.Validator;
+﻿namespace Meow.Validation.Validator;
 
 /// <summary>
 /// 身份证验证

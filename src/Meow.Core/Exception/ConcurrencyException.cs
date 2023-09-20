@@ -1,5 +1,4 @@
 ﻿using Meow.Error;
-using SystemException = System.Exception;
 
 namespace Meow.Exception;
 

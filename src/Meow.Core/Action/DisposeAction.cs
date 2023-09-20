@@ -1,5 +1,4 @@
 ﻿using Meow.Extension;
-using SystemAction = System.Action;
 
 namespace Meow.Action;
 

@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data;
+﻿namespace Meow.Data;
 
 /// <summary>
 /// 连接字符串名称

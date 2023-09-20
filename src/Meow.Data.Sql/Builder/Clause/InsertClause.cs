@@ -1,9 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Cache;
-using Meow.Data.Sql.Builder.Core;
-using Meow.Data.Sql.Builder.Param;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Insert子句

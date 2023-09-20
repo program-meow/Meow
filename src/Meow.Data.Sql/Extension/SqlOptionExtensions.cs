@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Sql.Extension;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql配置扩展

@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Event.Extension;
+﻿namespace Meow.Event.Extension;
 
 /// <summary>
 /// 事件总线扩展

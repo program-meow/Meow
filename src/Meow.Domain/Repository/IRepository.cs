@@ -1,7 +1,4 @@
-﻿using Meow.Data.Store;
-using Meow.Domain.Entity;
-
-namespace Meow.Domain.Repository;
+﻿namespace Meow.Domain.Repository;
 
 /// <summary>
 /// 仓储

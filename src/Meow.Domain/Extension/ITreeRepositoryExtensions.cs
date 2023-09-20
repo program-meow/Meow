@@ -1,7 +1,4 @@
-﻿using Meow.Domain.Tree;
-using Meow.Extension;
-
-namespace Meow.Domain.Extension;
+﻿namespace Meow.Domain.Extension;
 
 /// <summary>
 /// 树形仓储扩展

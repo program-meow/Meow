@@ -1,8 +1,4 @@
-﻿using Meow.Authentication.Authorization;
-using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Authentication.Extension;
+﻿namespace Meow.Authentication.Extension;
 
 /// <summary>
 /// AspNetCore操作扩展

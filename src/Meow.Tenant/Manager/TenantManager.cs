@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using MeowISession = Meow.Authentication.Session.ISession;
-
-namespace Meow.Tenant.Manager;
+﻿namespace Meow.Tenant.Manager;
 
 /// <summary>
 /// 租户管理器

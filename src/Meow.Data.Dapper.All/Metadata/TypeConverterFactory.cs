@@ -1,7 +1,4 @@
-﻿using Meow.Data.Metadata;
-using Meow.Database;
-
-namespace Meow.Data.Dapper.Metadata;
+﻿namespace Meow.Data.Dapper.Metadata;
 
 /// <summary>
 /// 数据类型转换器工厂

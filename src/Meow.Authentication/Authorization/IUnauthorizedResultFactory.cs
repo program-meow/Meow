@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 未授权返回结果工厂

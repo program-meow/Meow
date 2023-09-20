@@ -1,12 +1,10 @@
-﻿using Meow.Data.Sql.Builder.Core;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// From子句
 /// </summary>
 public class FromClause : ClauseBase, IFromClause {
+
     #region 字段
 
     /// <summary>

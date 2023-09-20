@@ -7,3 +7,5 @@ global using System.Text;
 global using System.Reflection;
 global using System.Linq.Expressions;
 global using System.ComponentModel.DataAnnotations;
+global using Meow.Dependency;
+global using Meow.Data;

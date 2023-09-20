@@ -1,9 +1,4 @@
-﻿using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Operation;
-using Meow.Extension;
-using Meow.Math;
-
-namespace Meow.Data.Sql.Extension;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Join子句操作扩展

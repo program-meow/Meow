@@ -1,9 +1,4 @@
-﻿using Meow.Application.Dto;
-using Meow.Extension;
-using Meow.Model;
-using Meow.Query;
-
-namespace Meow.Application.Controller;
+﻿namespace Meow.Application.Controller;
 
 /// <summary>
 /// 查询控制器

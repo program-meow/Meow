@@ -1,8 +1,4 @@
-﻿using Meow.Exception;
-using Meow.Helper;
-using Meow.Validation;
-
-namespace Meow.Application.Dto;
+﻿namespace Meow.Application.Dto;
 
 /// <summary>
 /// 请求参数

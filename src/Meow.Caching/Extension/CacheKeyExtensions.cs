@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Caching.Extension;
+﻿namespace Meow.Caching.Extension;
 
 /// <summary>
 /// 缓存键扩展

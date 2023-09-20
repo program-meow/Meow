@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Response;
-
-namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Authentication.Authorization;
 
 /// <summary>
 /// 访问控制过滤器

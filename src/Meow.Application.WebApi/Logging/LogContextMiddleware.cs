@@ -1,8 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Logging;
-using Microsoft.AspNetCore.Http;
-
-namespace Meow.Application.Logging;
+﻿namespace Meow.Application.Logging;
 
 /// <summary>
 /// 日志上下文中间件

@@ -1,8 +1,4 @@
-﻿using Meow.Config;
-using Meow.Extension;
-using Meow.Tenant.Resolver;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 租户操作扩展

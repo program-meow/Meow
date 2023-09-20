@@ -1,8 +1,4 @@
-﻿using Meow.Application.Extension;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Application.Tree;
+﻿namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形查询操作

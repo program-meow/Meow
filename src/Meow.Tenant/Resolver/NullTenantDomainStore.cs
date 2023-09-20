@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Tenant.Resolver;
+﻿namespace Meow.Tenant.Resolver;
 
 /// <summary>
 /// 空租户域名存储器

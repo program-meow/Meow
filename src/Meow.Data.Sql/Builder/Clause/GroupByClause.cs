@@ -1,9 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Cache;
-using Meow.Data.Sql.Builder.Condition;
-using Meow.Extension;
-using Meow.Math;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Group By子句

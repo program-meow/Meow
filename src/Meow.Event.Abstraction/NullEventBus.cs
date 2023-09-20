@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Event;
+﻿namespace Meow.Event;
 
 /// <summary>
 /// 空事件总线

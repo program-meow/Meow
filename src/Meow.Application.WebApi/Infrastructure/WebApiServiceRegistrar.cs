@@ -1,13 +1,4 @@
-﻿using Meow.Application.Logging;
-using Meow.Extension;
-using Meow.Infrastructure;
-using Meow.Logging;
-using Meow.Option;
-using Meow.Response;
-using Microsoft.AspNetCore.Http;
-using SystemAction = System.Action;
-
-namespace Meow.Application.Infrastructure;
+﻿namespace Meow.Application.Infrastructure;
 
 /// <summary>
 /// Web Api服务注册器

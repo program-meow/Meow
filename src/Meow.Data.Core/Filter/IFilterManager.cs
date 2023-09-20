@@ -1,7 +1,4 @@
-﻿using Meow.Dependency;
-using SystemType = System.Type;
-
-namespace Meow.Data.Filter;
+﻿namespace Meow.Data.Filter;
 
 /// <summary>
 /// 数据过滤器管理器

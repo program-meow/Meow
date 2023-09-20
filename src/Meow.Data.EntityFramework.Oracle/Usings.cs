@@ -4,3 +4,8 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata;
 global using Oracle.EntityFrameworkCore.Infrastructure;
+global using Meow.Config;
+global using Meow.Extension;
+global using Meow.Domain.Extending;
+global using Meow.Data.EntityFrameworkCore.ValueComparer;
+global using Meow.Data.EntityFrameworkCore.ValueConverter;

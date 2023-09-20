@@ -1,6 +1,4 @@
-﻿using Meow.Aop;
-
-namespace Meow.Data;
+﻿namespace Meow.Data;
 
 /// <summary>
 /// 数据库信息

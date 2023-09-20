@@ -1,7 +1,4 @@
-﻿using Meow.Data.Dapper.TypeHandler;
-using Meow.Infrastructure;
-
-namespace Meow.Data.Dapper.Infrastructure;
+﻿namespace Meow.Data.Dapper.Infrastructure;
 
 /// <summary>
 /// Dapper服务注册器

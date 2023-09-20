@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// Is Null查询条件

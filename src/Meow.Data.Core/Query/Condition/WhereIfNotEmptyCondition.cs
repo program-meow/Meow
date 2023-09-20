@@ -1,7 +1,4 @@
-﻿using Meow.Data.Error;
-using Meow.Extension;
-
-namespace Meow.Data.Query.Condition;
+﻿namespace Meow.Data.Query.Condition;
 
 /// <summary>
 /// WhereIfNotEmpty条件

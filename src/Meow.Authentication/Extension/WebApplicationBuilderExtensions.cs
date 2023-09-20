@@ -1,7 +1,4 @@
-﻿using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Authentication.Extension;
+﻿namespace Meow.Authentication.Extension;
 
 /// <summary>
 /// Web应用生成器扩展

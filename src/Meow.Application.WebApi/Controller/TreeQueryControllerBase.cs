@@ -1,8 +1,4 @@
-﻿using Meow.Application.Tree;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Application.Controller;
+﻿namespace Meow.Application.Controller;
 
 /// <summary>
 /// 树形查询控制器

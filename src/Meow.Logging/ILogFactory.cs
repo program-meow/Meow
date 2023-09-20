@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.Logging;
+﻿namespace Meow.Logging;
 
 /// <summary>
 /// 日志操作工厂

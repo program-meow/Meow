@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Tree;
-
-namespace Meow.Data.EntityFrameworkCore.Tree;
+﻿namespace Meow.Data.EntityFrameworkCore.Tree;
 
 /// <summary>
 /// 树形仓储

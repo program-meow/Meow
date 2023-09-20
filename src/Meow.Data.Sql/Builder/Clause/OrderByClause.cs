@@ -1,8 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Cache;
-using Meow.Data.Sql.Builder.Core;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Order By子句

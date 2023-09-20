@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Meow.Extension;
+﻿using Meow.Extension;
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 集合操作
 /// </summary>
-public static class List
-{
+public static class List {
     /// <summary>
     /// 驼峰式命
     /// </summary>
     /// <param name="array">集合</param>
     /// <returns>驼峰形式字符串</returns>
-    public static string CamelCase(IEnumerable<string> array)
-    {
-        if (array == null)
+    public static string CamelCase( IEnumerable<string> array ) {
+        if( array == null )
             return string.Empty;
         StringBuilder result = new StringBuilder();
-        foreach (string each in array)
-            result.Append(String.FirstUpperCase(each.ToLower()));
+        foreach( string each in array )
+            result.Append( String.FirstUpperCase( each.ToLower() ) );
         return result.ToString();
     }
 
@@ -33,14 +27,13 @@ public static class List
     /// <param name="array">集合</param>
     /// <param name="quotes">引号，默认不带引号，范例：单引号 "'"</param>
     /// <param name="separator">分隔符，默认使用逗号分隔</param>
-    public static string Join<T>(IEnumerable<T> array, string quotes = "", string separator = ",")
-    {
-        if (array == null)
+    public static string Join<T>( IEnumerable<T> array , string quotes = "" , string separator = "," ) {
+        if( array == null )
             return string.Empty;
         StringBuilder result = new StringBuilder();
-        foreach (T each in array)
-            result.AppendFormat("{0}{1}{0}{2}", quotes, each, separator);
-        return String.RemoveEnd(result.ToString(), separator);
+        foreach( T each in array )
+            result.AppendFormat( "{0}{1}{0}{2}" , quotes , each , separator );
+        return String.RemoveEnd( result.ToString() , separator );
     }
 
     /// <summary>
@@ -48,11 +41,10 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <returns>小写字符串集合</returns>
-    public static List<string> ToLower(IEnumerable<string> array)
-    {
-        if (array == null)
+    public static List<string> ToLower( IEnumerable<string> array ) {
+        if( array == null )
             return new List<string>();
-        return array.Select(t => t.ToLower()).ToList();
+        return array.Select( t => t.ToLower() ).ToList();
     }
 
     /// <summary>
@@ -60,11 +52,10 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <returns>大写字符串集合</returns>
-    public static List<string> ToUpper(IEnumerable<string> array)
-    {
-        if (array == null)
+    public static List<string> ToUpper( IEnumerable<string> array ) {
+        if( array == null )
             return new List<string>();
-        return array.Select(t => t.ToUpper()).ToList();
+        return array.Select( t => t.ToUpper() ).ToList();
     }
 
     #region Add 和 AddRange 扩展
@@ -75,12 +66,11 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<T> AddNotNull<T>(List<T> array, T value)
-    {
+    public static List<T> AddNotNull<T>( List<T> array , T value ) {
         array ??= new List<T>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -90,12 +80,11 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<T> AddRangeNotNull<T>(List<T> array, List<T> value)
-    {
+    public static List<T> AddRangeNotNull<T>( List<T> array , List<T> value ) {
         array ??= new List<T>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => t != null));
+        array.AddRange( value.Where( t => t != null ) );
         return array;
     }
 
@@ -104,12 +93,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<string> AddNotEmpty(List<string> array, string value)
-    {
+    public static List<string> AddNotEmpty( List<string> array , string value ) {
         array ??= new List<string>();
-        if (value.IsEmpty())
+        if( value.IsEmpty() )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -118,12 +106,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<string> AddRangeNotEmpty(List<string> array, List<string> value)
-    {
+    public static List<string> AddRangeNotEmpty( List<string> array , List<string> value ) {
         array ??= new List<string>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => !t.IsEmpty()));
+        array.AddRange( value.Where( t => !t.IsEmpty() ) );
         return array;
     }
 
@@ -132,12 +119,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<Guid> AddNotEmpty(List<Guid> array, Guid value)
-    {
+    public static List<Guid> AddNotEmpty( List<Guid> array , Guid value ) {
         array ??= new List<Guid>();
-        if (value.IsEmpty())
+        if( value.IsEmpty() )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -146,12 +132,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<Guid> AddRangeNotEmpty(List<Guid> array, List<Guid> value)
-    {
+    public static List<Guid> AddRangeNotEmpty( List<Guid> array , List<Guid> value ) {
         array ??= new List<Guid>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => !t.IsEmpty()));
+        array.AddRange( value.Where( t => !t.IsEmpty() ) );
         return array;
     }
 
@@ -160,12 +145,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<Guid?> AddNotEmpty(List<Guid?> array, Guid? value)
-    {
+    public static List<Guid?> AddNotEmpty( List<Guid?> array , Guid? value ) {
         array ??= new List<Guid?>();
-        if (value.IsEmpty())
+        if( value.IsEmpty() )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -174,12 +158,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<Guid?> AddRangeNotEmpty(List<Guid?> array, List<Guid?> value)
-    {
+    public static List<Guid?> AddRangeNotEmpty( List<Guid?> array , List<Guid?> value ) {
         array ??= new List<Guid?>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => !t.IsEmpty()));
+        array.AddRange( value.Where( t => !t.IsEmpty() ) );
         return array;
     }
 
@@ -188,12 +171,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<DateTime> AddNotEmpty(List<DateTime> array, DateTime value)
-    {
+    public static List<DateTime> AddNotEmpty( List<DateTime> array , DateTime value ) {
         array ??= new List<DateTime>();
-        if (value.IsEmpty())
+        if( value.IsEmpty() )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -202,12 +184,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<DateTime> AddRangeNotEmpty(List<DateTime> array, List<DateTime> value)
-    {
+    public static List<DateTime> AddRangeNotEmpty( List<DateTime> array , List<DateTime> value ) {
         array ??= new List<DateTime>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => !t.IsEmpty()));
+        array.AddRange( value.Where( t => !t.IsEmpty() ) );
         return array;
     }
 
@@ -216,12 +197,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<DateTime?> AddNotEmpty(List<DateTime?> array, DateTime? value)
-    {
+    public static List<DateTime?> AddNotEmpty( List<DateTime?> array , DateTime? value ) {
         array ??= new List<DateTime?>();
-        if (value.IsEmpty())
+        if( value.IsEmpty() )
             return array;
-        array.Add(value);
+        array.Add( value );
         return array;
     }
 
@@ -230,12 +210,11 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="value">值</param>
-    public static List<DateTime?> AddRangeNotEmpty(List<DateTime?> array, List<DateTime?> value)
-    {
+    public static List<DateTime?> AddRangeNotEmpty( List<DateTime?> array , List<DateTime?> value ) {
         array ??= new List<DateTime?>();
-        if (value == null)
+        if( value == null )
             return array;
-        array.AddRange(value.Where(t => !t.IsEmpty()));
+        array.AddRange( value.Where( t => !t.IsEmpty() ) );
         return array;
     }
 
@@ -251,22 +230,20 @@ public static class List
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
     /// <param name="startNo">起始数</param>
-    public static bool IsSequenceBy<TSource, TKey>(IEnumerable<TSource> array, Func<TSource, TKey> keySelector, int startNo = 1)
-    {
-        if (array.IsEmpty())
+    public static bool IsSequenceBy<TSource, TKey>( IEnumerable<TSource> array , Func<TSource , TKey> keySelector , int startNo = 1 ) {
+        if( array.IsEmpty() )
             return false;
         List<int?> compare = new List<int?>();
-        for (int i = 0; i < array.Count(); i++)
-            compare.Add(startNo + i);
-        foreach (TSource element in array)
-        {
-            int? value = Convert.ToIntOrNull(keySelector(element));
-            if (value == null)
+        for( int i = 0 ; i < array.Count() ; i++ )
+            compare.Add( startNo + i );
+        foreach( TSource element in array ) {
+            int? value = Convert.ToIntOrNull( keySelector( element ) );
+            if( value == null )
                 return false;
-            int? compareValue = compare.FirstOrDefault(t => t == value);
-            if (compareValue == null)
+            int? compareValue = compare.FirstOrDefault( t => t == value );
+            if( compareValue == null )
                 return false;
-            compare.Remove(compareValue);
+            compare.Remove( compareValue );
         }
         return true;
     }
@@ -276,9 +253,8 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="startNo">起始数</param>
-    public static bool IsSequence(IEnumerable<int?> array, int startNo = 1)
-    {
-        return IsSequence(array.SafeValue(), startNo);
+    public static bool IsSequence( IEnumerable<int?> array , int startNo = 1 ) {
+        return IsSequence( array.SafeValue() , startNo );
     }
 
     /// <summary>
@@ -286,19 +262,17 @@ public static class List
     /// </summary>
     /// <param name="array">集合</param>
     /// <param name="startNo">起始数</param>
-    public static bool IsSequence(IEnumerable<int> array, int startNo = 1)
-    {
-        if (array.IsEmpty())
+    public static bool IsSequence( IEnumerable<int> array , int startNo = 1 ) {
+        if( array.IsEmpty() )
             return false;
         List<int?> compare = new List<int?>();
-        for (int i = 0; i < array.Count(); i++)
-            compare.Add(startNo + i);
-        foreach (int each in array)
-        {
-            int? compareValue = compare.FirstOrDefault(t => t == each);
-            if (compareValue == null)
+        for( int i = 0 ; i < array.Count() ; i++ )
+            compare.Add( startNo + i );
+        foreach( int each in array ) {
+            int? compareValue = compare.FirstOrDefault( t => t == each );
+            if( compareValue == null )
                 return false;
-            compare.Remove(compareValue);
+            compare.Remove( compareValue );
         }
         return true;
     }
@@ -310,12 +284,11 @@ public static class List
     /// <typeparam name="TKey">键元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static bool IsEqualsBy<TSource, TKey>(IEnumerable<TSource> array, Func<TSource, TKey> keySelector)
-    {
-        if (array.IsEmpty())
+    public static bool IsEqualsBy<TSource, TKey>( IEnumerable<TSource> array , Func<TSource , TKey> keySelector ) {
+        if( array.IsEmpty() )
             return false;
-        TKey contrastValue = keySelector(array.FirstOrDefault());
-        return array.All(element => contrastValue.Equals(keySelector(element)));
+        TKey contrastValue = keySelector( array.FirstOrDefault() );
+        return array.All( element => contrastValue.Equals( keySelector( element ) ) );
     }
 
     #endregion
@@ -324,12 +297,11 @@ public static class List
     /// 值是否相等
     /// </summary>
     /// <param name="array">集合</param>
-    public static bool IsEquals<T>(IEnumerable<T> array)
-    {
-        if (array.IsEmpty())
+    public static bool IsEquals<T>( IEnumerable<T> array ) {
+        if( array.IsEmpty() )
             return false;
         T contrastValue = array.FirstOrDefault();
-        return array.All(t => contrastValue.Equals(t));
+        return array.All( t => contrastValue.Equals( t ) );
     }
 
     #region Remove  扩展
@@ -339,10 +311,9 @@ public static class List
     /// </summary>
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
-    public static List<T> RemoveNull<T>(List<T> array)
-    {
+    public static List<T> RemoveNull<T>( List<T> array ) {
         array ??= new List<T>();
-        array.RemoveAll(t => t == null);
+        array.RemoveAll( t => t == null );
         return array;
     }
 
@@ -353,10 +324,9 @@ public static class List
     /// <typeparam name="TKey">键元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<TSource> RemoveNullBy<TSource, TKey>(List<TSource> array, Func<TSource, TKey> keySelector)
-    {
+    public static List<TSource> RemoveNullBy<TSource, TKey>( List<TSource> array , Func<TSource , TKey> keySelector ) {
         array ??= new List<TSource>();
-        array = array.Where(t => keySelector(t) == null).ToList();
+        array = array.Where( t => keySelector( t ) == null ).ToList();
         return array;
     }
 
@@ -364,10 +334,9 @@ public static class List
     /// 移除空值
     /// </summary>
     /// <param name="array">集合</param>
-    public static List<string> RemoveEmpty(List<string> array)
-    {
+    public static List<string> RemoveEmpty( List<string> array ) {
         array ??= new List<string>();
-        array.RemoveAll(Validation.IsEmpty);
+        array.RemoveAll( Validation.IsEmpty );
         return array;
     }
 
@@ -377,10 +346,9 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<T> RemoveEmptyBy<T>(List<T> array, Func<T, string> keySelector)
-    {
+    public static List<T> RemoveEmptyBy<T>( List<T> array , Func<T , string> keySelector ) {
         array ??= new List<T>();
-        array = array.Where(t => !keySelector(t).IsEmpty()).ToList();
+        array = array.Where( t => !keySelector( t ).IsEmpty() ).ToList();
         return array;
     }
 
@@ -388,10 +356,9 @@ public static class List
     /// 移除空值
     /// </summary>
     /// <param name="array">集合</param>
-    public static List<Guid> RemoveEmpty(List<Guid> array)
-    {
+    public static List<Guid> RemoveEmpty( List<Guid> array ) {
         array ??= new List<Guid>();
-        array.RemoveAll(Validation.IsEmpty);
+        array.RemoveAll( Validation.IsEmpty );
         return array;
     }
 
@@ -401,10 +368,9 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<T> RemoveEmptyBy<T>(List<T> array, Func<T, Guid> keySelector)
-    {
+    public static List<T> RemoveEmptyBy<T>( List<T> array , Func<T , Guid> keySelector ) {
         array ??= new List<T>();
-        array = array.Where(t => !keySelector(t).IsEmpty()).ToList();
+        array = array.Where( t => !keySelector( t ).IsEmpty() ).ToList();
         return array;
     }
 
@@ -412,10 +378,9 @@ public static class List
     /// 移除空值
     /// </summary>
     /// <param name="array">集合</param>
-    public static List<Guid?> RemoveEmpty(List<Guid?> array)
-    {
+    public static List<Guid?> RemoveEmpty( List<Guid?> array ) {
         array ??= new List<Guid?>();
-        array.RemoveAll(Validation.IsEmpty);
+        array.RemoveAll( Validation.IsEmpty );
         return array;
     }
 
@@ -425,10 +390,9 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<T> RemoveEmptyBy<T>(List<T> array, Func<T, Guid?> keySelector)
-    {
+    public static List<T> RemoveEmptyBy<T>( List<T> array , Func<T , Guid?> keySelector ) {
         array ??= new List<T>();
-        array = array.Where(t => !keySelector(t).IsEmpty()).ToList();
+        array = array.Where( t => !keySelector( t ).IsEmpty() ).ToList();
         return array;
     }
 
@@ -436,10 +400,9 @@ public static class List
     /// 移除空值
     /// </summary>
     /// <param name="array">集合</param>
-    public static List<DateTime> RemoveEmpty(List<DateTime> array)
-    {
+    public static List<DateTime> RemoveEmpty( List<DateTime> array ) {
         array ??= new List<DateTime>();
-        array.RemoveAll(Validation.IsEmpty);
+        array.RemoveAll( Validation.IsEmpty );
         return array;
     }
 
@@ -449,10 +412,9 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<T> RemoveEmptyBy<T>(List<T> array, Func<T, DateTime> keySelector)
-    {
+    public static List<T> RemoveEmptyBy<T>( List<T> array , Func<T , DateTime> keySelector ) {
         array ??= new List<T>();
-        array = array.Where(t => !keySelector(t).IsEmpty()).ToList();
+        array = array.Where( t => !keySelector( t ).IsEmpty() ).ToList();
         return array;
     }
 
@@ -460,10 +422,9 @@ public static class List
     /// 移除空值
     /// </summary>
     /// <param name="array">集合</param>
-    public static List<DateTime?> RemoveEmpty(List<DateTime?> array)
-    {
+    public static List<DateTime?> RemoveEmpty( List<DateTime?> array ) {
         array ??= new List<DateTime?>();
-        array.RemoveAll(Validation.IsEmpty);
+        array.RemoveAll( Validation.IsEmpty );
         return array;
     }
 
@@ -473,10 +434,9 @@ public static class List
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
     /// <param name="keySelector">选择器</param>
-    public static List<T> RemoveEmptyBy<T>(List<T> array, Func<T, DateTime?> keySelector)
-    {
+    public static List<T> RemoveEmptyBy<T>( List<T> array , Func<T , DateTime?> keySelector ) {
         array ??= new List<T>();
-        array = array.Where(t => !keySelector(t).IsEmpty()).ToList();
+        array = array.Where( t => !keySelector( t ).IsEmpty() ).ToList();
         return array;
     }
 

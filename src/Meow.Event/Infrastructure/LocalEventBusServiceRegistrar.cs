@@ -1,8 +1,4 @@
-﻿using Meow.Infrastructure;
-using Meow.Reflection;
-using SystemType = System.Type;
-
-namespace Meow.Event.Infrastructure;
+﻿namespace Meow.Event.Infrastructure;
 
 /// <summary>
 /// 本地事件总线服务注册器

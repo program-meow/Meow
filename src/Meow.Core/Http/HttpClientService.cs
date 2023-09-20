@@ -4,6 +4,7 @@
 /// Http客户端服务
 /// </summary>
 public class HttpClientService : IHttpClient {
+
     #region 字段
 
     /// <summary>

@@ -2,7 +2,6 @@
 using Meow.Extension;
 using Meow.Http.Extension;
 using Meow.Response;
-using SystemException = System.Exception;
 
 namespace Meow.Http;
 
@@ -11,6 +10,7 @@ namespace Meow.Http;
 /// </summary>
 /// <typeparam name="TResult">结果类型</typeparam>
 public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class {
+
     #region 属性
 
     #region 核心

@@ -1,10 +1,4 @@
-﻿using Meow.Domain.Compare;
-using Meow.Domain.Extending;
-using Meow.Error;
-using Meow.Extension;
-using Meow.Validation;
-
-namespace Meow.Domain.Entity;
+﻿namespace Meow.Domain.Entity;
 
 /// <summary>
 /// 领域实体

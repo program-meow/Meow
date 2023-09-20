@@ -1,7 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Param;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Condition;
+﻿namespace Meow.Data.Sql.Builder.Condition;
 
 /// <summary>
 /// In查询条件

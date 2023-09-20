@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Tenant;
-
-namespace Meow.Data.EntityFrameworkCore.Filter;
+﻿namespace Meow.Data.EntityFrameworkCore.Filter;
 
 /// <summary>
 /// 租户过滤器

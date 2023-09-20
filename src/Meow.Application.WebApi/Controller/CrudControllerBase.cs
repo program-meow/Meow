@@ -1,9 +1,4 @@
-﻿using Meow.Application.Dto;
-using Meow.Application.Model;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Application.Controller;
+﻿namespace Meow.Application.Controller;
 
 /// <summary>
 /// Crud控制器

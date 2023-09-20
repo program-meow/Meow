@@ -1,8 +1,4 @@
-﻿using Meow.Converter;
-using Meow.Domain.Extending;
-using Meow.Extension;
-
-namespace Meow.Data.Dapper.TypeHandler;
+﻿namespace Meow.Data.Dapper.TypeHandler;
 
 /// <summary>
 /// 扩展属性类型转换器

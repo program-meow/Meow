@@ -1,8 +1,4 @@
-﻿using Meow.Data.Metadata;
-using Meow.Data.Sql;
-using Meow.Data.Sql.Extension;
-
-namespace Meow.Data.Dapper.Metadata;
+﻿namespace Meow.Data.Dapper.Metadata;
 
 /// <summary>
 /// MySql数据库元数据服务

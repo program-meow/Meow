@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.Event;
+﻿namespace Meow.Event;
 
 /// <summary>
 /// 基于内存的本地事件总线

@@ -1,6 +1,4 @@
-﻿using SystemType = System.Type;
-
-namespace Meow.ObjectMapping;
+﻿namespace Meow.ObjectMapping;
 
 /// <summary>
 /// AutoMapper对象映射器

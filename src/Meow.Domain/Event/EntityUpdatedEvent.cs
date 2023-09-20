@@ -1,6 +1,4 @@
-﻿using Meow.Event;
-
-namespace Meow.Domain.Event;
+﻿namespace Meow.Domain.Event;
 
 /// <summary>
 /// 实体修改事件

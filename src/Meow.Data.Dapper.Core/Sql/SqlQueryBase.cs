@@ -1,15 +1,4 @@
-﻿using Meow.Data.Sql;
-using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Clause;
-using Meow.Data.Sql.Builder.Core;
-using Meow.Data.Sql.Builder.Param;
-using Meow.Data.Sql.Builder.Set;
-using Meow.Data.Sql.Config;
-using Meow.Data.Sql.Database;
-using Meow.Extension;
-using Meow.Helper;
-
-namespace Meow.Data.Dapper.Sql;
+﻿namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// Sql查询对象

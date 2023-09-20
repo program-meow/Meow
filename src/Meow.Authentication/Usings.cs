@@ -30,4 +30,13 @@ global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.DataProtection;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Authentication;
-
+global using Meow.Extension;
+global using Meow.Response;
+global using Meow.Dependency;
+global using Meow.Config;
+global using Meow.Converter;
+global using Meow.Helper;
+global using Meow.Http;
+global using Meow.Infrastructure;
+global using Meow.Authentication.Extension;
+global using Meow.Authentication.Authorization;

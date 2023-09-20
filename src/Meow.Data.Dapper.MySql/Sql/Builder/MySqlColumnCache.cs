@@ -1,6 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Cache;
-
-namespace Meow.Data.Dapper.Sql.Builder;
+﻿namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// MySql列缓存

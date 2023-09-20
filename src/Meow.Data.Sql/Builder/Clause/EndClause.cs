@@ -1,13 +1,10 @@
-﻿using Meow.Data.Sql.Builder.Param;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// 结束子句
 /// </summary>
 public class EndClause : ClauseBase, IEndClause {
+
     #region 字段
 
     /// <summary>

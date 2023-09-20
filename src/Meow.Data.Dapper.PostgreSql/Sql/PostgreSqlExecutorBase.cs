@@ -1,9 +1,4 @@
-﻿using Meow.Data.Dapper.Sql.Builder;
-using Meow.Data.Sql;
-using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Core;
-
-namespace Meow.Data.Dapper.Sql;
+﻿namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// PostgreSql Sql执行器

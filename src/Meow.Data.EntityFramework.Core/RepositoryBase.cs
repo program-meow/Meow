@@ -1,7 +1,4 @@
-﻿using Meow.Domain.Entity;
-using Meow.Domain.Repository;
-
-namespace Meow.Data.EntityFrameworkCore;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 仓储基类

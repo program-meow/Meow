@@ -1,10 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Cache;
-using Meow.Data.Sql.Builder.Clause;
-using Meow.Data.Sql.Builder.Param;
-using Meow.Data.Sql.Builder.Set;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder;
+﻿namespace Meow.Data.Sql.Builder;
 
 /// <summary>
 /// Sql生成器

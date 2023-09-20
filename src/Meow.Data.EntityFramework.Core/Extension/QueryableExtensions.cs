@@ -1,8 +1,4 @@
-﻿using Meow.Data.Extension;
-using Meow.Extension;
-using Meow.Query;
-
-namespace Meow.Data.EntityFrameworkCore.Extension;
+﻿namespace Meow.Data.EntityFrameworkCore.Extension;
 
 /// <summary>
 /// 查询对象扩展

@@ -1,7 +1,4 @@
-﻿using Meow.Data.Metadata;
-using Meow.Extension;
-
-namespace Meow.Data.Dapper.Metadata {
+﻿namespace Meow.Data.Dapper.Metadata {
     /// <summary>
     /// Sql Server数据类型转换器
     /// </summary>

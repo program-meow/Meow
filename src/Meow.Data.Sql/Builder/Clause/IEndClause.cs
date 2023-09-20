@@ -1,6 +1,4 @@
-﻿using Meow.Query;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// 结束子句

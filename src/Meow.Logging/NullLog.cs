@@ -1,7 +1,4 @@
-﻿using Meow.Action;
-using SystemException = System.Exception;
-
-namespace Meow.Logging;
+﻿namespace Meow.Logging;
 
 /// <summary>
 /// 空日志操作

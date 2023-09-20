@@ -1,7 +1,4 @@
-﻿using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Caching.EasyCaching;
+﻿namespace Meow.Caching.EasyCaching;
 
 /// <summary>
 /// EasyCaching缓存操作扩展

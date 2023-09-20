@@ -1,7 +1,4 @@
-﻿using Meow.Data.Query;
-using Meow.Math;
-
-namespace Meow.Data.Sql.Builder.Clause;
+﻿namespace Meow.Data.Sql.Builder.Clause;
 
 /// <summary>
 /// Where子句

@@ -7,3 +7,8 @@ global using Serilog.Core;
 global using Serilog.Events;
 global using Serilog.Configuration;
 global using System.Collections.Generic;
+global using SerilogLog = Serilog.Log;
+global using Meow.Extension;
+global using Meow.Helper;
+global using Meow.Config;
+global using Meow.Logging.Serilog.Enricher;

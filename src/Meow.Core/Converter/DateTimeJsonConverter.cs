@@ -1,5 +1,4 @@
 ﻿using Meow.Helper;
-using SystemType = System.Type;
 
 namespace Meow.Converter;
 

@@ -1,8 +1,4 @@
-﻿using Meow.Aop.Extension;
-using Meow.Exception;
-using SystemException = System.Exception;
-
-namespace Meow.Application.Extension;
+﻿namespace Meow.Application.Extension;
 
 /// <summary>
 /// 异常扩展

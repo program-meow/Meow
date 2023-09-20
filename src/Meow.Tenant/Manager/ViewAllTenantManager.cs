@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Helper;
-
-namespace Meow.Tenant.Manager;
+﻿namespace Meow.Tenant.Manager;
 
 /// <summary>
 /// 查看租户管理器

@@ -1,8 +1,4 @@
-﻿using Meow.Caching.Extension;
-using Meow.Extension;
-using SystemType = System.Type;
-
-namespace Meow.Caching.EasyCaching;
+﻿namespace Meow.Caching.EasyCaching;
 
 /// <summary>
 /// EasyCaching缓存服务

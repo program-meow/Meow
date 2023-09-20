@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Param;
+﻿namespace Meow.Data.Sql.Builder.Param;
 
 /// <summary>
 /// 参数字面值解析器

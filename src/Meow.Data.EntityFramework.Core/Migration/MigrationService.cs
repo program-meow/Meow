@@ -1,8 +1,4 @@
-﻿using Meow.Extension;
-using Meow.Helper;
-using File = Meow.Helper.File;
-
-namespace Meow.Data.EntityFrameworkCore.Migration;
+﻿namespace Meow.Data.EntityFrameworkCore.Migration;
 
 /// <summary>
 /// 迁移服务
@@ -70,7 +66,7 @@ public class MigrationService : IMigrationService {
     /// </summary>
     private void RemoveMigrationFileForeignKeys( string migrationName , string dbContextRootPath ) {
         _logger.LogTrace( "准备移除迁移文件中的外键设置." );
-        string migrationsPath = File.JoinPath( dbContextRootPath , "Migrations" );
+        string migrationsPath = MeowFile.JoinPath( dbContextRootPath , "Migrations" );
         _migrationFileService
             .MigrationsPath( migrationsPath )
             .MigrationName( migrationName )

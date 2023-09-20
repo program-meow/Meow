@@ -1,7 +1,4 @@
-﻿using Meow.Config;
-using Meow.Extension;
-
-namespace Meow.Aop.Extension;
+﻿namespace Meow.Aop.Extension;
 
 /// <summary>
 /// Aop配置扩展

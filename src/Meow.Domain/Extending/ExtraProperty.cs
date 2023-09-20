@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Extension;
-
-namespace Meow.Domain.Extending;
+﻿namespace Meow.Domain.Extending;
 
 /// <summary>
 /// 扩展属性

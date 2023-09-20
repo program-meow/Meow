@@ -1,9 +1,4 @@
-﻿using Meow.Data;
-using Meow.Data.Tree;
-using Meow.Domain.Tree;
-using Meow.Query;
-
-namespace Meow.Application.Tree;
+﻿namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形查询服务

@@ -1,6 +1,4 @@
-﻿using SystemException = System.Exception;
-
-namespace Meow.Exception;
+﻿namespace Meow.Exception;
 
 /// <summary>
 /// 应用程序异常

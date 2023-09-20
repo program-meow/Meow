@@ -1,7 +1,4 @@
-﻿using Meow.Application.Tree;
-using Meow.Extension;
-
-namespace Meow.Application.Extension;
+﻿namespace Meow.Application.Extension;
 
 /// <summary>
 /// 树形节点扩展

@@ -1,6 +1,4 @@
-﻿using Meow.Caching;
-
-namespace Meow.Application.Lock;
+﻿namespace Meow.Application.Lock;
 
 /// <summary>
 /// 业务锁

@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Tenant;
+﻿namespace Meow.Tenant;
 
 /// <summary>
 /// 租户解析器集合

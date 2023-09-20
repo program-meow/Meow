@@ -1,14 +1,11 @@
 ﻿using Meow.ObjectMapping;
-using System.Collections.Generic;
-using System;
 
 namespace Meow.Helper;
 
 /// <summary>
 /// 对象映射操作
 /// </summary>
-public static class ObjectMapper
-{
+public static class ObjectMapper {
     /// <summary>
     /// 对象映射器
     /// </summary>
@@ -18,9 +15,8 @@ public static class ObjectMapper
     /// 设置对象映射器
     /// </summary>
     /// <param name="mapper">对象映射器</param>
-    public static void SetMapper(IObjectMapper mapper)
-    {
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    public static void SetMapper( IObjectMapper mapper ) {
+        _mapper = mapper ?? throw new ArgumentNullException( nameof( mapper ) );
     }
 
     /// <summary>
@@ -28,11 +24,10 @@ public static class ObjectMapper
     /// </summary>
     /// <typeparam name="TDestination">目标类型</typeparam>
     /// <param name="source">源对象</param>
-    public static TDestination MapTo<TDestination>(object source)
-    {
-        if (_mapper == null)
-            throw new ArgumentNullException(nameof(_mapper));
-        return _mapper.Map<object, TDestination>(source);
+    public static TDestination MapTo<TDestination>( object source ) {
+        if( _mapper == null )
+            throw new ArgumentNullException( nameof( _mapper ) );
+        return _mapper.Map<object , TDestination>( source );
     }
 
     /// <summary>
@@ -42,11 +37,10 @@ public static class ObjectMapper
     /// <typeparam name="TDestination">目标类型</typeparam>
     /// <param name="source">源对象</param>
     /// <param name="destination">目标对象</param>
-    public static TDestination MapTo<TSource, TDestination>(TSource source, TDestination destination)
-    {
-        if (_mapper == null)
-            throw new ArgumentNullException(nameof(_mapper));
-        return _mapper.Map(source, destination);
+    public static TDestination MapTo<TSource, TDestination>( TSource source , TDestination destination ) {
+        if( _mapper == null )
+            throw new ArgumentNullException( nameof( _mapper ) );
+        return _mapper.Map( source , destination );
     }
 
     /// <summary>
@@ -54,8 +48,7 @@ public static class ObjectMapper
     /// </summary>
     /// <typeparam name="TDestination">目标元素类型,范例：Sample,不要加List</typeparam>
     /// <param name="source">源集合</param>
-    public static List<TDestination> MapToList<TDestination>(System.Collections.IEnumerable source)
-    {
-        return MapTo<List<TDestination>>(source);
+    public static List<TDestination> MapToList<TDestination>( System.Collections.IEnumerable source ) {
+        return MapTo<List<TDestination>>( source );
     }
 }

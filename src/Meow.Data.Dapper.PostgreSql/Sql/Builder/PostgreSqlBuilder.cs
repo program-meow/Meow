@@ -1,9 +1,4 @@
-﻿using Meow.Data.Sql;
-using Meow.Data.Sql.Builder;
-using Meow.Data.Sql.Builder.Cache;
-using Meow.Data.Sql.Builder.Param;
-
-namespace Meow.Data.Dapper.Sql.Builder;
+﻿namespace Meow.Data.Dapper.Sql.Builder;
 
 /// <summary>
 /// PostgreSql Sql生成器

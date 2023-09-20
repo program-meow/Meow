@@ -1,7 +1,4 @@
-﻿using Meow.Data.Sql.Builder.Core;
-using Meow.Extension;
-
-namespace Meow.Data.Sql.Builder.Cache;
+﻿namespace Meow.Data.Sql.Builder.Cache;
 
 /// <summary>
 /// 列缓存基类

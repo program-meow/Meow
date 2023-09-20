@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Entity;
-
-namespace Meow.Domain.Tree;
+﻿namespace Meow.Domain.Tree;
 
 /// <summary>
 /// 树形实体

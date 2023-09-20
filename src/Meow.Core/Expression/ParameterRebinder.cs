@@ -1,6 +1,4 @@
-﻿using SystemExpression = System.Linq.Expressions.Expression;
-
-namespace Meow.Expression;
+﻿namespace Meow.Expression;
 
 /// <summary>
 /// 参数重绑定操作

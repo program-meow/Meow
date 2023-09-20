@@ -1,7 +1,4 @@
-﻿using Meow.Data.Query;
-using Meow.Math;
-
-namespace Meow.Data.Sql.Builder;
+﻿namespace Meow.Data.Sql.Builder;
 
 /// <summary>
 /// Sql条件工厂

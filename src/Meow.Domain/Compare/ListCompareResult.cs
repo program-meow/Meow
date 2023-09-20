@@ -1,6 +1,4 @@
-﻿using Meow.Model;
-
-namespace Meow.Domain.Compare;
+﻿namespace Meow.Domain.Compare;
 
 /// <summary>
 /// 列表比较结果

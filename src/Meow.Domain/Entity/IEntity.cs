@@ -1,7 +1,4 @@
-﻿using Meow.Domain.Compare;
-using Meow.Model;
-
-namespace Meow.Domain.Entity;
+﻿namespace Meow.Domain.Entity;
 
 /// <summary>
 /// 实体

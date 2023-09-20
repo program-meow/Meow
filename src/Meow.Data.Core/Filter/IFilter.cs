@@ -1,6 +1,4 @@
-﻿using Meow.Dependency;
-
-namespace Meow.Data.Filter;
+﻿namespace Meow.Data.Filter;
 
 /// <summary>
 /// 数据过滤器

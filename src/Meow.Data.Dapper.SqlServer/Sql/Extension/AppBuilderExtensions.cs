@@ -1,9 +1,4 @@
-﻿using Meow.Config;
-using Meow.Data.Sql;
-using Meow.Data.Sql.Extension;
-using Meow.Extension;
-
-namespace Meow.Data.Dapper.Sql.Extension;
+﻿namespace Meow.Data.Dapper.Sql.Extension;
 
 /// <summary>
 /// Sql Server数据库操作扩展

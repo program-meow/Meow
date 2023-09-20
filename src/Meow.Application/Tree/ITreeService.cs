@@ -1,8 +1,4 @@
-﻿using Meow.Application.Dto;
-using Meow.Query;
-using Meow.Validation.Validator;
-
-namespace Meow.Application.Tree;
+﻿namespace Meow.Application.Tree;
 
 /// <summary>
 /// 树形服务

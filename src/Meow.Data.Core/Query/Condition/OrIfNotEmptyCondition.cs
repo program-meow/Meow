@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Data.Query.Condition;
+﻿namespace Meow.Data.Query.Condition;
 
 /// <summary>
 /// OrIfNotEmpty条件

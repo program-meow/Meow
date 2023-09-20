@@ -1,8 +1,4 @@
-﻿using Meow.Infrastructure;
-using SystemAction = System.Action;
-using SystemType = System.Type;
-
-namespace Meow.ObjectMapping.Infrastructure;
+﻿namespace Meow.ObjectMapping.Infrastructure;
 
 /// <summary>
 /// AutoMapper服务注册器

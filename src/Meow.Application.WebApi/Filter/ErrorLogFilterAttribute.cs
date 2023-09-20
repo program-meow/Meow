@@ -1,8 +1,4 @@
-﻿using Meow.Aop.Extension;
-using Meow.Exception;
-using SystemException = System.Exception;
-
-namespace Meow.Application.Filter;
+﻿namespace Meow.Application.Filter;
 
 /// <summary>
 /// 错误日志过滤器

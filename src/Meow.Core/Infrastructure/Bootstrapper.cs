@@ -2,8 +2,6 @@
 using Meow.Dependency;
 using Meow.Extension;
 using Meow.Reflection;
-using SystemAction = System.Action;
-using SystemType = System.Type;
 
 namespace Meow.Infrastructure;
 

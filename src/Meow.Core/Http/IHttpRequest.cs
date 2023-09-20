@@ -1,6 +1,5 @@
 ﻿using Meow.Authentication;
 using Meow.Response;
-using SystemException = System.Exception;
 
 namespace Meow.Http;
 

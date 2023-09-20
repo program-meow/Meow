@@ -1,8 +1,4 @@
-﻿using Meow.Data.Dapper.Sql.Builder;
-using Meow.Data.Sql;
-using Meow.Data.Sql.Builder;
-
-namespace Meow.Data.Dapper.Sql;
+﻿namespace Meow.Data.Dapper.Sql;
 
 /// <summary>
 /// Sql Server Sql执行器

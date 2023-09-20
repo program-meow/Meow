@@ -1,9 +1,4 @@
-﻿using Meow.Data.Dapper.Sql;
-using Meow.Data.Metadata;
-using Meow.Data.Sql;
-using Meow.Database;
-
-namespace Meow.Data.Dapper.Metadata;
+﻿namespace Meow.Data.Dapper.Metadata;
 
 /// <summary>
 /// 数据库元数据服务工厂

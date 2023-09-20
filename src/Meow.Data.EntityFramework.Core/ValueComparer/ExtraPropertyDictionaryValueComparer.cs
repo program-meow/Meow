@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Extending;
-
-namespace Meow.Data.EntityFrameworkCore.ValueComparer;
+﻿namespace Meow.Data.EntityFrameworkCore.ValueComparer;
 
 /// <summary>
 /// 扩展属性值比较器

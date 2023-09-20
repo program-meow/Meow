@@ -1,6 +1,4 @@
-﻿using Meow.Helper;
-
-namespace Meow.Tenant.Manager;
+﻿namespace Meow.Tenant.Manager;
 
 /// <summary>
 /// 切换租户管理器

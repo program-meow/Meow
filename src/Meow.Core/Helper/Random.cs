@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Meow.Helper;
+﻿namespace Meow.Helper;
 
 /// <summary>
 /// 随机数操作
 /// </summary>
-public class Random
-{
+public class Random {
     /// <summary>
     /// 随机数
     /// </summary>
@@ -16,8 +12,7 @@ public class Random
     /// <summary>
     /// 初始化随机数
     /// </summary>
-    public Random()
-    {
+    public Random() {
         _random = new System.Random();
     }
 
@@ -25,9 +20,8 @@ public class Random
     /// 获取指定范围的随机整数
     /// </summary>
     /// <param name="max">最大值</param>
-    public int Next(int max)
-    {
-        return _random.Next(max);
+    public int Next( int max ) {
+        return _random.Next( max );
     }
 
     /// <summary>
@@ -35,23 +29,21 @@ public class Random
     /// </summary>
     /// <param name="min">最小值</param>
     /// <param name="max">最大值</param>
-    public int Next(int min, int max)
-    {
-        return _random.Next(min, max);
+    public int Next( int min , int max ) {
+        return _random.Next( min , max );
     }
 
     /// <summary>
     /// 从集合中随机获取值
     /// </summary>
     /// <param name="array">集合</param>
-    public static T GetValue<T>(IEnumerable<T> array)
-    {
-        if (array == null)
+    public static T GetValue<T>( IEnumerable<T> array ) {
+        if( array == null )
             return default;
         System.Random random = new System.Random();
         List<T> list = array.ToList();
-        int index = random.Next(0, list.Count);
-        return list[index];
+        int index = random.Next( 0 , list.Count );
+        return list[ index ];
     }
 
     /// <summary>
@@ -59,17 +51,15 @@ public class Random
     /// </summary>
     /// <typeparam name="T">集合元素类型</typeparam>
     /// <param name="array">集合</param>
-    public static List<T> Order<T>(IEnumerable<T> array)
-    {
-        if (array == null)
+    public static List<T> Order<T>( IEnumerable<T> array ) {
+        if( array == null )
             return null;
         System.Random random = new System.Random();
         List<T> list = array.ToList();
-        for (int i = 0; i < list.Count; i++)
-        {
-            int index1 = random.Next(0, list.Count);
-            int index2 = random.Next(0, list.Count);
-            (list[index1], list[index2]) = (list[index2], list[index1]);
+        for( int i = 0 ; i < list.Count ; i++ ) {
+            int index1 = random.Next( 0 , list.Count );
+            int index2 = random.Next( 0 , list.Count );
+            (list[ index1 ], list[ index2 ]) = (list[ index2 ], list[ index1 ]);
         }
         return list;
     }

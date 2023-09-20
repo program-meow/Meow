@@ -1,6 +1,4 @@
-﻿using Meow.Event;
-
-namespace Meow.Domain.Event;
+﻿namespace Meow.Domain.Event;
 
 /// <summary>
 /// 实体删除事件

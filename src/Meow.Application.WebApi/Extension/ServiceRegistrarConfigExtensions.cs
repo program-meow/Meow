@@ -1,7 +1,4 @@
-﻿using Meow.Application.Infrastructure;
-using Meow.Infrastructure;
-
-namespace Meow.Application.Extension;
+﻿namespace Meow.Application.Extension;
 
 /// <summary>
 /// Web Api服务注册器配置扩展

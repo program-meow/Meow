@@ -1,11 +1,4 @@
-﻿using Meow.Application.Lock;
-using Meow.Authentication.Session;
-using Meow.Extension;
-using Meow.Helper;
-using Meow.Option;
-using Meow.Response;
-
-namespace Meow.Application.Filter;
+﻿namespace Meow.Application.Filter;
 
 /// <summary>
 /// 请求锁过滤器,用于防止重复提交
@@ -73,7 +66,7 @@ public class LockAttribute : ActionFilterAttribute {
     /// 获取用户标识
     /// </summary>
     protected string GetUserId( ActionExecutingContext context ) {
-        ISession session = context.HttpContext.RequestServices.GetService<ISession>();
+        IMeowSession session = context.HttpContext.RequestServices.GetService<IMeowSession>();
         return session?.UserId;
     }
 

@@ -1,6 +1,4 @@
-﻿using Meow.Domain.Repository;
-
-namespace Meow.Domain.Tree;
+﻿namespace Meow.Domain.Tree;
 
 /// <summary>
 /// 树形仓储

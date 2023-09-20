@@ -1,7 +1,4 @@
-﻿using Meow.Extension;
-using MeowISession = Meow.Authentication.Session.ISession;
-
-namespace Meow.Tenant.Resolver;
+﻿namespace Meow.Tenant.Resolver;
 
 /// <summary>
 /// 默认租户解析器
