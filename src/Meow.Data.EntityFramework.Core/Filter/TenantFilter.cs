@@ -26,7 +26,7 @@ public class TenantFilter : FilterBase<ITenant> {
             return null;
         if( _manager.IsDisableTenantFilter() )
             return null;
-        var unitOfWork = state as UnitOfWorkBase;
+        UnitOfWorkBase unitOfWork = state as UnitOfWorkBase;
         if( unitOfWork == null )
             return null;
         Expression<Func<TEntity , bool>> isEnabled = entity => !unitOfWork.IsTenantFilterEnabled;

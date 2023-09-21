@@ -1,4 +1,6 @@
-﻿namespace Meow.Application.Filter;
+﻿using Meow.Aop;
+
+namespace Meow.Application.Filter;
 
 /// <summary>
 /// 错误日志过滤器

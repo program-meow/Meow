@@ -66,7 +66,7 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public T Get<T>( string key ) {
-        var result = _provider.Get<T>( key );
+        CacheValue<T> result = _provider.Get<T>( key );
         return result.Value;
     }
 
@@ -80,14 +80,14 @@ public class CacheManager : ICache {
     /// </summary>
     private IEnumerable<string> ToKeys( IEnumerable<CacheKey> keys ) {
         keys.CheckNull( nameof( keys ) );
-        var cacheKeys = keys.ToList();
+        List<CacheKey> cacheKeys = keys.ToList();
         cacheKeys.ForEach( t => t.Validate() );
         return cacheKeys.Select( t => t.Key );
     }
 
     /// <inheritdoc />
     public List<T> Get<T>( IEnumerable<string> keys ) {
-        var result = _provider.GetAll<T>( keys );
+        IDictionary<string , CacheValue<T>> result = _provider.GetAll<T>( keys );
         return result.Values.Select( t => t.Value ).ToList();
     }
 
@@ -99,7 +99,7 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public T Get<T>( string key , Func<T> action , CacheOptions options = null ) {
-        var result = _provider.Get( key , action , GetExpiration( options ) );
+        CacheValue<T> result = _provider.Get( key , action , GetExpiration( options ) );
         return result.Value;
     }
 
@@ -107,7 +107,7 @@ public class CacheManager : ICache {
     /// 获取过期时间间隔
     /// </summary>
     private TimeSpan GetExpiration( CacheOptions options ) {
-        var result = options?.Expiration;
+        TimeSpan? result = options?.Expiration;
         result ??= TimeSpan.FromHours( 8 );
         return result.SafeValue();
     }
@@ -129,7 +129,7 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public async Task<T> GetAsync<T>( string key , CancellationToken cancellationToken = default ) {
-        var result = await _provider.GetAsync<T>( key , cancellationToken );
+        CacheValue<T> result = await _provider.GetAsync<T>( key , cancellationToken );
         return result.Value;
     }
 
@@ -140,7 +140,7 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public async Task<List<T>> GetAsync<T>( IEnumerable<string> keys , CancellationToken cancellationToken = default ) {
-        var result = await _provider.GetAllAsync<T>( keys , cancellationToken );
+        IDictionary<string , CacheValue<T>> result = await _provider.GetAllAsync<T>( keys , cancellationToken );
         return result.Values.Select( t => t.Value ).ToList();
     }
 
@@ -152,7 +152,7 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public async Task<T> GetAsync<T>( string key , Func<Task<T>> action , CacheOptions options = null , CancellationToken cancellationToken = default ) {
-        var result = await _provider.GetAsync( key , action , GetExpiration( options ) , cancellationToken );
+        CacheValue<T> result = await _provider.GetAsync( key , action , GetExpiration( options ) , cancellationToken );
         return result.Value;
     }
 
@@ -175,7 +175,7 @@ public class CacheManager : ICache {
     public async Task<List<T>> GetByPrefixAsync<T>( string prefix , CancellationToken cancellationToken = default ) {
         if( prefix.IsEmpty() )
             return new List<T>();
-        var result = await _provider.GetByPrefixAsync<T>( prefix , cancellationToken );
+        IDictionary<string , CacheValue<T>> result = await _provider.GetByPrefixAsync<T>( prefix , cancellationToken );
         return result.Where( t => t.Value.HasValue ).Select( t => t.Value.Value ).ToList();
     }
 

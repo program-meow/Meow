@@ -1,4 +1,6 @@
-﻿namespace Meow.Application.Extension;
+﻿using Meow.Aop;
+
+namespace Meow.Application.Extension;
 
 /// <summary>
 /// 异常扩展

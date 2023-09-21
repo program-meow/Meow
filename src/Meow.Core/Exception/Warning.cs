@@ -54,8 +54,8 @@ public class Warning : SystemException {
     /// </summary>
     public static string GetMessage( SystemException ex ) {
         StringBuilder result = new StringBuilder();
-        var list = GetExceptions( ex );
-        foreach( var exception in list )
+        IList<SystemException> list = GetExceptions( ex );
+        foreach( SystemException exception in list )
             AppendMessage( result , exception );
         return result.ToString().Trim( Environment.NewLine.ToCharArray() );
     }
@@ -81,7 +81,7 @@ public class Warning : SystemException {
     /// </summary>
     /// <param name="ex">异常</param>
     public static IList<SystemException> GetExceptions( SystemException ex ) {
-        var result = new List<SystemException>();
+        List<SystemException> result = new List<SystemException>();
         AddException( result , ex );
         return result;
     }

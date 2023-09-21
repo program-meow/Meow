@@ -38,5 +38,4 @@ global using Meow.Converter;
 global using Meow.Helper;
 global using Meow.Http;
 global using Meow.Infrastructure;
-global using Meow.Authentication.Extension;
 global using Meow.Authentication.Authorization;

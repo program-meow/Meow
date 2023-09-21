@@ -176,9 +176,9 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 同步加载子节点列表 - 用于根节点异步加载模式
     /// </summary>
     protected virtual async Task<dynamic> SyncLoadChildren( TQuery query ) {
-        var parentId = query.ParentId.SafeString();
-        var queryParam = await InitSyncLoadChildrenQuery( query );
-        var data = await SyncQuery( queryParam );
+        string parentId = query.ParentId.SafeString();
+        TQuery queryParam = await InitSyncLoadChildrenQuery( query );
+        PageList<TDto> data = await SyncQuery( queryParam );
         data.Total -= 1;
         data.Data.RemoveAll( t => t.Id == parentId );
         _queryAfter?.Invoke( data , query );
@@ -190,7 +190,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// </summary>
     /// <param name="query">查询参数</param>
     protected virtual async Task<TQuery> InitSyncLoadChildrenQuery( TQuery query ) {
-        var parent = await _service.GetByIdAsync( query.ParentId );
+        TDto parent = await _service.GetByIdAsync( query.ParentId );
         query.Path = parent.Path;
         query.Level = null;
         query.ParentId = null;
@@ -201,8 +201,8 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 异步加载子节点列表
     /// </summary>
     protected virtual async Task<dynamic> AsyncLoadChildren( TQuery query ) {
-        var queryParam = await InitAsyncLoadChildrenQuery( query );
-        var data = await SyncQuery( queryParam );
+        TQuery queryParam = await InitAsyncLoadChildrenQuery( query );
+        PageList<TDto> data = await SyncQuery( queryParam );
         _queryAfter?.Invoke( data , query );
         return ToResult( data , true , _isExpandAll );
     }
@@ -234,7 +234,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 同步查询
     /// </summary>
     protected virtual async Task<dynamic> SyncLoadQuery( TQuery query ) {
-        var data = await SyncQuery( query );
+        PageList<TDto> data = await SyncQuery( query );
         await AddMissingParents( data );
         _queryAfter?.Invoke( data , query );
         return ToResult( data , false , _isExpandAll );
@@ -246,8 +246,8 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     protected virtual async Task AddMissingParents( PageList<TDto> data ) {
         if( data.Data.Any( t => t.Level > 1 ) == false )
             return;
-        var ids = data.Data.GetMissingParentIds();
-        var list = await _service.GetByIdsAsync( ids.Join() );
+        List<string> ids = data.Data.GetMissingParentIds();
+        List<TDto> list = await _service.GetByIdsAsync( ids.Join() );
         data.Data.AddRange( list.DistinctBy( t => t.Id ) );
     }
 
@@ -258,7 +258,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
         if( _isFirstLoad )
             return await AsyncFirstLoadQuery( query );
         query.PageSize = _maxPageSize;
-        var data = await AsyncQuery( query );
+        PageList<TDto> data = await AsyncQuery( query );
         await AddMissingParents( data );
         _queryAfter?.Invoke( data , query );
         return ToResult( data , true , _isExpandAll );
@@ -269,10 +269,10 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// </summary>
     protected virtual async Task<dynamic> AsyncFirstLoadQuery( TQuery query ) {
         query.Level = 1;
-        var data = await AsyncQuery( query );
+        PageList<TDto> data = await AsyncQuery( query );
         if( _loadKeys.IsEmpty() == false ) {
-            var parentIds = await GetLoadParentIds( _loadKeys );
-            var nodes = await GetLoadNodes( parentIds.Join() );
+            List<string> parentIds = await GetLoadParentIds( _loadKeys );
+            List<TDto> nodes = await GetLoadNodes( parentIds.Join() );
             data.Data.AddRange( nodes );
             ExpandParentNodes( data , parentIds );
         }
@@ -284,8 +284,8 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 获取需要加载的父标识列表
     /// </summary>
     protected virtual async Task<List<string>> GetLoadParentIds( string keys ) {
-        var result = new List<string>();
-        var selectedNodes = await _service.GetByIdsAsync( keys );
+        List<string> result = new List<string>();
+        List<TDto> selectedNodes = await _service.GetByIdsAsync( keys );
         selectedNodes.ForEach( t => result.AddRange( t.GetParentIdsFromPath( false ) ) );
         return result;
     }
@@ -301,7 +301,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 展开父节点
     /// </summary>
     protected virtual void ExpandParentNodes( PageList<TDto> data , List<string> parentIds ) {
-        var nodes = data.Data.FindAll( node => parentIds.Any( id => node.Id == id ) );
+        List<TDto> nodes = data.Data.FindAll( node => parentIds.Any( id => node.Id == id ) );
         nodes.ForEach( t => t.Expanded = true );
     }
 

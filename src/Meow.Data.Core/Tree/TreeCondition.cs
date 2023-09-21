@@ -25,7 +25,7 @@ public class TreeCondition<TEntity, TParentId> : ICondition<TEntity> where TEnti
     public TreeCondition( ITreeQueryParameter parameter ) {
         if( parameter == null )
             return;
-        var parentId = Meow.Helper.Convert.To<TParentId>( parameter.ParentId );
+        TParentId parentId = Meow.Helper.Convert.To<TParentId>( parameter.ParentId );
         if( parameter.ParentId.IsEmpty() == false )
             Condition = Condition.And( t => t.ParentId.Equals( parentId ) );
         if( parameter.Path.IsEmpty() == false )

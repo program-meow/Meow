@@ -1,4 +1,6 @@
-﻿namespace Meow.Application.Filter;
+﻿using Meow.Json;
+
+namespace Meow.Application.Filter;
 
 /// <summary>
 /// 请求锁过滤器,用于防止重复提交
@@ -36,7 +38,7 @@ public class LockAttribute : ActionFilterAttribute {
             OnActionExecuting( context );
             if( context.Result != null )
                 return;
-            var executedContext = await next();
+            ActionExecutedContext executedContext = await next();
             OnActionExecuted( executedContext );
         } finally {
             if( isSuccess ) {

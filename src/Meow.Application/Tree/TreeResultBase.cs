@@ -41,7 +41,7 @@ public abstract class TreeResultBase<TSourceNode, TDestinationNode, TResult> : T
         List<TSourceNode> children = GetChildren( node );
         children.ForEach( InitNode );
         node.Children = children;
-        foreach( var child in node.Children )
+        foreach( TSourceNode child in node.Children )
             AddChildren( child );
     }
 }

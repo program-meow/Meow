@@ -29,10 +29,10 @@ internal class DomainTenantResolver : IDomainTenantResolver {
             return null;
         Dictionary<string , string> domainMap = new Dictionary<string , string>();
         string domainFormat = string.Empty;
-        List<Resolver.DomainTenantResolver> resolvers = _options.Resolvers.GetResolvers<Resolver.DomainTenantResolver>();
-        foreach( var resolver in resolvers ) {
+        List<MeowDomainTenantResolver> resolvers = _options.Resolvers.GetResolvers<MeowDomainTenantResolver>();
+        foreach( MeowDomainTenantResolver resolver in resolvers ) {
             if( resolver.DomainMap != null ) {
-                foreach( var item in resolver.DomainMap ) {
+                foreach( KeyValuePair<string , string> item in resolver.DomainMap ) {
                     domainMap.Add( item.Key , item.Value );
                 }
             }

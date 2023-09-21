@@ -26,7 +26,7 @@ public class UnitOfWorkActionManager : IUnitOfWorkActionManager {
 
     /// <inheritdoc />
     public async Task ExecuteAsync() {
-        foreach( var action in _actions )
+        foreach( Func<Task> action in _actions )
             await action();
         _actions.Clear();
     }

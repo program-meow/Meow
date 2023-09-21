@@ -11,7 +11,7 @@ public class ViewAllTenantManager : IViewAllTenantManager {
 
     /// <inheritdoc />
     public bool IsDisableTenantFilter() {
-        var result = Web.GetCookie( Key );
+        string result = Web.GetCookie( Key );
         if( result.IsEmpty() )
             return false;
         return result.ToBool();

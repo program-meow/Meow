@@ -31,7 +31,7 @@ public class NullableDateTimeJsonConverter : JsonConverter<DateTime?> {
     public override DateTime? Read( ref Utf8JsonReader reader , SystemType typeToConvert , JsonSerializerOptions options ) {
         if( reader.TokenType == JsonTokenType.String )
             return Time.ToLocalTime( Meow.Helper.Convert.ToDateTime( reader.GetString() ) );
-        if( reader.TryGetDateTime( out var date ) )
+        if( reader.TryGetDateTime( out DateTime date ) )
             return Time.ToLocalTime( date );
         return DateTime.MinValue;
     }

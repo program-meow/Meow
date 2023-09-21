@@ -17,4 +17,3 @@ global using EasyCachingConfig = EasyCaching.Core.Configurations;
 global using SystemType = System.Type;
 global using Meow.Config;
 global using Meow.Extension;
-global using Meow.Caching.Extension;

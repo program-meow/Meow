@@ -839,7 +839,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         if( _retryMaxTimes > 0 )
             return await Meow.Helper.Retry.TryInvokeAsync( RunResultAsync , _retryValidateResultFunc , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
-            var result = await RunResultAsync();
+            TResult result = await RunResultAsync();
             return new Result<TResult>( ResultStatusCodeEnum.Ok , ResultStatusCodeEnum.Ok.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
@@ -870,7 +870,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         if( _retryMaxTimes > 0 )
             return await Meow.Helper.Retry.TryInvokeAsync( RunStreamAsync , ( ( result ) => result != null ) , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
-            var result = await RunStreamAsync();
+            byte[] result = await RunStreamAsync();
             return new Result<byte[]>( ResultStatusCodeEnum.Ok , ResultStatusCodeEnum.Ok.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );

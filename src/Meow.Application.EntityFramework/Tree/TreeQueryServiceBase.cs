@@ -59,8 +59,8 @@ public abstract class TreeQueryServiceBase<TEntity, TDto, TQuery, TKey, TParentI
     /// </summary>
     /// <param name="parentIds">父标识列表,以逗号分隔标识</param>
     public virtual async Task<List<TDto>> GetByParentIds( string parentIds ) {
-        var keys = Meow.Helper.Convert.ToList<TParentId>( parentIds );
-        var entities = await _repository.FindAllAsync( t => keys.Contains( t.ParentId ) );
+        List<TParentId> keys = Meow.Helper.Convert.ToList<TParentId>( parentIds );
+        List<TEntity> entities = await _repository.FindAllAsync( t => keys.Contains( t.ParentId ) );
         return entities.Select( ToDto ).ToList();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Meow.Data.EntityFrameworkCore;
+﻿using Meow.Date;
+
+namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 工作单元基类

@@ -3,42 +3,35 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Meow.Sample.Api.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class HomeController : ControllerBase
-    {
-        // GET: api/<HomeController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+namespace Meow.Sample.Api.Controllers;
 
-        // GET api/<HomeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+[Route( "api/[controller]" )]
+[ApiController]
+public class HomeController : ControllerBase {
+    // GET: api/<HomeController>
+    [HttpGet]
+    public IEnumerable<string> Get() {
+        return new string[] { "value1" , "value2" };
+    }
 
-        // POST api/<HomeController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+    // GET api/<HomeController>/5
+    [HttpGet( "{id}" )]
+    public string Get( int id ) {
+        return "value";
+    }
 
-        // PUT api/<HomeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+    // POST api/<HomeController>
+    [HttpPost]
+    public void Post( [FromBody] string value ) {
+    }
 
-        // DELETE api/<HomeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    // PUT api/<HomeController>/5
+    [HttpPut( "{id}" )]
+    public void Put( int id , [FromBody] string value ) {
+    }
+
+    // DELETE api/<HomeController>/5
+    [HttpDelete( "{id}" )]
+    public void Delete( int id ) {
     }
 }

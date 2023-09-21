@@ -30,7 +30,7 @@ public class ValidAttribute : ParameterInterceptorBase {
     private void ValidateCollection( Parameter parameter ) {
         if( !( parameter.Value is IEnumerable<IValidation> validations ) )
             return;
-        foreach( var validation in validations )
+        foreach( IValidation validation in validations )
             validation.Validate();
     }
 }

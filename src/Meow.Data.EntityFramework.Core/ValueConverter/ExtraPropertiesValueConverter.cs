@@ -15,7 +15,7 @@ public class ExtraPropertiesValueConverter : ValueConverter<ExtraPropertyDiction
     /// 扩展属性转换为json
     /// </summary>
     private static string PropertiesToJson( ExtraPropertyDictionary extraProperties ) {
-        var options = new JsonSerializerOptions {
+        JsonSerializerOptions options = new JsonSerializerOptions {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
             Converters = {

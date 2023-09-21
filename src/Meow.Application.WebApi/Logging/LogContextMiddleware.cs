@@ -22,12 +22,12 @@ public class LogContextMiddleware {
     /// </summary>
     /// <param name="context">Http上下文</param>
     public async Task Invoke( HttpContext context ) {
-        var traceId = context.Request.Headers[ "x-correlation-id" ].SafeString();
+        string traceId = context.Request.Headers[ "x-correlation-id" ].SafeString();
         if( traceId.IsEmpty() )
             traceId = context.TraceIdentifier;
-        var session = context.RequestServices.GetService<Meow.Authentication.Session.ISession>();
-        var environment = context.RequestServices.GetService<IWebHostEnvironment>();
-        var logContext = new LogContext {
+        IMeowSession session = context.RequestServices.GetService<IMeowSession>();
+        IWebHostEnvironment environment = context.RequestServices.GetService<IWebHostEnvironment>();
+        LogContext logContext = new LogContext {
             Stopwatch = Stopwatch.StartNew() ,
             TraceId = traceId ,
             UserId = session?.UserId ,

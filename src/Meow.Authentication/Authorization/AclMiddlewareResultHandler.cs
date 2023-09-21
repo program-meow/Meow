@@ -14,7 +14,7 @@ public class AclMiddlewareResultHandler : IAuthorizationMiddlewareResultHandler 
     /// </summary>
     public async Task HandleAsync( RequestDelegate next , HttpContext context , AuthorizationPolicy policy , PolicyAuthorizationResult authorizeResult ) {
         if( authorizeResult.Succeeded == false ) {
-            var factory = context.RequestServices.GetRequiredService<IUnauthorizedResultFactory>();
+            IUnauthorizedResultFactory factory = context.RequestServices.GetRequiredService<IUnauthorizedResultFactory>();
             context.Response.StatusCode = factory.HttpStatusCode;
             await context.Response.WriteAsJsonAsync( factory.CreateResult( context ) );
             return;

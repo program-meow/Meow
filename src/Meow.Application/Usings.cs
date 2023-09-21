@@ -8,7 +8,6 @@ global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 global using SystemException = System.Exception;
-global using Meow.Aop.Extension;
 global using Meow.Validation;
 global using Meow.Exception;
 global using Meow.Helper;

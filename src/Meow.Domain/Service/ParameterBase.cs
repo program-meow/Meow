@@ -8,7 +8,7 @@ public abstract class ParameterBase : IValidation {
     /// 验证
     /// </summary>
     public virtual ValidationResultCollection Validate() {
-        var result = DataAnnotationValidation.Validate( this );
+        ValidationResultCollection result = DataAnnotationValidation.Validate( this );
         if( result.IsValid )
             return ValidationResultCollection.Success;
         throw new Warning( result.First().ErrorMessage );

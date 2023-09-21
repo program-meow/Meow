@@ -38,7 +38,7 @@ public class ValidationResultCollection : List<ValidationResult> {
     public void AddList( IEnumerable<ValidationResult> results ) {
         if( results == null )
             return;
-        foreach( var result in results )
+        foreach( ValidationResult result in results )
             Add( result );
     }
 

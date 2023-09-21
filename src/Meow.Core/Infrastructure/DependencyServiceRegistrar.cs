@@ -42,7 +42,7 @@ public class DependencyServiceRegistrar : IServiceRegistrar {
     private void RegisterDependency<TDependencyInterface>( IServiceCollection services , ITypeFinder finder , ServiceLifetime lifetime ) {
         List<(SystemType, SystemType)> types = GetTypes<TDependencyInterface>( finder );
         List<(SystemType, SystemType)> result = FilterTypes( types );
-        foreach( var item in result )
+        foreach( (SystemType, SystemType) item in result )
             RegisterType( services , item.Item1 , item.Item2 , lifetime );
     }
 
@@ -94,7 +94,7 @@ public class DependencyServiceRegistrar : IServiceRegistrar {
     /// 获取优先级
     /// </summary>
     private int GetPriority( SystemType type ) {
-        var attribute = type.GetCustomAttribute<IocAttribute>();
+        IocAttribute attribute = type.GetCustomAttribute<IocAttribute>();
         if( attribute == null )
             return 0;
         return attribute.Priority;

@@ -9,7 +9,7 @@ public class HeaderTenantResolver : TenantResolverBase {
     /// </summary>
     protected override Task<string> Resolve( HttpContext context ) {
         string key = GetTenantKey( context );
-        context.Request.Headers.TryGetValue( key , out var result );
+        context.Request.Headers.TryGetValue( key , out StringValues result );
         string tenantId = result.FirstOrDefault();
         GetLog( context ).LogTrace( $"执行请求头租户解析器,{key}={tenantId}" );
         return Task.FromResult( tenantId );

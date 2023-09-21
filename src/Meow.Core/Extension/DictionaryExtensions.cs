@@ -326,6 +326,6 @@ public static class DictionaryExtensions {
     public static TValue GetValue<TKey, TValue>( this IDictionary<TKey , TValue> source , TKey key ) {
         if( source == null )
             return default;
-        return source.TryGetValue( key , out var obj ) ? obj : default;
+        return source.TryGetValue( key , out TValue obj ) ? obj : default;
     }
 }

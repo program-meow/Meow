@@ -27,7 +27,7 @@ public abstract class ValueObjectBase<TValueObject> : DomainObjectBase<TValueObj
             return false;
         if( !( left is TValueObject ) || !( right is TValueObject ) )
             return false;
-        var properties = left.GetType().GetTypeInfo().GetProperties();
+        PropertyInfo[] properties = left.GetType().GetTypeInfo().GetProperties();
         return properties.All( property => property.GetValue( left ) == property.GetValue( right ) );
     }
 
@@ -42,7 +42,7 @@ public abstract class ValueObjectBase<TValueObject> : DomainObjectBase<TValueObj
     /// 获取哈希
     /// </summary>
     public override int GetHashCode() {
-        var properties = GetType().GetTypeInfo().GetProperties();
+        PropertyInfo[] properties = GetType().GetTypeInfo().GetProperties();
         return properties.Select( property => property.GetValue( this ) )
             .Where( value => value != null )
             .Aggregate( 0 , ( current , value ) => current ^ value.GetHashCode() );

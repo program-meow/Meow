@@ -53,7 +53,7 @@ public class LocalEventBus : ILocalEventBus {
         object handlers = _serviceProvider.GetService( serviceType );
         if( handlers is not IEnumerable<IEventHandler> eventHandlers )
             yield break;
-        foreach( var handler in eventHandlers )
+        foreach( IEventHandler handler in eventHandlers )
             yield return handler as ILocalEventHandler;
     }
 }

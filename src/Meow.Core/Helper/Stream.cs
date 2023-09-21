@@ -96,10 +96,10 @@ public static class Stream {
             encoding = Encoding.UTF8;
         if( stream.CanRead == false )
             return string.Empty;
-        using( var reader = new StreamReader( stream , encoding , true , bufferSize , !isCloseStream ) ) {
+        using( StreamReader reader = new StreamReader( stream , encoding , true , bufferSize , !isCloseStream ) ) {
             if( stream.CanSeek )
                 stream.Seek( 0 , SeekOrigin.Begin );
-            var result = reader.ReadToEnd();
+            string result = reader.ReadToEnd();
             if( stream.CanSeek )
                 stream.Seek( 0 , SeekOrigin.Begin );
             return result;
@@ -120,10 +120,10 @@ public static class Stream {
             encoding = Encoding.UTF8;
         if( stream.CanRead == false )
             return string.Empty;
-        using( var reader = new StreamReader( stream , encoding , true , bufferSize , !isCloseStream ) ) {
+        using( StreamReader reader = new StreamReader( stream , encoding , true , bufferSize , !isCloseStream ) ) {
             if( stream.CanSeek )
                 stream.Seek( 0 , SeekOrigin.Begin );
-            var result = await reader.ReadToEndAsync();
+            string result = await reader.ReadToEndAsync();
             if( stream.CanSeek )
                 stream.Seek( 0 , SeekOrigin.Begin );
             return result;
@@ -142,14 +142,14 @@ public static class Stream {
             encoding = Encoding.UTF8;
         if( stream.CanRead == false )
             return string.Empty;
-        using( var memoryStream = new MemoryStream() ) {
-            using( var reader = new StreamReader( memoryStream , encoding ) ) {
+        using( MemoryStream memoryStream = new MemoryStream() ) {
+            using( StreamReader reader = new StreamReader( memoryStream , encoding ) ) {
                 if( stream.CanSeek )
                     stream.Seek( 0 , SeekOrigin.Begin );
                 stream.CopyTo( memoryStream );
                 if( memoryStream.CanSeek )
                     memoryStream.Seek( 0 , SeekOrigin.Begin );
-                var result = await reader.ReadToEndAsync();
+                string result = await reader.ReadToEndAsync();
                 if( stream.CanSeek )
                     stream.Seek( 0 , SeekOrigin.Begin );
                 return result;

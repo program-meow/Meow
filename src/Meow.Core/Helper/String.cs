@@ -106,7 +106,7 @@ public static class String {
     public static StringWriter RemoveStart( StringWriter writer , string start ) {
         if( writer == null )
             return null;
-        var builder = writer.GetStringBuilder();
+        StringBuilder builder = writer.GetStringBuilder();
         RemoveStart( builder , start );
         return writer;
     }
@@ -159,7 +159,7 @@ public static class String {
     public static StringWriter RemoveEnd( this StringWriter writer , string end ) {
         if( writer == null )
             return null;
-        var builder = writer.GetStringBuilder();
+        StringBuilder builder = writer.GetStringBuilder();
         RemoveEnd( builder , end );
         return writer;
     }
@@ -181,7 +181,7 @@ public static class String {
             return String.Empty;
         if( value.Length < length )
             return value;
-        var result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         result.Append( value.Substring( 0 , length ) );
         if( endCharCount < 1 )
             return result.ToString();
@@ -225,7 +225,7 @@ public static class String {
     /// </summary>
     /// <param name="value">值，范例1："5555",返回"5",范例2："4545",返回"45"</param>
     public static string Distinct( string value ) {
-        var array = value.ToCharArray();
+        char[] array = value.ToCharArray();
         return new string( array.Distinct().ToArray() );
     }
 
@@ -348,7 +348,7 @@ public static class String {
             return string.Empty;
         if( !email.IsEmail() )
             return HideSensitiveInfo( email , left , 0 );
-        var suffixLen = email!.Length - email.LastIndexOf( '@' );
+        int suffixLen = email!.Length - email.LastIndexOf( '@' );
         return HideSensitiveInfo( email , left , suffixLen , basedOnLeft: false );
     }
 
@@ -407,7 +407,7 @@ public static class String {
         repeatValue = isFuzzy ? repeatValue.ToLower() : repeatValue;
         if( !value.Contains( repeatValue ) )
             return 0;
-        var replace = value.Replace( repeatValue , "" );
+        string replace = value.Replace( repeatValue , "" );
         return ( value.Length - replace.Length ) / repeatValue.Length;
     }
 

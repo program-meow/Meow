@@ -13,7 +13,7 @@ public class DomainTenantResolverHelper {
     public static string ResolveTenantId( string domain , IDictionary<string , string> domainMap , string domainFormat ) {
         if( domain.IsEmpty() )
             return null;
-        var host = RemoveDomainPrefix( domain );
+        string host = RemoveDomainPrefix( domain );
         if( host.IsEmpty() )
             return null;
         if( domainMap is { Count: > 0 } ) {

@@ -1,5 +1,5 @@
-﻿using Meow.Extension;
-using Meow.Option;
+﻿using Meow.Date;
+using Meow.Extension;
 
 namespace Meow.Helper;
 
@@ -623,8 +623,8 @@ public static class Time {
     /// </summary>
     /// <param name="time">时间</param>
     public static string GetTimeSpanByCn( DateTime time ) {
-        var nowTime = Now;
-        var suffix = time > nowTime ? "后" : "前";
+        DateTime nowTime = Now;
+        string suffix = time > nowTime ? "后" : "前";
         return GetTimeSpanByCn( time - nowTime , suffix );
     }
 
@@ -634,20 +634,20 @@ public static class Time {
     /// <param name="ts">时间间隔</param>
     /// <param name="suffix">后缀</param>
     private static string GetTimeSpanByCn( TimeSpan ts , string suffix ) {
-        var days = System.Math.Ceiling( System.Math.Abs( ts.TotalDays ) );
+        double days = System.Math.Ceiling( System.Math.Abs( ts.TotalDays ) );
         if( days > 365 )
             return $"{( int ) ( days / 365 )}年{suffix}";
         if( days > 30 )
             return $"{( int ) ( days / 30 )}月{suffix}";
         if( days > 1 )
             return $"{days}天{suffix}";
-        var hours = System.Math.Ceiling( System.Math.Abs( ts.TotalHours ) );
+        double hours = System.Math.Ceiling( System.Math.Abs( ts.TotalHours ) );
         if( hours > 1 )
             return $"{hours}小时{suffix}";
-        var minutes = System.Math.Ceiling( System.Math.Abs( ts.TotalMinutes ) );
+        double minutes = System.Math.Ceiling( System.Math.Abs( ts.TotalMinutes ) );
         if( minutes > 1 )
             return $"{minutes}分钟{suffix}";
-        var seconds = System.Math.Ceiling( System.Math.Abs( ts.TotalSeconds ) );
+        double seconds = System.Math.Ceiling( System.Math.Abs( ts.TotalSeconds ) );
         if( seconds > 30 )
             return $"{seconds}秒前";
         return "刚刚";

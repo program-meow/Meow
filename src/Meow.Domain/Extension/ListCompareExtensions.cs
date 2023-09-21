@@ -24,7 +24,7 @@ public static class ListCompareExtensions {
     /// <param name="originalList">旧实体集合</param>
     public static ListCompareResult<TEntity , TKey> Compare<TEntity, TKey>( this IEnumerable<TEntity> newList , IEnumerable<TEntity> originalList )
         where TEntity : IKey<TKey> {
-        var comparator = new ListComparator<TEntity , TKey>();
+        ListComparator<TEntity , TKey> comparator = new ListComparator<TEntity , TKey>();
         return comparator.Compare( newList , originalList );
     }
 
@@ -34,7 +34,7 @@ public static class ListCompareExtensions {
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
     public static KeyListCompareResult<Guid> Compare( this IEnumerable<Guid> newList , IEnumerable<Guid> originalList ) {
-        var comparator = new KeyListComparator<Guid>();
+        KeyListComparator<Guid> comparator = new KeyListComparator<Guid>();
         return comparator.Compare( newList , originalList );
     }
 
@@ -44,7 +44,7 @@ public static class ListCompareExtensions {
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
     public static KeyListCompareResult<string> Compare( this IEnumerable<string> newList , IEnumerable<string> originalList ) {
-        var comparator = new KeyListComparator<string>();
+        KeyListComparator<string> comparator = new KeyListComparator<string>();
         return comparator.Compare( newList , originalList );
     }
 
@@ -54,7 +54,7 @@ public static class ListCompareExtensions {
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
     public static KeyListCompareResult<int> Compare( this IEnumerable<int> newList , IEnumerable<int> originalList ) {
-        var comparator = new KeyListComparator<int>();
+        KeyListComparator<int> comparator = new KeyListComparator<int>();
         return comparator.Compare( newList , originalList );
     }
 
@@ -64,7 +64,7 @@ public static class ListCompareExtensions {
     /// <param name="newList">新实体标识集合</param>
     /// <param name="originalList">旧实体标识集合</param>
     public static KeyListCompareResult<long> Compare( this IEnumerable<long> newList , IEnumerable<long> originalList ) {
-        var comparator = new KeyListComparator<long>();
+        KeyListComparator<long> comparator = new KeyListComparator<long>();
         return comparator.Compare( newList , originalList );
     }
 }
