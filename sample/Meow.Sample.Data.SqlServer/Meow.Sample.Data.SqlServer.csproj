@@ -5,8 +5,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Meow.Data.EntityFramework.SqlServer\02-Meow.Data.EntityFrameworkCore.SqlServer.csproj" />
-	  <ProjectReference Include="..\Meow.Sample.Data\Meow.Sample.Data.csproj" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Meow.Data.EntityFramework.SqlServer\02-Meow.Data.EntityFrameworkCore.SqlServer.csproj" />
+		<ProjectReference Include="..\Meow.Sample.Data\Meow.Sample.Data.csproj" />
 	</ItemGroup>
 
 </Project>
