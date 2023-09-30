@@ -24,7 +24,7 @@ namespace Meow.Core.Test.Helper {
         [Fact]
         public void Test() {
             decimal bb = -2000200020002010000.223M;
-            string aa = bb.ToMoneyByNum( MoneyEnum.USD );
+            string aa = bb.ToMoneyFromNum( MoneyEnum.USD );
         }
     }
 }

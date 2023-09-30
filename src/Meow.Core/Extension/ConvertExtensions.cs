@@ -320,15 +320,15 @@ public static class ConvertExtensions {
 
     #endregion
 
-    #region ToMoneyByRmbCn  [转换为大写人民币]
+    #region ToMoneyFromRmbCn  [转换为大写人民币]
 
     /// <summary>
     /// 转换为大写人民币
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn( decimal? money , bool isIgnoreSgn = true ) {
-        return Meow.Helper.Convert.ToMoneyByRmbCn( money , isIgnoreSgn );
+    public static string ToMoneyFromRmbCn( decimal? money , bool isIgnoreSgn = true ) {
+        return Meow.Helper.Convert.ToMoneyFromRmbCn( money , isIgnoreSgn );
     }
 
     /// <summary>
@@ -336,13 +336,13 @@ public static class ConvertExtensions {
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn( this decimal money , bool isIgnoreSgn = true ) {
-        return Meow.Helper.Convert.ToMoneyByRmbCn( money , isIgnoreSgn );
+    public static string ToMoneyFromRmbCn( this decimal money , bool isIgnoreSgn = true ) {
+        return Meow.Helper.Convert.ToMoneyFromRmbCn( money , isIgnoreSgn );
     }
 
     #endregion
 
-    #region ToMoneyByNum  [转换为数字货币]
+    #region ToMoneyFromNum  [转换为数字货币]
 
     /// <summary>
     /// 转换为数字货币
@@ -350,8 +350,8 @@ public static class ConvertExtensions {
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum( this decimal? money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
-        return Meow.Helper.Convert.ToMoneyByNum( money , moneyType , isIgnoreSgn );
+    public static string ToMoneyFromNum( this decimal? money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+        return Meow.Helper.Convert.ToMoneyFromNum( money , moneyType , isIgnoreSgn );
     }
 
     /// <summary>
@@ -360,8 +360,8 @@ public static class ConvertExtensions {
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum( this decimal money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
-        return Meow.Helper.Convert.ToMoneyByNum( money , moneyType , isIgnoreSgn );
+    public static string ToMoneyFromNum( this decimal money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+        return Meow.Helper.Convert.ToMoneyFromNum( money , moneyType , isIgnoreSgn );
     }
 
     #endregion

@@ -440,15 +440,15 @@ public static class Convert {
 
     #endregion
 
-    #region ToRmbByCn  [转换为大写人民币]
+    #region ToRmbFromCn  [转换为大写人民币]
 
     /// <summary>
     /// 转换为大写人民币
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn( decimal? money , bool isIgnoreSgn = true ) {
-        return ToMoneyByRmbCn( money.SafeValue() , isIgnoreSgn );
+    public static string ToMoneyFromRmbCn( decimal? money , bool isIgnoreSgn = true ) {
+        return ToMoneyFromRmbCn( money.SafeValue() , isIgnoreSgn );
     }
 
     /// <summary>
@@ -456,7 +456,7 @@ public static class Convert {
     /// </summary>
     /// <param name="money">金额</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByRmbCn( decimal money , bool isIgnoreSgn = true ) {
+    public static string ToMoneyFromRmbCn( decimal money , bool isIgnoreSgn = true ) {
         if( money == 0 )
             return "零元整";
         string head = isIgnoreSgn ? "" : money > 0 ? "正 " : "负 ";
@@ -468,7 +468,7 @@ public static class Convert {
 
     #endregion
 
-    #region ToMoneyByNum  [转换为数字货币]
+    #region ToMoneyFromNum  [转换为数字货币]
 
     /// <summary>
     /// 转换为数字货币
@@ -476,8 +476,8 @@ public static class Convert {
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum( decimal? money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
-        return ToMoneyByNum( money.SafeValue() , moneyType , isIgnoreSgn );
+    public static string ToMoneyFromNum( decimal? money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+        return ToMoneyFromNum( money.SafeValue() , moneyType , isIgnoreSgn );
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ public static class Convert {
     /// <param name="money">金额</param>
     /// <param name="moneyType">币种。不设置则无货币符号前缀</param>
     /// <param name="isIgnoreSgn">是否忽略正负，忽略时正数省略</param>
-    public static string ToMoneyByNum( decimal money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
+    public static string ToMoneyFromNum( decimal money , MoneyEnum? moneyType = null , bool isIgnoreSgn = false ) {
         string moneyDescription = moneyType == null ? "" : $"{moneyType.GetDescription()} ";
         if( money == 0 )
             return $"{moneyDescription}{money.SafeString()}";
