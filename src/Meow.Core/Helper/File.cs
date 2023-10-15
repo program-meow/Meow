@@ -216,28 +216,4 @@ public static class File {
     }
 
     #endregion
-
-    /// <summary>
-    /// 连接路径
-    /// </summary>
-    /// <param name="paths">路径列表</param>
-    public static string JoinPath( params string[] paths ) {
-        return Url.JoinPath( paths );
-    }
-
-    /// <summary>
-    /// 获取物理路径
-    /// </summary>
-    /// <param name="relativePath">相对路径,范例:"test/a.txt" 或 "/test/a.txt"</param>
-    /// <param name="basePath">基路径,默认为AppContext.BaseDirectory</param>
-    public static string GetPhysicalPath( string relativePath , string basePath = null ) {
-        if( relativePath.StartsWith( "~" ) )
-            relativePath = relativePath.TrimStart( '~' );
-        if( relativePath.StartsWith( "/" ) )
-            relativePath = relativePath.TrimStart( '/' );
-        if( relativePath.StartsWith( "\\" ) )
-            relativePath = relativePath.TrimStart( '\\' );
-        basePath ??= Meow.Helper.Program.BaseDirectory;
-        return Path.Combine( basePath , relativePath );
-    }
 }

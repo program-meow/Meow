@@ -25,7 +25,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.EntityFrameworkCore.Metadata;
 global using SystemType = System.Type;
 global using SystemAction = System.Action;
-global using MeowFile = Meow.Helper.File;
 global using SystemException = System.Exception;
 global using Meow.Helper;
 global using Meow.Action;

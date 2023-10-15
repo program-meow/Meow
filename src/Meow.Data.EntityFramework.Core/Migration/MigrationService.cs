@@ -66,7 +66,7 @@ public class MigrationService : IMigrationService {
     /// </summary>
     private void RemoveMigrationFileForeignKeys( string migrationName , string dbContextRootPath ) {
         _logger.LogTrace( "准备移除迁移文件中的外键设置." );
-        string migrationsPath = MeowFile.JoinPath( dbContextRootPath , "Migrations" );
+        string migrationsPath = Meow.Helper.Program.JoinPath( dbContextRootPath , "Migrations" );
         _migrationFileService
             .MigrationsPath( migrationsPath )
             .MigrationName( migrationName )
