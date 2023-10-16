@@ -7,25 +7,25 @@ namespace Meow.Helper;
 /// </summary>
 public static class File {
 
-    #region IsExistsFile  [判断是否存在文件]
+    #region ExistsFile  [判断是否存在文件]
 
     /// <summary>
     /// 判断是否存在文件
     /// </summary>
     /// <param name="path">文件绝对路径</param>
-    public static bool IsExistsFile( string path ) {
+    public static bool ExistsFile( string path ) {
         return System.IO.File.Exists( path );
     }
 
     #endregion
 
-    #region IsExistsDirectory  [判断是否存在目录]
+    #region ExistsDirectory  [判断是否存在目录]
 
     /// <summary>
     /// 判断是否存在目录
     /// </summary>
     /// <param name="path">目录绝对路径</param>
-    public static bool IsExistsDirectory( string path ) {
+    public static bool ExistsDirectory( string path ) {
         return Directory.Exists( path );
     }
 

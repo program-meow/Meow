@@ -133,25 +133,25 @@ public static class Enum {
     /// 获取项集合,文本设置为Description，值为Value
     /// </summary>
     /// <typeparam name="TEnum">枚举类型</typeparam>
-    public static List<Item> ToItemsList<TEnum>() {
-        return ToItemsList( typeof( TEnum ) );
+    public static List<Item> GetItems<TEnum>() {
+        return GetItems( typeof( TEnum ) );
     }
 
     /// <summary>
     /// 转换项集合,文本设置为Description，值为Value
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<Item> ToItemsList( System.Enum instance ) {
+    public static List<Item> GetItems( System.Enum instance ) {
         if( instance == null )
             return new List<Item>();
-        return ToItemsList( instance.GetType() );
+        return GetItems( instance.GetType() );
     }
 
     /// <summary>
     /// 获取项集合,文本设置为Description，值为Value
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<Item> ToItemsList( SystemType type ) {
+    public static List<Item> GetItems( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
             throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
@@ -176,25 +176,25 @@ public static class Enum {
     /// 获取名称集合
     /// </summary>
     /// <typeparam name="TEnum">枚举类型</typeparam>
-    public static List<string> ToNameList<TEnum>() {
-        return ToNameList( typeof( TEnum ) );
+    public static List<string> GetNames<TEnum>() {
+        return GetNames( typeof( TEnum ) );
     }
 
     /// <summary>
     /// 获取名称集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<string> ToNameList( System.Enum instance ) {
+    public static List<string> GetNames( System.Enum instance ) {
         if( instance == null )
             return new List<string>();
-        return ToNameList( instance.GetType() );
+        return GetNames( instance.GetType() );
     }
 
     /// <summary>
     /// 获取名称集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<string> ToNameList( SystemType type ) {
+    public static List<string> GetNames( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
             throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
@@ -211,16 +211,16 @@ public static class Enum {
     /// 获取字典,文本设置为Description，Key为Value
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static Dictionary<int , string> ToDictionary( System.Enum instance ) {
+    public static Dictionary<int , string> GetDictionary( System.Enum instance ) {
         if( instance == null )
             return new Dictionary<int , string>();
-        return ToDictionary( instance.GetType() );
+        return GetDictionary( instance.GetType() );
     }
 
     /// <summary>
     /// 获取字典
     /// </summary>
-    public static Dictionary<int , string> ToDictionary( SystemType type ) {
+    public static Dictionary<int , string> GetDictionary( SystemType type ) {
         Dictionary<int , string> list = new Dictionary<int , string>();
         if( type.IsEnum == false )
             return list;
@@ -241,25 +241,25 @@ public static class Enum {
     /// 获取（标识、名）集合
     /// </summary>
     /// <typeparam name="TEnum">枚举类型</typeparam>
-    public static List<IdName<int?>> ToIdNameList<TEnum>() {
-        return ToIdNameList( typeof( TEnum ) );
+    public static List<IdName<int?>> GetIdNames<TEnum>() {
+        return GetIdNames( typeof( TEnum ) );
     }
 
     /// <summary>
     /// 转换（标识、名）集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<IdName<int?>> ToIdNameList( System.Enum instance ) {
+    public static List<IdName<int?>> GetIdNames( System.Enum instance ) {
         if( instance == null )
             return new List<IdName<int?>>();
-        return ToIdNameList( instance.GetType() );
+        return GetIdNames( instance.GetType() );
     }
 
     /// <summary>
     /// 转换（标识、名）集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<IdName<int?>> ToIdNameList( SystemType type ) {
+    public static List<IdName<int?>> GetIdNames( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
             throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
@@ -284,54 +284,54 @@ public static class Enum {
     /// 转换（标识、名、描述）集合
     /// </summary>
     /// <typeparam name="TEnum">枚举类型</typeparam>
-    public static List<IdNameDesc<int?>> ToIdNameDescList<TEnum>() {
-        return ToIdNameDescList( typeof( TEnum ) );
+    public static List<IdNameDescription<int?>> GetIdNameDescriptions<TEnum>() {
+        return GetIdNameDescriptions( typeof( TEnum ) );
     }
 
     /// <summary>
     /// 转换（标识、名、描述）集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<IdNameDesc<int?>> ToIdNameDescList( System.Enum instance ) {
+    public static List<IdNameDescription<int?>> GetIdNameDescriptions( System.Enum instance ) {
         if( instance == null )
-            return new List<IdNameDesc<int?>>();
-        return ToIdNameDescList( instance.GetType() );
+            return new List<IdNameDescription<int?>>();
+        return GetIdNameDescriptions( instance.GetType() );
     }
 
     /// <summary>
     /// 转换（标识、名、描述）集合
     /// </summary>
     /// <param name="type">枚举类型</param>
-    public static List<IdNameDesc<int?>> ToIdNameDescList( SystemType type ) {
+    public static List<IdNameDescription<int?>> GetIdNameDescriptions( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
             throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
-        List<IdNameDesc<int?>> result = new List<IdNameDesc<int?>>();
+        List<IdNameDescription<int?>> result = new List<IdNameDescription<int?>>();
         foreach( FieldInfo field in type.GetFields() )
-            AddIdNameDesc( type , result , field );
+            AddIdNameDescription( type , result , field );
         return result.OrderBy( t => t.Id ).ToList();
     }
 
     /// <summary>
     /// 添加描述项
     /// </summary>
-    private static void AddIdNameDesc( SystemType type , ICollection<IdNameDesc<int?>> result , FieldInfo field ) {
+    private static void AddIdNameDescription( SystemType type , ICollection<IdNameDescription<int?>> result , FieldInfo field ) {
         if( !field.FieldType.IsEnum )
             return;
         int? value = GetValue( type , field.Name );
         string name = GetName( type , field.Name );
         string description = Reflection.GetDescription( field );
-        result.Add( new IdNameDesc<int?>( value , name , description ) );
+        result.Add( new IdNameDescription<int?>( value , name , description ) );
     }
 
     /// <summary>
     /// 转换（标识、名）
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static IdName<int?> ToIdName( System.Enum instance ) {
+    public static IdName<int?> GetIdName( System.Enum instance ) {
         if( instance == null )
             return new IdName<int?>( null , string.Empty );
-        return ToIdName( instance.GetType() , instance );
+        return GetIdName( instance.GetType() , instance );
     }
 
     /// <summary>
@@ -339,7 +339,7 @@ public static class Enum {
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static IdName<int?> ToIdName( SystemType type , object member ) {
+    public static IdName<int?> GetIdName( SystemType type , object member ) {
         int? value = GetValue( type , member );
         string name = GetName( type , member );
         return new IdName<int?>( value , name );
@@ -349,10 +349,10 @@ public static class Enum {
     /// 转换（标识、名、描述）
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static IdNameDesc<int?> ToIdNameDesc( System.Enum instance ) {
+    public static IdNameDescription<int?> GetIdNameDescription( System.Enum instance ) {
         if( instance == null )
-            return new IdNameDesc<int?>( null , string.Empty , string.Empty );
-        return ToIdNameDesc( instance.GetType() , instance );
+            return new IdNameDescription<int?>( null , string.Empty , string.Empty );
+        return GetIdNameDescription( instance.GetType() , instance );
     }
 
     /// <summary>
@@ -360,10 +360,10 @@ public static class Enum {
     /// </summary>
     /// <param name="type">枚举类型</param>
     /// <param name="member">成员名、值、实例均可</param>
-    public static IdNameDesc<int?> ToIdNameDesc( SystemType type , object member ) {
+    public static IdNameDescription<int?> GetIdNameDescription( SystemType type , object member ) {
         int? value = GetValue( type , member );
         string name = GetName( type , member );
         string description = GetDescription( type , member );
-        return new IdNameDesc<int?>( value , name , description );
+        return new IdNameDescription<int?>( value , name , description );
     }
 }

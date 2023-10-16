@@ -19,6 +19,13 @@ public static class Ioc {
     public static IServiceScopeFactory ServiceScopeFactory { get; set; }
 
     /// <summary>
+    /// 创建新容器
+    /// </summary>
+    public static Meow.Dependency.Container CreateContainer() {
+        return new Meow.Dependency.Container();
+    }
+
+    /// <summary>
     /// 获取服务集合
     /// </summary>
     public static IServiceCollection GetServices() {
@@ -101,5 +108,12 @@ public static class Ioc {
     public static IServiceScope CreateScope() {
         IServiceProvider provider = GetServiceProvider();
         return provider.CreateScope();
+    }
+
+    /// <summary>
+    /// 清理
+    /// </summary>
+    public static void Clear() {
+        _container.Clear();
     }
 }

@@ -62,15 +62,21 @@ public static class Config {
     /// <summary>
     /// 创建配置
     /// </summary>
-    /// <param name="basePath">配置基地址</param>
-    public static IConfiguration CreateConfiguration( string basePath = null ) {
+    /// <param name="basePath">配置文件目录绝对路径</param>
+    /// <param name="jsonFiles">配置文件列表,默认已包含appsettings.json</param>
+    public static IConfiguration CreateConfiguration( string basePath = null , params string[] jsonFiles ) {
         basePath ??= Meow.Helper.Program.BaseDirectory;
         IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath( basePath )
-            .AddJsonFile( "appsettings.json" , true , true );
+            .AddJsonFile( "appsettings.json" , true , false );
         string environment = Environment.GetEnvironmentName();
         if( environment.IsEmpty() == false )
-            builder.AddJsonFile( $"appsettings.{environment}.json" , true , true );
+            builder.AddJsonFile( $"appsettings.{environment}.json" , true , false );
+        builder.AddEnvironmentVariables();
+        if( jsonFiles == null )
+            return builder.Build();
+        foreach( string file in jsonFiles )
+            builder.AddJsonFile( file , true , false );
         return builder.Build();
     }
 

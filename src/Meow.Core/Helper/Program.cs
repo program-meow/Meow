@@ -52,9 +52,9 @@
         /// </summary>
         /// <param name="depth">向上钻取的深度</param>
         public static string GetParentDirectory( int depth = 1 ) {
-            var path = Directory.GetCurrentDirectory();
+            string path = Directory.GetCurrentDirectory();
             for( int i = 0 ; i < depth ; i++ ) {
-                var parent = Directory.GetParent( path );
+                DirectoryInfo parent = Directory.GetParent( path );
                 if( parent is { Exists: true } )
                     path = parent.FullName;
             }

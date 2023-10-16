@@ -50,55 +50,55 @@ public static class EnumExtensions {
     /// 转换项集合,文本设置为Description，值为Value
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<Meow.Model.Item> ToItemsList( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToItemsList( instance );
+    public static List<Meow.Model.Item> GetItems( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetItems( instance );
     }
 
     /// <summary>
     /// 获取名称集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<string> ToNameList( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToNameList( instance );
+    public static List<string> GetNames( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetNames( instance );
     }
 
     /// <summary>
     /// 获取字典,文本设置为Description，Key为Value
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static Dictionary<int , string> ToDictionary( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToDictionary( instance );
+    public static Dictionary<int , string> GetDictionary( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetDictionary( instance );
     }
 
     /// <summary>
     /// 转换（标识、名）集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<Meow.Model.IdName<int?>> ToIdNameList( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToIdNameList( instance );
+    public static List<Meow.Model.IdName<int?>> GetIdNames( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetIdNames( instance );
     }
 
     /// <summary>
     /// 转换（标识、名、描述）集合
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static List<Meow.Model.IdNameDesc<int?>> ToIdNameDescList( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToIdNameDescList( instance );
+    public static List<Meow.Model.IdNameDescription<int?>> GetIdNameDescriptions( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetIdNameDescriptions( instance );
     }
 
     /// <summary>
     /// 转换（标识、名）
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static Meow.Model.IdName<int?> ToIdName( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToIdName( instance );
+    public static Meow.Model.IdName<int?> GetIdName( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetIdName( instance );
     }
 
     /// <summary>
     /// 转换（标识、名、描述）
     /// </summary>
     /// <param name="instance">枚举实例</param>
-    public static Meow.Model.IdNameDesc<int?> ToIdNameDesc( this System.Enum instance ) {
-        return Meow.Helper.Enum.ToIdNameDesc( instance );
+    public static Meow.Model.IdNameDescription<int?> GetIdNameDescription( this System.Enum instance ) {
+        return Meow.Helper.Enum.GetIdNameDescription( instance );
     }
 }

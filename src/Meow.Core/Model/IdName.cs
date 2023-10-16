@@ -24,14 +24,14 @@ public class IdName<TKey> : Key<TKey> {
 /// 标识、名、描述
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
-public class IdNameDesc<TKey> : IdName<TKey> {
+public class IdNameDescription<TKey> : IdName<TKey> {
     /// <summary>
     /// 初始化
     /// </summary>
     /// <param name="id">标识</param>
     /// <param name="name">名称</param>
     /// <param name="description">描述</param>
-    public IdNameDesc( TKey id , string name , string description ) : base( id , name ) {
+    public IdNameDescription( TKey id , string name , string description ) : base( id , name ) {
         Description = description;
     }
 
@@ -58,13 +58,13 @@ public class IdName : IdName<Guid> {
 /// <summary>
 /// 标识、名、描述
 /// </summary>
-public class IdNameDesc : IdNameDesc<Guid> {
+public class IdNameDescription : IdNameDescription<Guid> {
     /// <summary>
     /// 初始化
     /// </summary>
     /// <param name="id">标识</param>
     /// <param name="name">名称</param>
     /// <param name="description">描述</param>
-    protected IdNameDesc( Guid id , string name , string description ) : base( id , name , description ) {
+    protected IdNameDescription( Guid id , string name , string description ) : base( id , name , description ) {
     }
 }

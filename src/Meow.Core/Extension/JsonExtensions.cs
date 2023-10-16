@@ -41,6 +41,15 @@ public static class JsonExtensions {
     /// </summary>
     /// <param name="json">Json字符串</param>
     /// <param name="options">序列化配置</param>
+    public static T ToJsonObject<T>( this string json , JsonOptions options ) {
+        return Meow.Helper.Json.ToObject<T>( json , options );
+    }
+
+    /// <summary>
+    /// 将Json字符串转换为对象
+    /// </summary>
+    /// <param name="json">Json字符串</param>
+    /// <param name="options">序列化配置</param>
     public static T ToJsonObject<T>( this string json , JsonSerializerOptions options = null ) {
         return Meow.Helper.Json.ToObject<T>( json , options );
     }
@@ -56,14 +65,32 @@ public static class JsonExtensions {
     }
 
     /// <summary>
+    /// 将Json字节数组转换为对象
+    /// </summary>
+    /// <param name="json">Json字节数组</param>
+    /// <param name="options">序列化配置</param>
+    public static T ToJsonObject<T>( this byte[] json , JsonSerializerOptions options = null ) {
+        return Meow.Helper.Json.ToObject<T>( json , options );
+    }
+
+    /// <summary>
+    /// 将Json字节流转换为对象
+    /// </summary>
+    /// <param name="json">Json字节流</param>
+    /// <param name="options">序列化配置</param>
+    public static T ToJsonObject<T>( this SystemStream json , JsonSerializerOptions options = null ) {
+        return Meow.Helper.Json.ToObject<T>( json , options );
+    }
+
+    /// <summary>
     /// 将Json字符串转换为对象
     /// </summary>
     /// <param name="json">Json字符串</param>
     /// <param name="options">序列化配置</param>
-    /// <param name="cancellationToken">取消令牌</param>
     /// <param name="encoding">Json字符编码,默认UTF8</param>
-    public static async Task<T> ToJsonObjectAsync<T>( this string json , JsonSerializerOptions options = null , CancellationToken cancellationToken = default , Encoding encoding = null ) {
-        return await Meow.Helper.Json.ToObjectAsync<T>( json , options , cancellationToken , encoding );
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<T> ToJsonObjectAsync<T>( this string json , JsonSerializerOptions options = null , Encoding encoding = null , CancellationToken cancellationToken = default ) {
+        return await Meow.Helper.Json.ToObjectAsync<T>( json , options , encoding , cancellationToken );
     }
 
     /// <summary>
@@ -74,5 +101,24 @@ public static class JsonExtensions {
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task<T> ToJsonObjectAsync<T>( this SystemStream json , JsonSerializerOptions options = null , CancellationToken cancellationToken = default ) {
         return await Meow.Helper.Json.ToObjectAsync<T>( json , options , cancellationToken );
+    }
+
+    /// <summary>
+    /// 将Json流转换为对象
+    /// </summary>
+    /// <param name="json">Json流</param>
+    /// <param name="options">序列化配置</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<T> ToJsonObjectAsync<T>( this byte[] json , JsonSerializerOptions options = null , CancellationToken cancellationToken = default ) {
+        return await Meow.Helper.Json.ToObjectAsync<T>( json , options , cancellationToken );
+    }
+
+    /// <summary>
+    /// 将对象转换为字节数组
+    /// </summary>
+    /// <param name="value">目标对象</param>
+    /// <param name="options">Json配置</param>
+    public static byte[] ToJsonBytes<T>( this T value , JsonSerializerOptions options = null ) {
+        return Meow.Helper.Json.ToBytes<T>( value , options );
     }
 }
