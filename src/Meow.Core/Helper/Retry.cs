@@ -46,7 +46,7 @@ public static class Retry {
             try {
                 action();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 return new Result<bool>( statusCode , statusCode.GetDescription() , true );
@@ -88,7 +88,7 @@ public static class Retry {
             try {
                 result = func();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -133,7 +133,7 @@ public static class Retry {
             try {
                 result = func();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -179,7 +179,7 @@ public static class Retry {
             try {
                 result = func( t1 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -226,7 +226,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -274,7 +274,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 , t3 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -323,7 +323,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 , t3 , t4 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -368,7 +368,7 @@ public static class Retry {
             try {
                 await action();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 return new Result<bool>( statusCode , statusCode.GetDescription() , true );
@@ -410,7 +410,7 @@ public static class Retry {
             try {
                 result = await func();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -455,7 +455,7 @@ public static class Retry {
             try {
                 result = await func();
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -501,7 +501,7 @@ public static class Retry {
             try {
                 result = await func( t1 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -548,7 +548,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -596,7 +596,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 , t3 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -645,7 +645,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 , t3 , t4 );
 
-                statusCode = ResultStatusCodeEnum.Ok;
+                statusCode = ResultStatusCodeEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )

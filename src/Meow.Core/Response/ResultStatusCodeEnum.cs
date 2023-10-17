@@ -8,7 +8,7 @@ public enum ResultStatusCodeEnum {
     /// 成功
     /// </summary>
     [Description( "success" )]
-    Ok = 200,
+    Success = 200,
     /// <summary>
     /// 错误
     /// </summary>

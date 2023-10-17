@@ -1,4 +1,6 @@
-﻿namespace Meow.ObjectMapping.Infrastructure;
+﻿using Meow.Extension;
+
+namespace Meow.ObjectMapping.Infrastructure;
 
 /// <summary>
 /// AutoMapper服务注册器
@@ -29,7 +31,7 @@ public class AutoMapperServiceRegistrar : IServiceRegistrar {
         MapperConfigurationExpression expression = new MapperConfigurationExpression();
         instances.ForEach( t => t.Config( expression ) );
         ObjectMapper mapper = new ObjectMapper( expression );
-        Meow.Helper.ObjectMapper.SetMapper( mapper );
+        ObjectMapperExtensions.SetMapper( mapper );
         serviceContext.HostBuilder.ConfigureServices( ( context , services ) => {
             services.AddSingleton<IObjectMapper>( mapper );
         } );

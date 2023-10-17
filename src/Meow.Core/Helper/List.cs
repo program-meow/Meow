@@ -336,7 +336,7 @@ public static class List {
     /// <param name="array">集合</param>
     public static List<string> RemoveEmpty( List<string> array ) {
         array ??= new List<string>();
-        array.RemoveAll( Validation.IsEmpty );
+        array.RemoveAll( t => t.IsEmpty() );
         return array;
     }
 
@@ -358,7 +358,7 @@ public static class List {
     /// <param name="array">集合</param>
     public static List<Guid> RemoveEmpty( List<Guid> array ) {
         array ??= new List<Guid>();
-        array.RemoveAll( Validation.IsEmpty );
+        array.RemoveAll( t => t.IsEmpty() );
         return array;
     }
 
@@ -380,7 +380,7 @@ public static class List {
     /// <param name="array">集合</param>
     public static List<Guid?> RemoveEmpty( List<Guid?> array ) {
         array ??= new List<Guid?>();
-        array.RemoveAll( Validation.IsEmpty );
+        array.RemoveAll( t => t.IsEmpty() );
         return array;
     }
 
@@ -402,7 +402,7 @@ public static class List {
     /// <param name="array">集合</param>
     public static List<DateTime> RemoveEmpty( List<DateTime> array ) {
         array ??= new List<DateTime>();
-        array.RemoveAll( Validation.IsEmpty );
+        array.RemoveAll( t => t.IsEmpty() );
         return array;
     }
 
@@ -424,7 +424,7 @@ public static class List {
     /// <param name="array">集合</param>
     public static List<DateTime?> RemoveEmpty( List<DateTime?> array ) {
         array ??= new List<DateTime?>();
-        array.RemoveAll( Validation.IsEmpty );
+        array.RemoveAll( t => t.IsEmpty() );
         return array;
     }
 

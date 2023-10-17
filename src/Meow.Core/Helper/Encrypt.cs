@@ -352,4 +352,33 @@ public static class Encrypt {
     }
 
     #endregion
+
+    #region 生成RSA公钥和私钥对
+
+    /// <summary>
+    /// 生成RSA公钥和私钥对,返回值Item1为公钥,Item2为私钥
+    /// </summary>
+    public static (string, string) CreateRsaKey() {
+        var rsa = RSA.Create();
+        var publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem() );
+        var privateKey = rsa.ExportPrivateKey( RSAKeyType.Pkcs1 );
+        return (publicKey, privateKey);
+    }
+
+    /// <summary>
+    /// 格式化公钥
+    /// </summary>
+    private static string FormatPublicKey( string key ) {
+        return key.Replace( "-----BEGIN RSA PRIVATE KEY-----" , "" )
+            .Replace( "-----END RSA PRIVATE KEY-----" , "" )
+            .Replace( "-----BEGIN RSA PUBLIC KEY-----" , "" )
+            .Replace( "-----END RSA PUBLIC KEY-----" , "" )
+            .Replace( "-----BEGIN PRIVATE KEY-----" , "" )
+            .Replace( "-----END PRIVATE KEY-----" , "" )
+            .Replace( "-----BEGIN PUBLIC KEY-----" , "" )
+            .Replace( "-----END PUBLIC KEY-----" , "" )
+            .Replace( Meow.Helper.String.Line , "" );
+    }
+
+    #endregion
 }

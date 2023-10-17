@@ -46,8 +46,6 @@ public class Result<TResult> : IResult<TResult> {
     public string Message { get; }
     /// <inheritdoc />
     public TResult Data { get; }
-    /// <inheritdoc />
-    public bool IsOk => Code.SafeString() == ResultStatusCodeEnum.Ok.GetValue().SafeString();
 
     /// <summary>
     /// 初始化结果

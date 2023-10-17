@@ -840,7 +840,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return await Meow.Helper.Retry.TryInvokeAsync( RunResultAsync , _retryValidateResultFunc , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
             TResult result = await RunResultAsync();
-            return new Result<TResult>( ResultStatusCodeEnum.Ok , ResultStatusCodeEnum.Ok.GetDescription() , result );
+            return new Result<TResult>( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
             return new Result<TResult>( ResultStatusCodeEnum.Error , ex.Message );
@@ -871,7 +871,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return await Meow.Helper.Retry.TryInvokeAsync( RunStreamAsync , ( ( result ) => result != null ) , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
             byte[] result = await RunStreamAsync();
-            return new Result<byte[]>( ResultStatusCodeEnum.Ok , ResultStatusCodeEnum.Ok.GetDescription() , result );
+            return new Result<byte[]>( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
             return new Result<byte[]>( ResultStatusCodeEnum.Error , ex.Message );
@@ -917,11 +917,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     public async Task<Result> WriteAsync( string filePath , Action<SystemException> listenerExceptionFunc = null ) {
         Result<byte[]> result = await GetStreamAsync( listenerExceptionFunc );
-        if( !result.IsOk )
+        if( result.Code != ResultStatusCodeEnum.Success.GetValue().SafeString() )
             return new Result( result.Code , result.Message , null );
         try {
             await result.Data.FileWriteAsync( filePath );
-            return new Result( ResultStatusCodeEnum.Ok , ResultStatusCodeEnum.Ok.GetDescription() );
+            return new Result( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
             return new Result( ResultStatusCodeEnum.Error , ex.Message );

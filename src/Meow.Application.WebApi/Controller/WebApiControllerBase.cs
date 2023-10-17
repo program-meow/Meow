@@ -35,8 +35,8 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// <param name="message">消息</param>
     /// <param name="statusCode">Http状态码</param>
     protected virtual IActionResult Success( dynamic data = null , string message = null , int? statusCode = 200 ) {
-        message ??= ResultStatusCodeEnum.Ok.GetDescription();
-        return GetResult( ResultStatusCodeEnum.Ok.GetValue().SafeString() , message , data , statusCode );
+        message ??= ResultStatusCodeEnum.Success.GetDescription();
+        return GetResult( ResultStatusCodeEnum.Success.GetValue().SafeString() , message , data , statusCode );
     }
 
     /// <summary>

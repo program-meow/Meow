@@ -8,3 +8,6 @@ global using AspectCore.Extensions.AspectScope;
 global using AspectCore.Extensions.DependencyInjection;
 global using Meow.Config;
 global using Meow.Extension;
+
+global using SystemType = System.Type;
+global using SystemException = System.Exception;

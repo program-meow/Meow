@@ -9,7 +9,7 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsNull( this object value ) {
-        return Meow.Helper.Validation.IsNull( value );
+        return value == null;
     }
 
     /// <summary>
@@ -18,7 +18,8 @@ public static class ValidationExtensions {
     /// <param name="obj">对象</param>
     /// <param name="parameterName">参数名</param>
     public static void CheckNull( this object obj , string parameterName ) {
-        Meow.Helper.Validation.CheckNull( obj , parameterName );
+        if( IsNull( obj ) )
+            throw new ArgumentNullException( parameterName );
     }
 
     #region IsEmpty  [是否为空]
@@ -28,7 +29,7 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsEmpty( [NotNullWhen( false )] this string value ) {
-        return Meow.Helper.Validation.IsEmpty( value );
+        return string.IsNullOrWhiteSpace( value );
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsEmpty( this Guid value ) {
-        return Meow.Helper.Validation.IsEmpty( value );
+        return value == Guid.Empty;
     }
 
     /// <summary>
@@ -44,7 +45,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsEmpty( [NotNullWhen( false )] this Guid? value ) {
-        return Meow.Helper.Validation.IsEmpty( value );
+        if( value == null )
+            return true;
+        return value == Guid.Empty;
     }
 
     /// <summary>
@@ -52,7 +55,7 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsEmpty( this DateTime value ) {
-        return Meow.Helper.Validation.IsEmpty( value );
+        return value == DateTime.MinValue || value == DateTime.MaxValue;
     }
 
     /// <summary>
@@ -60,15 +63,19 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsEmpty( [NotNullWhen( false )] this DateTime? value ) {
-        return Meow.Helper.Validation.IsEmpty( value );
+        if( value == null )
+            return true;
+        return value == DateTime.MinValue || value == DateTime.MaxValue;
     }
 
     /// <summary>
     /// 是否为空
     /// </summary>
-    /// <param name="array">集合</param>
-    public static bool IsEmpty<T>( this IEnumerable<T> array ) {
-        return Meow.Helper.Validation.IsEmpty<T>( array );
+    /// <param name="value">集合</param>
+    public static bool IsEmpty<T>( this IEnumerable<T> value ) {
+        if( value == null )
+            return true;
+        return !value.Any();
     }
 
     #endregion
@@ -78,7 +85,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>        
     public static bool IsNumber( this string value ) {
-        return Meow.Helper.Validation.IsNumber( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.Number );
     }
 
     /// <summary>
@@ -86,7 +95,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>        
     public static bool IsPhone( this string value ) {
-        return Meow.Helper.Validation.IsPhone( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.Phone );
     }
 
     /// <summary>
@@ -94,7 +105,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>        
     public static bool IsLandline( this string value ) {
-        return Meow.Helper.Validation.IsLandline( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.Landline );
     }
 
     /// <summary>
@@ -102,7 +115,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>        
     public static bool IsEmail( this string value ) {
-        return Meow.Helper.Validation.IsEmail( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.Email );
     }
 
     /// <summary>
@@ -110,7 +125,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsContainsNumber( this string value ) {
-        return Meow.Helper.Validation.IsContainsNumber( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.ContainsNumber );
     }
 
     /// <summary>
@@ -118,7 +135,9 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>
     public static bool IsContainsCn( this string value ) {
-        return Meow.Helper.Validation.IsContainsCn( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.ContainsCn );
     }
 
     /// <summary>
@@ -126,6 +145,8 @@ public static class ValidationExtensions {
     /// </summary>
     /// <param name="value">值</param>        
     public static bool IsIdCard( this string value ) {
-        return Meow.Helper.Validation.IsIdCard( value );
+        if( IsEmpty( value ) )
+            return false;
+        return Regex.IsMatch( value , Meow.Const.RegexPattern.IdCard );
     }
 }

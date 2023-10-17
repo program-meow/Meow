@@ -33,6 +33,7 @@ global using System.Collections;
 global using System.Net.NetworkInformation;
 global using System.Net.Sockets;
 global using System.Web;
+global using System.Runtime.CompilerServices;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;

@@ -1,6 +1,4 @@
-﻿using Meow.Extension;
-
-namespace Meow.Response;
+﻿namespace Meow.Response;
 
 /// <summary>
 /// 结果
@@ -18,8 +16,4 @@ public interface IResult<out TResult> : IResponse {
     /// 数据
     /// </summary>
     TResult Data { get; }
-    /// <summary>
-    /// 是否成功
-    /// </summary>
-    bool IsOk => Code.SafeString() == ResultStatusCodeEnum.Ok.GetValue().SafeString();
 }
