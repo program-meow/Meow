@@ -14,6 +14,11 @@ public abstract class SqlServerUnitOfWorkBase : UnitOfWorkBase {
     }
 
     /// <inheritdoc />
+    protected override string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return ( ( SqlServerOptionsExtension ) dbContextOptionsExtension ).ConnectionString;
+    }
+
+    /// <inheritdoc />
     protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
         optionsBuilder.UseSqlServer( connectionString );
     }

@@ -917,7 +917,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="listenerExceptionFunc">监听异常方法</param>
     public async Task<Result> WriteAsync( string filePath , Action<SystemException> listenerExceptionFunc = null ) {
         Result<byte[]> result = await GetStreamAsync( listenerExceptionFunc );
-        if( result.Code != ResultStatusCodeEnum.Success.GetValue().SafeString() )
+        if( result.IsSuccess() )
             return new Result( result.Code , result.Message , null );
         try {
             await result.Data.FileWriteAsync( filePath );

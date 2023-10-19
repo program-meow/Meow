@@ -14,6 +14,11 @@ public abstract class PgSqlUnitOfWorkBase : UnitOfWorkBase {
     }
 
     /// <inheritdoc />
+    protected override string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return ( ( NpgsqlOptionsExtension ) dbContextOptionsExtension ).ConnectionString;
+    }
+
+    /// <inheritdoc />
     protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
         optionsBuilder.UseNpgsql( connectionString );
     }

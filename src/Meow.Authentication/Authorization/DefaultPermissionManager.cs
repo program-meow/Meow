@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Security.Authorization;
 
 /// <summary>
 /// 默认权限管理器

@@ -1,6 +1,4 @@
-﻿using Meow.Date;
-
-namespace Meow.Data.EntityFrameworkCore;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 工作单元基类
@@ -16,6 +14,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <param name="options">配置</param>
     protected UnitOfWorkBase( IServiceProvider serviceProvider , DbContextOptions options )
         : base( options ) {
+        _options = options ?? throw new ArgumentNullException( nameof( options ) );
         ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
         Environment = serviceProvider.GetService<IHostEnvironment>();
         FilterManager = ServiceProvider.GetService<IFilterManager>();
@@ -31,6 +30,14 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
 
     #region 属性
 
+    /// <summary>
+    /// DbContext配置
+    /// </summary>
+    private readonly DbContextOptions _options;
+    /// <summary>
+    /// 链接字符串
+    /// </summary>
+    public virtual string ConnectionString => GetConnectionString();
     /// <summary>
     /// 服务提供器
     /// </summary>
@@ -83,6 +90,27 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// 是否清除字符串两端的空白,默认为true
     /// </summary>
     protected virtual bool IsTrimString => true;
+
+    #endregion
+
+    #region 获取连接字符串
+
+    /// <summary>
+    /// 获取连接字符串
+    /// </summary>
+    protected virtual string GetConnectionString() {
+        IDbContextOptionsExtension dbContextOptionsExtension = _options.Extensions.FirstOrDefault();
+        if( dbContextOptionsExtension == null )
+            return null;
+        return GetConnectionString( dbContextOptionsExtension );
+    }
+
+    /// <summary>
+    /// 获取连接字符串
+    /// </summary>
+    protected virtual string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return null;
+    }
 
     #endregion
 

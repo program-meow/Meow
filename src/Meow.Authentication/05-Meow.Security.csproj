@@ -2,25 +2,25 @@
 
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
-		<AssemblyName>Meow.Authentication</AssemblyName>
-		<RootNamespace>Meow.Authentication</RootNamespace>
+		<AssemblyName>Meow.Security</AssemblyName>
+		<RootNamespace>Meow.Security</RootNamespace>
 		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
-			Meow.Authentication 是 Meow 认证库。
+			Meow.Security 是 Meow 安全库 包含认证( Authentication )与授权( Authorization )。
 			$(Tips)
 		</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Authentication.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Security.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Authentication.xml</DocumentationFile>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Security.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
+		<ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
 	</ItemGroup>
 
 </Project>

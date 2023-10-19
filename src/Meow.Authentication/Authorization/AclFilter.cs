@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Security.Authorization;
 
 /// <summary>
 /// 访问控制过滤器

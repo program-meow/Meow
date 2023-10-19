@@ -12,13 +12,13 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Logging.Abstractions;
 global using Dapper;
+
 global using Meow.Extension;
 global using Meow.Helper;
 global using Meow.Converter;
 global using Meow.Infrastructure;
 global using Meow.Domain.Extending;
 global using Meow.Data.Dapper.TypeHandler;
-global using Meow.Data.Dapper.Infrastructure;
 global using Meow.Data.Sql;
 global using Meow.Data.Sql.Builder;
 global using Meow.Data.Sql.Builder.Clause;

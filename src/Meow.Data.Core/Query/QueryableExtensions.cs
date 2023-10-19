@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Extension;
+﻿namespace Meow.Data.Query;
 
 /// <summary>
 /// 查询对象扩展

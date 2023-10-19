@@ -3,7 +3,10 @@ global using System.Data.Common;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using Oracle.EntityFrameworkCore.Infrastructure;
+global using Oracle.EntityFrameworkCore.Infrastructure.Internal;
+
 global using Meow.Helper;
 global using Meow.Config;
 global using Meow.Extension;

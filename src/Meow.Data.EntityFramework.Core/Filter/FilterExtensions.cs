@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.EntityFrameworkCore.Extension;
+﻿namespace Meow.Data.EntityFrameworkCore.Filter;
 
 /// <summary>
 /// 过滤器操作扩展

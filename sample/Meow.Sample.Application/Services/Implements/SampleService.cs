@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Meow.Application;
-using Meow.Data.Extension;
+using Meow.Data.Query;
 using Meow.Sample.Application.Dtos;
 using Meow.Sample.Application.Services.Abstractions;
 using Meow.Sample.Data;

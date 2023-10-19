@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.EntityFrameworkCore.Extension;
+﻿namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 查询对象扩展

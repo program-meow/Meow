@@ -69,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Data.EntityFramewor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Meow.Data.EntityFrameworkCore.Oracle", "src\Meow.Data.EntityFramework.Oracle\06-Meow.Data.EntityFrameworkCore.Oracle.csproj", "{53996157-4DF0-4B32-9889-0250ED7E5B07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Authentication", "src\Meow.Authentication\05-Meow.Authentication.csproj", "{D6281152-207C-4BC5-9127-614E6A9A71AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Security", "src\Meow.Authentication\05-Meow.Security.csproj", "{D6281152-207C-4BC5-9127-614E6A9A71AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.EntityFrameworkCore.PostgreSql", "src\Meow.Data.EntityFramework.PostgreSql\03-Meow.Data.EntityFrameworkCore.PostgreSql.csproj", "{4F0450FF-4D0D-4EE9-8AED-5630718905C0}"
 EndProject

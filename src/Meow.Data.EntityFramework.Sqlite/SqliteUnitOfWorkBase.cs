@@ -14,6 +14,11 @@ public abstract class SqliteUnitOfWorkBase : UnitOfWorkBase {
     }
 
     /// <inheritdoc />
+    protected override string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return ( ( SqliteOptionsExtension ) dbContextOptionsExtension ).ConnectionString;
+    }
+
+    /// <inheritdoc />
     protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
         optionsBuilder.UseSqlite( connectionString );
     }

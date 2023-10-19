@@ -14,6 +14,11 @@ public abstract class OracleUnitOfWorkBase : UnitOfWorkBase {
     }
 
     /// <inheritdoc />
+    protected override string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return ( ( OracleOptionsExtension ) dbContextOptionsExtension ).ConnectionString;
+    }
+
+    /// <inheritdoc />
     protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
         optionsBuilder.UseOracle( connectionString );
     }

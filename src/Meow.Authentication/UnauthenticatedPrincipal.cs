@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication;
+﻿namespace Meow.Security;
 
 /// <summary>
 /// 未认证安全主体

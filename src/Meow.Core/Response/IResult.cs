@@ -7,7 +7,7 @@ public interface IResult<out TResult> : IResponse {
     /// <summary>
     /// 业务状态码
     /// </summary>
-    string Code { get; }
+    ResultStatusCodeEnum Code { get; }
     /// <summary>
     /// 消息
     /// </summary>

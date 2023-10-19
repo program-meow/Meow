@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Extension;
+﻿namespace Meow.Data.Filter;
 
 /// <summary>
 /// 过滤器操作扩展

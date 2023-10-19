@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication.Authorization;
+﻿namespace Meow.Security.Authorization;
 
 /// <summary>
 /// 授权策略提供器

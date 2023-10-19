@@ -7,6 +7,7 @@ global using System.Data;
 global using System.Collections.Concurrent;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Npgsql;
+
 global using Meow.Extension;
 global using Meow.Config;
 global using Meow.Data.Metadata;

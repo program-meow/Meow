@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication;
+﻿namespace Meow.Security;
 
 /// <summary>
 /// 身份标识扩展

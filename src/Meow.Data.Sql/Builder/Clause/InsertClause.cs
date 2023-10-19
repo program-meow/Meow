@@ -4,6 +4,7 @@
 /// Insert子句
 /// </summary>
 public class InsertClause : ClauseBase, IInsertClause {
+
     #region 字段
 
     /// <summary>

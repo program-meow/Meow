@@ -26,12 +26,12 @@ public interface ICrudService<TDto, in TCreateRequest, in TUpdateRequest, in TQu
     /// 创建
     /// </summary>
     /// <param name="request">创建参数</param>
-    Task<string> CreateAsync( [Aop.NotNull][Valid] TCreateRequest request );
+    Task<string> CreateAsync( [Meow.Aop.NotNull][Valid] TCreateRequest request );
     /// <summary>
     /// 修改
     /// </summary>
     /// <param name="request">修改参数</param>
-    Task UpdateAsync( [Aop.NotNull][Valid] TUpdateRequest request );
+    Task UpdateAsync( [Meow.Aop.NotNull][Valid] TUpdateRequest request );
     /// <summary>
     /// 删除
     /// </summary>

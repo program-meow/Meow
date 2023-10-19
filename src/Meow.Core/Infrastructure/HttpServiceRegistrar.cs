@@ -1,13 +1,17 @@
-﻿namespace Meow.Authentication.Infrastructure;
+﻿using Meow.Converter;
+using Meow.Helper;
+using Meow.Http;
+
+namespace Meow.Infrastructure;
 
 /// <summary>
-/// AspNetCore服务注册器
+/// Http服务注册器
 /// </summary>
-public class AspNetCoreServiceRegistrar : IServiceRegistrar {
+public class HttpServiceRegistrar : IServiceRegistrar {
     /// <summary>
     /// 获取服务名
     /// </summary>
-    public static string ServiceName => "Meow.Authentication.Infrastructure.AspNetCoreServiceRegistrar";
+    public static string ServiceName => "Meow.Infrastructure.HttpServiceRegistrar";
 
     /// <summary>
     /// 排序号
@@ -23,7 +27,7 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar {
     /// 注册服务
     /// </summary>
     /// <param name="serviceContext">服务上下文</param>
-    public System.Action Register( ServiceContext serviceContext ) {
+    public SystemAction Register( ServiceContext serviceContext ) {
         serviceContext.HostBuilder.ConfigureServices( ( context , services ) => {
             RegisterHttpContextAccessor( services );
             services.AddHttpClient();

@@ -1,7 +1,7 @@
 ﻿namespace Meow.Application.Lock;
 
 /// <summary>
-/// 业务锁
+/// 默认业务锁
 /// </summary>
 public class DefaultLock : ILock {
     /// <summary>

@@ -5,17 +5,16 @@ global using System.Linq;
 global using System.Data;
 global using System.Linq.Dynamic.Core;
 global using System.Linq.Expressions;
-global using System.ComponentModel.DataAnnotations;
+
 global using SystemType = System.Type;
 global using SystemExpression = System.Linq.Expressions.Expression;
+
 global using Meow.Action;
 global using Meow.Aop;
 global using Meow.Math;
 global using Meow.Extension;
 global using Meow.Expression;
 global using Meow.Dependency;
-global using Meow.Data.Filter;
-global using Meow.Data.Query;
 global using Meow.Data.Query.Condition;
 global using Meow.Data.Query.Condition.Internal;
 global using Meow.Data.Error;

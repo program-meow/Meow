@@ -12,6 +12,7 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Logging.Abstractions;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.Primitives;
+
 global using Meow.Helper;
 global using Meow.Extension;
 global using Meow.Dependency;
@@ -19,5 +20,6 @@ global using Meow.Config;
 global using Meow.Tenant.Resolver;
 global using Meow.Tenant.Middleware;
 global using Meow.Tenant.Manager;
-global using MeowISession = Meow.Authentication.Session.ISession;
+
+global using MeowISession = Meow.Security.Session.ISession;
 global using MeowDomainTenantResolver = Meow.Tenant.Resolver.DomainTenantResolver;

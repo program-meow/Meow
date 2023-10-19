@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication;
+﻿namespace Meow.Security;
 
 /// <summary>
 /// Web应用生成器扩展

@@ -4,6 +4,7 @@
 /// Group By子句
 /// </summary>
 public class GroupByClause : ClauseBase, IGroupByClause {
+
     #region 字段
 
     /// <summary>

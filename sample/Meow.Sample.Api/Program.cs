@@ -3,6 +3,7 @@ using Meow.Data.EntityFrameworkCore;
 using Meow.Data.EntityFrameworkCore.Migration;
 using Meow.Extension;
 using Meow.Sample.Data;
+using Meow.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

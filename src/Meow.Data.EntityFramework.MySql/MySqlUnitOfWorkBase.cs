@@ -14,6 +14,11 @@ public abstract class MySqlUnitOfWorkBase : UnitOfWorkBase {
     }
 
     /// <inheritdoc />
+    protected override string GetConnectionString( IDbContextOptionsExtension dbContextOptionsExtension ) {
+        return ( ( MySqlOptionsExtension ) dbContextOptionsExtension ).ConnectionString;
+    }
+
+    /// <inheritdoc />
     protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder , string connectionString ) {
         optionsBuilder.UseMySql( connectionString , ServerVersion.AutoDetect( connectionString ) );
     }

@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication.Helper;
+﻿namespace Meow.Security.Helper;
 
 /// <summary>
 /// Web操作

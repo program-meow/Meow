@@ -23,9 +23,12 @@ global using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 global using Microsoft.EntityFrameworkCore.Design;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.EntityFrameworkCore.Metadata;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
+
 global using SystemType = System.Type;
 global using SystemAction = System.Action;
 global using SystemException = System.Exception;
+
 global using Meow.Helper;
 global using Meow.Action;
 global using Meow.Exception;
@@ -36,8 +39,8 @@ global using Meow.Extension;
 global using Meow.Dependency;
 global using Meow.Query;
 global using Meow.Converter;
+global using Meow.Security.Session;
 global using Meow.Infrastructure;
-global using Meow.Authentication.Session;
 global using Meow.Event;
 global using Meow.Domain.Tree;
 global using Meow.Domain.Extending;
@@ -45,11 +48,11 @@ global using Meow.Domain.Entity;
 global using Meow.Domain.Repository;
 global using Meow.Domain.Auditing;
 global using Meow.Domain.Event;
-global using Meow.Data.Extension;
+global using Meow.Date;
 global using Meow.Data.Filter;
 global using Meow.Data.Query;
 global using Meow.Data.Store;
 global using Meow.Data.EntityFrameworkCore.Filter;
 global using Meow.Data.EntityFrameworkCore.ValueComparer;
 global using Meow.Data.EntityFrameworkCore.ValueConverter;
-global using Meow.Data.EntityFrameworkCore.Extension;
+

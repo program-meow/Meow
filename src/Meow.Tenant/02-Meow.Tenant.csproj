@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Authentication.csproj" />
+	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Security.csproj" />
 	  <ProjectReference Include="..\Meow.Tenant.Abstraction\01-Meow.Tenant.Abstraction.csproj" />
 	</ItemGroup>
 

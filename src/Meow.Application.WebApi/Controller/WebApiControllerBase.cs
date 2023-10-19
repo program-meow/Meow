@@ -1,6 +1,4 @@
-﻿using Meow.Json;
-
-namespace Meow.Application.Controller;
+﻿namespace Meow.Application.Controller;
 
 /// <summary>
 /// WebApi控制器基类

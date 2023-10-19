@@ -1,4 +1,4 @@
-﻿namespace Meow.Authentication.Session;
+﻿namespace Meow.Security.Session;
 
 /// <summary>
 /// 用户会话
