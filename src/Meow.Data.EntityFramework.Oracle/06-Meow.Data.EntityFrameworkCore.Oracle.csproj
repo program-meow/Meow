@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.EntityFrameworkCore.Oracle</AssemblyName>
 		<RootNamespace>Meow.Data.EntityFrameworkCore</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Data.EntityFrameworkCore.Oracle</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.11" />
+		<PackageReference Include="Oracle.EntityFrameworkCore" Version="$(OracleEntityFrameworkCoreVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

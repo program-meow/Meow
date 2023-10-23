@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.EntityFrameworkCore.Sqlite</AssemblyName>
 		<RootNamespace>Meow.Data.EntityFrameworkCore</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Data.EntityFrameworkCore.Sqlite</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(MicrosoftEntityFrameworkCoreSqliteVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

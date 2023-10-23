@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Caching.EasyCaching</AssemblyName>
 		<RootNamespace>Meow.Caching.EasyCaching</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Caching.EasyCaching</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,9 +32,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="EasyCaching.InMemory" Version="1.9.1" />
-	  <PackageReference Include="EasyCaching.Redis" Version="1.9.1" />
-	  <PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="1.9.1" />
+	  <PackageReference Include="EasyCaching.InMemory" Version="$(EasyCachingInMemoryVersion)" />
+	  <PackageReference Include="EasyCaching.Redis" Version="$(EasyCachingRedisVersion)" />
+	  <PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="$(EasyCachingSerializationSystemTextJsonVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

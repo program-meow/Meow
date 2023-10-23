@@ -3,6 +3,57 @@
 	<PropertyGroup>
 		<NetTargetFramework>net7.0</NetTargetFramework>
 	</PropertyGroup>
+
+	<PropertyGroup Label="Package Versions">
+	
+		<!-- Microsoft packages -->
+		<MicrosoftExtensionsConfigurationVersion>7.0.0</MicrosoftExtensionsConfigurationVersion>
+		<MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
+		<MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsHttpVersion>7.0.0</MicrosoftExtensionsHttpVersion>
+		<MicrosoftExtensionsLoggingVersion>7.0.0</MicrosoftExtensionsLoggingVersion>
+
+		<MicrosoftEntityFrameworkCoreVersion>7.0.11</MicrosoftEntityFrameworkCoreVersion>
+		<MicrosoftEntityFrameworkCoreRelationalVersion>7.0.11</MicrosoftEntityFrameworkCoreRelationalVersion>
+		<MicrosoftEntityFrameworkCoreSqlServerVersion>7.0.11</MicrosoftEntityFrameworkCoreSqlServerVersion>
+		<NpgsqlEntityFrameworkCorePostgreSQLVersion>7.0.11</NpgsqlEntityFrameworkCorePostgreSQLVersion>
+		<PomeloEntityFrameworkCoreMySqlVersion>7.0.0</PomeloEntityFrameworkCoreMySqlVersion>
+		<MicrosoftEntityFrameworkCoreSqliteVersion>7.0.11</MicrosoftEntityFrameworkCoreSqliteVersion>
+		<OracleEntityFrameworkCoreVersion>7.21.11</OracleEntityFrameworkCoreVersion>
+
+		<NpgsqlVersion>7.0.6</NpgsqlVersion>
+		<MySqlConnectorVersion>2.2.7</MySqlConnectorVersion>
+
+		<RSAExtensionsVersion>1.1.1</RSAExtensionsVersion>
+
+		<DapperVersion>2.0.151</DapperVersion>
+
+
+		<AutoMapperVersion>12.0.1</AutoMapperVersion>
+
+
+		<AspectCoreExtensionsAspectScopeVersion>2.4.0</AspectCoreExtensionsAspectScopeVersion>
+		<AspectCoreExtensionsDependencyInjectionVersion>2.4.0</AspectCoreExtensionsDependencyInjectionVersion>
+
+
+		<SerilogExtensionsLoggingVersion>7.0.0</SerilogExtensionsLoggingVersion>
+		<SerilogSettingsConfigurationVersion>7.0.1</SerilogSettingsConfigurationVersion>
+		<SerilogSinksExceptionlessVersion>4.0.0</SerilogSinksExceptionlessVersion>
+		<ExceptionlessExtensionsHostingVersion>6.0.2</ExceptionlessExtensionsHostingVersion>
+
+
+		<EasyCachingInMemoryVersion>1.9.1</EasyCachingInMemoryVersion>
+		<EasyCachingRedisVersion>1.9.1</EasyCachingRedisVersion>
+		<EasyCachingSerializationSystemTextJsonVersion>1.9.1</EasyCachingSerializationSystemTextJsonVersion>
+
+
+		<SystemLinqDynamicCoreVersion>1.3.5</SystemLinqDynamicCoreVersion>
+		<SystemDataSqlClientVersion>4.8.5</SystemDataSqlClientVersion>
+
+
+		<!-- 3rd party packages -->
+	</PropertyGroup>
+
 	<PropertyGroup>
 		<Product>Meow Util Application Framework</Product>
 		<Authors>ncc;胡雲鹏</Authors>

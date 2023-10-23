@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.ObjectMapping.AutoMapper</AssemblyName>
 		<RootNamespace>Meow.ObjectMapping</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.ObjectMapping.AutoMapper</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AutoMapper" Version="12.0.1" />
+	  <PackageReference Include="AutoMapper" Version="$(AutoMapperVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

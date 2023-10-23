@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Core</AssemblyName>
 		<RootNamespace>Meow.Data</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Data.Core</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.5" />
+	  <PackageReference Include="System.Linq.Dynamic.Core" Version="$(SystemLinqDynamicCoreVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

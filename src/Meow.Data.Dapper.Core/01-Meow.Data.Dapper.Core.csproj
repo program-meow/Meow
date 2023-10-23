@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Data.Dapper.Core</AssemblyName>
 		<RootNamespace>Meow.Data.Dapper</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Data.Dapper.Core</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Dapper" Version="2.0.151" />
+	  <PackageReference Include="Dapper" Version="$(DapperVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

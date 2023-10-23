@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Logging.Serilog.Exceptionless</AssemblyName>
 		<RootNamespace>Meow.Logging.Serilog</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Logging.Serilog.Exceptionless</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,8 +32,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Exceptionless.Extensions.Hosting" Version="6.0.2" />
-	  <PackageReference Include="Serilog.Sinks.Exceptionless" Version="4.0.0" />
+	  <PackageReference Include="Exceptionless.Extensions.Hosting" Version="$(ExceptionlessExtensionsHostingVersion)" />
+	  <PackageReference Include="Serilog.Sinks.Exceptionless" Version="$(SerilogSinksExceptionlessVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

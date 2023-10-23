@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<AssemblyName>Meow.Aop.AspectCore</AssemblyName>
 		<RootNamespace>Meow.Aop</RootNamespace>
-		<PackageOutputPath>..\..\..\nuget.push</PackageOutputPath>
+		<PackageOutputPath>..\..\nuget\Meow.Aop.AspectCore</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>
@@ -32,8 +32,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AspectCore.Extensions.AspectScope" Version="2.4.0" />
-	  <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="2.4.0" />
+	  <PackageReference Include="AspectCore.Extensions.AspectScope" Version="$(AspectCoreExtensionsAspectScopeVersion)" />
+	  <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="$(AspectCoreExtensionsDependencyInjectionVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>
