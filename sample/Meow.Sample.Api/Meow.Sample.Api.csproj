@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Meow.Application.WebApi\03-Meow.Application.WebApi.csproj" />
+		<ProjectReference Include="..\..\src\Meow.Logging.Serilog\02-Meow.Logging.Serilog.csproj" />
 		<ProjectReference Include="..\Meow.Sample.Application\Meow.Sample.Application.csproj" />
 	</ItemGroup>
 

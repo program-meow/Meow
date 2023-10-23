@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Meow.Sample.Data.PgSql.Migrations
 {
     /// <inheritdoc />
-    public partial class _202309222353 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
