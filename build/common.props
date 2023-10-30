@@ -13,20 +13,21 @@
 		<MicrosoftExtensionsHttpVersion>7.0.0</MicrosoftExtensionsHttpVersion>
 		<MicrosoftExtensionsLoggingVersion>7.0.0</MicrosoftExtensionsLoggingVersion>
 
-		<MicrosoftEntityFrameworkCoreVersion>7.0.11</MicrosoftEntityFrameworkCoreVersion>
-		<MicrosoftEntityFrameworkCoreRelationalVersion>7.0.11</MicrosoftEntityFrameworkCoreRelationalVersion>
-		<MicrosoftEntityFrameworkCoreSqlServerVersion>7.0.11</MicrosoftEntityFrameworkCoreSqlServerVersion>
+		<MicrosoftEntityFrameworkCoreVersion>7.0.13</MicrosoftEntityFrameworkCoreVersion>
+		<MicrosoftEntityFrameworkCoreRelationalVersion>7.0.13</MicrosoftEntityFrameworkCoreRelationalVersion>
+		<MicrosoftEntityFrameworkCoreDesignVersion>7.0.13</MicrosoftEntityFrameworkCoreDesignVersion>
+		<MicrosoftEntityFrameworkCoreSqlServerVersion>7.0.13</MicrosoftEntityFrameworkCoreSqlServerVersion>
 		<NpgsqlEntityFrameworkCorePostgreSQLVersion>7.0.11</NpgsqlEntityFrameworkCorePostgreSQLVersion>
 		<PomeloEntityFrameworkCoreMySqlVersion>7.0.0</PomeloEntityFrameworkCoreMySqlVersion>
-		<MicrosoftEntityFrameworkCoreSqliteVersion>7.0.11</MicrosoftEntityFrameworkCoreSqliteVersion>
-		<OracleEntityFrameworkCoreVersion>7.21.11</OracleEntityFrameworkCoreVersion>
+		<MicrosoftEntityFrameworkCoreSqliteVersion>7.0.13</MicrosoftEntityFrameworkCoreSqliteVersion>
+		<OracleEntityFrameworkCoreVersion>7.21.12</OracleEntityFrameworkCoreVersion>
 
 		<NpgsqlVersion>7.0.6</NpgsqlVersion>
 		<MySqlConnectorVersion>2.2.7</MySqlConnectorVersion>
 
 		<RSAExtensionsVersion>1.1.1</RSAExtensionsVersion>
 
-		<DapperVersion>2.0.151</DapperVersion>
+		<DapperVersion>2.1.15</DapperVersion>
 
 
 		<AutoMapperVersion>12.0.1</AutoMapperVersion>
@@ -39,7 +40,7 @@
 		<SerilogExtensionsLoggingVersion>7.0.0</SerilogExtensionsLoggingVersion>
 		<SerilogSettingsConfigurationVersion>7.0.1</SerilogSettingsConfigurationVersion>
 		<SerilogSinksExceptionlessVersion>4.0.0</SerilogSinksExceptionlessVersion>
-		<ExceptionlessExtensionsHostingVersion>6.0.2</ExceptionlessExtensionsHostingVersion>
+		<ExceptionlessExtensionsHostingVersion>6.0.3</ExceptionlessExtensionsHostingVersion>
 
 
 		<EasyCachingInMemoryVersion>1.9.1</EasyCachingInMemoryVersion>
