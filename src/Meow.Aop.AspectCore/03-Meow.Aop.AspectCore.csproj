@@ -7,6 +7,7 @@
 		<PackageOutputPath>..\..\nuget\Meow.Aop.AspectCore</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>
 			Meow.Aop.AspectCore 是 Meow 基于 AspectCore 实现AOP拦截功能的库。
 			$(Tips)
@@ -29,6 +30,7 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -7,6 +7,7 @@
 		<PackageOutputPath>..\..\nuget\Meow.Tenant.Abstraction</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>
 			Meow.Tenant.Abstraction 是 Meow 多租户接口定义类库。
 			$(Tips)
@@ -29,6 +30,7 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

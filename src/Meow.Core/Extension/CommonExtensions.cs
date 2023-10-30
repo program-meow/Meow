@@ -75,11 +75,11 @@ public static class CommonExtensions {
     }
 
     /// <summary>
-    /// 复制新值。解除引用类型
+    /// 克隆副本，解除引用类型
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
     /// <param name="value">值</param>
-    public static T CopyNew<T>( this T value ) {
-        return Meow.Helper.Common.CopyNew( value );
+    public static T Clone<T>( this T value ) {
+        return Meow.Helper.Common.Clone( value );
     }
 }

@@ -46,12 +46,12 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 获取加载模式,默认值: 同步加载模式
     /// </summary>
-    protected virtual LoadMode GetLoadMode() {
+    protected virtual LoadModeEnum GetLoadMode() {
         string loadMode = Request.Query[ "loadMode" ].SafeString();
-        LoadMode? result = Meow.Helper.Enum.Parse<LoadMode?>( loadMode );
+        LoadModeEnum? result = Meow.Helper.Enum.Parse<LoadModeEnum?>( loadMode );
         if( result != null )
             return result.Value;
-        return LoadMode.Sync;
+        return LoadModeEnum.Sync;
     }
 
     #endregion
@@ -139,10 +139,10 @@ public abstract class TreeQueryControllerBase<TDto, TQuery> : WebApiControllerBa
     /// <summary>
     /// 获取加载操作
     /// </summary>
-    protected virtual LoadOperation GetOperation( TQuery query ) {
+    protected virtual LoadOperationEnum GetOperation( TQuery query ) {
         if( query.ParentId.IsEmpty() )
-            return LoadOperation.Query;
-        return LoadOperation.LoadChildren;
+            return LoadOperationEnum.Query;
+        return LoadOperationEnum.LoadChildren;
     }
 
     /// <summary>

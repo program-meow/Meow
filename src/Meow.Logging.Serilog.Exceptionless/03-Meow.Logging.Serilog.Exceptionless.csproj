@@ -7,6 +7,7 @@
 		<PackageOutputPath>..\..\nuget\Meow.Logging.Serilog.Exceptionless</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>
 			Meow.Logging.Serilog.Exceptionless 是 Meow 集成封装 Serilog 日志操作类库,用于写入 Exceptionless。
 			$(Tips)
@@ -29,6 +30,7 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

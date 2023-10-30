@@ -1,4 +1,4 @@
-﻿using Meow.Error;
+﻿using Meow.Const;
 
 namespace Meow.Exception;
 
@@ -39,12 +39,12 @@ public class ConcurrencyException : Warning {
     }
 
     /// <inheritdoc />
-    public override string Message => $"{ErrorMessageKey.ConcurrencyExceptionMessage}.{_message}";
+    public override string Message => $"{ErrorLKey.ConcurrencyExceptionMessage}.{_message}";
 
     /// <inheritdoc />
     public override string GetMessage( bool isProduction = true ) {
         if( isProduction )
-            return ErrorMessageKey.ConcurrencyExceptionMessage;
+            return ErrorLKey.ConcurrencyExceptionMessage;
         return GetMessage( this );
     }
 }

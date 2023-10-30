@@ -1,4 +1,5 @@
-﻿using Meow.Extension;
+﻿using Meow.Const;
+using Meow.Extension;
 using Meow.Model;
 
 namespace Meow.Helper;
@@ -154,7 +155,7 @@ public static class Enum {
     public static List<Item> GetItems( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
-            throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
+            throw new InvalidOperationException( string.Format( ErrorLKey.TypeNotEnum , type ) );
         List<Item> result = new List<Item>();
         foreach( FieldInfo field in type.GetFields() )
             AddItem( type , result , field );
@@ -197,7 +198,7 @@ public static class Enum {
     public static List<string> GetNames( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
-            throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
+            throw new InvalidOperationException( string.Format( ErrorLKey.TypeNotEnum , type ) );
         List<string> result = new List<string>();
         foreach( FieldInfo field in type.GetFields() ) {
             if( !field.FieldType.IsEnum )
@@ -262,7 +263,7 @@ public static class Enum {
     public static List<IdName<int?>> GetIdNames( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
-            throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
+            throw new InvalidOperationException( string.Format( ErrorLKey.TypeNotEnum , type ) );
         List<IdName<int?>> result = new List<IdName<int?>>();
         foreach( FieldInfo field in type.GetFields() )
             AddIdName( type , result , field );
@@ -305,7 +306,7 @@ public static class Enum {
     public static List<IdNameDescription<int?>> GetIdNameDescriptions( SystemType type ) {
         type = Common.GetType( type );
         if( type.IsEnum == false )
-            throw new InvalidOperationException( string.Format( Meow.Error.ErrorMessageKey.TypeNotEnum , type ) );
+            throw new InvalidOperationException( string.Format( ErrorLKey.TypeNotEnum , type ) );
         List<IdNameDescription<int?>> result = new List<IdNameDescription<int?>>();
         foreach( FieldInfo field in type.GetFields() )
             AddIdNameDescription( type , result , field );

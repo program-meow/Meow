@@ -7,6 +7,7 @@
 		<PackageOutputPath>..\..\nuget\Meow.Security</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>
 			Meow.Security 是 Meow 安全库 包含认证( Authentication )与授权( Authorization )。
 			$(Tips)
@@ -29,6 +30,7 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

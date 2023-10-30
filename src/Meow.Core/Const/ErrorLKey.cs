@@ -1,9 +1,9 @@
-﻿namespace Meow.Error;
+﻿namespace Meow.Const;
 
 /// <summary>
-/// 错误消息键
+/// 错误多语言键
 /// </summary>
-public static class ErrorMessageKey {
+public static class ErrorLKey {
     /// <summary>
     /// 类型 {0} 不是枚举
     /// </summary>
@@ -24,4 +24,8 @@ public static class ErrorMessageKey {
     /// 当前操作的数据已被其他人修改，请刷新后重试
     /// </summary>
     public const string ConcurrencyExceptionMessage = "ConcurrencyExceptionMessage";
+    /// <summary>
+    /// 仅允许添加一个条件,条件：{0}
+    /// </summary>
+    public const string CanOnlyOneCondition = "CanOnlyOneCondition";
 }

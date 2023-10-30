@@ -38,7 +38,7 @@ global using Meow.Tenant;
 global using Meow.Extension;
 global using Meow.Dependency;
 global using Meow.Query;
-global using Meow.Converter;
+global using Meow.Json.Converter;
 global using Meow.Security.Session;
 global using Meow.Infrastructure;
 global using Meow.Event;

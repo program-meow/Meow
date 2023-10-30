@@ -1,14 +1,16 @@
-﻿namespace Meow.Converter; 
+﻿namespace Meow.Json.Converter;
 
 /// <summary>
 /// 枚举Json转换器工厂
 /// </summary>
-public class EnumJsonConverterFactory : JsonConverterFactory {
+public class EnumJsonConverterFactory : JsonConverterFactory
+{
     /// <summary>
     /// 是否允许转换为枚举
     /// </summary>
     /// <param name="type">转换类型</param>
-    public override bool CanConvert( SystemType type ) {
+    public override bool CanConvert(SystemType type)
+    {
         return type.IsEnum;
     }
 
@@ -17,14 +19,15 @@ public class EnumJsonConverterFactory : JsonConverterFactory {
     /// </summary>
     /// <param name="type">转换类型</param>
     /// <param name="options">Json序列化配置</param>
-    public override JsonConverter CreateConverter( SystemType type, JsonSerializerOptions options ) {
-        return (JsonConverter)Activator.CreateInstance( GetEnumConverterType( type ) );
+    public override JsonConverter CreateConverter(SystemType type, JsonSerializerOptions options)
+    {
+        return (JsonConverter)Activator.CreateInstance(GetEnumConverterType(type));
     }
 
     /// <summary>
     /// 获取枚举Json转换器类型
     /// </summary>
     /// <param name="enumType">枚举类型</param>
-    private static SystemType GetEnumConverterType( SystemType enumType ) => typeof( EnumJsonConverter<> ).MakeGenericType( enumType );
+    private static SystemType GetEnumConverterType(SystemType enumType) => typeof(EnumJsonConverter<>).MakeGenericType(enumType);
 }
 

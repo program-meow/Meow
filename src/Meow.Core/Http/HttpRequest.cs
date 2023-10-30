@@ -1033,8 +1033,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         return new JsonSerializerOptions {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
             Converters = {
-                new Meow.Converter.DateTimeJsonConverter(),
-                new Meow.Converter.NullableDateTimeJsonConverter()
+                new Meow.Json.Converter.DateTimeJsonConverter(),
+                new Meow.Json.Converter.NullableDateTimeJsonConverter()
             }
         };
     }
@@ -1294,8 +1294,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             JsonSerializerOptions options = new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true ,
                 Converters = {
-                    new Meow.Converter.DateTimeJsonConverter(),
-                    new Meow.Converter.NullableDateTimeJsonConverter()
+                    new Meow.Json.Converter.DateTimeJsonConverter(),
+                    new Meow.Json.Converter.NullableDateTimeJsonConverter()
                 }
             };
             return content.ToJsonObject<TResult>( options );

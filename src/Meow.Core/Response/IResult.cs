@@ -3,7 +3,7 @@
 /// <summary>
 /// 结果
 /// </summary>
-public interface IResult<out TResult> : IResponse {
+public interface IResult<out TResultData> : IResponse {
     /// <summary>
     /// 业务状态码
     /// </summary>
@@ -15,5 +15,5 @@ public interface IResult<out TResult> : IResponse {
     /// <summary>
     /// 数据
     /// </summary>
-    TResult Data { get; }
+    TResultData Data { get; }
 }

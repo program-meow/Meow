@@ -52,7 +52,16 @@ public class ExceptionHandlerAttribute : ExceptionFilterAttribute {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions( ExceptionContext context ) {
         IJsonSerializerOptionsFactory factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase ,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 }

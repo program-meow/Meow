@@ -17,4 +17,3 @@ global using Meow.Data.Store;
 global using Meow.Application.Dto;
 global using Meow.Data.EntityFrameworkCore;
 global using Meow.Data.Query;
-

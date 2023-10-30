@@ -8,19 +8,8 @@ public abstract class MigrationDbContextFactoryBase<TUnitOfWork> : IDesignTimeDb
     /// 创建数据上下文
     /// </summary>
     public virtual TUnitOfWork CreateDbContext( string[] args ) {
-        IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().AddCommandLine( args );
-        IConfigurationRoot configuration = configurationBuilder.Build();
-
-        configuration = configurationBuilder.SetBasePath( Path.Combine( Directory.GetCurrentDirectory() , configuration[ "basePath" ] ) )
-            .AddJsonFile( "appsettings.json" )
-            .AddJsonFile( $"appsettings.{configuration[ "environment" ]}.json" , true )
-            .AddEnvironmentVariables()
-            .AddCommandLine( args )
-            .Build();
-
-        Console.WriteLine( this.GetConnectionString( configuration ) );
-
-        return CreateDbContext( this.GetConnectionString( configuration ) );
+        IConfiguration configuration = Meow.Helper.Config.CreateConfiguration();
+        return CreateDbContext( GetConnectionString( configuration ) );
     }
 
     /// <summary>

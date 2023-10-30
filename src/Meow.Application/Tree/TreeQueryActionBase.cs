@@ -18,11 +18,11 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// <summary>
     /// 加载模式
     /// </summary>
-    private readonly LoadMode _loadMode;
+    private readonly LoadModeEnum _loadMode;
     /// <summary>
     /// 加载操作
     /// </summary>
-    private readonly LoadOperation _loadOperation;
+    private readonly LoadOperationEnum _loadOperation;
     /// <summary>
     /// 最大分页大小
     /// </summary>
@@ -69,7 +69,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// <param name="loadKeys">需要加载的标识列表</param>
     /// <param name="queryBefore">查询前操作</param>
     /// <param name="queryAfter">查询后操作</param>
-    protected TreeQueryActionBase( ITreeQueryService<TDto , TQuery> service , LoadMode loadMode , LoadOperation loadOperation ,
+    protected TreeQueryActionBase( ITreeQueryService<TDto , TQuery> service , LoadModeEnum loadMode , LoadOperationEnum loadOperation ,
         int maxPageSize , bool isFirstLoad , bool isExpandAll , bool isExpandForRootAsync , string loadKeys ,
         Action<TQuery> queryBefore , Action<PageList<TDto> , TQuery> queryAfter ) {
         _service = service ?? throw new ArgumentNullException( nameof( service ) );
@@ -107,7 +107,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
         if( query.Order.IsEmpty() )
             query.Order = "SortId";
         query.Path = null;
-        if( _loadOperation == LoadOperation.LoadChildren )
+        if( _loadOperation == LoadOperationEnum.LoadChildren )
             return;
         query.ParentId = null;
     }
@@ -116,7 +116,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 获取查询结果
     /// </summary>
     protected virtual async Task<dynamic> GetQueryResult( TQuery query ) {
-        if( _loadOperation == LoadOperation.LoadChildren )
+        if( _loadOperation == LoadOperationEnum.LoadChildren )
             return await LoadChildren( query );
         return await LoadQuery( query );
     }
@@ -167,7 +167,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
         if( query.ParentId.IsEmpty() )
             throw new InvalidOperationException( "父标识不能为空" );
         query.Page = 1;
-        if( _loadMode == LoadMode.RootAsync )
+        if( _loadMode == LoadModeEnum.RootAsync )
             return await SyncLoadChildren( query );
         return await AsyncLoadChildren( query );
     }
@@ -225,7 +225,7 @@ public abstract class TreeQueryActionBase<TDto, TQuery>
     /// 加载查询结果
     /// </summary>
     protected virtual async Task<dynamic> LoadQuery( TQuery query ) {
-        if( _loadMode == LoadMode.Sync )
+        if( _loadMode == LoadModeEnum.Sync )
             return await SyncLoadQuery( query );
         return await AsyncLoadQuery( query );
     }

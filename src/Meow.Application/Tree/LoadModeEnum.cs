@@ -3,7 +3,7 @@
 /// <summary>
 /// 加载模式
 /// </summary>
-public enum LoadMode {
+public enum LoadModeEnum {
     /// <summary>
     /// 同步加载,一次性加载全部节点
     /// </summary>

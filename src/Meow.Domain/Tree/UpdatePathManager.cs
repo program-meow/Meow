@@ -25,7 +25,7 @@ public class UpdatePathManager<TEntity, TKey, TParentId>
     public async Task UpdatePathAsync( TEntity entity ) {
         entity.CheckNull( nameof( entity ) );
         if( entity.ParentId.Equals( entity.Id ) )
-            throw new Warning( ErrorMessageKey.NotSupportMoveToChildren );
+            throw new Warning( ErrorLKey.NotSupportMoveToChildren );
         TEntity old = await _repository.NoTracking().FindByIdAsync( entity.Id );
         if( old == null )
             return;
@@ -33,7 +33,7 @@ public class UpdatePathManager<TEntity, TKey, TParentId>
             return;
         List<TEntity> children = await _repository.GetAllChildrenAsync( entity );
         if( children.Exists( t => t.Id.Equals( entity.ParentId ) ) )
-            throw new Warning( ErrorMessageKey.NotSupportMoveToChildren );
+            throw new Warning( ErrorLKey.NotSupportMoveToChildren );
         TEntity parent = await _repository.FindByIdAsync( entity.ParentId );
         entity.InitPath( parent );
         UpdateChildrenPath( entity , children );

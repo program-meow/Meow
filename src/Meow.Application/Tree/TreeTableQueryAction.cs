@@ -20,7 +20,7 @@ public class TreeTableQueryAction<TDto, TQuery> : TreeQueryActionBase<TDto , TQu
     /// <param name="isExpandForRoot">根节点异步加载模式是否展开子节点列表</param>
     /// <param name="queryBefore">查询前操作</param>
     /// <param name="processData">数据处理操作</param>
-    public TreeTableQueryAction( ITreeQueryService<TDto , TQuery> service , LoadMode loadMode , LoadOperation loadOperation ,
+    public TreeTableQueryAction( ITreeQueryService<TDto , TQuery> service , LoadModeEnum loadMode , LoadOperationEnum loadOperation ,
         int maxPageSize , bool isFirstLoad , bool isExpandAll , bool isExpandForRoot ,
         Action<TQuery> queryBefore , Action<PageList<TDto> , TQuery> processData )
         : base( service , loadMode , loadOperation , maxPageSize , isFirstLoad , isExpandAll , isExpandForRoot , null , queryBefore , processData ) {

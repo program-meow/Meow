@@ -96,7 +96,16 @@ public class WebApiServiceRegistrar : IServiceRegistrar {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions( HttpContext context ) {
         IJsonSerializerOptionsFactory factory = context.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase ,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 }

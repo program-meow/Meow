@@ -35,7 +35,7 @@ global using Meow.Response;
 global using Meow.Logging;
 global using Meow.Query;
 global using Meow.Infrastructure;
-global using Meow.Converter;
+global using Meow.Json.Converter;
 global using Meow.Application.Dto;
 global using Meow.Application.Model;
 global using Meow.Application.Tree;

@@ -15,7 +15,7 @@ global using Dapper;
 
 global using Meow.Extension;
 global using Meow.Helper;
-global using Meow.Converter;
+global using Meow.Json.Converter;
 global using Meow.Infrastructure;
 global using Meow.Domain.Extending;
 global using Meow.Data.Dapper.TypeHandler;

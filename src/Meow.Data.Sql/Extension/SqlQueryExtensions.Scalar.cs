@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql查询对象操作扩展 - 获取单值扩展
@@ -405,7 +405,18 @@ public static partial class SqlQueryExtensions {
     /// <param name="source">源</param>
     public static DateTime ToDateTime( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
-        return Meow.Helper.Convert.ToDateTime( source.ExecuteScalar() );
+        object result = source.ExecuteScalar();
+        return ToLocalTime( result );
+    }
+
+    /// <summary>
+    /// 转换为本地时间
+    /// </summary>
+    private static DateTime ToLocalTime( object date ) {
+        DateTime? result = Meow.Helper.Convert.ToDateTimeOrNull( date );
+        if( result == null )
+            return DateTime.MinValue;
+        return Meow.Helper.Time.UtcToLocalTime( result.Value );
     }
 
     #endregion
@@ -419,7 +430,7 @@ public static partial class SqlQueryExtensions {
     public static async Task<DateTime> ToDateTimeAsync( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDateTime( result );
+        return ToLocalTime( result );
     }
 
     #endregion
@@ -432,7 +443,17 @@ public static partial class SqlQueryExtensions {
     /// <param name="source">源</param>
     public static DateTime? ToDateTimeOrNull( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
-        return Meow.Helper.Convert.ToDateTimeOrNull( source.ExecuteScalar() );
+        return ToLocalTimeOrNull( source.ExecuteScalar() );
+    }
+
+    /// <summary>
+    /// 转换为本地时间
+    /// </summary>
+    private static DateTime? ToLocalTimeOrNull( object date ) {
+        var result = Meow.Helper.Convert.ToDateTimeOrNull( date );
+        if( result == null )
+            return null;
+        return Meow.Helper.Time.UtcToLocalTime( result.Value );
     }
 
     #endregion
@@ -446,7 +467,7 @@ public static partial class SqlQueryExtensions {
     public static async Task<DateTime?> ToDateTimeOrNullAsync( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
         object result = await source.ExecuteScalarAsync();
-        return Meow.Helper.Convert.ToDateTimeOrNull( result );
+        return ToLocalTimeOrNull( result );
     }
 
     #endregion

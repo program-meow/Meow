@@ -25,7 +25,7 @@ public class WhereIfNotEmptyCondition<TEntity> : ICondition<TEntity> {
         if( _condition == null )
             return null;
         if( Meow.Helper.Expression.GetConditionCount( _condition ) > 1 )
-            throw new InvalidOperationException( string.Format( ErrorMessageKey.CanOnlyOneCondition , _condition ) );
+            throw new InvalidOperationException( string.Format( ErrorLKey.CanOnlyOneCondition , _condition ) );
         return _condition.Value().SafeString().IsEmpty() ? null : _condition;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Meow.Helper;
+﻿using Meow.Extension;
+
+namespace Meow.Helper;
 
 /// <summary>
 /// 公共操作
@@ -100,12 +102,11 @@ public static class Common {
     }
 
     /// <summary>
-    /// 复制新值。解除引用类型
+    /// 克隆副本，解除引用类型
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
     /// <param name="value">值</param>
-    public static T CopyNew<T>( T value ) {
-        string json = Meow.Helper.Json.ToJson( value );
-        return Meow.Helper.Json.ToObject<T>( json );
+    public static T Clone<T>( T value ) {
+        return value.MapTo<T>();
     }
 }

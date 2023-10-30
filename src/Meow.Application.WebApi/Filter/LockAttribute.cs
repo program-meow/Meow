@@ -12,7 +12,7 @@ public class LockAttribute : ActionFilterAttribute {
     /// <summary>
     /// 业务锁类型
     /// </summary>
-    public LockType Type { get; set; } = LockType.User;
+    public LockTypeEnum Type { get; set; } = LockTypeEnum.User;
     /// <summary>
     /// 再次提交时间间隔，单位：秒
     /// </summary>
@@ -57,7 +57,7 @@ public class LockAttribute : ActionFilterAttribute {
     /// </summary>
     protected virtual string GetKey( ActionExecutingContext context ) {
         string userId = string.Empty;
-        if( Type == LockType.User )
+        if( Type == LockTypeEnum.User )
             userId = $"{GetUserId( context )}_";
         return string.IsNullOrWhiteSpace( Key ) ? $"{userId}{Web.Request.Path}" : $"{userId}{Key}";
     }
@@ -95,15 +95,24 @@ public class LockAttribute : ActionFilterAttribute {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions( ActionExecutingContext context ) {
         IJsonSerializerOptionsFactory factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase ,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 
     /// <summary>
     /// 获取失败消息
     /// </summary>
     protected virtual string GetFailMessage( ActionExecutingContext context ) {
-        if( Type == LockType.User )
+        if( Type == LockTypeEnum.User )
             return GetLocalizedMessage( context , "请不要重复提交" );
         return GetLocalizedMessage( context , "其他用户正在执行该操作,请稍后再试" );
     }

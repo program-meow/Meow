@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Sql;
+﻿namespace Meow.Data.Sql.Extension;
 
 /// <summary>
 /// Sql查询对象操作扩展 - 查询扩展

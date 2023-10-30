@@ -121,7 +121,7 @@ public abstract class EntityBase<TEntity, TKey> : DomainObjectBase<TEntity>, IEn
         if( typeof( TKey ) == typeof( int ) || typeof( TKey ) == typeof( long ) )
             return;
         if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
-            results.Add( new ValidationResult( ErrorMessageKey.IdIsNotEmpty ) );
+            results.Add( new ValidationResult( ErrorLKey.IdIsNotEmpty ) );
     }
 
     /// <summary>

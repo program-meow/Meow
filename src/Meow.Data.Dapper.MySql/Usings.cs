@@ -18,3 +18,5 @@ global using Meow.Data.Sql.Builder.Core;
 global using Meow.Data.Sql.Builder.Param;
 global using Meow.Data.Sql.Extension;
 global using Meow.Data.Sql.Builder.Cache;
+
+global using Meow.Data.Dapper.Sql;

@@ -53,8 +53,17 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions() {
         IJsonSerializerOptionsFactory factory = HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase ,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ) ,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull ,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 
     /// <summary>

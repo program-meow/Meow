@@ -3,7 +3,7 @@
 /// <summary>
 /// 业务锁类型
 /// </summary>
-public enum LockType {
+public enum LockTypeEnum {
     /// <summary>
     /// 用户锁，当用户发出多个执行该操作的请求，只有第一个请求被执行，其它请求被抛弃，其它用户不受影响
     /// </summary>

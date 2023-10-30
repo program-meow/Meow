@@ -1,4 +1,4 @@
-﻿namespace Meow.Data.Dapper.Sql.Extension;
+﻿namespace Meow.Data.Dapper;
 
 /// <summary>
 /// Sql Server数据库操作扩展

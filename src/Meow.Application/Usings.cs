@@ -10,9 +10,11 @@ global using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 global using SystemException = System.Exception;
 
+global using Meow.Model;
 global using Meow.Validation;
 global using Meow.Exception;
 global using Meow.Helper;
+global using Meow.Aop;
 global using Meow.Config;
 global using Meow.Caching;
 global using Meow.Extension;

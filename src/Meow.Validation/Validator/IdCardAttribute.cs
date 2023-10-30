@@ -10,7 +10,7 @@ public class IdCardAttribute : ValidationAttribute {
     /// </summary>
     public override string FormatErrorMessage( string name ) {
         if( ErrorMessage == null && ErrorMessageResourceName == null )
-            ErrorMessage = ErrorMessageKey.InvalidIdCard;
+            ErrorMessage = ErrorLKey.InvalidIdCard;
         return string.Format( CultureInfo.CurrentCulture , ErrorMessageString );
     }
 
