@@ -1,9 +1,9 @@
 namespace Meow.Data.EntityFrameworkCore;
 
 /// <summary>
-/// PgSql迁移设计时数据上下文工厂
+/// PostgreSql迁移设计时数据上下文工厂
 /// </summary>
-public abstract class PgSqlMigrationDbContextFactoryBase<TUnitOfWork> : MigrationDbContextFactoryBase<TUnitOfWork> where TUnitOfWork : DbContext, IUnitOfWork {
+public abstract class PostgreSqlMigrationDbContextFactoryBase<TUnitOfWork> : MigrationDbContextFactoryBase<TUnitOfWork> where TUnitOfWork : DbContext, IUnitOfWork {
     /// <summary>
     /// 创建DbContext
     /// </summary>

@@ -16,7 +16,7 @@ namespace Meow.Helper {
             return dbType switch {
                 DatabaseEnum.SqlServer => SqlServerConnectionString( connection ),
                 DatabaseEnum.MySql => MySqlConnectionString( connection ),
-                DatabaseEnum.PgSql => PgSqlConnectionString( connection ),
+                DatabaseEnum.PostgreSql => PgSqlConnectionString( connection ),
                 DatabaseEnum.Oracle => OracleConnectionString( connection ),
                 DatabaseEnum.Sqlite => string.Empty,
                 _ => string.Empty

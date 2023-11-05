@@ -5,7 +5,7 @@ namespace Meow.Sample.Data.PgSql;
 /// <summary>
 /// 迁移设计时数据上下文工厂
 /// </summary>
-public class PgSqlMigrationDbContextFactory : PgSqlMigrationDbContextFactoryBase<SampleUnitOfWork> {
+public class PgSqlMigrationDbContextFactory : PostgreSqlMigrationDbContextFactoryBase<SampleUnitOfWork> {
     /// <summary>
     /// 获取连接字符串
     /// </summary>

@@ -15,10 +15,10 @@ public enum DatabaseEnum {
     [Description( "MySql" )]
     MySql = 2,
     /// <summary>
-    /// PgSql数据库
+    /// PostgreSql数据库
     /// </summary>
-    [Description( "PgSql" )]
-    PgSql = 3,
+    [Description( "PostgreSql" )]
+    PostgreSql = 3,
     /// <summary>
     /// Oracle数据库
     /// </summary>

@@ -32,7 +32,7 @@ public static class ProgramExtensions {
             //PgSql 数据库
             .AddPgSqlUnitOfWork<ISampleUnitOfWork , Meow.Sample.Data.PgSql.SampleUnitOfWork>(
                 builder.GetIdentityPgSqlConnectionString() ,
-                condition: dbType == DatabaseEnum.PgSql )
+                condition: dbType == DatabaseEnum.PostgreSql )
             //Oracle 数据库
             .AddOracleUnitOfWork<ISampleUnitOfWork , Meow.Sample.Data.Oracle.SampleUnitOfWork>(
                 builder.GetIdentityOracleConnectionString() ,

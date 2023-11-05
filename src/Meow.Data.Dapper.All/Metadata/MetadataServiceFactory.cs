@@ -26,7 +26,7 @@ public class MetadataServiceFactory : IMetadataServiceFactory {
         switch( dbType ) {
             case DatabaseEnum.SqlServer:
                 return CreateSqlServerMetadataService( connection );
-            case DatabaseEnum.PgSql:
+            case DatabaseEnum.PostgreSql:
                 return CreatePgSqlMetadataService( connection );
             case DatabaseEnum.MySql:
                 return CreateMySqlMetadataService( connection );

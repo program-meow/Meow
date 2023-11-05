@@ -7,7 +7,7 @@ namespace Meow.Sample.Data.PgSql;
 /// <summary>
 /// 工作单元
 /// </summary>
-public class SampleUnitOfWork : PgSqlUnitOfWorkBase, ISampleUnitOfWork {
+public class SampleUnitOfWork : PostgreSqlUnitOfWorkBase, ISampleUnitOfWork {
     /// <summary>
     /// 初始化工作单元
     /// </summary>

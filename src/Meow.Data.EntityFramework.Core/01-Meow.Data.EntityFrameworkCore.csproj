@@ -30,7 +30,7 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
-		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

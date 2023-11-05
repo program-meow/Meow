@@ -12,7 +12,7 @@ public class TypeConverterFactory : ITypeConverterFactory {
         switch( dbType ) {
             case DatabaseEnum.SqlServer:
                 return new SqlServerTypeConverter();
-            case DatabaseEnum.PgSql:
+            case DatabaseEnum.PostgreSql:
                 return new PostgreSqlTypeConverter();
             case DatabaseEnum.MySql:
                 return new MySqlTypeConverter();
