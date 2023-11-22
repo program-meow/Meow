@@ -10,6 +10,6 @@ public class OracleMigrationDbContextFactory : OracleMigrationDbContextFactoryBa
     /// 获取连接字符串
     /// </summary>
     public override string GetConnectionStringName() {
-        return "OracleConnection";
+        return "Oracle";
     }
 }

@@ -10,6 +10,6 @@ public class SqlServerMigrationDbContextFactory : SqlServerMigrationDbContextFac
     /// 获取连接字符串
     /// </summary>
     public override string GetConnectionStringName() {
-        return "SqlServerConnection";
+        return "SqlServer";
     }
 }
