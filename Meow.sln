@@ -142,6 +142,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migration", "migration", "{
 		sample\Migration\CreateMigration.bat = sample\Migration\CreateMigration.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10-Meow.Calendar", "src\Meow.Calendar\10-Meow.Calendar.csproj", "{9B011258-E471-4C45-876B-FB746DE01F07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -320,6 +322,10 @@ Global
 		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B011258-E471-4C45-876B-FB746DE01F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B011258-E471-4C45-876B-FB746DE01F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B011258-E471-4C45-876B-FB746DE01F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B011258-E471-4C45-876B-FB746DE01F07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -387,6 +393,7 @@ Global
 		{4FF4DB8A-F3D0-4317-A394-C16FD76964CB} = {3728559E-FEE7-4578-9F16-5C2CF832ED6B}
 		{3F385300-3BEB-4DD4-8070-AE259265D89F} = {DF90F082-AFF9-41EF-8AE1-21D2622B9F39}
 		{D1720F49-B280-46AE-B543-D5276EFFFB85} = {3F385300-3BEB-4DD4-8070-AE259265D89F}
+		{9B011258-E471-4C45-876B-FB746DE01F07} = {71FFD2E1-41C9-4978-8501-C4B39360FF67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A606D32-B672-4F8E-B52C-CC6795E59FDE}
