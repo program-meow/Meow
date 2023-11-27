@@ -34,7 +34,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
+		<Compile Update="Holiday.*.cs">
+			<DependentUpon>Holiday.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
 	</ItemGroup>
 
 </Project>
