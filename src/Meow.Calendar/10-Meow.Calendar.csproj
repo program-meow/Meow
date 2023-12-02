@@ -34,7 +34,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
+		<Compile Update="Dao.*.cs">
+			<DependentUpon>Dao.cs</DependentUpon>
+		</Compile>
+		<Compile Update="EightChar.*.cs">
+			<DependentUpon>EightChar.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Fo.*.cs">
+			<DependentUpon>Fo.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Holiday.*.cs">
+			<DependentUpon>Holiday.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Lunar.*.cs">
+			<DependentUpon>Lunar.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Solar.*.cs">
+			<DependentUpon>Solar.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
 	</ItemGroup>
 
 </Project>

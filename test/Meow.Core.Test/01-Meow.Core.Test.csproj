@@ -33,6 +33,7 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Meow.Calendar\10-Meow.Calendar.csproj" />
 	  <ProjectReference Include="..\..\src\Meow.Core\01-Meow.Core.csproj" />
 	  <ProjectReference Include="..\Meow.Common.Test\00-Meow.Common.Test.csproj" />
 	</ItemGroup>

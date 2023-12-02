@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Calendar</AssemblyName>
+		<RootNamespace>Meow.Calendar</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Calendar</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Calendar 是 Meow 日历工具库。
+			$(Tips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Calendar.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Calendar.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Dao.*.cs">
+			<DependentUpon>Dao.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Fo.*.cs">
+			<DependentUpon>Fo.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Holiday.*.cs">
+			<DependentUpon>Holiday.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Lunar.*.cs">
+			<DependentUpon>Lunar.cs</DependentUpon>
+		</Compile>
+		<!--<Compile Update="Solar.*.cs">
+			<DependentUpon>Solar.cs</DependentUpon>
+		</Compile>-->
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Internal\Solar\" />
+	</ItemGroup>
+
+</Project>

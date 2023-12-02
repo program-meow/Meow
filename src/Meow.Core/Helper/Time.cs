@@ -534,7 +534,7 @@ public static class Time {
     #region GetWeekRangeByCn  [根据年的第几周获取这周的起止日期]
 
     /// <summary>
-    /// 根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+    /// 根据日期获取这该日期所在周的起止日期 - 国内：周一为第一天
     /// </summary>
     /// <param name="date">日期</param>
     /// <param name="firstDate">周开始日期</param>
@@ -544,7 +544,7 @@ public static class Time {
     }
 
     /// <summary>
-    /// 根据年的第几周获取这周的起止日期 - 国内：周一为第一天
+    /// 根据日期获取这该日期所在周的起止日期 - 国内：周一为第一天
     /// </summary>
     /// <param name="date">日期</param>
     /// <param name="firstDate">周开始日期</param>
