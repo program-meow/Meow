@@ -13,11 +13,6 @@ public class SolarYear {
     private const int MONTH_COUNT = 12;
 
     /// <summary>
-    /// 年
-    /// </summary>
-    public int Year { get; }
-
-    /// <summary>
     /// 默认当年
     /// </summary>
     public SolarYear()
@@ -39,6 +34,11 @@ public class SolarYear {
     public SolarYear( int year ) {
         Year = year;
     }
+
+    /// <summary>
+    /// 年
+    /// </summary>
+    public int Year { get; }
 
     /// <summary>
     /// 通过指定日期获取阳历年

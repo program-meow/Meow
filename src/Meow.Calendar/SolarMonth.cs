@@ -6,16 +6,6 @@
 public class SolarMonth {
 
     /// <summary>
-    /// 年
-    /// </summary>
-    public int Year { get; }
-
-    /// <summary>
-    /// 月
-    /// </summary>
-    public int Month { get; }
-
-    /// <summary>
     /// 默认日期
     /// </summary>
     public SolarMonth() : this( DateTime.Now ) {
@@ -37,6 +27,16 @@ public class SolarMonth {
         Year = year;
         Month = month;
     }
+
+    /// <summary>
+    /// 年
+    /// </summary>
+    public int Year { get; }
+
+    /// <summary>
+    /// 月
+    /// </summary>
+    public int Month { get; }
 
     /// <summary>
     /// 通过指定日期获取阳历月

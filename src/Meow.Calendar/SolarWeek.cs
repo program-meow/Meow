@@ -6,26 +6,6 @@
 public class SolarWeek {
 
     /// <summary>
-    /// 年
-    /// </summary>
-    public int Year { get; }
-
-    /// <summary>
-    /// 月
-    /// </summary>
-    public int Month { get; }
-
-    /// <summary>
-    /// 日
-    /// </summary>
-    public int Day { get; }
-
-    /// <summary>
-    /// 星期几作为一周的开始，1234560分别代表星期一至星期天
-    /// </summary>
-    public int Start { get; }
-
-    /// <summary>
     /// 默认当月
     /// </summary>
     /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
@@ -53,6 +33,26 @@ public class SolarWeek {
         Day = day;
         Start = start;
     }
+
+    /// <summary>
+    /// 年
+    /// </summary>
+    public int Year { get; }
+
+    /// <summary>
+    /// 月
+    /// </summary>
+    public int Month { get; }
+
+    /// <summary>
+    /// 日
+    /// </summary>
+    public int Day { get; }
+
+    /// <summary>
+    /// 星期几作为一周的开始，1234560分别代表星期一至星期天
+    /// </summary>
+    public int Start { get; }
 
     /// <summary>
     /// 通过指定日期获取阳历周
