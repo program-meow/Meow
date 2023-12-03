@@ -15,6 +15,14 @@ public class SolarWeek {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+    public SolarWeek( string date , int start ) : this( date.ToDateTime() , start ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
     public SolarWeek( DateTime date , int start ) : this( date.Year , date.Month , date.Day , start ) {
@@ -53,6 +61,16 @@ public class SolarWeek {
     /// 星期几作为一周的开始，1234560分别代表星期一至星期天
     /// </summary>
     public int Start { get; }
+
+    /// <summary>
+    /// 通过指定日期获取阳历周
+    /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+    /// <returns>阳历周</returns>
+    public static SolarWeek FromDate( string date , int start ) {
+        return new SolarWeek( date , start );
+    }
 
     /// <summary>
     /// 通过指定日期获取阳历周

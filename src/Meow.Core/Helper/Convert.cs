@@ -269,9 +269,28 @@ public static class Convert {
     /// <param name="value">值</param>
     public static DateTime? ToDateTimeOrNull( object value ) {
         bool success = DateTime.TryParse( value.SafeString() , out DateTime result );
-        if( success == false )
+        if( success )
+            return result;
+        var time = value.SafeString().Replace( "-" , "" ).Replace( "/" , "" ).Replace( " " , "" ).Replace( ":" , "" ).Replace( "T" , "" );
+        if( time.Length < 8 )
             return null;
-        return result;
+        var year = int.Parse( time.Substring( 0 , 4 ) );
+        var month = int.Parse( time.Substring( 4 , 2 ) );
+        var day = int.Parse( time.Substring( 6 , 2 ) );
+        var monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year , month );
+        if( monthMaxDay < day )
+            return null;
+        switch( time.Length ) {
+            case 8:
+                return new DateTime( year , month , day );
+            case 14:
+                return new DateTime( year , month , day
+                    , int.Parse( time.Substring( 8 , 2 ) )
+                    , int.Parse( time.Substring( 10 , 2 ) )
+                    , int.Parse( time.Substring( 12 , 2 ) ) );
+            default:
+                return null;
+        }
     }
 
     #endregion

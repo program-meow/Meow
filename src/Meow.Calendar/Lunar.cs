@@ -10,6 +10,15 @@ public partial class Lunar {
     /// <summary>
     /// 通过指定阳历日期获取农历
     /// </summary>
+    /// <param name="date">阳历日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>农历</returns>
+    public static Lunar FromDate( string date ) {
+        return new Lunar( date );
+    }
+
+    /// <summary>
+    /// 通过指定阳历日期获取农历
+    /// </summary>
     /// <param name="date">阳历日期</param>
     /// <returns>农历</returns>
     public static Lunar FromDate( DateTime date ) {

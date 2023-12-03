@@ -64,6 +64,13 @@ public partial class Solar {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public Solar( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     public Solar( DateTime date ) : this( date.Year , date.Month , date.Day , date.Hour , date.Minute , date.Second ) {
     }

@@ -37,6 +37,13 @@ public class SolarHalfYear {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public SolarHalfYear( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     public SolarHalfYear( DateTime date ) : this( date.Year , date.Month ) {
     }
@@ -49,6 +56,15 @@ public class SolarHalfYear {
     public SolarHalfYear( int year , int month ) {
         _year = year;
         _month = month;
+    }
+
+    /// <summary>
+    /// 通过指定日期获取阳历半年
+    /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>阳历半年</returns>
+    public static SolarHalfYear FromDate( string date ) {
+        return new SolarHalfYear( date );
     }
 
     /// <summary>

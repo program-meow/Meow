@@ -22,6 +22,13 @@ public class SolarYear {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public SolarYear( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     public SolarYear( DateTime date ) {
         Year = date.Year;
@@ -39,6 +46,15 @@ public class SolarYear {
     /// 年
     /// </summary>
     public int Year { get; }
+
+    /// <summary>
+    /// 通过指定日期获取阳历年
+    /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>阳历年</returns>
+    public static SolarYear FromDate( string date ) {
+        return new SolarYear( date );
+    }
 
     /// <summary>
     /// 通过指定日期获取阳历年

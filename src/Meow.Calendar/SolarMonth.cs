@@ -14,6 +14,13 @@ public class SolarMonth {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public SolarMonth( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     public SolarMonth( DateTime date ) : this( date.Year , date.Month ) {
     }
@@ -37,6 +44,15 @@ public class SolarMonth {
     /// 月
     /// </summary>
     public int Month { get; }
+
+    /// <summary>
+    /// 通过指定日期获取阳历月
+    /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>阳历月</returns>
+    public static SolarMonth FromDate( string date ) {
+        return new SolarMonth( date );
+    }
 
     /// <summary>
     /// 通过指定日期获取阳历月

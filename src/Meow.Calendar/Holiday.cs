@@ -25,13 +25,7 @@ public partial class Holiday {
     /// <param name="ymd">年月日，2023-12-02、20231202</param>
     /// <returns>节假日</returns>
     public static Holiday Get( string ymd ) {
-        ymd = ymd.SafeValue().Replace( "-" , "" );
-        if( ymd.Length != 8 )
-            return null;
-        int year = int.Parse( ymd.Substring( 0 , 4 ) );
-        int month = int.Parse( ymd.Substring( 4 , 2 ) );
-        int day = int.Parse( ymd.Substring( 6 , 2 ) );
-        return _data.FirstOrDefault( t => t.Year == year && t.Month == month && t.Day == day );
+        return Get( ymd.ToDateTime() );
     }
 
     /// <summary>

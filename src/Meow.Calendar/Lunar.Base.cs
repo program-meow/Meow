@@ -83,6 +83,13 @@ public partial class Lunar {
     /// <summary>
     /// 通过阳历日期初始化
     /// </summary>
+    /// <param name="date">阳历日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public Lunar( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过阳历日期初始化
+    /// </summary>
     /// <param name="date">阳历日期</param>
     public Lunar( DateTime date ) : this( Solar.FromDate( date ) ) {
     }

@@ -26,6 +26,13 @@ public class SolarSeason {
     /// <summary>
     /// 通过日期初始化
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    public SolarSeason( string date ) : this( date.ToDateTime() ) {
+    }
+
+    /// <summary>
+    /// 通过日期初始化
+    /// </summary>
     /// <param name="date">日期</param>
     public SolarSeason( DateTime date ) : this( date.Year , date.Month ) {
     }
@@ -49,6 +56,15 @@ public class SolarSeason {
     /// 月
     /// </summary>
     public int Month { get; }
+
+    /// <summary>
+    /// 通过指定日期获取阳历季度
+    /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>阳历季度</returns>
+    public static SolarSeason FromDate( string date ) {
+        return new SolarSeason( date );
+    }
 
     /// <summary>
     /// 通过指定日期获取阳历季度

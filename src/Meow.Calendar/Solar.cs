@@ -24,6 +24,15 @@ public partial class Solar {
     /// <summary>
     /// 通过指定日期获取阳历
     /// </summary>
+    /// <param name="date">日期字符串，2023-12-02、20231202、20231202101010、2023-12-02 12:12:12</param>
+    /// <returns>阳历</returns>
+    public static Solar FromDate( string date ) {
+        return new Solar( date );
+    }
+
+    /// <summary>
+    /// 通过指定日期获取阳历
+    /// </summary>
     /// <param name="date">日期</param>
     /// <returns>阳历</returns>
     public static Solar FromDate( DateTime date ) {
