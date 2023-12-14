@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Logging.Serilog.Exceptionless 是 Meow 集成封装 Serilog 日志操作类库,用于写入 Exceptionless。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

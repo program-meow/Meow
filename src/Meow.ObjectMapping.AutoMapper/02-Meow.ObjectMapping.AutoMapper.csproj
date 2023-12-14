@@ -11,6 +11,7 @@
 		<Description>
 			Meow.ObjectMapping.AutoMapper 是 Meow AutoMapper 对象映射封装类库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

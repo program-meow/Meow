@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Validation 是 Meow 验证库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

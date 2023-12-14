@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Data 是 Meow 数据访问基础类库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

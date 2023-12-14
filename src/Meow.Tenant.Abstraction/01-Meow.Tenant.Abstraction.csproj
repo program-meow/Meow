@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Tenant.Abstraction 是 Meow 多租户接口定义类库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

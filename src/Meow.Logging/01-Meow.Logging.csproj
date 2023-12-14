@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Logging 是 Meow 日志操作核心类库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

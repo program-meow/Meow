@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Security 是 Meow 安全库 包含认证( Authentication )与授权( Authorization )。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

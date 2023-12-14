@@ -11,6 +11,10 @@
 		<Description>
 			Meow.Calendar 是 Meow 日历工具库。
 			$(Tips)
+			来源
+			作者：6tail 六特尔
+			地址：https://github.com/6tail/lunar-csharp
+			请使用原作者版本，尊重原作者劳动成果，谢谢！
 		</Description>
 	</PropertyGroup>
 
@@ -30,7 +34,6 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
-		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -70,13 +70,17 @@
 		<PackageIconUrl></PackageIconUrl>
 		<PackageTags>meow;util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
 	</PropertyGroup>
+
 	<PropertyGroup>
 		<Tips>
 			个人学习使用。
+		</Tips>
+		<SourceTips>
 			来源
 			作者：何镇汐
 			地址：https://github.com/dotnetcore/Util
 			请使用原作者版本，尊重原作者劳动成果，谢谢！
-		</Tips>
+		</SourceTips>
 	</PropertyGroup>
+
 </Project>

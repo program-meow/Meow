@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Application.EntityFramework 是 Meow 基于 EntityFrameworkCore 数据访问的应用层类库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 

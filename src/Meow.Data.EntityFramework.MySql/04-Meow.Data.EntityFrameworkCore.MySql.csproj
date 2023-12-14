@@ -11,6 +11,7 @@
 		<Description>
 			Meow.Data.EntityFrameworkCore.MySql 是 Meow 基于 EntityFrameworkCore 的数据访问封装类库,用于处理 MySql 数据库。
 			$(Tips)
+			$(SourceTips)
 		</Description>
 	</PropertyGroup>
 
