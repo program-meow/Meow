@@ -15,8 +15,10 @@ global using Microsoft.AspNetCore.Mvc.Authorization;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Authentication;
+global using Microsoft.AspNetCore.Identity;
 
 global using Meow.Extension;
 global using Meow.Response;
 global using Meow.Dependency;
 global using Meow.Config;
+global using Meow.Exception;
