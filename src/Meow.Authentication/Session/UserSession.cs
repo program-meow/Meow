@@ -1,6 +1,4 @@
-﻿using Web = Meow.Security.Helper.Web;
-
-namespace Meow.Security.Session;
+﻿namespace Meow.Security.Session;
 
 /// <summary>
 /// 用户会话
@@ -20,16 +18,16 @@ public class UserSession : ISession {
     public virtual IServiceProvider ServiceProvider => Meow.Helper.Web.ServiceProvider;
 
     /// <inheritdoc />
-    public virtual bool IsAuthenticated => Web.Identity.IsAuthenticated;
+    public virtual bool IsAuthenticated => Meow.Security.Helper.Web.Identity.IsAuthenticated;
 
     /// <inheritdoc />
     public virtual string UserId {
         get {
-            string result = Web.Identity.GetValue( ClaimTypes.UserId );
-            return result.IsEmpty() ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
+            string result = Meow.Security.Helper.Web.Identity.GetValue( ClaimTypes.UserId );
+            return result.IsEmpty() ? Meow.Security.Helper.Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
         }
     }
 
     /// <inheritdoc />
-    public virtual string TenantId => Web.Identity.GetValue( ClaimTypes.TenantId );
+    public virtual string TenantId => Meow.Security.Helper.Web.Identity.GetValue( ClaimTypes.TenantId );
 }

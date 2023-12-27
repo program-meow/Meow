@@ -11,18 +11,18 @@ public class SwitchTenantManager : ISwitchTenantManager {
 
     /// <inheritdoc />
     public string GetSwitchTenantId() {
-        return Web.GetCookie( Key );
+        return Meow.Helper.Web.GetCookie( Key );
     }
 
     /// <inheritdoc />
     public Task SwitchTenantAsync( string tenantId ) {
-        Web.SetCookie( Key , tenantId );
+        Meow.Helper.Web.SetCookie( Key , tenantId );
         return Task.CompletedTask;
     }
 
     /// <inheritdoc />
     public Task ResetTenantAsync() {
-        Web.RemoveCookie( Key );
+        Meow.Helper.Web.RemoveCookie( Key );
         return Task.CompletedTask;
     }
 }

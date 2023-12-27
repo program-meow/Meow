@@ -59,7 +59,7 @@ public class LockAttribute : ActionFilterAttribute {
         string userId = string.Empty;
         if( Type == LockTypeEnum.User )
             userId = $"{GetUserId( context )}_";
-        return string.IsNullOrWhiteSpace( Key ) ? $"{userId}{Web.Request.Path}" : $"{userId}{Key}";
+        return string.IsNullOrWhiteSpace( Key ) ? $"{userId}{Meow.Helper.Web.Request.Path}" : $"{userId}{Key}";
     }
 
     /// <summary>

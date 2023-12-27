@@ -11,7 +11,7 @@ public class ViewAllTenantManager : IViewAllTenantManager {
 
     /// <inheritdoc />
     public bool IsDisableTenantFilter() {
-        string result = Web.GetCookie( Key );
+        string result = Meow.Helper.Web.GetCookie( Key );
         if( result.IsEmpty() )
             return false;
         return result.ToBool();
@@ -19,13 +19,13 @@ public class ViewAllTenantManager : IViewAllTenantManager {
 
     /// <inheritdoc />
     public Task EnableViewAllAsync() {
-        Web.SetCookie( Key , "true" );
+        Meow.Helper.Web.SetCookie( Key , "true" );
         return Task.CompletedTask;
     }
 
     /// <inheritdoc />
     public Task DisableViewAllAsync() {
-        Web.RemoveCookie( Key );
+        Meow.Helper.Web.RemoveCookie( Key );
         return Task.CompletedTask;
     }
 }

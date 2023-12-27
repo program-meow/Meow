@@ -13,7 +13,7 @@ public class LogContextAccessor : ILogContextAccessor {
     /// 日志上下文
     /// </summary>
     public LogContext Context {
-        get => Meow.Helper.Convert.To<LogContext>( Web.HttpContext.Items[ LogContextKey ] );
-        set => Web.HttpContext.Items[ LogContextKey ] = value;
+        get => Meow.Helper.Convert.To<LogContext>( Meow.Helper.Web.HttpContext.Items[ LogContextKey ] );
+        set => Meow.Helper.Web.HttpContext.Items[ LogContextKey ] = value;
     }
 }
