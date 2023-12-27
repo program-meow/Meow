@@ -19,6 +19,7 @@ global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Options;
 
 global using SystemStream = System.IO.Stream;
 global using SystemException = System.Exception;

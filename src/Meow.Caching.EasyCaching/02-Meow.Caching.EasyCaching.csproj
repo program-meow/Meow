@@ -35,13 +35,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="EasyCaching.InMemory" Version="$(EasyCachingInMemoryVersion)" />
-	  <PackageReference Include="EasyCaching.Redis" Version="$(EasyCachingRedisVersion)" />
-	  <PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="$(EasyCachingSerializationSystemTextJsonVersion)" />
+		<PackageReference Include="EasyCaching.Bus.Redis" Version="$(EasyCachingBusRedisVersion)" />
+		<PackageReference Include="EasyCaching.HybridCache" Version="$(EasyCachingHybridCacheVersion)" />
+		<PackageReference Include="EasyCaching.InMemory" Version="$(EasyCachingInMemoryVersion)" />
+		<PackageReference Include="EasyCaching.Redis" Version="$(EasyCachingRedisVersion)" />
+		<PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="$(EasyCachingSerializationSystemTextJsonVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Meow.Caching\01-Meow.Caching.csproj" />
+		<ProjectReference Include="..\Meow.Caching\01-Meow.Caching.csproj" />
 	</ItemGroup>
 
 </Project>

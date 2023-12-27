@@ -24,7 +24,7 @@ public abstract class ServiceBase : IService {
     /// <summary>
     /// 用户会话
     /// </summary>
-    protected ISession Session { get; }
+    protected ISession Session { get; set; }
 
     /// <summary>
     /// 集成事件总线
@@ -35,4 +35,9 @@ public abstract class ServiceBase : IService {
     /// 日志操作
     /// </summary>
     protected ILog Log { get; }
+
+    /// <summary>
+    /// 本地化字符串
+    /// </summary>
+    protected IStringLocalizer L { get; set; }
 }

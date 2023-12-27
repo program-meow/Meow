@@ -299,6 +299,18 @@ public static class ConvertExtensions {
 
     #endregion
 
+    #region ToBase64  [转换为base64字符串]
+
+    /// <summary>
+    /// 转换为base64字符串
+    /// </summary>
+    /// <param name="value">值</param>        
+    public static string ToBase64( this string value ) {
+        return Meow.Helper.Convert.ToBase64( value );
+    }
+
+    #endregion
+
     #region ToDictionary [对象转换为属性名值对] 
 
     /// <summary>
@@ -307,6 +319,15 @@ public static class ConvertExtensions {
     /// <param name="data">对象</param>
     public static IDictionary<string , object> ToDictionary( this object data ) {
         return Meow.Helper.Convert.ToDictionary( data );
+    }
+
+    /// <summary>
+    /// 对象转换为属性名值对
+    /// </summary>
+    /// <param name="data">对象</param>
+    /// <param name="useDisplayName">是否使用显示名称,可使用[Description] 或 [DisplayName]特性设置</param>
+    public static IDictionary<string , object> ToDictionary( this object data , bool useDisplayName ) {
+        return Meow.Helper.Convert.ToDictionary( data , useDisplayName );
     }
 
     /// <summary>

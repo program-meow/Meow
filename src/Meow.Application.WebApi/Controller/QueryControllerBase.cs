@@ -118,6 +118,7 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
             return Fail( "查询参数不能为空" );
         List<TDto> result = new List<TDto>();
         await LoadSelectedItems( result );
+        query = FilterGetItemsQuery( query );
         await LoadItemsByQuery( result , query );
         return Success( result.Select( dto => ToItem( dto , query ) ) );
     }
@@ -138,6 +139,14 @@ public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
     /// </summary>
     protected string GetLoadKeys() {
         return Request.Query[ "load_keys" ].SafeString();
+    }
+
+    /// <summary>
+    /// 过滤 GetItemsAsync 方法的查询参数
+    /// </summary>
+    /// <param name="query">查询参数</param>
+    protected virtual TQuery FilterGetItemsQuery( TQuery query ) {
+        return query;
     }
 
     /// <summary>

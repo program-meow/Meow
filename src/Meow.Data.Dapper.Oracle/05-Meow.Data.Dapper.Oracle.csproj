@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Data.Dapper.Oracle</AssemblyName>
+		<RootNamespace>Meow.Data.Dapper</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Data.Dapper.Oracle</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Data.Dapper.Oracle 是 Meow 基于 Dapper 的数据访问封装类库,用于处理 Oracle 数据库。
+			$(Tips)
+			$(SourceTips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Data.Dapper.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Data.Dapper.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="$(OracleManagedDataAccessCoreVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Data.Dapper.Core\01-Meow.Data.Dapper.Core.csproj" />
+	</ItemGroup>
+
+
+</Project>

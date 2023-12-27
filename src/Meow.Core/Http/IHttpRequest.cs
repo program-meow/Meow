@@ -18,6 +18,16 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
 
     #region 配置
 
+    #region HttpClientName  [设置Http客户端名称]
+
+    /// <summary>
+    /// 设置Http客户端名称
+    /// </summary>
+    /// <param name="name">HttpClient名称</param>
+    IHttpRequest<TResult> HttpClientName( string name );
+
+    #endregion
+
     #region Encoding  [设置字符编码]
 
     /// <summary>
@@ -82,6 +92,15 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// </summary>
     /// <param name="options">Json序列化配置</param>
     IHttpRequest<TResult> JsonSerializerOptions( JsonSerializerOptions options );
+
+    #endregion
+
+    #region IgnoreSsl  [是否忽略SSL证书]
+
+    /// <summary>
+    /// 是否忽略SSL证书
+    /// </summary>
+    public IHttpRequest<TResult> IgnoreSsl();
 
     #endregion
 

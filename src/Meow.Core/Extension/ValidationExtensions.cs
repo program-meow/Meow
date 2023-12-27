@@ -81,6 +81,15 @@ public static class ValidationExtensions {
     #endregion
 
     /// <summary>
+    /// 是否默认值
+    /// </summary>
+    /// <typeparam name="T">值类型</typeparam>
+    /// <param name="value">值</param>
+    public static bool IsDefault<T>( this T value ) {
+        return EqualityComparer<T>.Default.Equals( value , default );
+    }
+
+    /// <summary>
     /// 是否数字
     /// </summary>
     /// <param name="value">值</param>        

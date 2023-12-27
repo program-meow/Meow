@@ -13,7 +13,11 @@ global using EasyCaching.Core.Interceptor;
 global using EasyCaching.InMemory;
 global using EasyCaching.Redis;
 global using EasyCaching.Serialization.SystemTextJson.Configurations;
-global using EasyCachingConfig = EasyCaching.Core.Configurations;
-global using SystemType = System.Type;
+global using EasyCaching.Core.Configurations;
+global using EasyCaching.Bus.Redis;
+global using EasyCaching.HybridCache;
+
 global using Meow.Config;
 global using Meow.Extension;
+
+global using SystemType = System.Type;

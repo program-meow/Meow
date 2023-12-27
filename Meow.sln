@@ -6,6 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-build", "00-build", "{14C93F07-F3D1-4421-B0DF-FC65B478F9F1}"
 	ProjectSection(SolutionItems) = preProject
 		build\common.props = build\common.props
+		build\icon.jpg = build\icon.jpg
+		build\README.md = build\README.md
 		build\version.props = build\version.props
 	EndProjectSection
 EndProject
@@ -85,7 +87,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Meow.Data.Dapper.Postgre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Meow.Data.Dapper.MySql", "src\Meow.Data.Dapper.MySql\04-Meow.Data.Dapper.MySql.csproj", "{0FB0BF2A-2BE4-48DD-98B8-3277367D2A0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Meow.Data.Dapper.All", "src\Meow.Data.Dapper.All\05-Meow.Data.Dapper.All.csproj", "{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Meow.Data.Dapper.All", "src\Meow.Data.Dapper.All\06-Meow.Data.Dapper.All.csproj", "{D92C03D7-AAD4-4A89-B7C0-61B3638C62C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-application", "12-application", "{A1DEC02B-B85E-4216-9AE4-3F229311ADEE}"
 EndProject
@@ -142,7 +144,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migration", "migration", "{
 		sample\Migration\CreateMigration.bat = sample\Migration\CreateMigration.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10-Meow.Calendar", "src\Meow.Calendar\10-Meow.Calendar.csproj", "{9B011258-E471-4C45-876B-FB746DE01F07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10-Meow.Calendar", "src\Meow.Calendar\10-Meow.Calendar.csproj", "{9B011258-E471-4C45-876B-FB746DE01F07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05-Meow.Data.Dapper.Oracle", "src\Meow.Data.Dapper.Oracle\05-Meow.Data.Dapper.Oracle.csproj", "{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07-Meow.Localization", "src\Meow.Localization\07-Meow.Localization.csproj", "{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -326,6 +332,14 @@ Global
 		{9B011258-E471-4C45-876B-FB746DE01F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B011258-E471-4C45-876B-FB746DE01F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B011258-E471-4C45-876B-FB746DE01F07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -394,6 +408,8 @@ Global
 		{3F385300-3BEB-4DD4-8070-AE259265D89F} = {DF90F082-AFF9-41EF-8AE1-21D2622B9F39}
 		{D1720F49-B280-46AE-B543-D5276EFFFB85} = {3F385300-3BEB-4DD4-8070-AE259265D89F}
 		{9B011258-E471-4C45-876B-FB746DE01F07} = {71FFD2E1-41C9-4978-8501-C4B39360FF67}
+		{DC4C4619-1253-4C11-B5B4-8DCA1AA0332C} = {176827B1-8A7C-40FD-BEFB-DD9DA63CB6A6}
+		{DFD6CA2D-AAB0-4BF6-8C22-9CB7C0A410A4} = {71FFD2E1-41C9-4978-8501-C4B39360FF67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A606D32-B672-4F8E-B52C-CC6795E59FDE}

@@ -7,6 +7,8 @@ global using System.Reflection;
 global using System.Linq.Expressions;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Localization;
 
 global using Meow.Extension;
 global using Meow.Helper;
@@ -24,3 +26,7 @@ global using Meow.Domain.Entity;
 global using Meow.Domain.Event;
 global using Meow.Domain.Operation;
 global using Meow.Domain.Repository;
+global using Meow.Localization;
+global using Meow.Logging;
+global using Meow.Security.Session;
+

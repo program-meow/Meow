@@ -39,11 +39,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsConfigurationVersion)" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
-	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
-	  <PackageReference Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsHttpVersion)" />
-	  <PackageReference Include="RSAExtensions" Version="$(RSAExtensionsVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsConfigurationVersion)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsHttpVersion)" />
+		<PackageReference Include="RSAExtensions" Version="$(RSAExtensionsVersion)" />
+		<!--标识生成器-->
+		<PackageReference Include="Nanoid" Version="$(NanoidVersion)" />
+		<PackageReference Include="Yitter.IdGenerator" Version="$(YitterIdGeneratorVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Helper/Id.*.cs">
+			<DependentUpon>Id.cs</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 </Project>

@@ -40,9 +40,8 @@ public class Random {
     public static T GetValue<T>( IEnumerable<T> array ) {
         if( array == null )
             return default;
-        System.Random random = new System.Random();
         List<T> list = array.ToList();
-        int index = random.Next( 0 , list.Count );
+        int index = System.Random.Shared.Next( 0 , list.Count );
         return list[ index ];
     }
 
@@ -54,11 +53,10 @@ public class Random {
     public static List<T> Order<T>( IEnumerable<T> array ) {
         if( array == null )
             return null;
-        System.Random random = new System.Random();
         List<T> list = array.ToList();
         for( int i = 0 ; i < list.Count ; i++ ) {
-            int index1 = random.Next( 0 , list.Count );
-            int index2 = random.Next( 0 , list.Count );
+            int index1 = System.Random.Shared.Next( 0 , list.Count );
+            int index2 = System.Random.Shared.Next( 0 , list.Count );
             (list[ index1 ], list[ index2 ]) = (list[ index2 ], list[ index1 ]);
         }
         return list;

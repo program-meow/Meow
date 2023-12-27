@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Localization</AssemblyName>
+		<RootNamespace>Meow.Localization</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Localization</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Localization 是 Meow 本地化操作类库,Json本地化操作代码从 https://github.com/hishamco/My.Extensions.Localization.Json 整理而来,并进行相应修改。
+			$(Tips)
+			来源
+			作者：6tail 六特尔
+			地址：https://github.com/6tail/lunar-csharp
+			请使用原作者版本，尊重原作者劳动成果，谢谢！
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Localization.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Localization.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsCachingMemoryVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="$(MicrosoftExtensionsLocalizationVersion)" />
+	</ItemGroup>
+
+</Project>

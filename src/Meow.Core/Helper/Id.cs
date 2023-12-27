@@ -5,7 +5,7 @@ namespace Meow.Helper;
 /// <summary>
 /// 标识生成器
 /// </summary>
-public static class Id {
+public static partial class Id {
     /// <summary>
     /// 标识
     /// </summary>
@@ -37,6 +37,6 @@ public static class Id {
     /// 创建Guid标识
     /// </summary>
     public static Guid CreateGuid() {
-        return _id.Value.IsEmpty() ? System.Guid.NewGuid() : Convert.ToGuid( _id.Value );
+        return _id.Value.IsEmpty() ? System.Guid.NewGuid() : _id.Value.ToGuid();
     }
 }

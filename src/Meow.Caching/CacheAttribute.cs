@@ -5,9 +5,9 @@
 /// </summary>
 public class CacheAttribute : InterceptorBase {
     /// <summary>
-    /// 缓存键前缀
+    /// 缓存键前缀,可使用占位符, {0} 表示第一个参数值,范例: User-{0}
     /// </summary>
-    public string CacheKeyPrefix { get; set; }
+    public string Prefix { get; set; }
     /// <summary>
     /// 缓存过期间隔,单位:秒,默认值:36000
     /// </summary>
@@ -48,7 +48,18 @@ public class CacheAttribute : InterceptorBase {
     /// </summary>
     private string CreateCacheKey( AspectContext context ) {
         ICacheKeyGenerator keyGenerator = context.ServiceProvider.GetService<ICacheKeyGenerator>();
-        return keyGenerator.CreateCacheKey( context.ServiceMethod , context.Parameters , CacheKeyPrefix );
+        return keyGenerator.CreateCacheKey( context.ServiceMethod , context.Parameters , GetPrefix( context ) );
+    }
+
+    /// <summary>
+    /// 获取缓存键前缀
+    /// </summary>
+    private string GetPrefix( AspectContext context ) {
+        try {
+            return string.Format( Prefix , context.Parameters.ToArray() );
+        } catch {
+            return Prefix;
+        }
     }
 
     /// <summary>

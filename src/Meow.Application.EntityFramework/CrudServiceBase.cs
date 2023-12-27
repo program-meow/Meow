@@ -127,6 +127,8 @@ public abstract class CrudServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequ
 
     /// <inheritdoc />
     public virtual async Task<string> CreateAsync( TCreateRequest request ) {
+        request.CheckNull( nameof( request ) );
+        request.Validate();
         TEntity entity = ToEntity( request );
         entity.CheckNull( nameof( entity ) );
         await CreateAsync( entity );
@@ -190,6 +192,8 @@ public abstract class CrudServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequ
 
     /// <inheritdoc />
     public virtual async Task UpdateAsync( TUpdateRequest request ) {
+        request.CheckNull( nameof( request ) );
+        request.Validate();
         if( request.Id.IsEmpty() )
             throw new InvalidOperationException( "标识不能为空" );
         TEntity oldEntity = await FindOldEntityAsync( request.Id );

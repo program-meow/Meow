@@ -4,13 +4,16 @@
 /// EasyCaching缓存服务
 /// </summary>
 public class CacheManager : ICache {
-
     #region 字段
 
     /// <summary>
     /// 缓存提供器
     /// </summary>
-    private readonly IEasyCachingProvider _provider;
+    private readonly IEasyCachingProviderBase _provider;
+    /// <summary>
+    /// 缓存提供器
+    /// </summary>
+    private readonly IEasyCachingProvider _cachingProvider;
 
     #endregion
 
@@ -20,8 +23,16 @@ public class CacheManager : ICache {
     /// 初始化EasyCaching缓存服务
     /// </summary>
     /// <param name="provider">EasyCaching缓存提供器</param>
-    public CacheManager( IEasyCachingProvider provider ) {
-        _provider = provider ?? throw new ArgumentNullException( nameof( provider ) );
+    /// <param name="hybridProvider">EasyCaching 2级缓存提供器</param>
+    public CacheManager( IEasyCachingProvider provider , IHybridCachingProvider hybridProvider = null ) {
+        CachingOptions.Clear();
+        if( provider != null ) {
+            _provider = provider;
+            _cachingProvider = provider;
+        }
+        if( hybridProvider != null )
+            _provider = hybridProvider;
+        _provider.CheckNull( nameof( provider ) );
     }
 
     #endregion
@@ -87,8 +98,17 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public List<T> Get<T>( IEnumerable<string> keys ) {
-        IDictionary<string , CacheValue<T>> result = _provider.GetAll<T>( keys );
+        Validate();
+        IDictionary<string , CacheValue<T>> result = _cachingProvider.GetAll<T>( keys );
         return result.Values.Select( t => t.Value ).ToList();
+    }
+
+    /// <summary>
+    /// 验证
+    /// </summary>
+    private void Validate() {
+        if( _cachingProvider == null )
+            throw new NotSupportedException( "2级缓存不支持该操作" );
     }
 
     /// <inheritdoc />
@@ -140,7 +160,8 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public async Task<List<T>> GetAsync<T>( IEnumerable<string> keys , CancellationToken cancellationToken = default ) {
-        IDictionary<string , CacheValue<T>> result = await _provider.GetAllAsync<T>( keys , cancellationToken );
+        Validate();
+        IDictionary<string , CacheValue<T>> result = await _cachingProvider.GetAllAsync<T>( keys , cancellationToken );
         return result.Values.Select( t => t.Value ).ToList();
     }
 
@@ -164,7 +185,8 @@ public class CacheManager : ICache {
     public List<T> GetByPrefix<T>( string prefix ) {
         if( prefix.IsEmpty() )
             return new List<T>();
-        return _provider.GetByPrefix<T>( prefix ).Where( t => t.Value.HasValue ).Select( t => t.Value.Value ).ToList();
+        Validate();
+        return _cachingProvider.GetByPrefix<T>( prefix ).Where( t => t.Value.HasValue ).Select( t => t.Value.Value ).ToList();
     }
 
     #endregion
@@ -175,7 +197,8 @@ public class CacheManager : ICache {
     public async Task<List<T>> GetByPrefixAsync<T>( string prefix , CancellationToken cancellationToken = default ) {
         if( prefix.IsEmpty() )
             return new List<T>();
-        IDictionary<string , CacheValue<T>> result = await _provider.GetByPrefixAsync<T>( prefix , cancellationToken );
+        Validate();
+        IDictionary<string , CacheValue<T>> result = await _cachingProvider.GetByPrefixAsync<T>( prefix , cancellationToken );
         return result.Where( t => t.Value.HasValue ).Select( t => t.Value.Value ).ToList();
     }
 
@@ -373,7 +396,8 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public void Clear() {
-        _provider.Flush();
+        Validate();
+        _cachingProvider.Flush();
     }
 
     #endregion
@@ -382,7 +406,8 @@ public class CacheManager : ICache {
 
     /// <inheritdoc />
     public async Task ClearAsync( CancellationToken cancellationToken = default ) {
-        await _provider.FlushAsync( cancellationToken );
+        Validate();
+        await _cachingProvider.FlushAsync( cancellationToken );
     }
 
     #endregion

@@ -24,6 +24,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     private readonly HttpClientHandler _httpClientHandler;
     /// <summary>
+    /// Http客户端名称
+    /// </summary>
+    private string _httpClientName;
+    /// <summary>
     /// Http方法
     /// </summary>
     private readonly HttpMethod _httpMethod;
@@ -56,6 +60,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// Json序列化配置
     /// </summary>
     private JsonSerializerOptions _jsonSerializerOptions;
+    /// <summary>
+    /// 是否忽略SSL证书
+    /// </summary>
+    private bool _ignoreSsl;
     /// <summary>
     /// 是否简单解析参数
     /// </summary>
@@ -269,6 +277,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #region 配置
 
+    #region HttpClientName  [设置Http客户端名称]
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> HttpClientName( string name ) {
+        _httpClientName = name;
+        return this;
+    }
+
+    #endregion
+
     #region Encoding  [设置字符编码]
 
     /// <summary>
@@ -354,6 +372,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="options">Json序列化配置</param>
     public IHttpRequest<TResult> JsonSerializerOptions( JsonSerializerOptions options ) {
         _jsonSerializerOptions = options;
+        return this;
+    }
+
+    #endregion
+
+    #region IgnoreSsl  [是否忽略SSL证书]
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> IgnoreSsl() {
+        _ignoreSsl = true;
         return this;
     }
 
@@ -1194,7 +1222,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected HttpClientHandler CreateHttpClientHandler() {
         IHttpMessageHandlerFactory handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
-        HttpMessageHandler handler = handlerFactory.CreateHandler();
+        if( handlerFactory == null )
+            return null;
+        HttpMessageHandler handler = _httpClientName.IsEmpty() ? handlerFactory.CreateHandler() : handlerFactory.CreateHandler( _httpClientName );
         while( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
@@ -1208,6 +1238,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected virtual void InitHttpClientHandler( HttpClientHandler handler ) {
         InitCertificate( handler );
         InitCookie( handler );
+        IgnoreSsl( handler );
     }
 
     #endregion
@@ -1239,6 +1270,19 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         }
         handler.UseCookies = true;
         handler.CookieContainer = CookieContainer;
+    }
+
+    #endregion
+
+    #region IgnoreSsl  [忽略SSL证书错误]
+
+    /// <summary>
+    /// 忽略SSL证书错误
+    /// </summary>
+    protected virtual void IgnoreSsl( HttpClientHandler handler ) {
+        if( _ignoreSsl == false )
+            return;
+        handler.ServerCertificateCustomValidationCallback ??= ( _ , _ , _ , _ ) => true;
     }
 
     #endregion

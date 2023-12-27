@@ -12,6 +12,8 @@
 		<MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
 		<MicrosoftExtensionsHttpVersion>7.0.0</MicrosoftExtensionsHttpVersion>
 		<MicrosoftExtensionsLoggingVersion>7.0.0</MicrosoftExtensionsLoggingVersion>
+		<MicrosoftExtensionsLocalizationVersion>7.0.13</MicrosoftExtensionsLocalizationVersion>
+		<MicrosoftExtensionsCachingMemoryVersion>7.0.0</MicrosoftExtensionsCachingMemoryVersion>
 
 		<MicrosoftEntityFrameworkCoreVersion>7.0.13</MicrosoftEntityFrameworkCoreVersion>
 		<MicrosoftEntityFrameworkCoreRelationalVersion>7.0.13</MicrosoftEntityFrameworkCoreRelationalVersion>
@@ -22,8 +24,12 @@
 		<MicrosoftEntityFrameworkCoreSqliteVersion>7.0.13</MicrosoftEntityFrameworkCoreSqliteVersion>
 		<OracleEntityFrameworkCoreVersion>7.21.12</OracleEntityFrameworkCoreVersion>
 
+		<NanoidVersion>3.0.0</NanoidVersion>
+		<YitterIdGeneratorVersion>1.0.14</YitterIdGeneratorVersion>
+
 		<NpgsqlVersion>7.0.6</NpgsqlVersion>
 		<MySqlConnectorVersion>2.2.7</MySqlConnectorVersion>
+		<OracleManagedDataAccessCoreVersion>3.21.120</OracleManagedDataAccessCoreVersion>
 
 		<RSAExtensionsVersion>1.1.1</RSAExtensionsVersion>
 
@@ -43,9 +49,11 @@
 		<ExceptionlessExtensionsHostingVersion>6.0.3</ExceptionlessExtensionsHostingVersion>
 
 
-		<EasyCachingInMemoryVersion>1.9.1</EasyCachingInMemoryVersion>
-		<EasyCachingRedisVersion>1.9.1</EasyCachingRedisVersion>
-		<EasyCachingSerializationSystemTextJsonVersion>1.9.1</EasyCachingSerializationSystemTextJsonVersion>
+		<EasyCachingBusRedisVersion>1.9.2</EasyCachingBusRedisVersion>
+		<EasyCachingHybridCacheVersion>1.9.2</EasyCachingHybridCacheVersion>
+		<EasyCachingInMemoryVersion>1.9.2</EasyCachingInMemoryVersion>
+		<EasyCachingRedisVersion>1.9.2</EasyCachingRedisVersion>
+		<EasyCachingSerializationSystemTextJsonVersion>1.9.2</EasyCachingSerializationSystemTextJsonVersion>
 
 
 		<SystemLinqDynamicCoreVersion>1.3.5</SystemLinqDynamicCoreVersion>

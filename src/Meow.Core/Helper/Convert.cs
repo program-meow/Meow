@@ -30,8 +30,9 @@ public static class Convert {
             if( value is IConvertible )
                 return ( T ) System.Convert.ChangeType( value , type , CultureInfo.InvariantCulture );
             if( value is JsonElement element ) {
+                string text = element.GetRawText();
                 JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return element.GetRawText().ToJsonObject<T>( options );
+                return text.ToJsonObject<T>( options );
             }
             return ( T ) value;
         } catch {
@@ -353,6 +354,10 @@ public static class Convert {
     /// </summary>
     /// <param name="value">值</param>
     public static Guid? ToGuidOrNull( object value ) {
+        if( value == null )
+            return null;
+        if( value.GetType() == typeof( byte[] ) )
+            return new Guid( ( byte[] ) value );
         return Guid.TryParse( value.SafeString() , out Guid result ) ? result : null;
     }
 
@@ -423,6 +428,18 @@ public static class Convert {
 
     #endregion
 
+    #region ToBase64  [转换为base64字符串]
+
+    /// <summary>
+    /// 转换为base64字符串
+    /// </summary>
+    /// <param name="value">值</param>        
+    public static string ToBase64( string value ) {
+        return value.IsEmpty() ? null : System.Convert.ToBase64String( Encoding.UTF8.GetBytes( value ) );
+    }
+
+    #endregion
+
     #region ToDictionary [对象转换为属性名值对]
 
     /// <summary>
@@ -430,16 +447,38 @@ public static class Convert {
     /// </summary>
     /// <param name="data">对象</param>
     public static IDictionary<string , object> ToDictionary( object data ) {
+        return ToDictionary( data , false );
+    }
+
+    /// <summary>
+    /// 对象转换为属性名值对
+    /// </summary>
+    /// <param name="data">对象</param>
+    /// <param name="useDisplayName">是否使用显示名称,可使用[Description] 或 [DisplayName]特性设置</param>
+    public static IDictionary<string , object> ToDictionary( object data , bool useDisplayName ) {
+        Dictionary<string , object> result = new Dictionary<string , object>();
         if( data == null )
-            return null;
+            return result;
         if( data is IEnumerable<KeyValuePair<string , object>> dic )
             return new Dictionary<string , object>( dic );
-        Dictionary<string , object> result = new Dictionary<string , object>();
         foreach( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
             object value = property.GetValue( data );
-            result.Add( property.Name , value );
+            result.Add( GetPropertyDescriptorName( property , useDisplayName ) , value );
         }
         return result;
+    }
+
+    /// <summary>
+    /// 获取属性名
+    /// </summary>
+    private static string GetPropertyDescriptorName( PropertyDescriptor property , bool useDisplayName ) {
+        if( useDisplayName == false )
+            return property.Name;
+        if( string.IsNullOrEmpty( property.Description ) == false )
+            return property.Description;
+        if( string.IsNullOrEmpty( property.DisplayName ) == false )
+            return property.DisplayName;
+        return property.Name;
     }
 
     /// <summary>
@@ -448,7 +487,7 @@ public static class Convert {
     /// <typeparam name="TValue">值元素类型</typeparam>
     /// <param name="data">对象</param>
     public static IDictionary<string , TValue> ToDictionary<TValue>( object data ) {
-        Dictionary<string , TValue> result = new Dictionary<string , TValue>();
+        IDictionary<string , TValue> result = new Dictionary<string , TValue>();
         IDictionary<string , object> dictionary = ToDictionary( data );
         if( dictionary.IsEmpty() )
             return result;

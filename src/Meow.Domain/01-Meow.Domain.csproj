@@ -31,13 +31,15 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
-		<None Include="..\..\build\README.md" Pack="true" PackagePath="\"/>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Security.csproj" />
 	  <ProjectReference Include="..\Meow.Data.Abstraction\06-Meow.Data.Abstraction.csproj" />
 	  <ProjectReference Include="..\Meow.Event\02-Meow.Event.csproj" />
+	  <ProjectReference Include="..\Meow.Localization\07-Meow.Localization.csproj" />
+	  <ProjectReference Include="..\Meow.Logging\01-Meow.Logging.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Meow.Extension;
 /// </summary>
 public static class IHostBuilderExtensions {
     /// <summary>
-    /// 注册Meow服务 
+    /// 启动Meow服务 
     /// </summary>
     /// <param name="hostBuilder">主机生成器</param>
     public static IHostBuilder AddMeow( this IHostBuilder hostBuilder) {

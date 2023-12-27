@@ -62,7 +62,7 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
         CreateBefore( request );
         string id = await _service.CreateAsync( request );
         TDto result = await _service.GetByIdAsync( id );
-        return Success( result );
+        return Success( CreateAfter( result ) );
     }
 
     /// <summary>
@@ -70,6 +70,14 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// </summary>
     /// <param name="request">创建参数</param>
     protected virtual void CreateBefore( TCreateRequest request ) {
+    }
+
+    /// <summary>
+    /// 创建后操作
+    /// </summary>
+    /// <param name="result">结果</param>
+    protected virtual object CreateAfter( TDto result ) {
+        return result;
     }
 
     #endregion
@@ -91,7 +99,7 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
         UpdateBefore( request );
         await _service.UpdateAsync( request );
         TDto result = await _service.GetByIdAsync( request.Id );
-        return Success( result );
+        return Success( UpdateAfter( result ) );
     }
 
     /// <summary>
@@ -99,6 +107,14 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// </summary>
     /// <param name="dto">修改参数</param>
     protected virtual void UpdateBefore( TUpdateRequest dto ) {
+    }
+
+    /// <summary>
+    /// 修改后操作
+    /// </summary>
+    /// <param name="result">结果</param>
+    protected virtual object UpdateAfter( TDto result ) {
+        return result;
     }
 
     #endregion

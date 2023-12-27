@@ -72,7 +72,7 @@ public partial class Xml {
     /// <param name="value">值</param>
     /// <param name="parent">父节点</param>
     public XmlNode AddCDataNode( object value, XmlNode parent = null ) {
-        XmlNode node = CreateNode( Id.Create(), value, XmlNodeType.CDATA );
+        XmlNode node = CreateNode( Id.Create() , value, XmlNodeType.CDATA );
         GetParent( parent ).AppendChild( node );
         return node;
     }

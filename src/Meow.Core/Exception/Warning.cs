@@ -39,7 +39,7 @@ public class Warning : SystemException {
     /// <summary>
     /// 是否本地化异常消息
     /// </summary>
-    public bool IsLocalization { get; set; }
+    public bool? IsLocalization { get; set; }
 
     /// <summary>
     /// 获取错误消息

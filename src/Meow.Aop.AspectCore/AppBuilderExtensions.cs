@@ -26,6 +26,15 @@ public static class AppBuilderExtensions {
     /// </summary>
     /// <param name="builder">应用生成器</param>
     /// <param name="setupAction">AspectCore拦截器配置操作</param>
+    public static IAppBuilder AddAop( this IAppBuilder builder , Action<IAspectConfiguration> setupAction ) {
+        return builder.AddAop( setupAction , false );
+    }
+
+    /// <summary>
+    /// 启用AspectCore拦截器
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="setupAction">AspectCore拦截器配置操作</param>
     /// <param name="isEnableIAopProxy">是否启用IAopProxy接口标记</param>
     public static IAppBuilder AddAop( this IAppBuilder builder , Action<IAspectConfiguration> setupAction , bool isEnableIAopProxy ) {
         builder.CheckNull( nameof( builder ) );
@@ -58,8 +67,6 @@ public static class AppBuilderExtensions {
         if( type == null )
             return false;
         if( isEnableIAopProxy == false ) {
-            if( Meow.Helper.Reflection.GetTopBaseType( type ).SafeString() == "Microsoft.EntityFrameworkCore.DbContext" )
-                return false;
             if( type.SafeString().Contains( "Xunit.DependencyInjection.ITestOutputHelperAccessor" ) )
                 return false;
             return true;
@@ -67,7 +74,7 @@ public static class AppBuilderExtensions {
         SystemType[] interfaces = type.GetInterfaces();
         if( interfaces == null || interfaces.Length == 0 )
             return false;
-        foreach( SystemType item in interfaces ) {
+        foreach( var item in interfaces ) {
             if( item == typeof( IAopProxy ) )
                 return true;
         }
@@ -75,7 +82,7 @@ public static class AppBuilderExtensions {
     }
 
     /// <summary>
-    /// 注册拦截作用域
+    /// 注册拦截器服务
     /// </summary>
     private static void RegisterAspectScoped( IServiceCollection services ) {
         services.AddScoped<IAspectScheduler , ScopeAspectScheduler>();
