@@ -1,6 +1,6 @@
 ﻿using Meow.Dependency;
 
-namespace Meow.Web;
+namespace Meow.Accessor;
 
 /// <summary>
 /// IP访问器
