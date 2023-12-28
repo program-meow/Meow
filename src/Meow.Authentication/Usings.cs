@@ -4,6 +4,7 @@ global using System.Collections.Generic;
 global using System.Linq;
 global using System.Threading;
 global using System.Globalization;
+global using System.ComponentModel;
 global using System.Security.Claims;
 global using System.Security.Principal;
 global using Microsoft.AspNetCore.Http;
