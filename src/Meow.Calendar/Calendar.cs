@@ -95,14 +95,14 @@ public class Calendar {
     /// <returns>辅助描述</returns>
     private string GetAuxiliaryDescription( DateTime date ) {
         //农历
-        var text = Lunar.Day == 1 ? $"{Lunar.MonthInChinese}月" : Lunar.DayInChinese;
+        string text = Lunar.Day == 1 ? $"{Lunar.MonthInChinese}月" : Lunar.DayInChinese;
 
         //节日
-        var festival = Solar.Festivals.IsEmpty() ? "" : Solar.Festivals[ 0 ];
+        string festival = Solar.Festivals.IsEmpty() ? "" : Solar.Festivals[ 0 ];
         text = festival.IsEmpty() ? text : festival;
 
         //节气
-        var jieqi = Lunar.JieQi;
+        string jieqi = Lunar.JieQi;
         text = jieqi.IsEmpty() ? text : jieqi;
 
         if( Holiday == null )

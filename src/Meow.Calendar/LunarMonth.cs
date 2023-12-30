@@ -24,7 +24,7 @@ public class LunarMonth {
     /// </summary>
     private int _ganIndex {
         get {
-            var offset = ( LunarYear.FromYear( Year )._ganIndex + 1 ) % 5 * 2;
+            int offset = ( LunarYear.FromYear( Year )._ganIndex + 1 ) % 5 * 2;
             return ( _index - 1 + offset ) % 10;
         }
     }
@@ -170,7 +170,7 @@ public class LunarMonth {
     public string PositionTaiSui {
         get {
             string p;
-            var m = SystemMath.Abs( Month );
+            int m = SystemMath.Abs( Month );
             switch( m ) {
                 case 1:
                 case 5:
@@ -205,14 +205,14 @@ public class LunarMonth {
     /// </summary>
     public NineStar NineStar {
         get {
-            var index = LunarYear.FromYear( Year )._zhiIndex % 3;
-            var m = SystemMath.Abs( Month );
-            var monthZhiIndex = ( 13 + m ) % 12;
-            var n = 27 - ( index * 3 );
+            int index = LunarYear.FromYear( Year )._zhiIndex % 3;
+            int m = SystemMath.Abs( Month );
+            int monthZhiIndex = ( 13 + m ) % 12;
+            int n = 27 - ( index * 3 );
             if( monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX ) {
                 n -= 3;
             }
-            var offset = ( n - monthZhiIndex ) % 9;
+            int offset = ( n - monthZhiIndex ) % 9;
             return NineStar.FromIndex( offset );
         }
     }
@@ -232,28 +232,28 @@ public class LunarMonth {
             return FromYm( Year , Month );
         }
         if( n > 0 ) {
-            var rest = n;
-            var ny = Year;
-            var iy = ny;
-            var im = Month;
-            var index = 0;
-            var months = LunarYear.FromYear( ny ).Months;
+            int rest = n;
+            int ny = Year;
+            int iy = ny;
+            int im = Month;
+            int index = 0;
+            List<LunarMonth> months = LunarYear.FromYear( ny ).Months;
             while( true ) {
-                var size = months.Count;
-                for( var i = 0 ; i < size ; i++ ) {
-                    var m = months[ i ];
+                int size = months.Count;
+                for( int i = 0 ; i < size ; i++ ) {
+                    LunarMonth m = months[ i ];
                     if( m.Year != iy || m.Month != im ) continue;
                     index = i;
                     break;
                 }
 
-                var more = size - index - 1;
+                int more = size - index - 1;
                 if( rest < more ) {
                     break;
                 }
 
                 rest -= more;
-                var lastMonth = months[ size - 1 ];
+                LunarMonth lastMonth = months[ size - 1 ];
                 iy = lastMonth.Year;
                 im = lastMonth.Month;
                 ny++;
@@ -262,16 +262,16 @@ public class LunarMonth {
 
             return months[ index + rest ];
         } else {
-            var rest = -n;
-            var ny = Year;
-            var iy = ny;
-            var im = Month;
-            var index = 0;
-            var months = LunarYear.FromYear( ny ).Months;
+            int rest = -n;
+            int ny = Year;
+            int iy = ny;
+            int im = Month;
+            int index = 0;
+            List<LunarMonth> months = LunarYear.FromYear( ny ).Months;
             while( true ) {
-                var size = months.Count;
-                for( var i = 0 ; i < size ; i++ ) {
-                    var m = months[ i ];
+                int size = months.Count;
+                for( int i = 0 ; i < size ; i++ ) {
+                    LunarMonth m = months[ i ];
                     if( m.Year != iy || m.Month != im ) continue;
                     index = i;
                     break;
@@ -282,7 +282,7 @@ public class LunarMonth {
                 }
 
                 rest -= index;
-                var firstMonth = months[ 0 ];
+                LunarMonth firstMonth = months[ 0 ];
                 iy = firstMonth.Year;
                 im = firstMonth.Month;
                 ny--;

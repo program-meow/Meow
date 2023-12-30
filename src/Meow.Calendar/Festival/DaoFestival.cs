@@ -35,7 +35,7 @@ public class DaoFestival {
     /// </summary>
     public string FullString {
         get {
-            var s = new StringBuilder();
+            StringBuilder s = new StringBuilder();
             s.Append( Name );
             if( !string.IsNullOrEmpty( Remark ) ) {
                 s.Append( '[' );

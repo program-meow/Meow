@@ -20,7 +20,7 @@ public class Result : Result<dynamic> {
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result( ResultStatusCodeEnum code , string message , object data = default )
+    public Result( ResultStatusEnum code , string message , object data = default )
         : base( code , message , data ) {
     }
 }
@@ -30,7 +30,7 @@ public class Result : Result<dynamic> {
 /// </summary>
 public class Result<TResultData> : IResult<TResultData> {
     /// <inheritdoc />
-    public ResultStatusCodeEnum Code { get; }
+    public ResultStatusEnum Code { get; }
     /// <inheritdoc />
     public string Message { get; }
     /// <inheritdoc />
@@ -52,7 +52,7 @@ public class Result<TResultData> : IResult<TResultData> {
     /// <param name="code">结果状态码</param>
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
-    public Result( ResultStatusCodeEnum code , string message , TResultData data = default ) {
+    public Result( ResultStatusEnum code , string message , TResultData data = default ) {
         Code = code;
         Message = message;
         Data = data;

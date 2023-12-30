@@ -83,9 +83,9 @@ public partial class Fo {
     /// </summary>
     public string FullString {
         get {
-            var s = new StringBuilder();
+            StringBuilder s = new StringBuilder();
             s.Append( ToString() );
-            foreach( var f in Festivals ) {
+            foreach( FoFestival f in Festivals ) {
                 s.Append( " (" );
                 s.Append( f );
                 s.Append( ')' );

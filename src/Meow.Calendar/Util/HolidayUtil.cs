@@ -15,8 +15,8 @@ internal static class HolidayUtil {
     public static List<Holiday> Data {
         get {
             List<Holiday> result = new List<Holiday>();
-            foreach( var data in DATA_SOURCE ) {
-                var dataSplit = data.Split( '-' );
+            foreach( string data in DATA_SOURCE ) {
+                string[] dataSplit = data.Split( '-' );
                 result.Add( new Holiday {
                     Date = DateTime.Parse( dataSplit[ 0 ] ) ,
                     Name = DATA_TYPE[ dataSplit[ 1 ] ] ,

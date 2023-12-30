@@ -100,9 +100,9 @@ public class SolarSeason {
     /// </summary>
     public List<SolarMonth> Months {
         get {
-            var l = new List<SolarMonth>();
-            var index = _index - 1;
-            for( var i = 0 ; i < MONTH_COUNT ; i++ ) {
+            List<SolarMonth> l = new List<SolarMonth>();
+            int index = _index - 1;
+            for( int i = 0 ; i < MONTH_COUNT ; i++ ) {
                 l.Add( new SolarMonth( Year , MONTH_COUNT * index + i + 1 ) );
             }
             return l;

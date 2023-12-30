@@ -32,9 +32,9 @@ public class LunarYear {
     /// <param name="lunarYear">农历年</param>
     public LunarYear( int lunarYear ) {
         Year = lunarYear;
-        var offset = lunarYear - 4;
-        var yearGanIndex = offset % 10;
-        var yearZhiIndex = offset % 12;
+        int offset = lunarYear - 4;
+        int yearGanIndex = offset % 10;
+        int yearZhiIndex = offset % 12;
         if( yearGanIndex < 0 ) {
             yearGanIndex += 10;
         }
@@ -87,24 +87,24 @@ public class LunarYear {
     /// </summary>
     private void Compute() {
         // 节气
-        var jq = new double[ 27 ];
+        double[] jq = new double[ 27 ];
         // 合朔，即每月初一
-        var hs = new double[ 16 ];
+        double[] hs = new double[ 16 ];
         // 每月天数
-        var dayCounts = new int[ 15 ];
-        var months = new int[ 15 ];
+        int[] dayCounts = new int[ 15 ];
+        int[] months = new int[ 15 ];
 
-        var currentYear = Year;
+        int currentYear = Year;
 
-        var jd = SystemMath.Floor( ( currentYear - 2000 ) * 365.2422 + 180 );
+        double jd = SystemMath.Floor( ( currentYear - 2000 ) * 365.2422 + 180 );
         // 355是2000.12冬至，得到较靠近jd的冬至估计值
-        var w = SystemMath.Floor( ( jd - 355 + 183 ) / 365.2422 ) * 365.2422 + 355;
+        double w = SystemMath.Floor( ( jd - 355 + 183 ) / 365.2422 ) * 365.2422 + 355;
         if( ShouXingUtil.CalcQi( w ) > jd ) {
             w -= 365.2422;
         }
 
         // 25个节气时刻(北京时间)，从冬至开始到下一个冬至以后
-        for( var i = 0 ; i < 26 ; i++ ) {
+        for( int i = 0 ; i < 26 ; i++ ) {
             jq[ i ] = ShouXingUtil.CalcQi( w + 15.2184 * i );
         }
 
@@ -128,24 +128,24 @@ public class LunarYear {
         }
 
         // 递推每月初一
-        for( var i = 0 ; i < 16 ; i++ ) {
+        for( int i = 0 ; i < 16 ; i++ ) {
             hs[ i ] = ShouXingUtil.CalcShuo( w + 29.5306 * i );
         }
 
         // 每月
-        for( var i = 0 ; i < 15 ; i++ ) {
+        for( int i = 0 ; i < 15 ; i++ ) {
             dayCounts[ i ] = ( int ) ( hs[ i + 1 ] - hs[ i ] );
             months[ i ] = i;
         }
 
-        var prevYear = currentYear - 1;
-        var leapIndex = 16;
+        int prevYear = currentYear - 1;
+        int leapIndex = 16;
         if( LunarUtil.LEAP_11.Contains( currentYear ) ) {
             leapIndex = 13;
         } else if( LunarUtil.LEAP_12.Contains( currentYear ) ) {
             leapIndex = 14;
         } else if( hs[ 13 ] <= jq[ 24 ] ) {
-            var i = 1;
+            int i = 1;
             while( hs[ i + 1 ] > jq[ 2 * i ] && i < 13 ) {
                 i++;
             }
@@ -153,17 +153,17 @@ public class LunarYear {
             leapIndex = i;
         }
 
-        for( var i = leapIndex ; i < 15 ; i++ ) {
+        for( int i = leapIndex ; i < 15 ; i++ ) {
             months[ i ] -= 1;
         }
 
-        var fm = -1;
-        var index = -1;
-        var y = prevYear;
-        for( var i = 0 ; i < 15 ; i++ ) {
-            var dm = hs[ i ] + SolarUtil.J2000;
-            var v2 = months[ i ];
-            var mc = LunarUtil.YMC[ v2 % 12 ];
+        int fm = -1;
+        int index = -1;
+        int y = prevYear;
+        for( int i = 0 ; i < 15 ; i++ ) {
+            double dm = hs[ i ] + SolarUtil.J2000;
+            int v2 = months[ i ];
+            int mc = LunarUtil.YMC[ v2 % 12 ];
             if( 1724360 <= dm && dm < 1729794 ) {
                 mc = LunarUtil.YMC[ ( v2 + 1 ) % 12 ];
             } else if( 1807724 <= dm && dm < 1808699 ) {
@@ -250,7 +250,7 @@ public class LunarYear {
     /// <param name="name">名称</param>
     /// <returns>灶马头</returns>
     protected string GetZaoByGan( int index , string name ) {
-        var offset = index - Solar.FromJulianDay( GetMonth( 1 ).FirstJulianDay ).ToLunar()._dayGanIndex;
+        int offset = index - Solar.FromJulianDay( GetMonth( 1 ).FirstJulianDay ).ToLunar()._dayGanIndex;
         if( offset < 0 ) {
             offset += 10;
         }
@@ -264,7 +264,7 @@ public class LunarYear {
     /// <param name="name">名称</param>
     /// <returns>灶马头</returns>
     protected string GetZaoByZhi( int index , string name ) {
-        var offset = index - Solar.FromJulianDay( GetMonth( 1 ).FirstJulianDay ).ToLunar()._dayZhiIndex;
+        int offset = index - Solar.FromJulianDay( GetMonth( 1 ).FirstJulianDay ).ToLunar()._dayZhiIndex;
         if( offset < 0 ) {
             offset += 12;
         }
@@ -357,9 +357,9 @@ public class LunarYear {
     /// </summary>
     public NineStar NineStar {
         get {
-            var index = LunarUtil.GetJiaZiIndex( GanZhi ) + 1;
-            var yuan = ( Year + 2696 ) / 60 % 3;
-            var offset = ( 62 + yuan * 3 - index ) % 9;
+            int index = LunarUtil.GetJiaZiIndex( GanZhi ) + 1;
+            int yuan = ( Year + 2696 ) / 60 % 3;
+            int offset = ( 62 + yuan * 3 - index ) % 9;
             if( 0 == offset ) {
                 offset = 9;
             }

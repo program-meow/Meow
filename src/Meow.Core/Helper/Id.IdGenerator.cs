@@ -15,7 +15,7 @@ public static partial class Id {
         try {
             return YitIdHelper.NextId();
         } catch {
-            var options = new IdGeneratorOptions( 1 );
+            IdGeneratorOptions options = new IdGeneratorOptions( 1 );
             YitIdHelper.SetIdGenerator( options );
             return YitIdHelper.NextId();
         }

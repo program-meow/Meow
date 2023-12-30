@@ -15,7 +15,7 @@ public partial class Holiday {
     /// </summary>
     /// <returns>节假日</returns>
     public static Holiday Get() {
-        var date = Meow.Helper.Time.Now.ToLocalTime();
+        DateTime date = Meow.Helper.Time.Now.ToLocalTime();
         return Get( date );
     }
 

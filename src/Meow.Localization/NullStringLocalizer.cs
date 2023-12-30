@@ -15,7 +15,7 @@ public class NullStringLocalizer : IStringLocalizer {
     /// <inheritdoc />
     public LocalizedString this[ string name, params object[] arguments ] {
         get {
-            var value = string.Format( name, arguments );
+            string value = string.Format( name, arguments );
             return new LocalizedString( value, value, true );
         }
     }

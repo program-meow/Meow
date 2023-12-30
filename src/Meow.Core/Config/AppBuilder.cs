@@ -21,7 +21,7 @@ public class AppBuilder : IAppBuilder {
     /// 构建
     /// </summary>
     public IHost Build() {
-        var result = Host.Build();
+        IHost result = Host.Build();
         Ioc.SetServiceProviderAction( () => result.Services );
         return result;
     }

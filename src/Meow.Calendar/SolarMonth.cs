@@ -78,11 +78,11 @@ public class SolarMonth {
     /// </summary>
     public List<Solar> Days {
         get {
-            var l = new List<Solar>( 31 );
-            var d = new Solar( Year , Month , 1 );
+            List<Solar> l = new List<Solar>( 31 );
+            Solar d = new Solar( Year , Month , 1 );
             l.Add( d );
-            var days = SolarUtil.GetDaysOfMonth( Year , Month );
-            for( var i = 1 ; i < days ; i++ ) {
+            int days = SolarUtil.GetDaysOfMonth( Year , Month );
+            for( int i = 1 ; i < days ; i++ ) {
                 l.Add( d.Next( i ) );
             }
             return l;
@@ -95,12 +95,12 @@ public class SolarMonth {
     /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
     /// <returns>周列表</returns>
     public List<SolarWeek> GetWeeks( int start ) {
-        var l = new List<SolarWeek>();
-        var week = SolarWeek.FromYmd( Year , Month , 1 , start );
+        List<SolarWeek> l = new List<SolarWeek>();
+        SolarWeek week = SolarWeek.FromYmd( Year , Month , 1 , start );
         while( true ) {
             l.Add( week );
             week = week.Next( 1 , false );
-            var firstDay = week.FirstDay;
+            Solar firstDay = week.FirstDay;
             if( firstDay.Year > Year || firstDay.Month > Month ) {
                 break;
             }
@@ -114,9 +114,9 @@ public class SolarMonth {
     /// <param name="months">月数</param>
     /// <returns>阳历月</returns>
     public SolarMonth Next( int months ) {
-        var n = months < 0 ? -1 : 1;
-        var m = SystemMath.Abs( months );
-        var y = Year + m / 12 * n;
+        int n = months < 0 ? -1 : 1;
+        int m = SystemMath.Abs( months );
+        int y = Year + m / 12 * n;
         m = Month + m % 12 * n;
         if( m > 12 ) {
             m -= 12;

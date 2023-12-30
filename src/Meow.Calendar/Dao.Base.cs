@@ -14,7 +14,7 @@ public partial class Dao {
     /// 初始化
     /// </summary>
     /// <param name="date">日期</param>
-    public Dao( DateTime date ) :this(new Lunar( date ) ) {
+    public Dao( DateTime date ) : this( new Lunar( date ) ) {
     }
 
     /// <summary>
@@ -45,12 +45,11 @@ public partial class Dao {
     /// </summary>
     public string YearInChinese {
         get {
-            var y = ( Year + "" ).ToCharArray();
-            var s = new StringBuilder();
+            char[] y = ( Year + "" ).ToCharArray();
+            StringBuilder s = new StringBuilder();
             for( int i = 0, j = y.Length ; i < j ; i++ ) {
                 s.Append( LunarUtil.NUMBER[ y[ i ] - '0' ] );
             }
-
             return s.ToString();
         }
     }
@@ -70,14 +69,14 @@ public partial class Dao {
     /// </summary>
     public List<DaoFestival> Festivals {
         get {
-            var l = new List<DaoFestival>();
+            List<DaoFestival> l = new List<DaoFestival>();
             try {
                 l.AddRange( DaoUtil.FESTIVAL[ Month + "-" + Day ] );
             } catch {
                 // ignored
             }
 
-            var jq = _lunar.JieQi;
+            string jq = _lunar.JieQi;
             switch( jq ) {
                 case "冬至":
                     l.Add( new DaoFestival( "元始天尊圣诞" ) );

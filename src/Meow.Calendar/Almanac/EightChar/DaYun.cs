@@ -33,15 +33,15 @@ public class DaYun {
         _yun = yun;
         _lunar = yun._lunar;
         _index = index;
-        var birthYear = _lunar._solar.Year;
-        var year = yun.StartSolar.Year;
+        int birthYear = _lunar._solar.Year;
+        int year = yun.StartSolar.Year;
         if( index < 1 ) {
             StartYear = birthYear;
             StartAge = 1;
             EndYear = year - 1;
             EndAge = year - birthYear;
         } else {
-            var add = ( index - 1 ) * 10;
+            int add = ( index - 1 ) * 10;
             StartYear = year + add;
             StartAge = StartYear - birthYear + 1;
             EndYear = StartYear + 9;
@@ -78,9 +78,9 @@ public class DaYun {
             if( _index < 1 ) {
                 return "";
             }
-            var offset = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact );
+            int offset = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact );
             offset += _yun.Forward ? _index : -_index;
-            var size = LunarUtil.JIA_ZI.Length;
+            int size = LunarUtil.JIA_ZI.Length;
             if( offset >= size ) {
                 offset -= size;
             }
@@ -110,8 +110,8 @@ public class DaYun {
         if( _index < 1 ) {
             n = EndYear - StartYear + 1;
         }
-        var l = new LiuNian[ n ];
-        for( var i = 0 ; i < n ; ++i ) {
+        LiuNian[] l = new LiuNian[ n ];
+        for( int i = 0 ; i < n ; ++i ) {
             l[ i ] = new LiuNian( this , i );
         }
         return l;
@@ -126,8 +126,8 @@ public class DaYun {
         if( _index < 1 ) {
             n = EndYear - StartYear + 1;
         }
-        var l = new XiaoYun[ n ];
-        for( var i = 0 ; i < n ; ++i ) {
+        XiaoYun[] l = new XiaoYun[ n ];
+        for( int i = 0 ; i < n ; ++i ) {
             l[ i ] = new XiaoYun( this , i , _yun.Forward );
         }
         return l;

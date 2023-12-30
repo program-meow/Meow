@@ -12,9 +12,9 @@ public class HttpClientService : IHttpClient {
     /// </summary>
     private readonly IHttpClientFactory _httpClientFactory;
     /// <summary>
-    /// Http客户端处理器
+    /// Http客户端
     /// </summary>
-    private HttpClientHandler _httpClientHandler;
+    private HttpClient _httpClient;
 
     #endregion
 
@@ -30,14 +30,14 @@ public class HttpClientService : IHttpClient {
 
     #endregion
 
-    #region SetHttpClientHandler  [设置Http客户端处理器]
+    #region SetHttpClient  [设置Http客户端]
 
     /// <summary>
-    /// 设置Http客户端处理器
+    /// 设置Http客户端
     /// </summary>
-    /// <param name="httpClientHandler">Http客户端处理器</param>
-    public IHttpClient SetHttpClientHandler( HttpClientHandler httpClientHandler ) {
-        _httpClientHandler = httpClientHandler;
+    /// <param name="client">Http客户端</param>
+    public HttpClientService SetHttpClient( HttpClient client ) {
+        _httpClient = client;
         return this;
     }
 
@@ -58,7 +58,7 @@ public class HttpClientService : IHttpClient {
     /// </summary>
     /// <param name="url">服务地址</param>
     public IHttpRequest<TResult> Get<TResult>( string url ) where TResult : class {
-        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Get , url );
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClient , HttpMethod.Get , url );
     }
 
     #endregion
@@ -78,7 +78,7 @@ public class HttpClientService : IHttpClient {
     /// </summary>
     /// <param name="url">服务地址</param>
     public IHttpRequest<TResult> Post<TResult>( string url ) where TResult : class {
-        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Post , url );
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClient , HttpMethod.Post , url );
     }
 
     #endregion
@@ -98,7 +98,7 @@ public class HttpClientService : IHttpClient {
     /// </summary>
     /// <param name="url">服务地址</param>
     public IHttpRequest<TResult> Put<TResult>( string url ) where TResult : class {
-        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Put , url );
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClient , HttpMethod.Put , url );
     }
 
     #endregion
@@ -118,8 +118,9 @@ public class HttpClientService : IHttpClient {
     /// </summary>
     /// <param name="url">服务地址</param>
     public IHttpRequest<TResult> Delete<TResult>( string url ) where TResult : class {
-        return new HttpRequest<TResult>( _httpClientFactory , _httpClientHandler , HttpMethod.Delete , url );
+        return new HttpRequest<TResult>( _httpClientFactory , _httpClient , HttpMethod.Delete , url );
     }
 
     #endregion
+
 }

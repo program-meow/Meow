@@ -359,9 +359,9 @@ public static class Encrypt {
     /// 生成RSA公钥和私钥对,返回值Item1为公钥,Item2为私钥
     /// </summary>
     public static (string, string) CreateRsaKey() {
-        var rsa = RSA.Create();
-        var publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem() );
-        var privateKey = rsa.ExportPrivateKey( RSAKeyType.Pkcs1 );
+        RSA rsa = RSA.Create();
+        string publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem() );
+        string privateKey = rsa.ExportPrivateKey( RSAKeyType.Pkcs1 );
         return (publicKey, privateKey);
     }
 

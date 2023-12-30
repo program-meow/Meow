@@ -30,7 +30,7 @@ public class LockAttribute : ActionFilterAttribute {
         try {
             isSuccess = await @lock.LockAsync( key , GetExpiration() );
             if( isSuccess == false ) {
-                context.Result = GetResult( context , ResultStatusCodeEnum.Error.GetValue().SafeString() , GetFailMessage( context ) );
+                context.Result = GetResult( context , ResultStatusEnum.Error.GetValue().SafeString() , GetFailMessage( context ) );
                 return;
             }
             OnActionExecuting( context );

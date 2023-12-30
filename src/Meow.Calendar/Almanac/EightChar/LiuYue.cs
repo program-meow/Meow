@@ -47,8 +47,8 @@ public class LiuYue {
     /// </summary>
     public string GanZhi {
         get {
-            var offset = 0;
-            var yearGan = _liuNian.GanZhi.Substring( 0 , 1 );
+            int offset = 0;
+            string yearGan = _liuNian.GanZhi.Substring( 0 , 1 );
             switch( yearGan ) {
                 case "甲":
                 case "己":
@@ -67,8 +67,8 @@ public class LiuYue {
                     offset = 8;
                     break;
             }
-            var gan = LunarUtil.GAN[ ( _index + offset ) % 10 + 1 ];
-            var zhi = LunarUtil.ZHI[ ( _index + LunarUtil.BASE_MONTH_ZHI_INDEX ) % 12 + 1 ];
+            string gan = LunarUtil.GAN[ ( _index + offset ) % 10 + 1 ];
+            string zhi = LunarUtil.ZHI[ ( _index + LunarUtil.BASE_MONTH_ZHI_INDEX ) % 12 + 1 ];
             return $"{gan}{zhi}";
         }
     }

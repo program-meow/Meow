@@ -9,7 +9,7 @@ public class OracleDatabaseFactory : IDatabaseFactory {
     /// </summary>
     /// <param name="connection">数据库连接字符串</param>
     public IDatabase Create( string connection ) {
-        var con = new OracleConnection( connection );
+        OracleConnection con = new OracleConnection( connection );
         return new DefaultDatabase( con );
     }
 }

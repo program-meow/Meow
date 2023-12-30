@@ -260,11 +260,11 @@ internal static class SolarUtil {
     /// <param name="day">日</param>
     /// <returns>第几天</returns>
     public static int GetDaysInYear( int year , int month , int day ) {
-        var days = 0;
-        for( var i = 1 ; i < month ; i++ ) {
+        int days = 0;
+        for( int i = 1 ; i < month ; i++ ) {
             days += GetDaysOfMonth( year , i );
         }
-        var d = day;
+        int d = day;
         if( 1582 == year && 10 == month ) {
             if( day >= 15 ) {
                 d -= 10;

@@ -272,13 +272,13 @@ public static class Convert {
         bool success = DateTime.TryParse( value.SafeString() , out DateTime result );
         if( success )
             return result;
-        var time = value.SafeString().Replace( "-" , "" ).Replace( "/" , "" ).Replace( " " , "" ).Replace( ":" , "" ).Replace( "T" , "" );
+        string time = value.SafeString().Replace( "-" , "" ).Replace( "/" , "" ).Replace( " " , "" ).Replace( ":" , "" ).Replace( "T" , "" );
         if( time.Length < 8 )
             return null;
-        var year = int.Parse( time.Substring( 0 , 4 ) );
-        var month = int.Parse( time.Substring( 4 , 2 ) );
-        var day = int.Parse( time.Substring( 6 , 2 ) );
-        var monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year , month );
+        int year = int.Parse( time.Substring( 0 , 4 ) );
+        int month = int.Parse( time.Substring( 4 , 2 ) );
+        int day = int.Parse( time.Substring( 6 , 2 ) );
+        int monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year , month );
         if( monthMaxDay < day )
             return null;
         switch( time.Length ) {

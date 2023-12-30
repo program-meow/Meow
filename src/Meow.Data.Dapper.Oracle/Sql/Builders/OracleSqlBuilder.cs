@@ -34,7 +34,7 @@ public class OracleSqlBuilder : SqlBuilderBase {
 
     /// <inheritdoc />
     public override ISqlBuilder Clone() {
-        var result = new OracleSqlBuilder();
+        OracleSqlBuilder result = new OracleSqlBuilder();
         result.Clone( this );
         return result;
     }

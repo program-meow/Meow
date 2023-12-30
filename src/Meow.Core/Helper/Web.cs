@@ -72,7 +72,7 @@ public static class Web {
             try {
                 return Ioc.Create<IHttpClient>();
             } catch {
-                return new HttpClientService().SetHttpClientHandler( new HttpClientHandler() );
+                return new HttpClientService().SetHttpClient( new HttpClient() );
             }
         }
     }

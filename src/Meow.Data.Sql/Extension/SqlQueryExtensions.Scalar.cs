@@ -450,7 +450,7 @@ public static partial class SqlQueryExtensions {
     /// 转换为本地时间
     /// </summary>
     private static DateTime? ToLocalTimeOrNull( object date ) {
-        var result = Meow.Helper.Convert.ToDateTimeOrNull( date );
+        DateTime? result = Meow.Helper.Convert.ToDateTimeOrNull( date );
         if( result == null )
             return null;
         return Meow.Helper.Time.UtcToLocalTime( result.Value );

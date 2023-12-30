@@ -37,7 +37,7 @@ public static class Retry {
     public static Result<bool> TryInvoke( SystemAction action , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         action.CheckNull( nameof( action ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
@@ -46,12 +46,12 @@ public static class Retry {
             try {
                 action();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 return new Result<bool>( statusCode , statusCode.GetDescription() , true );
             } catch( SystemException ex ) {
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -76,7 +76,7 @@ public static class Retry {
     public static Result<bool?> TryInvoke( Func<bool> func , Func<bool? , bool> validateResultFunc = null , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
@@ -88,7 +88,7 @@ public static class Retry {
             try {
                 result = func();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -96,7 +96,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = null;
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -121,7 +121,7 @@ public static class Retry {
     public static Result<TResult> TryInvoke<TResult>( Func<TResult> func , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -133,7 +133,7 @@ public static class Retry {
             try {
                 result = func();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -141,7 +141,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -167,7 +167,7 @@ public static class Retry {
     public static Result<TResult> TryInvoke<T1, TResult>( Func<T1 , TResult> func , T1 t1 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -179,7 +179,7 @@ public static class Retry {
             try {
                 result = func( t1 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -187,7 +187,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -214,7 +214,7 @@ public static class Retry {
     public static Result<TResult> TryInvoke<T1, T2, TResult>( Func<T1 , T2 , TResult> func , T1 t1 , T2 t2 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -226,7 +226,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -234,7 +234,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -262,7 +262,7 @@ public static class Retry {
     public static Result<TResult> TryInvoke<T1, T2, T3, TResult>( Func<T1 , T2 , T3 , TResult> func , T1 t1 , T2 t2 , T3 t3 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -274,7 +274,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 , t3 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -282,7 +282,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -311,7 +311,7 @@ public static class Retry {
     public static Result<TResult> TryInvoke<T1, T2, T3, T4, TResult>( Func<T1 , T2 , T3 , T4 , TResult> func , T1 t1 , T2 t2 , T3 t3 , T4 t4 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -323,7 +323,7 @@ public static class Retry {
             try {
                 result = func( t1 , t2 , t3 , t4 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -331,7 +331,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -359,7 +359,7 @@ public static class Retry {
     public static async Task<Result<bool>> TryInvokeAsync( Func<Task> action , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         action.CheckNull( nameof( action ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         delayFunc ??= _delayDefaultAction();
 
@@ -368,12 +368,12 @@ public static class Retry {
             try {
                 await action();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 return new Result<bool>( statusCode , statusCode.GetDescription() , true );
             } catch( SystemException ex ) {
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -398,7 +398,7 @@ public static class Retry {
     public static async Task<Result<bool?>> TryInvokeAsync( Func<Task<bool>> func , Func<bool? , bool> validateResultFunc = null , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateBoolDefaultFunc();
         delayFunc ??= _delayDefaultAction();
@@ -410,7 +410,7 @@ public static class Retry {
             try {
                 result = await func();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -418,7 +418,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = null;
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -443,7 +443,7 @@ public static class Retry {
     public static async Task<Result<TResult>> TryInvokeAsync<TResult>( Func<Task<TResult>> func , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -455,7 +455,7 @@ public static class Retry {
             try {
                 result = await func();
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -463,7 +463,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -489,7 +489,7 @@ public static class Retry {
     public static async Task<Result<TResult>> TryInvokeAsync<T1, TResult>( Func<T1 , Task<TResult>> func , T1 t1 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -501,7 +501,7 @@ public static class Retry {
             try {
                 result = await func( t1 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -509,7 +509,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -536,7 +536,7 @@ public static class Retry {
     public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, TResult>( Func<T1 , T2 , Task<TResult>> func , T1 t1 , T2 t2 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -548,7 +548,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -556,7 +556,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -584,7 +584,7 @@ public static class Retry {
     public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, TResult>( Func<T1 , T2 , T3 , Task<TResult>> func , T1 t1 , T2 t2 , T3 t3 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -596,7 +596,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 , t3 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -604,7 +604,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;
@@ -633,7 +633,7 @@ public static class Retry {
     public static async Task<Result<TResult>> TryInvokeAsync<T1, T2, T3, T4, TResult>( Func<T1 , T2 , T3 , T4 , Task<TResult>> func , T1 t1 , T2 t2 , T3 t3 , T4 t4 , Func<TResult , bool> validateResultFunc , int maxRetryTimes = 3 , Action<int , TimeSpan , SystemException> listenerExceptionFunc = null , Func<int , TimeSpan> delayFunc = null ) {
         func.CheckNull( nameof( func ) );
 
-        ResultStatusCodeEnum statusCode;
+        ResultStatusEnum statusCode;
         SystemException exception;
         validateResultFunc ??= _validateDefaultFunc<TResult>();
         delayFunc ??= _delayDefaultAction();
@@ -645,7 +645,7 @@ public static class Retry {
             try {
                 result = await func( t1 , t2 , t3 , t4 );
 
-                statusCode = ResultStatusCodeEnum.Success;
+                statusCode = ResultStatusEnum.Success;
                 exception = null;
 
                 if( validateResultFunc( result ) )
@@ -653,7 +653,7 @@ public static class Retry {
             } catch( SystemException ex ) {
                 result = default( TResult );
 
-                statusCode = ResultStatusCodeEnum.Error;
+                statusCode = ResultStatusEnum.Error;
                 exception = ex;
 
                 time++;

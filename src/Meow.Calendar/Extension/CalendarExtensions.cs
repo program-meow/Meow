@@ -53,9 +53,9 @@ public static class CalendarExtensions {
     /// <param name="lunar">阴历</param>
     public static Solar ToSolar( this Lunar lunar ) {
         lunar.CheckNull( nameof( lunar ) );
-        var y = LunarYear.FromYear( lunar.Year );
-        var m = y.GetMonth( lunar.Month );
-        var noon = Solar.FromJulianDay( m.FirstJulianDay + lunar.Day - 1 );
+        LunarYear y = LunarYear.FromYear( lunar.Year );
+        LunarMonth m = y.GetMonth( lunar.Month );
+        Solar noon = Solar.FromJulianDay( m.FirstJulianDay + lunar.Day - 1 );
         return Solar.FromYmdHms( noon.Year , noon.Month , noon.Day , lunar.Hour , lunar.Minute , lunar.Second );
     }
 

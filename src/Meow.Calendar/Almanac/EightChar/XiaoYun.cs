@@ -59,13 +59,13 @@ public class XiaoYun {
     /// </summary>
     public string GanZhi {
         get {
-            var offset = LunarUtil.GetJiaZiIndex( _lunar.TimeInGanZhi );
-            var add = _index + 1;
+            int offset = LunarUtil.GetJiaZiIndex( _lunar.TimeInGanZhi );
+            int add = _index + 1;
             if( _daYun._index > 0 ) {
                 add += _daYun.StartAge - 1;
             }
             offset += Forward ? add : -add;
-            var size = LunarUtil.JIA_ZI.Length;
+            int size = LunarUtil.JIA_ZI.Length;
             while( offset < 0 ) {
                 offset += size;
             }

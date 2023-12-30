@@ -74,7 +74,7 @@ public static class AppBuilderExtensions {
         SystemType[] interfaces = type.GetInterfaces();
         if( interfaces == null || interfaces.Length == 0 )
             return false;
-        foreach( var item in interfaces ) {
+        foreach( SystemType item in interfaces ) {
             if( item == typeof( IAopProxy ) )
                 return true;
         }

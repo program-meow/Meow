@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Microservice.HealthCheck</AssemblyName>
+		<RootNamespace>Meow.Microservice.HealthCheck</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Microservice.HealthCheck</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Microservice.HealthCheck 是 Meow 健康检查操作类库。
+			$(Tips)
+			$(SourceTips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Microservice.HealthCheck.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Microservice.HealthCheck.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="$(AspNetCoreHealthChecksUIClientVersion)" />
+		<PackageReference Include="AspNetCore.HealthChecks.Uris" Version="$(AspNetCoreHealthChecksUrisVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="$(MicrosoftExtensionsDiagnosticsHealthChecksVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Data.EntityFramework.Core\01-Meow.Data.EntityFrameworkCore.csproj" />
+	  <ProjectReference Include="..\Meow.Microservice.Dapr\03-Meow.Microservice.Dapr.csproj" />
+	</ItemGroup>
+
+</Project>

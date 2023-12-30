@@ -11,7 +11,7 @@ public abstract class DomainServiceBase : IDomainService {
     protected DomainServiceBase( IServiceProvider serviceProvider ) {
         ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
         Session = serviceProvider.GetService<ISession>() ?? NullSession.Instance;
-        var logFactory = serviceProvider.GetService<ILogFactory>();
+        ILogFactory logFactory = serviceProvider.GetService<ILogFactory>();
         Log = logFactory?.CreateLog( GetType() ) ?? NullLog.Instance;
         L = serviceProvider.GetService<IStringLocalizer>() ?? NullStringLocalizer.Instance;
     }

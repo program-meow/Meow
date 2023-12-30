@@ -20,7 +20,7 @@ public class OracleParameterManager : ParameterManager {
 
     /// <inheritdoc />
     public override string GenerateName() {
-        var result = $"{Dialect.GetPrefix()}p_{ParamIndex}";
+        string result = $"{Dialect.GetPrefix()}p_{ParamIndex}";
         ParamIndex++;
         return result;
     }

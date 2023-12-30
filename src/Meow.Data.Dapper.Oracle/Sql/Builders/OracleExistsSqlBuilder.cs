@@ -37,7 +37,7 @@ public class OracleExistsSqlBuilder : IExistsSqlBuilder {
     /// 获取结果
     /// </summary>
     private string GetResult() {
-        var result = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         result.AppendLine( "Select Case" );
         result.AppendLine( "  When Exists (" );
         _sqlBuilder.AppendTo( result );

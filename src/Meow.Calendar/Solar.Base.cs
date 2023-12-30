@@ -80,19 +80,19 @@ public partial class Solar {
     /// </summary>
     /// <param name="julianDay">儒略日</param>
     public Solar( double julianDay ) {
-        var d = ( int ) ( julianDay + 0.5 );
-        var f = julianDay + 0.5 - d;
+        int d = ( int ) ( julianDay + 0.5 );
+        double f = julianDay + 0.5 - d;
 
         if( d >= 2299161 ) {
-            var c = ( int ) ( ( d - 1867216.25 ) / 36524.25 );
+            int c = ( int ) ( ( d - 1867216.25 ) / 36524.25 );
             d += 1 + c - ( int ) ( c * 1D / 4 );
         }
         d += 1524;
-        var year = ( int ) ( ( d - 122.1 ) / 365.25 );
+        int year = ( int ) ( ( d - 122.1 ) / 365.25 );
         d -= ( int ) ( 365.25 * year );
-        var month = ( int ) ( d * 1D / 30.601 );
+        int month = ( int ) ( d * 1D / 30.601 );
         d -= ( int ) ( 30.601 * month );
-        var day = d;
+        int day = d;
         if( month > 13 ) {
             month -= 13;
             year -= 4715;
@@ -101,15 +101,15 @@ public partial class Solar {
             year -= 4716;
         }
         f *= 24;
-        var hour = ( int ) f;
+        int hour = ( int ) f;
 
         f -= hour;
         f *= 60;
-        var minute = ( int ) f;
+        int minute = ( int ) f;
 
         f -= minute;
         f *= 60;
-        var second = ( int ) SystemMath.Round( f );
+        int second = ( int ) SystemMath.Round( f );
 
         if( second > 59 ) {
             second -= 60;
@@ -189,8 +189,8 @@ public partial class Solar {
     /// </summary>
     public string XingZuo {
         get {
-            var index = 11;
-            var y = Month * 100 + Day;
+            int index = 11;
+            int y = Month * 100 + Day;
             if( y >= 321 && y <= 419 ) {
                 index = 0;
             } else if( y >= 420 && y <= 520 ) {
@@ -223,11 +223,11 @@ public partial class Solar {
     /// </summary>
     public double JulianDay {
         get {
-            var y = Year;
-            var m = Month;
-            var d = Day + ( ( Second * 1D / 60 + Minute ) / 60 + Hour ) / 24;
-            var n = 0;
-            var g = y * 372 + m * 31 + ( int ) d >= 588829;
+            int y = Year;
+            int m = Month;
+            double d = Day + ( ( Second * 1D / 60 + Minute ) / 60 + Hour ) / 24;
+            int n = 0;
+            bool g = y * 372 + m * 31 + ( int ) d >= 588829;
             if( m <= 2 ) {
                 m += 12;
                 y--;
@@ -249,7 +249,7 @@ public partial class Solar {
     /// </summary>
     public List<string> Festivals {
         get {
-            var l = new List<string>();
+            List<string> l = new List<string>();
             //获取几月几日对应的节日
             try {
                 l.Add( SolarUtil.FESTIVAL[ Month + "-" + Day ] );
@@ -258,7 +258,7 @@ public partial class Solar {
             }
 
             //计算几月第几个星期几对应的节日
-            var weeks = ( int ) SystemMath.Ceiling( Day / 7D );
+            int weeks = ( int ) SystemMath.Ceiling( Day / 7D );
             //星期几，0代表星期天
             try {
                 l.Add( SolarUtil.WEEK_FESTIVAL[ Month + "-" + weeks + "-" + Week ] );
@@ -282,9 +282,9 @@ public partial class Solar {
     /// </summary>
     public List<string> OtherFestivals {
         get {
-            var l = new List<string>();
+            List<string> l = new List<string>();
             try {
-                var fs = SolarUtil.OTHER_FESTIVAL[ Month + "-" + Day ];
+                List<string> fs = SolarUtil.OTHER_FESTIVAL[ Month + "-" + Day ];
                 l.AddRange( fs );
             } catch {
                 // ignored

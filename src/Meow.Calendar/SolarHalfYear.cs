@@ -92,7 +92,7 @@ public class SolarHalfYear {
     /// <param name="halfYears">推移的半年数，负数为倒推</param>
     /// <returns>推移后的半年</returns>
     public SolarHalfYear Next( int halfYears ) {
-        var m = SolarMonth.FromYm( _year , _month ).Next( MONTH_COUNT * halfYears );
+        SolarMonth m = SolarMonth.FromYm( _year , _month ).Next( MONTH_COUNT * halfYears );
         return new SolarHalfYear( m.Year , m.Month );
     }
 
@@ -102,9 +102,9 @@ public class SolarHalfYear {
     /// <returns>本半年的月份列表</returns>
     public List<SolarMonth> Months {
         get {
-            var l = new List<SolarMonth>();
-            var index = _index - 1;
-            for( var i = 0 ; i < MONTH_COUNT ; i++ ) {
+            List<SolarMonth> l = new List<SolarMonth>();
+            int index = _index - 1;
+            for( int i = 0 ; i < MONTH_COUNT ; i++ ) {
                 l.Add( new SolarMonth( _year , MONTH_COUNT * index + i + 1 ) );
             }
             return l;

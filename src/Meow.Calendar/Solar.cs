@@ -60,21 +60,21 @@ public partial class Solar {
     /// <returns>符合的阳历列表</returns>
     public static List<Solar> FromBaZi( string yearGanZhi , string monthGanZhi , string dayGanZhi , string timeGanZhi , int sect = 2 , int baseYear = 1900 ) {
         sect = ( 1 == sect ) ? 1 : 2;
-        var l = new List<Solar>();
-        var years = new List<int>();
-        var today = new Solar();
-        var offsetYear = LunarUtil.GetJiaZiIndex( today.ToLunar().YearInGanZhiExact ) - LunarUtil.GetJiaZiIndex( yearGanZhi );
+        List<Solar> l = new List<Solar>();
+        List<int> years = new List<int>();
+        Solar today = new Solar();
+        int offsetYear = LunarUtil.GetJiaZiIndex( today.ToLunar().YearInGanZhiExact ) - LunarUtil.GetJiaZiIndex( yearGanZhi );
         if( offsetYear < 0 ) {
             offsetYear += 60;
         }
-        var startYear = today.Year - offsetYear - 1;
-        var minYear = baseYear - 2;
+        int startYear = today.Year - offsetYear - 1;
+        int minYear = baseYear - 2;
         while( startYear >= minYear ) {
             years.Add( startYear );
             startYear -= 60;
         }
-        var hours = new List<int>();
-        var timeZhi = timeGanZhi.Substring( 1 );
+        List<int> hours = new List<int>();
+        string timeZhi = timeGanZhi.Substring( 1 );
         for( int i = 1, j = LunarUtil.ZHI.Length ; i < j ; i++ ) {
             if( LunarUtil.ZHI[ i ].Equals( timeZhi ) ) {
                 hours.Add( ( i - 1 ) * 2 );
@@ -85,19 +85,19 @@ public partial class Solar {
             hours.Add( 23 );
         }
 
-        foreach( var hour in hours ) {
-            foreach( var y in years ) {
-                var maxYear = y + 3;
-                var year = y;
-                var month = 11;
+        foreach( int hour in hours ) {
+            foreach( int y in years ) {
+                int maxYear = y + 3;
+                int year = y;
+                int month = 11;
                 if( year < baseYear ) {
                     year = baseYear;
                     month = 1;
                 }
-                var solar = new Solar( year , month , 1 , hour );
+                Solar solar = new Solar( year , month , 1 , hour );
                 while( solar.Year <= maxYear ) {
-                    var lunar = solar.ToLunar();
-                    var dgz = ( 2 == sect ) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
+                    Lunar lunar = solar.ToLunar();
+                    string dgz = ( 2 == sect ) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                     if( lunar.YearInGanZhiExact.Equals( yearGanZhi ) && lunar.MonthInGanZhiExact.Equals( monthGanZhi ) && dgz.Equals( dayGanZhi ) && lunar.TimeInGanZhi.Equals( timeGanZhi ) ) {
                         l.Add( solar );
                         break;
@@ -128,10 +128,10 @@ public partial class Solar {
     /// <param name="solar">阳历</param>
     /// <returns>分钟数</returns>
     public int SubtractMinute( Solar solar ) {
-        var days = Subtract( solar );
-        var cm = Hour * 60 + Minute;
-        var sm = solar.Hour * 60 + solar.Minute;
-        var m = cm - sm;
+        int days = Subtract( solar );
+        int cm = Hour * 60 + Minute;
+        int sm = solar.Hour * 60 + solar.Minute;
+        int m = cm - sm;
         if( m < 0 ) {
             m += 1440;
             days--;
@@ -224,9 +224,9 @@ public partial class Solar {
     /// <param name="years">年数</param>
     /// <returns>阳历</returns>
     public Solar NextYear( int years ) {
-        var y = Year + years;
-        var m = Month;
-        var d = Day;
+        int y = Year + years;
+        int m = Month;
+        int d = Day;
         if( 1582 == y && 10 == m ) {
             if( d > 4 && d < 15 ) {
                 d += 10;
@@ -247,16 +247,16 @@ public partial class Solar {
     /// <param name="months">月数</param>
     /// <returns>阳历</returns>
     public Solar NextMonth( int months ) {
-        var month = SolarMonth.FromYm( Year , Month ).Next( months );
-        var y = month.Year;
-        var m = month.Month;
-        var d = Day;
+        SolarMonth month = SolarMonth.FromYm( Year , Month ).Next( months );
+        int y = month.Year;
+        int m = month.Month;
+        int d = Day;
         if( 1582 == y && 10 == m ) {
             if( d > 4 && d < 15 ) {
                 d += 10;
             }
         } else {
-            var maxDay = SolarUtil.GetDaysOfMonth( y , m );
+            int maxDay = SolarUtil.GetDaysOfMonth( y , m );
             if( d > maxDay ) {
                 d = maxDay;
             }
@@ -270,9 +270,9 @@ public partial class Solar {
     /// <param name="days">天数</param>
     /// <returns>阳历</returns>
     public Solar NextDay( int days ) {
-        var y = Year;
-        var m = Month;
-        var d = Day;
+        int y = Year;
+        int m = Month;
+        int d = Day;
         if( 1582 == y && 10 == m ) {
             if( d > 4 ) {
                 d -= 10;
@@ -280,7 +280,7 @@ public partial class Solar {
         }
         if( days > 0 ) {
             d += days;
-            var daysInMonth = SolarUtil.GetDaysOfMonth( y , m );
+            int daysInMonth = SolarUtil.GetDaysOfMonth( y , m );
             while( d > daysInMonth ) {
                 d -= daysInMonth;
                 m++;
@@ -319,16 +319,16 @@ public partial class Solar {
         if( !onlyWorkday ) {
             return NextDay( days );
         }
-        var solar = new Solar( Year , Month , Day , Hour , Minute , Second );
+        Solar solar = new Solar( Year , Month , Day , Hour , Minute , Second );
         if( days != 0 ) {
-            var rest = SystemMath.Abs( days );
-            var add = days < 0 ? -1 : 1;
+            int rest = SystemMath.Abs( days );
+            int add = days < 0 ? -1 : 1;
             while( rest > 0 ) {
                 solar = solar.Next( add );
-                var work = true;
-                var holiday = Holiday.Get( solar.Year , solar.Month , solar.Day );
+                bool work = true;
+                Holiday holiday = Holiday.Get( solar.Year , solar.Month , solar.Day );
                 if( null == holiday ) {
-                    var week = solar.Week;
+                    int week = solar.Week;
                     if( 0 == week || 6 == week ) {
                         work = false;
                     }
@@ -349,16 +349,16 @@ public partial class Solar {
     /// <param name="hours">小时数</param>
     /// <returns>阳历</returns>
     public Solar NextHour( int hours ) {
-        var h = Hour + hours;
-        var n = h < 0 ? -1 : 1;
-        var hour = SystemMath.Abs( h );
-        var days = hour / 24 * n;
+        int h = Hour + hours;
+        int n = h < 0 ? -1 : 1;
+        int hour = SystemMath.Abs( h );
+        int days = hour / 24 * n;
         hour = ( hour % 24 ) * n;
         if( hour < 0 ) {
             hour += 24;
             days--;
         }
-        var solar = Next( days );
+        Solar solar = Next( days );
         return new Solar( solar.Year , solar.Month , solar.Day , hour , solar.Minute , solar.Second );
     }
 
@@ -377,9 +377,9 @@ public partial class Solar {
                 return 3;
         }
 
-        var lunar = this.ToLunar();
-        var lunarMonth = lunar.Month;
-        var lunarDay = lunar.Day;
+        Lunar lunar = this.ToLunar();
+        int lunarMonth = lunar.Month;
+        int lunarDay = lunar.Day;
         switch( lunarMonth ) {
             // 春节
             case 1 when lunarDay >= 1 && lunarDay <= 3:
@@ -394,7 +394,7 @@ public partial class Solar {
         if( "清明".Equals( lunar.JieQi ) ) {
             return 3;
         }
-        var holiday = Holiday.Get( Year , Month , Day );
+        Holiday holiday = Holiday.Get( Year , Month , Day );
         if( null != holiday ) {
             // 法定假日非上班
             if( !holiday.Work ) {
@@ -402,7 +402,7 @@ public partial class Solar {
             }
         } else {
             // 周末
-            var week = Week;
+            int week = Week;
             if( week == 6 || week == 0 ) {
                 return 2;
             }
@@ -420,7 +420,7 @@ public partial class Solar {
     /// </summary>
     public string Ymd {
         get {
-            var y = Year + "";
+            string y = Year + "";
             while( y.Length < 4 ) {
                 y = "0" + y;
             }
@@ -443,7 +443,7 @@ public partial class Solar {
     /// </summary>
     public string FullString {
         get {
-            var s = new StringBuilder();
+            StringBuilder s = new StringBuilder();
             s.Append( YmdHms );
             if( LeapYear ) {
                 s.Append( ' ' );

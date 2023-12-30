@@ -79,10 +79,10 @@ public class SolarYear {
     /// </summary>
     public List<SolarMonth> Months {
         get {
-            var l = new List<SolarMonth>( MONTH_COUNT );
-            var m = new SolarMonth( Year , 1 );
+            List<SolarMonth> l = new List<SolarMonth>( MONTH_COUNT );
+            SolarMonth m = new SolarMonth( Year , 1 );
             l.Add( m );
-            for( var i = 1 ; i < MONTH_COUNT ; i++ ) {
+            for( int i = 1 ; i < MONTH_COUNT ; i++ ) {
                 l.Add( m.Next( i ) );
             }
             return l;

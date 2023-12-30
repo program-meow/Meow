@@ -11,7 +11,7 @@ public class ExceptionHandlerAttribute : ExceptionFilterAttribute {
         context.ExceptionHandled = true;
         string message = context.Exception.GetPrompt( Meow.Helper.Web.Environment.IsProduction() );
         message = GetLocalizedMessages( context , message );
-        string errorCode = context.Exception.GetErrorCode() ?? ResultStatusCodeEnum.Error.GetValue().SafeString();
+        string errorCode = context.Exception.GetErrorCode() ?? ResultStatusEnum.Error.GetValue().SafeString();
         int httpStatusCode = context.Exception.GetHttpStatusCode() ?? 200;
         context.Result = GetResult( context , errorCode , message , httpStatusCode );
     }

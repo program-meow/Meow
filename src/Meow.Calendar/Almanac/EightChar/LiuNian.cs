@@ -77,8 +77,8 @@ public class LiuNian {
     /// <returns>流月</returns>
     public LiuYue[] GetLiuYue() {
         const int n = 12;
-        var l = new LiuYue[ n ];
-        for( var i = 0 ; i < n ; i++ ) {
+        LiuYue[] l = new LiuYue[ n ];
+        for( int i = 0 ; i < n ; i++ ) {
             l[ i ] = new LiuYue( this , i );
         }
         return l;

@@ -44,7 +44,7 @@ public partial class Dao {
     #region 判断
 
     private bool IsDayIn( string[] days ) {
-        var md = Month + "-" + Day;
+        string md = Month + "-" + Day;
         return days.Any( d => md.Equals( d ) );
     }
 
@@ -93,9 +93,9 @@ public partial class Dao {
     /// </summary>
     public bool DayTianShe {
         get {
-            var ret = false;
-            var mz = _lunar.MonthZhi;
-            var dgz = _lunar.DayInGanZhi;
+            bool ret = false;
+            string mz = _lunar.MonthZhi;
+            string dgz = _lunar.DayInGanZhi;
             if( "寅卯辰".Contains( mz ) ) {
                 if( "戊寅".Equals( dgz ) ) {
                     ret = true;

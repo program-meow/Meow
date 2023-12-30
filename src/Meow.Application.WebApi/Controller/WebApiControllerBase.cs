@@ -33,8 +33,8 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// <param name="message">消息</param>
     /// <param name="statusCode">Http状态码</param>
     protected virtual IActionResult Success( dynamic data = null , string message = null , int? statusCode = 200 ) {
-        message ??= ResultStatusCodeEnum.Success.GetDescription();
-        return GetResult( ResultStatusCodeEnum.Success.GetValue().SafeString() , message , data , statusCode );
+        message ??= ResultStatusEnum.Success.GetDescription();
+        return GetResult( ResultStatusEnum.Success.GetValue().SafeString() , message , data , statusCode );
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// <param name="message">消息</param>
     /// <param name="statusCode">Http状态码</param>
     protected virtual IActionResult Fail( string message , int? statusCode = 200 ) {
-        return GetResult( ResultStatusCodeEnum.Error.GetValue().SafeString() , message , null , statusCode );
+        return GetResult( ResultStatusEnum.Error.GetValue().SafeString() , message , null , statusCode );
     }
 
     /// <summary>

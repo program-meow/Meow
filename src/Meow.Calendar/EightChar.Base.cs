@@ -70,8 +70,8 @@ public partial class EightChar {
     public string YearShiShenGan => LunarUtil.SHI_SHEN_GAN[ $"{DayGan}{YearGan}" ];
 
     private List<string> GetShiShenZhi( string zhi ) {
-        var hideGan = LunarUtil.ZHI_HIDE_GAN[ zhi ];
-        var l = new List<string>( hideGan.Count );
+        List<string> hideGan = LunarUtil.ZHI_HIDE_GAN[ zhi ];
+        List<string> l = new List<string>( hideGan.Count );
         l.AddRange( hideGan.Select( gan => LunarUtil.SHI_SHEN_ZHI[ $"{DayGan}{gan}" ] ) );
         return l;
     }
@@ -92,7 +92,7 @@ public partial class EightChar {
     public int DayZhiIndex => ( 2 == Sect ) ? _lunar._dayZhiIndexExact2 : _lunar._dayZhiIndexExact;
 
     private string GetDiShi( int zhiIndex ) {
-        var index = EightCharUtil.CHANG_SHENG_OFFSET[ DayGan ] + ( DayGanIndex % 2 == 0 ? zhiIndex : -zhiIndex );
+        int index = EightCharUtil.CHANG_SHENG_OFFSET[ DayGan ] + ( DayGanIndex % 2 == 0 ? zhiIndex : -zhiIndex );
         if( index >= 12 ) {
             index -= 12;
         }
@@ -247,11 +247,11 @@ public partial class EightChar {
     /// </summary>
     public string TaiYuan {
         get {
-            var ganIndex = _lunar._monthGanIndexExact + 1;
+            int ganIndex = _lunar._monthGanIndexExact + 1;
             if( ganIndex >= 10 ) {
                 ganIndex -= 10;
             }
-            var zhiIndex = _lunar._monthZhiIndexExact + 3;
+            int zhiIndex = _lunar._monthZhiIndexExact + 3;
             if( zhiIndex >= 12 ) {
                 zhiIndex -= 12;
             }
@@ -269,8 +269,8 @@ public partial class EightChar {
     /// </summary>
     public string TaiXi {
         get {
-            var ganIndex = 2 == Sect ? _lunar._dayGanIndexExact2 : _lunar._dayGanIndexExact;
-            var zhiIndex = 2 == Sect ? _lunar._dayZhiIndexExact2 : _lunar._dayZhiIndexExact;
+            int ganIndex = 2 == Sect ? _lunar._dayGanIndexExact2 : _lunar._dayGanIndexExact;
+            int zhiIndex = 2 == Sect ? _lunar._dayZhiIndexExact2 : _lunar._dayZhiIndexExact;
             return $"{LunarUtil.HE_GAN_5[ ganIndex ]}{LunarUtil.HE_ZHI_6[ zhiIndex ]}";
         }
     }
@@ -285,10 +285,10 @@ public partial class EightChar {
     /// </summary>
     public string MingGong {
         get {
-            var monthZhiIndex = 0;
-            var timeZhiIndex = 0;
+            int monthZhiIndex = 0;
+            int timeZhiIndex = 0;
             for( int i = 0, j = EightCharUtil.MONTH_ZHI.Length ; i < j ; i++ ) {
-                var zhi = EightCharUtil.MONTH_ZHI[ i ];
+                string zhi = EightCharUtil.MONTH_ZHI[ i ];
                 if( _lunar.MonthZhiExact.Equals( zhi ) ) {
                     monthZhiIndex = i;
                 }
@@ -296,11 +296,11 @@ public partial class EightChar {
                     timeZhiIndex = i;
                 }
             }
-            var zhiIndex = 26 - ( monthZhiIndex + timeZhiIndex );
+            int zhiIndex = 26 - ( monthZhiIndex + timeZhiIndex );
             if( zhiIndex > 12 ) {
                 zhiIndex -= 12;
             }
-            var jiaZiIndex = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact ) - ( monthZhiIndex - zhiIndex );
+            int jiaZiIndex = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact ) - ( monthZhiIndex - zhiIndex );
             if( jiaZiIndex >= 60 ) {
                 jiaZiIndex -= 60;
             }
@@ -321,10 +321,10 @@ public partial class EightChar {
     /// </summary>
     public string ShenGong {
         get {
-            var monthZhiIndex = 0;
-            var timeZhiIndex = 0;
+            int monthZhiIndex = 0;
+            int timeZhiIndex = 0;
             for( int i = 0, j = EightCharUtil.MONTH_ZHI.Length ; i < j ; i++ ) {
-                var zhi = EightCharUtil.MONTH_ZHI[ i ];
+                string zhi = EightCharUtil.MONTH_ZHI[ i ];
                 if( _lunar.MonthZhiExact.Equals( zhi ) ) {
                     monthZhiIndex = i;
                 }
@@ -332,11 +332,11 @@ public partial class EightChar {
                     timeZhiIndex = i;
                 }
             }
-            var zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
+            int zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
             if( zhiIndex > 12 ) {
                 zhiIndex -= 12;
             }
-            var jiaZiIndex = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact ) - ( monthZhiIndex - zhiIndex );
+            int jiaZiIndex = LunarUtil.GetJiaZiIndex( _lunar.MonthInGanZhiExact ) - ( monthZhiIndex - zhiIndex );
             if( jiaZiIndex >= 60 ) {
                 jiaZiIndex -= 60;
             }

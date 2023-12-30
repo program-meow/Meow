@@ -52,46 +52,46 @@ public class Yun {
     public Yun( Meow.Calendar.EightChar eightChar , int gender , int sect = 1 ) {
         _lunar = eightChar._lunar;
         Gender = gender;
-        var yang = 0 == _lunar._yearGanIndexExact % 2;
-        var man = 1 == gender;
+        bool yang = 0 == _lunar._yearGanIndexExact % 2;
+        bool man = 1 == gender;
         Forward = ( yang && man ) || ( !yang && !man );
 
         // 起运计算
-        var prev = _lunar.GetPrevJie();
-        var next = _lunar.GetNextJie();
-        var current = _lunar._solar;
-        var start = Forward ? current : prev.Solar;
-        var end = Forward ? next.Solar : current;
+        JieQi prev = _lunar.GetPrevJie();
+        JieQi next = _lunar.GetNextJie();
+        Solar current = _lunar._solar;
+        Solar start = Forward ? current : prev.Solar;
+        Solar end = Forward ? next.Solar : current;
 
         int year;
         int month;
         int day;
-        var hour = 0;
+        int hour = 0;
 
         if( 2 == sect ) {
-            var minutes = end.SubtractMinute( start );
-            var y = minutes / 4320;
+            int minutes = end.SubtractMinute( start );
+            int y = minutes / 4320;
             minutes -= y * 4320;
-            var m = minutes / 360;
+            int m = minutes / 360;
             minutes -= m * 360;
-            var d = minutes / 12;
+            int d = minutes / 12;
             minutes -= d * 12;
-            var h = minutes * 2;
+            int h = minutes * 2;
             year = y;
             month = m;
             day = d;
             hour = h;
         } else {
-            var endTimeZhiIndex = ( end.Hour == 23 ) ? 11 : LunarUtil.GetTimeZhiIndex( end.YmdHms.Substring( 11 , 5 ) );
-            var startTimeZhiIndex = ( start.Hour == 23 ) ? 11 : LunarUtil.GetTimeZhiIndex( start.YmdHms.Substring( 11 , 5 ) );
+            int endTimeZhiIndex = ( end.Hour == 23 ) ? 11 : LunarUtil.GetTimeZhiIndex( end.YmdHms.Substring( 11 , 5 ) );
+            int startTimeZhiIndex = ( start.Hour == 23 ) ? 11 : LunarUtil.GetTimeZhiIndex( start.YmdHms.Substring( 11 , 5 ) );
             // 时辰差
-            var hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-            var dayDiff = end.Subtract( start );
+            int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+            int dayDiff = end.Subtract( start );
             if( hourDiff < 0 ) {
                 hourDiff += 12;
                 dayDiff--;
             }
-            var monthDiff = hourDiff * 10 / 30;
+            int monthDiff = hourDiff * 10 / 30;
             month = dayDiff * 4 + monthDiff;
             day = hourDiff * 10 - monthDiff * 30;
             year = month / 12;
@@ -109,7 +109,7 @@ public class Yun {
     /// <returns>阳历日期</returns>
     public Solar StartSolar {
         get {
-            var solar = _lunar._solar;
+            Solar solar = _lunar._solar;
             solar = solar.NextYear( StartYear );
             solar = solar.NextMonth( StartMonth );
             solar = solar.Next( StartDay );
@@ -123,8 +123,8 @@ public class Yun {
     /// <param name="n">轮数</param>
     /// <returns>大运</returns>
     public DaYun[] GetDaYun( int n = 10 ) {
-        var l = new DaYun[ n ];
-        for( var i = 0 ; i < n ; i++ ) {
+        DaYun[] l = new DaYun[ n ];
+        for( int i = 0 ; i < n ; i++ ) {
             l[ i ] = new DaYun( this , i );
         }
         return l;

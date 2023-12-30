@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Microservice.Dapr</AssemblyName>
+		<RootNamespace>Meow.Microservice.Dapr</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Microservice.Dapr</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Microservice.Dapr 是 Meow 基于Dapr的微服务操作类库。
+			$(Tips)
+			$(SourceTips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Microservice.Dapr.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Microservice.Dapr.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapr.AspNetCore" Version="$(DaprAspNetCoreVersion)" />
+		<PackageReference Include="Dapr.Extensions.Configuration" Version="$(DaprExtensionsConfigurationVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Aop.AspectCore\03-Meow.Aop.AspectCore.csproj" />
+	  <ProjectReference Include="..\Meow.Authentication\05-Meow.Security.csproj" />
+	  <ProjectReference Include="..\Meow.Event\02-Meow.Event.csproj" />
+	  <ProjectReference Include="..\Meow.Microservice\01-Meow.Microservice.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -46,7 +46,7 @@ public class WebApiServiceRegistrar : IServiceRegistrar {
                 ModelError error = GetModelError( actionContext );
                 log.LogError( error.Exception , "Model Binding Failed,ErrorMessage: {ErrorMessage}" , error.ErrorMessage );
                 string message = GetLocalizedMessages( actionContext.HttpContext , error.ErrorMessage );
-                return GetResult( actionContext.HttpContext , ResultStatusCodeEnum.Error.GetValue().SafeString() , message , 200 );
+                return GetResult( actionContext.HttpContext , ResultStatusEnum.Error.GetValue().SafeString() , message , 200 );
             };
         } );
     }

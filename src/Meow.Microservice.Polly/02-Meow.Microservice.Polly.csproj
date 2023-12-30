@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<AssemblyName>Meow.Microservice.Polly</AssemblyName>
+		<RootNamespace>Meow.Microservice</RootNamespace>
+		<PackageOutputPath>..\..\nuget\Meow.Microservice.Polly</PackageOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>
+			Meow.Microservice.Polly 是 Meow 基于Polly的弹性处理操作类库。
+			$(Tips)
+			$(SourceTips)
+		</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Debug\$(NetTargetFramework)\src\Meow.Microservice.Polly.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>..\..\output\Release\$(NetTargetFramework)\src\Meow.Microservice.Polly.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\build\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Polly" Version="$(PollyVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Meow.Core\01-Meow.Core.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -133,7 +133,7 @@ public class ParameterManager : IParameterManager {
     /// <param name="name">参数名</param>
     public virtual SqlParam GetParam( string name ) {
         name = NormalizeName( name );
-        return SqlParams.TryGetValue( name , out var param ) ? param : null;
+        return SqlParams.TryGetValue( name , out SqlParam param ) ? param : null;
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class ParameterManager : IParameterManager {
     /// <param name="name">参数名</param>
     public virtual object GetValue( string name ) {
         name = NormalizeName( name );
-        return SqlParams.TryGetValue( name , out var param ) ? param.Value : null;
+        return SqlParams.TryGetValue( name , out SqlParam param ) ? param.Value : null;
     }
 
     /// <summary>

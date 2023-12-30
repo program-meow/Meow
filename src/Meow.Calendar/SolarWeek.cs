@@ -99,7 +99,7 @@ public class SolarWeek {
     /// </summary>
     public int Index {
         get {
-            var offset = Solar.FromYmdHms( Year , Month , 1 ).Week - Start;
+            int offset = Solar.FromYmdHms( Year , Month , 1 ).Week - Start;
             if( offset < 0 ) {
                 offset += 7;
             }
@@ -112,7 +112,7 @@ public class SolarWeek {
     /// </summary>
     public int IndexInYear {
         get {
-            var offset = Solar.FromYmdHms( Year , 1 , 1 ).Week - Start;
+            int offset = Solar.FromYmdHms( Year , 1 , 1 ).Week - Start;
             if( offset < 0 ) {
                 offset += 7;
             }
@@ -130,21 +130,21 @@ public class SolarWeek {
         if( 0 == weeks ) {
             return new SolarWeek( Year , Month , Day , Start );
         }
-        var solar = Solar.FromYmdHms( Year , Month , Day );
+        Solar solar = Solar.FromYmdHms( Year , Month , Day );
         if( separateMonth ) {
-            var n = weeks;
-            var week = new SolarWeek( solar.Year , solar.Month , solar.Day , Start );
-            var m = Month;
-            var plus = n > 0;
+            int n = weeks;
+            SolarWeek week = new SolarWeek( solar.Year , solar.Month , solar.Day , Start );
+            int m = Month;
+            bool plus = n > 0;
             while( 0 != n ) {
                 solar = solar.Next( plus ? 7 : -7 );
                 week = new SolarWeek( solar.Year , solar.Month , solar.Day , Start );
-                var weekMonth = week.Month;
+                int weekMonth = week.Month;
                 if( m != weekMonth ) {
-                    var index = week.Index;
+                    int index = week.Index;
                     if( plus ) {
                         if( 1 == index ) {
-                            var firstDay = week.FirstDay;
+                            Solar firstDay = week.FirstDay;
                             week = new SolarWeek( firstDay.Year , firstDay.Month , firstDay.Day , Start );
                             weekMonth = week.Month;
                         } else {
@@ -153,7 +153,7 @@ public class SolarWeek {
                         }
                     } else {
                         if( SolarUtil.GetWeeksOfMonth( week.Year , week.Month , Start ) == index ) {
-                            var lastDay = week.FirstDay.Next( 6 );
+                            Solar lastDay = week.FirstDay.Next( 6 );
                             week = new SolarWeek( lastDay.Year , lastDay.Month , lastDay.Day , Start );
                             weekMonth = week.Month;
                         } else {
@@ -177,8 +177,8 @@ public class SolarWeek {
     /// </summary>
     public Solar FirstDay {
         get {
-            var solar = Solar.FromYmdHms( Year , Month , Day );
-            var prev = solar.Week - Start;
+            Solar solar = Solar.FromYmdHms( Year , Month , Day );
+            int prev = solar.Week - Start;
             if( prev < 0 ) {
                 prev += 7;
             }
@@ -200,9 +200,9 @@ public class SolarWeek {
     /// </summary>
     public List<Solar> Days {
         get {
-            var firstDay = FirstDay;
-            var l = new List<Solar> { firstDay };
-            for( var i = 1 ; i < 7 ; i++ ) {
+            Solar firstDay = FirstDay;
+            List<Solar> l = new List<Solar> { firstDay };
+            for( int i = 1 ; i < 7 ; i++ ) {
                 l.Add( firstDay.Next( i ) );
             }
             return l;

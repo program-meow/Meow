@@ -1055,8 +1055,8 @@ internal static class LunarUtil {
         if( hm.Length > 5 ) {
             hm = hm.Substring( 0 , 5 );
         }
-        var x = 1;
-        for( var i = 1 ; i < 22 ; i += 2 ) {
+        int x = 1;
+        for( int i = 1 ; i < 22 ; i += 2 ) {
             if( string.Compare( hm , ( i < 10 ? "0" : "" ) + i + ":00" , StringComparison.Ordinal ) >= 0 && string.Compare( hm , ( i + 1 < 10 ? "0" : "" ) + ( i + 1 ) + ":59" , StringComparison.Ordinal ) <= 0 ) {
                 return x;
             }
@@ -1104,19 +1104,19 @@ internal static class LunarUtil {
     /// <param name="dayGanZhi">日干支</param>
     /// <returns>宜</returns>
     public static List<string> GetDayYi( string monthGanZhi , string dayGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var month = Hex( GetJiaZiIndex( monthGanZhi ) );
-        var right = DAY_YI_JI;
-        var index = right.IndexOf( day + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string month = Hex( GetJiaZiIndex( monthGanZhi ) );
+        string right = DAY_YI_JI;
+        int index = right.IndexOf( day + "=" , StringComparison.Ordinal );
         while( index > -1 ) {
             right = right.Substring( index + 3 );
-            var left = right;
+            string left = right;
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 2 );
             }
-            var matched = false;
-            var months = left.Substring( 0 , left.IndexOf( ":" , StringComparison.Ordinal ) );
+            bool matched = false;
+            string months = left.Substring( 0 , left.IndexOf( ":" , StringComparison.Ordinal ) );
             for( int i = 0, j = months.Length ; i < j ; i += 2 ) {
                 if( months.Substring( i , 2 ).Equals( month ) ) {
                     matched = true;
@@ -1124,7 +1124,7 @@ internal static class LunarUtil {
                 }
             }
             if( matched ) {
-                var ys = left.Substring( left.IndexOf( ":" , StringComparison.Ordinal ) + 1 );
+                string ys = left.Substring( left.IndexOf( ":" , StringComparison.Ordinal ) + 1 );
                 ys = ys.Substring( 0 , ys.IndexOf( "," , StringComparison.Ordinal ) );
                 for( int i = 0, j = ys.Length ; i < j ; i += 2 ) {
                     l.Add( YI_JI[ int.Parse( ys.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
@@ -1146,19 +1146,19 @@ internal static class LunarUtil {
     /// <param name="dayGanZhi">日干支</param>
     /// <returns>忌</returns>
     public static List<string> GetDayJi( string monthGanZhi , string dayGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var month = Hex( GetJiaZiIndex( monthGanZhi ) );
-        var right = DAY_YI_JI;
-        var index = right.IndexOf( day + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string month = Hex( GetJiaZiIndex( monthGanZhi ) );
+        string right = DAY_YI_JI;
+        int index = right.IndexOf( day + "=" , StringComparison.Ordinal );
         while( index > -1 ) {
             right = right.Substring( index + 3 );
-            var left = right;
+            string left = right;
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 2 );
             }
-            var matched = false;
-            var months = left.Substring( 0 , left.IndexOf( ":" , StringComparison.Ordinal ) );
+            bool matched = false;
+            string months = left.Substring( 0 , left.IndexOf( ":" , StringComparison.Ordinal ) );
             for( int i = 0, j = months.Length ; i < j ; i += 2 ) {
                 if( months.Substring( i , 2 ).Equals( month ) ) {
                     matched = true;
@@ -1166,7 +1166,7 @@ internal static class LunarUtil {
                 }
             }
             if( matched ) {
-                var js = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
+                string js = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
                 for( int i = 0, j = js.Length ; i < j ; i += 2 ) {
                     l.Add( YI_JI[ int.Parse( js.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
                 }
@@ -1187,16 +1187,16 @@ internal static class LunarUtil {
     /// <param name="dayGanZhi">日干支</param>
     /// <returns>日吉神</returns>
     public static List<string> GetDayJiShen( int lunarMonth , string dayGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var month = SystemMath.Abs( lunarMonth ).ToString( "X" );
-        var index = DAY_SHEN_SHA.IndexOf( month + day + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string month = SystemMath.Abs( lunarMonth ).ToString( "X" );
+        int index = DAY_SHEN_SHA.IndexOf( month + day + "=" , StringComparison.Ordinal );
         if( index > -1 ) {
-            var left = DAY_SHEN_SHA.Substring( index + 4 );
+            string left = DAY_SHEN_SHA.Substring( index + 4 );
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 3 );
             }
-            var js = left.Substring( 0 , left.IndexOf( "," , StringComparison.Ordinal ) );
+            string js = left.Substring( 0 , left.IndexOf( "," , StringComparison.Ordinal ) );
             for( int i = 0, j = js.Length ; i < j ; i += 2 ) {
                 l.Add( SHEN_SHA[ int.Parse( js.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
             }
@@ -1214,16 +1214,16 @@ internal static class LunarUtil {
     /// <param name="dayGanZhi">日干支</param>
     /// <returns>日凶煞</returns>
     public static List<string> GetDayXiongSha( int lunarMonth , string dayGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var month = SystemMath.Abs( lunarMonth ).ToString( "X" );
-        var index = DAY_SHEN_SHA.IndexOf( month + day + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string month = SystemMath.Abs( lunarMonth ).ToString( "X" );
+        int index = DAY_SHEN_SHA.IndexOf( month + day + "=" , StringComparison.Ordinal );
         if( index > -1 ) {
-            var left = DAY_SHEN_SHA.Substring( index + 4 );
+            string left = DAY_SHEN_SHA.Substring( index + 4 );
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 3 );
             }
-            var xs = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
+            string xs = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
             for( int i = 0, j = xs.Length ; i < j ; i += 2 ) {
                 l.Add( SHEN_SHA[ int.Parse( xs.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
             }
@@ -1241,16 +1241,16 @@ internal static class LunarUtil {
     /// <param name="timeGanZhi">时干支</param>
     /// <returns>宜</returns>
     public static List<string> GetTimeYi( string dayGanZhi , string timeGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var time = Hex( GetJiaZiIndex( timeGanZhi ) );
-        var index = TIME_YI_JI.IndexOf( day + time + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string time = Hex( GetJiaZiIndex( timeGanZhi ) );
+        int index = TIME_YI_JI.IndexOf( day + time + "=" , StringComparison.Ordinal );
         if( index > -1 ) {
-            var left = TIME_YI_JI.Substring( index + 5 );
+            string left = TIME_YI_JI.Substring( index + 5 );
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 4 );
             }
-            var ys = left.Substring( 0 , left.IndexOf( "," , StringComparison.Ordinal ) );
+            string ys = left.Substring( 0 , left.IndexOf( "," , StringComparison.Ordinal ) );
             for( int i = 0, j = ys.Length ; i < j ; i += 2 ) {
                 l.Add( YI_JI[ int.Parse( ys.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
             }
@@ -1268,16 +1268,16 @@ internal static class LunarUtil {
     /// <param name="timeGanZhi">时干支</param>
     /// <returns>忌</returns>
     public static List<string> GetTimeJi( string dayGanZhi , string timeGanZhi ) {
-        var l = new List<string>();
-        var day = Hex( GetJiaZiIndex( dayGanZhi ) );
-        var time = Hex( GetJiaZiIndex( timeGanZhi ) );
-        var index = TIME_YI_JI.IndexOf( day + time + "=" , StringComparison.Ordinal );
+        List<string> l = new List<string>();
+        string day = Hex( GetJiaZiIndex( dayGanZhi ) );
+        string time = Hex( GetJiaZiIndex( timeGanZhi ) );
+        int index = TIME_YI_JI.IndexOf( day + time + "=" , StringComparison.Ordinal );
         if( index > -1 ) {
-            var left = TIME_YI_JI.Substring( index + 5 );
+            string left = TIME_YI_JI.Substring( index + 5 );
             if( left.Contains( "=" ) ) {
                 left = left.Substring( 0 , left.IndexOf( "=" , StringComparison.Ordinal ) - 4 );
             }
-            var js = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
+            string js = left.Substring( left.IndexOf( "," , StringComparison.Ordinal ) + 1 );
             for( int i = 0, j = js.Length ; i < j ; i += 2 ) {
                 l.Add( YI_JI[ int.Parse( js.Substring( i , 2 ) , NumberStyles.HexNumber ) ] );
             }
@@ -1294,10 +1294,10 @@ internal static class LunarUtil {
     /// <param name="ganZhi">干支</param>
     /// <returns>旬下标，0-5</returns>
     public static int GetXunIndex( string ganZhi ) {
-        var gan = ganZhi.Substring( 0 , 1 );
-        var zhi = ganZhi.Substring( 1 );
-        var ganIndex = 0;
-        var zhiIndex = 0;
+        string gan = ganZhi.Substring( 0 , 1 );
+        string zhi = ganZhi.Substring( 1 );
+        int ganIndex = 0;
+        int zhiIndex = 0;
         for( int i = 0, j = GAN.Length ; i < j ; i++ ) {
             if( GAN[ i ].Equals( gan ) ) {
                 ganIndex = i;
@@ -1310,7 +1310,7 @@ internal static class LunarUtil {
                 break;
             }
         }
-        var diff = ganIndex - zhiIndex;
+        int diff = ganIndex - zhiIndex;
         if( diff < 0 ) {
             diff += 12;
         }

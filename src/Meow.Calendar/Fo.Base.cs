@@ -30,8 +30,8 @@ public partial class Fo {
     /// </summary>
     public int Year {
         get {
-            var sy = _lunar.ToSolar().Year;
-            var y = sy - FoUtil.DEAD_YEAR;
+            int sy = _lunar.ToSolar().Year;
+            int y = sy - FoUtil.DEAD_YEAR;
             if( sy == _lunar.Year ) {
                 y++;
             }
@@ -54,8 +54,8 @@ public partial class Fo {
     /// </summary>
     public string YearInChinese {
         get {
-            var y = Year.ToString().ToCharArray();
-            var s = new StringBuilder();
+            char[] y = Year.ToString().ToCharArray();
+            StringBuilder s = new StringBuilder();
             for( int i = 0, j = y.Length ; i < j ; i++ ) {
                 s.Append( LunarUtil.NUMBER[ y[ i ] - '0' ] );
             }
@@ -78,7 +78,7 @@ public partial class Fo {
     /// </summary>
     public List<FoFestival> Festivals {
         get {
-            var l = new List<FoFestival>();
+            List<FoFestival> l = new List<FoFestival>();
             try {
                 l.AddRange( FoUtil.FESTIVAL[ SystemMath.Abs( Month ) + "-" + Day ] );
             } catch {
@@ -94,9 +94,9 @@ public partial class Fo {
     /// </summary>
     public List<string> OtherFestivals {
         get {
-            var l = new List<string>();
+            List<string> l = new List<string>();
             try {
-                var fs = FoUtil.OTHER_FESTIVAL[ $"{Month}-{Day}" ];
+                List<string> fs = FoUtil.OTHER_FESTIVAL[ $"{Month}-{Day}" ];
                 l.AddRange( fs );
             } catch {
                 // ignored
@@ -138,7 +138,7 @@ public partial class Fo {
                 case 30:
                     return true;
                 case 28: {
-                    var m = LunarMonth.FromYm( _lunar.Year , Month );
+                    LunarMonth m = LunarMonth.FromYm( _lunar.Year , Month );
                     return null != m && 30 != m.DayCount;
                 }
                 default:
@@ -157,7 +157,7 @@ public partial class Fo {
     /// </summary>
     public bool DayZhaiGuanYin {
         get {
-            var k = $"{Month}-{Day}";
+            string k = $"{Month}-{Day}";
             return FoUtil.DAY_ZHAI_GUAN_YIN.Any( d => k.Equals( d ) );
         }
     }

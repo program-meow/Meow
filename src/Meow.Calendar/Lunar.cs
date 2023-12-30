@@ -123,7 +123,7 @@ public partial class Lunar {
     /// <returns>太岁方</returns>
     private string GetMonthPositionTaiSui( int monthZhiIndex , int monthGanIndex ) {
         string p;
-        var m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
+        int m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
         if( m < 0 ) {
             m += 12;
         }
@@ -349,16 +349,16 @@ public partial class Lunar {
     /// <param name="yearInGanZhi">年干支</param>
     /// <returns>九星</returns>
     private NineStar GetYearNineStar( string yearInGanZhi ) {
-        var indexExact = LunarUtil.GetJiaZiIndex( yearInGanZhi ) + 1;
-        var index = LunarUtil.GetJiaZiIndex( YearInGanZhi ) + 1;
-        var yearOffset = indexExact - index;
+        int indexExact = LunarUtil.GetJiaZiIndex( yearInGanZhi ) + 1;
+        int index = LunarUtil.GetJiaZiIndex( YearInGanZhi ) + 1;
+        int yearOffset = indexExact - index;
         if( yearOffset > 1 ) {
             yearOffset -= 60;
         } else if( yearOffset < -1 ) {
             yearOffset += 60;
         }
-        var yuan = ( Year + yearOffset + 2696 ) / 60 % 3;
-        var offset = ( 62 + yuan * 3 - indexExact ) % 9;
+        int yuan = ( Year + yearOffset + 2696 ) / 60 % 3;
+        int offset = ( 62 + yuan * 3 - indexExact ) % 9;
         if( 0 == offset ) {
             offset = 9;
         }
@@ -407,11 +407,11 @@ public partial class Lunar {
     /// <param name="monthZhiIndex">月支序号</param>
     /// <returns>九星</returns>
     protected NineStar GetMonthNineStar( int yearZhiIndex , int monthZhiIndex ) {
-        var n = 27 - yearZhiIndex % 3 * 3;
+        int n = 27 - yearZhiIndex % 3 * 3;
         if( monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX ) {
             n -= 3;
         }
-        var offset = ( n - monthZhiIndex ) % 9;
+        int offset = ( n - monthZhiIndex ) % 9;
         return NineStar.FromIndex( offset );
     }
 
@@ -425,23 +425,23 @@ public partial class Lunar {
     public NineStar TimeNineStar {
         get {
             // 顺逆
-            var solarYmd = _solar.Ymd;
-            var asc = false;
+            string solarYmd = _solar.Ymd;
+            bool asc = false;
             if( string.Compare( solarYmd , JieQiTable[ "冬至" ].Ymd , StringComparison.Ordinal ) >= 0 && string.Compare( solarYmd , JieQiTable[ "夏至" ].Ymd , StringComparison.Ordinal ) < 0 ) {
                 asc = true;
             } else if( string.Compare( solarYmd , JieQiTable[ "DONG_ZHI" ].Ymd , StringComparison.Ordinal ) >= 0 ) {
                 asc = true;
             }
 
-            var start = asc ? 6 : 2;
-            var dayZhi = DayZhi;
+            int start = asc ? 6 : 2;
+            string dayZhi = DayZhi;
             if( "子午卯酉".Contains( dayZhi ) ) {
                 start = asc ? 0 : 8;
             } else if( "辰戌丑未".Contains( dayZhi ) ) {
                 start = asc ? 3 : 5;
             }
 
-            var index = asc ? start + _timeZhiIndex : start + 9 - _timeZhiIndex;
+            int index = asc ? start + _timeZhiIndex : start + 9 - _timeZhiIndex;
             return new NineStar( index % 9 );
         }
     }
@@ -455,23 +455,23 @@ public partial class Lunar {
     /// </summary>
     public NineStar DayNineStar {
         get {
-            var solarYmd = _solar.Ymd;
-            var dongZhi = JieQiTable[ "冬至" ];
-            var dongZhi2 = JieQiTable[ "DONG_ZHI" ];
-            var xiaZhi = JieQiTable[ "夏至" ];
-            var dongZhiIndex = LunarUtil.GetJiaZiIndex( dongZhi.ToLunar().DayInGanZhi );
-            var dongZhiIndex2 = LunarUtil.GetJiaZiIndex( dongZhi2.ToLunar().DayInGanZhi );
-            var xiaZhiIndex = LunarUtil.GetJiaZiIndex( xiaZhi.ToLunar().DayInGanZhi );
-            var solarShunBai = dongZhiIndex > 29 ? dongZhi.Next( 60 - dongZhiIndex ) : dongZhi.Next( -dongZhiIndex );
+            string solarYmd = _solar.Ymd;
+            Solar dongZhi = JieQiTable[ "冬至" ];
+            Solar dongZhi2 = JieQiTable[ "DONG_ZHI" ];
+            Solar xiaZhi = JieQiTable[ "夏至" ];
+            int dongZhiIndex = LunarUtil.GetJiaZiIndex( dongZhi.ToLunar().DayInGanZhi );
+            int dongZhiIndex2 = LunarUtil.GetJiaZiIndex( dongZhi2.ToLunar().DayInGanZhi );
+            int xiaZhiIndex = LunarUtil.GetJiaZiIndex( xiaZhi.ToLunar().DayInGanZhi );
+            Solar solarShunBai = dongZhiIndex > 29 ? dongZhi.Next( 60 - dongZhiIndex ) : dongZhi.Next( -dongZhiIndex );
 
-            var solarShunBaiYmd = solarShunBai.Ymd;
-            var solarShunBai2 = dongZhiIndex2 > 29 ? dongZhi2.Next( 60 - dongZhiIndex2 ) : dongZhi2.Next( -dongZhiIndex2 );
+            string solarShunBaiYmd = solarShunBai.Ymd;
+            Solar solarShunBai2 = dongZhiIndex2 > 29 ? dongZhi2.Next( 60 - dongZhiIndex2 ) : dongZhi2.Next( -dongZhiIndex2 );
 
-            var solarShunBaiYmd2 = solarShunBai2.Ymd;
-            var solarNiZi = xiaZhiIndex > 29 ? xiaZhi.Next( 60 - xiaZhiIndex ) : xiaZhi.Next( -xiaZhiIndex );
+            string solarShunBaiYmd2 = solarShunBai2.Ymd;
+            Solar solarNiZi = xiaZhiIndex > 29 ? xiaZhi.Next( 60 - xiaZhiIndex ) : xiaZhi.Next( -xiaZhiIndex );
 
-            var solarNiZiYmd = solarNiZi.Ymd;
-            var offset = 0;
+            string solarNiZiYmd = solarNiZi.Ymd;
+            int offset = 0;
             if( string.Compare( solarYmd , solarShunBaiYmd , StringComparison.Ordinal ) >= 0 && string.Compare( solarYmd , solarNiZiYmd , StringComparison.Ordinal ) < 0 ) {
                 offset = _solar.Subtract( solarShunBai ) % 9;
             } else if( string.Compare( solarYmd , solarNiZiYmd , StringComparison.Ordinal ) >= 0 && string.Compare( solarYmd , solarShunBaiYmd2 , StringComparison.Ordinal ) < 0 ) {
@@ -499,8 +499,8 @@ public partial class Lunar {
     public string Jie {
         get {
             for( int i = 0, j = LunarUtil.JIE_QI_IN_USE.Length ; i < j ; i += 2 ) {
-                var key = LunarUtil.JIE_QI_IN_USE[ i ];
-                var d = JieQiTable[ key ];
+                string key = LunarUtil.JIE_QI_IN_USE[ i ];
+                Solar d = JieQiTable[ key ];
                 if( d.Year == _solar.Year && d.Month == _solar.Month && d.Day == _solar.Day ) {
                     return ConvertJieQi( key );
                 }
@@ -515,8 +515,8 @@ public partial class Lunar {
     public string Qi {
         get {
             for( int i = 1, j = LunarUtil.JIE_QI_IN_USE.Length ; i < j ; i += 2 ) {
-                var key = LunarUtil.JIE_QI_IN_USE[ i ];
-                var d = JieQiTable[ key ];
+                string key = LunarUtil.JIE_QI_IN_USE[ i ];
+                Solar d = JieQiTable[ key ];
                 if( d.Year == _solar.Year && d.Month == _solar.Month && d.Day == _solar.Day ) {
                     return ConvertJieQi( key );
                 }
@@ -530,8 +530,8 @@ public partial class Lunar {
     /// </summary>
     public string JieQi {
         get {
-            foreach( var entry in JieQiTable ) {
-                var d = entry.Value;
+            foreach( KeyValuePair<string , Solar> entry in JieQiTable ) {
+                Solar d = entry.Value;
                 if( d.Year == _solar.Year && d.Month == _solar.Month && d.Day == _solar.Day ) {
                     return ConvertJieQi( entry.Key );
                 }
@@ -546,7 +546,7 @@ public partial class Lunar {
     /// <param name="name">节气名</param>
     /// <returns>正式的节气名</returns>
     private string ConvertJieQi( string name ) {
-        var jq = name;
+        string jq = name;
         switch( jq ) {
             case "DONG_ZHI":
                 jq = "冬至";
@@ -579,9 +579,9 @@ public partial class Lunar {
     /// <param name="wholeDay">是否按天计</param>
     /// <returns>节气</returns>
     public JieQi GetNextJie( bool wholeDay = false ) {
-        var l = LunarUtil.JIE_QI_IN_USE.Length / 2;
-        var conditions = new string[ l ];
-        for( var i = 0 ; i < l ; i++ ) {
+        int l = LunarUtil.JIE_QI_IN_USE.Length / 2;
+        string[] conditions = new string[ l ];
+        for( int i = 0 ; i < l ; i++ ) {
             conditions[ i ] = LunarUtil.JIE_QI_IN_USE[ i * 2 ];
         }
         return GetNearJieQi( true , conditions , wholeDay );
@@ -593,9 +593,9 @@ public partial class Lunar {
     /// <param name="wholeDay">是否按天计</param>
     /// <returns>节气</returns>
     public JieQi GetPrevJie( bool wholeDay = false ) {
-        var l = LunarUtil.JIE_QI_IN_USE.Length / 2;
-        var conditions = new string[ l ];
-        for( var i = 0 ; i < l ; i++ ) {
+        int l = LunarUtil.JIE_QI_IN_USE.Length / 2;
+        string[] conditions = new string[ l ];
+        for( int i = 0 ; i < l ; i++ ) {
             conditions[ i ] = LunarUtil.JIE_QI_IN_USE[ i * 2 ];
         }
         return GetNearJieQi( false , conditions , wholeDay );
@@ -607,9 +607,9 @@ public partial class Lunar {
     /// <param name="wholeDay">是否按天计</param>
     /// <returns>节气</returns>
     public JieQi GetNextQi( bool wholeDay = false ) {
-        var l = LunarUtil.JIE_QI_IN_USE.Length / 2;
-        var conditions = new string[ l ];
-        for( var i = 0 ; i < l ; i++ ) {
+        int l = LunarUtil.JIE_QI_IN_USE.Length / 2;
+        string[] conditions = new string[ l ];
+        for( int i = 0 ; i < l ; i++ ) {
             conditions[ i ] = LunarUtil.JIE_QI_IN_USE[ i * 2 + 1 ];
         }
         return GetNearJieQi( true , conditions , wholeDay );
@@ -621,9 +621,9 @@ public partial class Lunar {
     /// <param name="wholeDay">是否按天计</param>
     /// <returns>节气</returns>
     public JieQi GetPrevQi( bool wholeDay = false ) {
-        var l = LunarUtil.JIE_QI_IN_USE.Length / 2;
-        var conditions = new string[ l ];
-        for( var i = 0 ; i < l ; i++ ) {
+        int l = LunarUtil.JIE_QI_IN_USE.Length / 2;
+        string[] conditions = new string[ l ];
+        for( int i = 0 ; i < l ; i++ ) {
             conditions[ i ] = LunarUtil.JIE_QI_IN_USE[ i * 2 + 1 ];
         }
         return GetNearJieQi( false , conditions , wholeDay );
@@ -657,26 +657,26 @@ public partial class Lunar {
     private JieQi GetNearJieQi( bool forward , string[] conditions , bool wholeDay ) {
         string name = null;
         Solar near = null;
-        var filters = new List<string>();
+        List<string> filters = new List<string>();
         if( null != conditions ) {
-            foreach( var cond in conditions ) {
+            foreach( string cond in conditions ) {
                 if( !filters.Contains( cond ) ) {
                     filters.Add( cond );
                 }
             }
         }
-        var filter = filters.Count > 0;
-        var today = wholeDay ? _solar.Ymd : _solar.YmdHms;
-        foreach( var entry in JieQiTable ) {
-            var jq = ConvertJieQi( entry.Key );
+        bool filter = filters.Count > 0;
+        string today = wholeDay ? _solar.Ymd : _solar.YmdHms;
+        foreach( KeyValuePair<string , Solar> entry in JieQiTable ) {
+            string jq = ConvertJieQi( entry.Key );
             if( filter ) {
                 if( !filters.Contains( jq ) ) {
                     continue;
                 }
             }
 
-            var current = entry.Value;
-            var day = wholeDay ? current.Ymd : current.YmdHms;
+            Solar current = entry.Value;
+            string day = wholeDay ? current.Ymd : current.YmdHms;
             if( forward ) {
                 if( string.Compare( day , today , StringComparison.Ordinal ) < 0 ) {
                     continue;
@@ -685,7 +685,7 @@ public partial class Lunar {
                     name = jq;
                     near = current;
                 } else {
-                    var nearDay = wholeDay ? near.Ymd : near.YmdHms;
+                    string nearDay = wholeDay ? near.Ymd : near.YmdHms;
                     if( string.Compare( day , nearDay , StringComparison.Ordinal ) < 0 ) {
                         name = jq;
                         near = current;
@@ -699,7 +699,7 @@ public partial class Lunar {
                     name = jq;
                     near = current;
                 } else {
-                    var nearDay = wholeDay ? near.Ymd : near.YmdHms;
+                    string nearDay = wholeDay ? near.Ymd : near.YmdHms;
                     if( string.Compare( day , nearDay , StringComparison.Ordinal ) > 0 ) {
                         name = jq;
                         near = current;
@@ -722,8 +722,8 @@ public partial class Lunar {
     public JieQi CurrentJie {
         get {
             for( int i = 0, j = LunarUtil.JIE_QI_IN_USE.Length ; i < j ; i += 2 ) {
-                var key = LunarUtil.JIE_QI_IN_USE[ i ];
-                var d = JieQiTable[ key ];
+                string key = LunarUtil.JIE_QI_IN_USE[ i ];
+                Solar d = JieQiTable[ key ];
                 if( d.Year == _solar.Year && d.Month == _solar.Month && d.Day == _solar.Day ) {
                     return new JieQi( ConvertJieQi( key ) , d );
                 }
@@ -738,8 +738,8 @@ public partial class Lunar {
     public JieQi CurrentQi {
         get {
             for( int i = 1, j = LunarUtil.JIE_QI_IN_USE.Length ; i < j ; i += 2 ) {
-                var key = LunarUtil.JIE_QI_IN_USE[ i ];
-                var d = JieQiTable[ key ];
+                string key = LunarUtil.JIE_QI_IN_USE[ i ];
+                Solar d = JieQiTable[ key ];
                 if( d.Year == _solar.Year && d.Month == _solar.Month && d.Day == _solar.Day ) {
                     return new JieQi( ConvertJieQi( key ) , d );
                 }
@@ -757,21 +757,21 @@ public partial class Lunar {
     /// </summary>
     public ShuJiu ShuJiu {
         get {
-            var current = new Solar( _solar.Year , _solar.Month , _solar.Day );
-            var start = JieQiTable[ "DONG_ZHI" ];
+            Solar current = new Solar( _solar.Year , _solar.Month , _solar.Day );
+            Solar start = JieQiTable[ "DONG_ZHI" ];
             start = new Solar( start.Year , start.Month , start.Day );
             if( current.IsBefore( start ) ) {
                 start = JieQiTable[ "冬至" ];
                 start = new Solar( start.Year , start.Month , start.Day );
             }
 
-            var end = new Solar( start.Year , start.Month , start.Day ).Next( 81 );
+            Solar end = new Solar( start.Year , start.Month , start.Day ).Next( 81 );
 
             if( current.IsBefore( start ) || !current.IsBefore( end ) ) {
                 return null;
             }
 
-            var days = current.Subtract( start );
+            int days = current.Subtract( start );
             return new ShuJiu( $"{LunarUtil.NUMBER[ days / 9 + 1 ]}九" , days % 9 + 1 );
         }
     }
@@ -785,11 +785,11 @@ public partial class Lunar {
     /// </summary>
     public Fu Fu {
         get {
-            var current = new Solar( _solar.Year , _solar.Month , _solar.Day );
-            var xiaZhi = JieQiTable[ "夏至" ];
-            var liQiu = JieQiTable[ "立秋" ];
-            var start = new Solar( xiaZhi.Year , xiaZhi.Month , xiaZhi.Day );
-            var add = 6 - xiaZhi.ToLunar()._dayGanIndex;
+            Solar current = new Solar( _solar.Year , _solar.Month , _solar.Day );
+            Solar xiaZhi = JieQiTable[ "夏至" ];
+            Solar liQiu = JieQiTable[ "立秋" ];
+            Solar start = new Solar( xiaZhi.Year , xiaZhi.Month , xiaZhi.Day );
+            int add = 6 - xiaZhi.ToLunar()._dayGanIndex;
             if( add < 0 ) {
                 add += 10;
             }
@@ -799,7 +799,7 @@ public partial class Lunar {
                 return null;
             }
 
-            var days = current.Subtract( start );
+            int days = current.Subtract( start );
             if( days < 10 ) {
                 return new Fu( "初伏" , days + 1 );
             }
@@ -811,7 +811,7 @@ public partial class Lunar {
             }
             start = start.Next( 10 );
             days = current.Subtract( start );
-            var liQiuSolar = new Solar( liQiu.Year , liQiu.Month , liQiu.Day );
+            Solar liQiuSolar = new Solar( liQiu.Year , liQiu.Month , liQiu.Day );
             if( liQiuSolar.IsAfter( start ) ) {
                 if( days < 10 ) {
                     return new Fu( "中伏" , days + 11 );
@@ -840,8 +840,8 @@ public partial class Lunar {
     /// </summary>
     public List<LunarTime> Times {
         get {
-            var l = new List<LunarTime> { new LunarTime( Year , Month , Day , 0 , 0 , 0 ) };
-            for( var i = 0 ; i < 12 ; i++ ) {
+            List<LunarTime> l = new List<LunarTime> { new LunarTime( Year , Month , Day , 0 , 0 , 0 ) };
+            for( int i = 0 ; i < 12 ; i++ ) {
                 l.Add( new LunarTime( Year , Month , Day , ( i + 1 ) * 2 - 1 , 0 , 0 ) );
             }
             return l;
@@ -894,19 +894,19 @@ public partial class Lunar {
             s.Append( TimeNaYin );
             s.Append( "] 星期" );
             s.Append( WeekInChinese );
-            foreach( var f in Festivals ) {
+            foreach( string f in Festivals ) {
                 s.Append( " (" );
                 s.Append( f );
                 s.Append( ')' );
             }
 
-            foreach( var f in OtherFestivals ) {
+            foreach( string f in OtherFestivals ) {
                 s.Append( " (" );
                 s.Append( f );
                 s.Append( ')' );
             }
 
-            var jq = JieQi;
+            string jq = JieQi;
             if( jq.Length > 0 ) {
                 s.Append( " [" );
                 s.Append( jq );

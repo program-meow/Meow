@@ -213,18 +213,18 @@ public class LunarTime {
     /// </summary>
     public NineStar NineStar {
         get {
-            var solarYmd = _lunar.ToSolar().Ymd;
-            var jieQi = _lunar.JieQiTable;
+            string solarYmd = _lunar.ToSolar().Ymd;
+            Dictionary<string , Solar> jieQi = _lunar.JieQiTable;
             // 顺逆
-            var asc = string.Compare( solarYmd , jieQi[ "冬至" ].Ymd , StringComparison.Ordinal ) >= 0 && string.Compare( solarYmd , jieQi[ "夏至" ].Ymd , StringComparison.Ordinal ) < 0;
-            var start = asc ? 7 : 3;
-            var dayZhi = _lunar.DayZhi;
+            bool asc = string.Compare( solarYmd , jieQi[ "冬至" ].Ymd , StringComparison.Ordinal ) >= 0 && string.Compare( solarYmd , jieQi[ "夏至" ].Ymd , StringComparison.Ordinal ) < 0;
+            int start = asc ? 7 : 3;
+            string dayZhi = _lunar.DayZhi;
             if( "子午卯酉".Contains( dayZhi ) ) {
                 start = asc ? 1 : 9;
             } else if( "辰戌丑未".Contains( dayZhi ) ) {
                 start = asc ? 4 : 6;
             }
-            var index = asc ? start + _zhiIndex - 1 : start - _zhiIndex - 1;
+            int index = asc ? start + _zhiIndex - 1 : start - _zhiIndex - 1;
             if( index > 8 ) {
                 index -= 9;
             }
@@ -255,7 +255,7 @@ public class LunarTime {
     /// </summary>
     public string MinHm {
         get {
-            var hour = _lunar.Hour;
+            int hour = _lunar.Hour;
             if( hour < 1 ) {
                 return "00:00";
             }
@@ -274,7 +274,7 @@ public class LunarTime {
     /// </summary>
     public string MaxHm {
         get {
-            var hour = _lunar.Hour;
+            int hour = _lunar.Hour;
             if( hour < 1 ) {
                 return "00:59";
             }

@@ -1,9 +1,9 @@
 ﻿namespace Meow.Response;
 
 /// <summary>
-/// 结果状态码
+/// 结果状态
 /// </summary>
-public enum ResultStatusCodeEnum {
+public enum ResultStatusEnum {
     /// <summary>
     /// 成功
     /// </summary>

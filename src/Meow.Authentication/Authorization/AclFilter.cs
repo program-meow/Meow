@@ -84,6 +84,6 @@ public class AclFilter : AuthorizeFilter {
     protected virtual void SetContextResult( AuthorizationFilterContext context , PolicyAuthorizationResult authorizationResult ) {
         if( authorizationResult.Succeeded )
             return;
-        context.Result = new JsonResult( new { Code = ResultStatusCodeEnum.Unauthorized } ) { StatusCode = 200 };
+        context.Result = new JsonResult( new { Code = ResultStatusEnum.Unauthorized } ) { StatusCode = 200 };
     }
 }

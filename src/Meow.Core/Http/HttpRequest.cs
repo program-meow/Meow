@@ -20,9 +20,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     private readonly IHttpClientFactory _httpClientFactory;
     /// <summary>
-    /// Http客户端处理器
+    /// Http客户端
     /// </summary>
-    private readonly HttpClientHandler _httpClientHandler;
+    private readonly HttpClient _httpClient;
     /// <summary>
     /// Http客户端名称
     /// </summary>
@@ -191,11 +191,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化Http请求
     /// </summary>
     /// <param name="httpClientFactory">Http客户端工厂</param>
-    /// <param name="httpClientHandler">Http客户端处理器</param>
+    /// <param name="httpClient">Http客户端处理器</param>
     /// <param name="httpMethod">Http方法</param>
     /// <param name="url">服务地址</param>
-    public HttpRequest( IHttpClientFactory httpClientFactory , HttpClientHandler httpClientHandler , HttpMethod httpMethod , string url ) {
-        if( httpClientFactory == null && httpClientHandler == null )
+    public HttpRequest( IHttpClientFactory httpClientFactory , HttpClient httpClient , HttpMethod httpMethod , string url ) {
+        if( httpClientFactory == null && httpClient == null )
             throw new ArgumentNullException( nameof( httpClientFactory ) );
         if( url.IsEmpty() )
             throw new ArgumentNullException( nameof( url ) );
@@ -203,7 +203,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         #region 核心
 
         _httpClientFactory = httpClientFactory;
-        _httpClientHandler = httpClientHandler;
+        _httpClient = httpClient;
         _httpMethod = httpMethod;
         _url = url;
 
@@ -868,10 +868,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return await Meow.Helper.Retry.TryInvokeAsync( RunResultAsync , _retryValidateResultFunc , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
             TResult result = await RunResultAsync();
-            return new Result<TResult>( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() , result );
+            return new Result<TResult>( ResultStatusEnum.Success , ResultStatusEnum.Success.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
-            return new Result<TResult>( ResultStatusCodeEnum.Error , ex.Message );
+            return new Result<TResult>( ResultStatusEnum.Error , ex.Message );
         }
     }
 
@@ -899,10 +899,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return await Meow.Helper.Retry.TryInvokeAsync( RunStreamAsync , ( ( result ) => result != null ) , _retryMaxTimes , _retryListenerExceptionFunc , _retryDelayFunc );
         try {
             byte[] result = await RunStreamAsync();
-            return new Result<byte[]>( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() , result );
+            return new Result<byte[]>( ResultStatusEnum.Success , ResultStatusEnum.Success.GetDescription() , result );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
-            return new Result<byte[]>( ResultStatusCodeEnum.Error , ex.Message );
+            return new Result<byte[]>( ResultStatusEnum.Error , ex.Message );
         }
     }
 
@@ -949,10 +949,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return new Result( result.Code , result.Message , null );
         try {
             await result.Data.FileWriteAsync( filePath );
-            return new Result( ResultStatusCodeEnum.Success , ResultStatusCodeEnum.Success.GetDescription() );
+            return new Result( ResultStatusEnum.Success , ResultStatusEnum.Success.GetDescription() );
         } catch( SystemException ex ) {
             listenerExceptionFunc?.Invoke( ex );
-            return new Result( ResultStatusCodeEnum.Error , ex.Message );
+            return new Result( ResultStatusEnum.Error , ex.Message );
         }
     }
 
@@ -1208,13 +1208,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 获取Http客户端
     /// </summary>
     protected HttpClient GetHttpClient() {
-        if( _httpClientHandler != null ) {
-            InitHttpClientHandler( _httpClientHandler );
-            return new HttpClient( _httpClientHandler );
-        }
+        if( _httpClient != null )
+            return _httpClient;
         HttpClientHandler clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
-        return _httpClientFactory.CreateClient();
+        return _httpClientName.IsEmpty() ? _httpClientFactory.CreateClient() : _httpClientFactory.CreateClient( _httpClientName );
     }
 
     /// <summary>

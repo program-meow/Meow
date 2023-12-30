@@ -398,10 +398,10 @@ internal static class ShouXingUtil {
         t /= 10;
         double v = 0, tn = 1;
         const int pn = 1;
-        var m0 = XL0[ pn + 1 ] - XL0[ pn ];
-        for( var i = 0 ; i < 6 ; i++, tn *= t ) {
-            var n1 = ( int ) XL0[ pn + i ];
-            var n2 = ( int ) XL0[ pn + 1 + i ];
+        double m0 = XL0[ pn + 1 ] - XL0[ pn ];
+        for( int i = 0 ; i < 6 ; i++, tn *= t ) {
+            int n1 = ( int ) XL0[ pn + i ];
+            int n2 = ( int ) XL0[ pn + 1 + i ];
             double n0 = n2 - n1;
             if( n0 == 0 ) {
                 continue;
@@ -420,13 +420,13 @@ internal static class ShouXingUtil {
                 }
             }
             double c = 0;
-            for( var j = n1 ; j < m ; j += 3 ) {
+            for( int j = n1 ; j < m ; j += 3 ) {
                 c += XL0[ j ] * SystemMath.Cos( XL0[ j + 1 ] + t * XL0[ j + 2 ] );
             }
             v += c * tn;
         }
         v /= XL0[ 0 ];
-        var t2 = t * t;
+        double t2 = t * t;
         v += ( -0.0728 - 2.7702 * t - 1.1019 * t2 - 0.0996 * t2 * t ) / SECOND_PER_RAD;
         return v;
     }
@@ -438,8 +438,8 @@ internal static class ShouXingUtil {
     /// <param name="n">项数比例</param>
     /// <returns>Date分点黄经</returns>
     public static double MLon( double t , int n ) {
-        var ob = XL1;
-        var obl = ob[ 0 ].Length;
+        double[][] ob = XL1;
+        int obl = ob[ 0 ].Length;
         double tn = 1;
         double v = 0;
         double t2 = t * t,
@@ -461,9 +461,9 @@ internal static class ShouXingUtil {
             n = obl;
         }
         for( int i = 0, x = ob.Length ; i < x ; i++, tn *= t ) {
-            var f = ob[ i ];
-            var l = f.Length;
-            var m = ( int ) ( n * l * 1D / obl + 0.5 );
+            double[] f = ob[ i ];
+            int l = f.Length;
+            int m = ( int ) ( n * l * 1D / obl + 0.5 );
             if( i > 0 ) {
                 m += 6;
             }
@@ -488,9 +488,9 @@ internal static class ShouXingUtil {
     /// <param name="t">世纪数</param>
     /// <returns>太阳光行差</returns>
     public static double GxcSunLon( double t ) {
-        var t2 = t * t;
-        var v = -0.043126 + 628.301955 * t - 0.000002732 * t2;
-        var e = 0.016708634 - 0.000042037 * t - 0.0000001267 * t2;
+        double t2 = t * t;
+        double v = -0.043126 + 628.301955 * t - 0.000002732 * t2;
+        double e = 0.016708634 - 0.000042037 * t - 0.0000001267 * t2;
         return -20.49552 * ( 1 + e * SystemMath.Cos( v ) ) / SECOND_PER_RAD;
     }
 
@@ -500,7 +500,7 @@ internal static class ShouXingUtil {
     /// <param name="t">世纪数</param>
     /// <returns>地球速度</returns>
     public static double Ev( double t ) {
-        var f = 628.307585 * t;
+        double f = 628.307585 * t;
         return 628.332 + 21 * SystemMath.Sin( 1.527 + f ) + 0.44 * SystemMath.Sin( 1.48 + f * 2 ) + 0.129 * SystemMath.Sin( 5.82 + f ) * t + 0.00055 * SystemMath.Sin( 4.21 + f ) * t * t;
     }
 
@@ -521,7 +521,7 @@ internal static class ShouXingUtil {
     /// <param name="jsd"></param>
     /// <returns></returns>
     public static double DtExt( double y , double jsd ) {
-        var dy = ( y - 1820 ) / 100;
+        double dy = ( y - 1820 ) / 100;
         return -20 + jsd * dy * dy;
     }
 
@@ -531,9 +531,9 @@ internal static class ShouXingUtil {
     /// <param name="y"></param>
     /// <returns></returns>
     public static double DtCalc( double y ) {
-        var size = DT_AT.Length;
-        var y0 = DT_AT[ size - 2 ];
-        var t0 = DT_AT[ size - 1 ];
+        int size = DT_AT.Length;
+        double y0 = DT_AT[ size - 2 ];
+        double t0 = DT_AT[ size - 1 ];
         if( y >= y0 ) {
             double jsd = 31;
             if( y > y0 + 100 ) {
@@ -566,7 +566,7 @@ internal static class ShouXingUtil {
     /// <param name="t">世经数</param>
     /// <returns>月球速度</returns>
     public static double Mv( double t ) {
-        var v = 8399.71 - 914 * SystemMath.Sin( 0.7848 + 8328.691425 * t + 0.0001523 * t * t );
+        double v = 8399.71 - 914 * SystemMath.Sin( 0.7848 + 8328.691425 * t + 0.0001523 * t * t );
         v -= 179 * SystemMath.Sin( 2.543 + 15542.7543 * t ) + 160 * SystemMath.Sin( 0.1874 + 7214.0629 * t ) + 62 * SystemMath.Sin( 3.14 + 16657.3828 * t ) + 34 * SystemMath.Sin( 4.827 + 16866.9323 * t ) + 22 * SystemMath.Sin( 4.9 + 23871.4457 * t ) + 12 * SystemMath.Sin( 2.59 + 14914.4523 * t ) + 7 * SystemMath.Sin( 0.23 + 6585.7609 * t ) + 5 * SystemMath.Sin( 0.9 + 25195.624 * t ) + 5 * SystemMath.Sin( 2.32 - 7700.3895 * t ) + 5 * SystemMath.Sin( 3.88 + 8956.9934 * t ) + 5 * SystemMath.Sin( 0.49 + 7771.3771 * t );
         return v;
     }
@@ -577,8 +577,8 @@ internal static class ShouXingUtil {
     /// <param name="w">太阳视黄经</param>
     /// <returns>时间</returns>
     public static double SaLonT( double w ) {
-        var v = 628.3319653318;
-        var t = ( w - 1.75347 - SystemMath.PI ) / v;
+        double v = 628.3319653318;
+        double t = ( w - 1.75347 - SystemMath.PI ) / v;
         v = Ev( t );
         t += ( w - SaLon( t , 10 ) ) / v;
         v = Ev( t );
@@ -604,7 +604,7 @@ internal static class ShouXingUtil {
     /// <returns>时间</returns>
     public static double SaLonT2( double w ) {
         const double v = 628.3319653318;
-        var t = ( w - 1.75347 - SystemMath.PI ) / v;
+        double t = ( w - 1.75347 - SystemMath.PI ) / v;
         t -= ( 0.000005297 * t * t + 0.0334166 * SystemMath.Cos( 4.669257 + 628.307585 * t ) + 0.0002061 * SystemMath.Cos( 2.67823 + 628.307585 * t ) * t ) / v;
         t += ( w - ELon( t , 8 ) - SystemMath.PI + ( 20.5 + 17.2 * SystemMath.Sin( 2.1824 - 33.75705 * t ) ) / SECOND_PER_RAD ) / v;
         return t;
@@ -616,8 +616,8 @@ internal static class ShouXingUtil {
     /// <param name="w">月日视黄经差</param>
     /// <returns>时间</returns>
     public static double MsaLonT( double w ) {
-        var v = 7771.37714500204;
-        var t = ( w + 1.08472 ) / v;
+        double v = 7771.37714500204;
+        double t = ( w + 1.08472 ) / v;
         t += ( w - MsaLon( t , 3 , 3 ) ) / v;
         v = Mv( t ) - Ev( t );
         t += ( w - MsaLon( t , 20 , 10 ) ) / v;
@@ -631,12 +631,12 @@ internal static class ShouXingUtil {
     /// <param name="w">月日视黄经差</param>
     /// <returns>时间</returns>
     public static double MsaLonT2( double w ) {
-        var v = 7771.37714500204;
-        var t = ( w + 1.08472 ) / v;
-        var t2 = t * t;
+        double v = 7771.37714500204;
+        double t = ( w + 1.08472 ) / v;
+        double t2 = t * t;
         t -= ( -0.00003309 * t2 + 0.10976 * SystemMath.Cos( 0.784758 + 8328.6914246 * t + 0.000152292 * t2 ) + 0.02224 * SystemMath.Cos( 0.18740 + 7214.0628654 * t - 0.00021848 * t2 ) - 0.03342 * SystemMath.Cos( 4.669257 + 628.307585 * t ) ) / v;
         t2 = t * t;
-        var l = MLon( t , 20 ) - ( 4.8950632 + 628.3319653318 * t + 0.000005297 * t2 + 0.0334166 * SystemMath.Cos( 4.669257 + 628.307585 * t ) + 0.0002061 * SystemMath.Cos( 2.67823 + 628.307585 * t ) * t + 0.000349 * SystemMath.Cos( 4.6261 + 1256.61517 * t ) - 20.5 / SECOND_PER_RAD );
+        double l = MLon( t , 20 ) - ( 4.8950632 + 628.3319653318 * t + 0.000005297 * t2 + 0.0334166 * SystemMath.Cos( 4.669257 + 628.307585 * t ) + 0.0002061 * SystemMath.Cos( 2.67823 + 628.307585 * t ) * t + 0.000349 * SystemMath.Cos( 4.6261 + 1256.61517 * t ) - 20.5 / SECOND_PER_RAD );
         v = 7771.38 - 914 * SystemMath.Sin( 0.7848 + 8328.691425 * t + 0.0001523 * t2 ) - 179 * SystemMath.Sin( 2.543 + 15542.7543 * t ) - 160 * SystemMath.Sin( 0.1874 + 7214.0629 * t );
         t += ( w - l ) / v;
         return t;
@@ -648,9 +648,9 @@ internal static class ShouXingUtil {
     /// <param name="w"></param>
     /// <returns></returns>
     public static double QiHigh( double w ) {
-        var t = SaLonT2( w ) * 36525;
+        double t = SaLonT2( w ) * 36525;
         t = t - DtT( t ) + ONE_THIRD;
-        var v = ( ( t + 0.5 ) % 1 ) * SECOND_PER_DAY;
+        double v = ( ( t + 0.5 ) % 1 ) * SECOND_PER_DAY;
         if( v < 1200 || v > SECOND_PER_DAY - 1200 ) {
             t = SaLonT( w ) * 36525 - DtT( t ) + ONE_THIRD;
         }
@@ -663,9 +663,9 @@ internal static class ShouXingUtil {
     /// <param name="w"></param>
     /// <returns></returns>
     public static double ShuoHigh( double w ) {
-        var t = MsaLonT2( w ) * 36525;
+        double t = MsaLonT2( w ) * 36525;
         t = t - DtT( t ) + ONE_THIRD;
-        var v = ( ( t + 0.5 ) % 1 ) * SECOND_PER_DAY;
+        double v = ( ( t + 0.5 ) % 1 ) * SECOND_PER_DAY;
         if( v < 1800 || v > SECOND_PER_DAY - 1800 ) {
             t = MsaLonT( w ) * 36525 - DtT( t ) + ONE_THIRD;
         }
@@ -679,9 +679,9 @@ internal static class ShouXingUtil {
     /// <returns></returns>
     public static double QiLow( double w ) {
         const double v = 628.3319653318;
-        var t = ( w - 4.895062166 ) / v;
+        double t = ( w - 4.895062166 ) / v;
         t -= ( 53 * t * t + 334116 * SystemMath.Cos( 4.67 + 628.307585 * t ) + 2061 * SystemMath.Cos( 2.678 + 628.3076 * t ) * t ) / v / 10000000;
-        var n = 48950621.66 + 6283319653.318 * t + 53 * t * t + 334166 * SystemMath.Cos( 4.669257 + 628.307585 * t ) + 3489 * SystemMath.Cos( 4.6261 + 1256.61517 * t ) + 2060.6 * SystemMath.Cos( 2.67823 + 628.307585 * t ) * t - 994 - 834 * SystemMath.Sin( 2.1824 - 33.75705 * t );
+        double n = 48950621.66 + 6283319653.318 * t + 53 * t * t + 334166 * SystemMath.Cos( 4.669257 + 628.307585 * t ) + 3489 * SystemMath.Cos( 4.6261 + 1256.61517 * t ) + 2060.6 * SystemMath.Cos( 2.67823 + 628.307585 * t ) * t - 994 - 834 * SystemMath.Sin( 2.1824 - 33.75705 * t );
         t -= ( n / 10000000 - w ) / 628.332 + ( 32 * ( t + 1.8 ) * ( t + 1.8 ) - 20 ) / SECOND_PER_DAY / 36525;
         return t * 36525 + ONE_THIRD;
     }
@@ -693,7 +693,7 @@ internal static class ShouXingUtil {
     /// <returns></returns>
     public static double ShuoLow( double w ) {
         const double v = 7771.37714500204;
-        var t = ( w + 1.08472 ) / v;
+        double t = ( w + 1.08472 ) / v;
         t -= ( -0.0000331 * t * t + 0.10976 * SystemMath.Cos( 0.785 + 8328.6914 * t ) + 0.02224 * SystemMath.Cos( 0.187 + 7214.0629 * t ) - 0.03342 * SystemMath.Cos( 4.669 + 628.3076 * t ) ) / v + ( 32 * ( t + 1.8 ) * ( t + 1.8 ) - 20 ) / SECOND_PER_DAY / 36525;
         return t * 36525 + ONE_THIRD;
     }
@@ -704,7 +704,7 @@ internal static class ShouXingUtil {
     /// <param name="jd">儒略日</param>
     /// <returns>儒略日</returns>
     public static double CalcShuo( double jd ) {
-        var size = SHUO_KB.Length;
+        int size = SHUO_KB.Length;
         double d = 0;
         const int pc = 14;
         jd += SolarUtil.J2000;
@@ -727,8 +727,8 @@ internal static class ShouXingUtil {
             d -= SolarUtil.J2000;
         } else if( jd >= f2 && jd < f3 ) {
             d = SystemMath.Floor( ShuoLow( SystemMath.Floor( ( jd + pc - 2451551 ) / 29.5306 ) * PI_2 ) + 0.5 );
-            var from = ( int ) ( ( jd - f2 ) / 29.5306 );
-            var n = SB.Substring( from , 1 );
+            int from = ( int ) ( ( jd - f2 ) / 29.5306 );
+            string n = SB.Substring( from , 1 );
             switch( n ) {
                 case "1":
                     d += 1;
@@ -747,7 +747,7 @@ internal static class ShouXingUtil {
     /// <param name="jd">儒略日</param>
     /// <returns>儒略日</returns>
     public static double CalcQi( double jd ) {
-        var size = QI_KB.Length;
+        int size = QI_KB.Length;
         double d = 0;
         const int pc = 7;
         jd += SolarUtil.J2000;
@@ -770,8 +770,8 @@ internal static class ShouXingUtil {
             d -= SolarUtil.J2000;
         } else if( jd >= f2 && jd < f3 ) {
             d = SystemMath.Floor( QiLow( SystemMath.Floor( ( jd + pc - 2451259 ) / 365.2422 * 24 ) * SystemMath.PI / 12 ) + 0.5 );
-            var from = ( int ) ( ( jd - f2 ) / 365.2422 * 24 );
-            var n = QB.Substring( from , 1 );
+            int from = ( int ) ( ( jd - f2 ) / 365.2422 * 24 );
+            string n = QB.Substring( from , 1 );
             switch( n ) {
                 case "1":
                     d += 1;
@@ -790,7 +790,7 @@ internal static class ShouXingUtil {
     /// <param name="w">儒略日</param>
     /// <returns>儒略日</returns>
     public static double QiAccurate( double w ) {
-        var t = SaLonT( w ) * 36525;
+        double t = SaLonT( w ) * 36525;
         return t - DtT( t ) + ONE_THIRD;
     }
 
@@ -801,8 +801,8 @@ internal static class ShouXingUtil {
     /// <returns>儒略日</returns>
     public static double QiAccurate2( double jd ) {
         const double d = SystemMath.PI / 12;
-        var w = SystemMath.Floor( ( jd + 293 ) / 365.2422 * 24 ) * d;
-        var a = QiAccurate( w );
+        double w = SystemMath.Floor( ( jd + 293 ) / 365.2422 * 24 ) * d;
+        double a = QiAccurate( w );
         if( a - jd > 5 ) {
             return QiAccurate( w - d );
         }

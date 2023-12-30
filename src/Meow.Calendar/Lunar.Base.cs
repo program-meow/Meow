@@ -32,15 +32,15 @@ public partial class Lunar {
     /// <param name="minute">分钟（阳历）</param>
     /// <param name="second">秒钟（阳历）</param>
     public Lunar( int lunarYear , int lunarMonth , int lunarDay , int hour = 0 , int minute = 0 , int second = 0 ) {
-        var y = LunarYear.FromYear( lunarYear );
-        var m = y.GetMonth( lunarMonth );
+        LunarYear y = LunarYear.FromYear( lunarYear );
+        LunarMonth m = y.GetMonth( lunarMonth );
         if( null == m ) {
             throw new ArgumentException( $"wrong lunar year {lunarYear} month {lunarMonth}" );
         }
         if( lunarDay < 1 ) {
             throw new ArgumentException( "lunar day must bigger than 0" );
         }
-        var days = m.DayCount;
+        int days = m.DayCount;
         if( lunarDay > days ) {
             throw new ArgumentException( $"only {days} days in lunar year {lunarYear} month {lunarMonth}" );
         }
@@ -50,7 +50,7 @@ public partial class Lunar {
         Hour = hour;
         Minute = minute;
         Second = second;
-        var noon = Solar.FromJulianDay( m.FirstJulianDay + lunarDay - 1 );
+        Solar noon = Solar.FromJulianDay( m.FirstJulianDay + lunarDay - 1 );
         _solar = Solar.FromYmdHms( noon.Year , noon.Month , noon.Day , hour , minute , second );
         if( noon.Year != lunarYear ) {
             y = LunarYear.FromYear( noon.Year );
@@ -63,9 +63,9 @@ public partial class Lunar {
     /// </summary>
     /// <param name="solar">阳历</param>
     public Lunar( Solar solar ) {
-        var ly = LunarYear.FromYear( solar.Year );
-        foreach( var m in ly.Months ) {
-            var days = solar.Subtract( Solar.FromJulianDay( m.FirstJulianDay ) );
+        LunarYear ly = LunarYear.FromYear( solar.Year );
+        foreach( LunarMonth m in ly.Months ) {
+            int days = solar.Subtract( Solar.FromJulianDay( m.FirstJulianDay ) );
             if( days < m.DayCount ) {
                 Year = m.Year;
                 Month = m.Month;
@@ -171,7 +171,7 @@ public partial class Lunar {
     /// 计算节气表
     /// </summary>
     private void ComputeJieQi( LunarYear lunarYear ) {
-        var julianDays = lunarYear.JieQiJulianDays;
+        List<double> julianDays = lunarYear.JieQiJulianDays;
         for( int i = 0, j = LunarUtil.JIE_QI_IN_USE.Length ; i < j ; i++ ) {
             JieQiTable.Add( LunarUtil.JIE_QI_IN_USE[ i ] , Solar.FromJulianDay( julianDays[ i ] ) );
         }
@@ -377,7 +377,7 @@ public partial class Lunar {
     /// </summary>
     private void ComputeYear() {
         // 以正月初一开始
-        var offset = Year - 4;
+        int offset = Year - 4;
         _yearGanIndex = offset % 10;
         _yearZhiIndex = offset % 12;
 
@@ -390,24 +390,24 @@ public partial class Lunar {
         }
 
         // 以立春作为新一年的开始的干支纪年
-        var g = _yearGanIndex;
-        var z = _yearZhiIndex;
+        int g = _yearGanIndex;
+        int z = _yearZhiIndex;
 
         // 精确的干支纪年，以立春交接时刻为准
-        var gExact = _yearGanIndex;
-        var zExact = _yearZhiIndex;
+        int gExact = _yearGanIndex;
+        int zExact = _yearZhiIndex;
 
-        var solarYear = _solar.Year;
-        var solarYmd = _solar.Ymd;
-        var solarYmdHms = _solar.YmdHms;
+        int solarYear = _solar.Year;
+        string solarYmd = _solar.Ymd;
+        string solarYmdHms = _solar.YmdHms;
 
         // 获取立春的阳历时刻
-        var liChun = JieQiTable[ "立春" ];
+        Solar liChun = JieQiTable[ "立春" ];
         if( liChun.Year != solarYear ) {
             liChun = JieQiTable[ "LI_CHUN" ];
         }
-        var liChunYmd = liChun.Ymd;
-        var liChunYmdHms = liChun.YmdHms;
+        string liChunYmd = liChun.Ymd;
+        string liChunYmdHms = liChun.YmdHms;
 
         // 阳历和阴历年份相同代表正月初一及以后
         if( Year == solarYear ) {
@@ -583,15 +583,15 @@ public partial class Lunar {
     private void ComputeMonth() {
         Solar start = null;
         Solar end;
-        var ymd = _solar.Ymd;
-        var time = _solar.YmdHms;
-        var size = LunarUtil.JIE_QI_IN_USE.Length;
+        string ymd = _solar.Ymd;
+        string time = _solar.YmdHms;
+        int size = LunarUtil.JIE_QI_IN_USE.Length;
 
         // 序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
-        var index = -3;
-        for( var i = 0 ; i < size ; i += 2 ) {
+        int index = -3;
+        for( int i = 0 ; i < size ; i += 2 ) {
             end = JieQiTable[ LunarUtil.JIE_QI_IN_USE[ i ] ];
-            var symd = null == start ? ymd : start.Ymd;
+            string symd = null == start ? ymd : start.Ymd;
             if( string.Compare( ymd , symd , StringComparison.Ordinal ) >= 0 && string.Compare( ymd , end.Ymd , StringComparison.Ordinal ) < 0 ) {
                 break;
             }
@@ -600,15 +600,15 @@ public partial class Lunar {
         }
 
         //干偏移值（以立春当天起算）
-        var offset = ( ( ( _yearGanIndexByLiChun + ( index < 0 ? 1 : 0 ) ) % 5 + 1 ) * 2 ) % 10;
+        int offset = ( ( ( _yearGanIndexByLiChun + ( index < 0 ? 1 : 0 ) ) % 5 + 1 ) * 2 ) % 10;
         _monthGanIndex = ( ( index < 0 ? index + 10 : index ) + offset ) % 10;
         _monthZhiIndex = ( ( index < 0 ? index + 12 : index ) + LunarUtil.BASE_MONTH_ZHI_INDEX ) % 12;
 
         start = null;
         index = -3;
-        for( var i = 0 ; i < size ; i += 2 ) {
+        for( int i = 0 ; i < size ; i += 2 ) {
             end = JieQiTable[ LunarUtil.JIE_QI_IN_USE[ i ] ];
-            var stime = null == start ? time : start.YmdHms;
+            string stime = null == start ? time : start.YmdHms;
             if( string.Compare( time , stime , StringComparison.Ordinal ) >= 0 && string.Compare( time , end.YmdHms , StringComparison.Ordinal ) < 0 ) {
                 break;
             }
@@ -778,7 +778,7 @@ public partial class Lunar {
     /// </summary>
     public string ZhiXing {
         get {
-            var offset = _dayZhiIndex - _monthZhiIndex;
+            int offset = _dayZhiIndex - _monthZhiIndex;
             if( offset < 0 ) {
                 offset += 12;
             }
@@ -953,20 +953,20 @@ public partial class Lunar {
     /// 干支纪日计算
     /// </summary>
     private void ComputeDay() {
-        var noon = Solar.FromYmdHms( _solar.Year , _solar.Month , _solar.Day , 12 );
-        var offset = ( int ) noon.JulianDay - 11;
+        Solar noon = Solar.FromYmdHms( _solar.Year , _solar.Month , _solar.Day , 12 );
+        int offset = ( int ) noon.JulianDay - 11;
         _dayGanIndex = offset % 10;
         _dayZhiIndex = offset % 12;
 
-        var dayGanExact = _dayGanIndex;
-        var dayZhiExact = _dayZhiIndex;
+        int dayGanExact = _dayGanIndex;
+        int dayZhiExact = _dayZhiIndex;
 
         // 八字流派2，晚子时（夜子/子夜）日柱算当天
         _dayGanIndexExact2 = dayGanExact;
         _dayZhiIndexExact2 = dayZhiExact;
 
         // 八字流派1，晚子时（夜子/子夜）日柱算明天
-        var hm = Hour.ToString().PadLeft( 2 , '0' ) + ":" + Minute.ToString().PadLeft( 2 , '0' );
+        string hm = Hour.ToString().PadLeft( 2 , '0' ) + ":" + Minute.ToString().PadLeft( 2 , '0' );
         if( string.Compare( hm , "23:00" , StringComparison.Ordinal ) >= 0 && string.Compare( hm , "23:59" , StringComparison.Ordinal ) <= 0 ) {
             dayGanExact++;
             if( dayGanExact >= 10 ) {
@@ -1160,7 +1160,7 @@ public partial class Lunar {
     /// 干支纪时计算
     /// </summary>
     private void ComputeTime() {
-        var hm = Hour.ToString().PadLeft( 2 , '0' ) + ":" + Minute.ToString().PadLeft( 2 , '0' );
+        string hm = Hour.ToString().PadLeft( 2 , '0' ) + ":" + Minute.ToString().PadLeft( 2 , '0' );
         _timeZhiIndex = LunarUtil.GetTimeZhiIndex( hm );
         _timeGanIndex = ( _dayGanIndexExact % 5 * 2 + _timeZhiIndex ) % 10;
     }
@@ -1211,8 +1211,8 @@ public partial class Lunar {
     /// </summary>
     public string YearInChinese {
         get {
-            var y = ( Year + "" ).ToCharArray();
-            var s = new StringBuilder();
+            char[] y = ( Year + "" ).ToCharArray();
+            StringBuilder s = new StringBuilder();
             for( int i = 0, j = y.Length ; i < j ; i++ ) {
                 s.Append( LunarUtil.NUMBER[ y[ i ] - '0' ] );
             }
@@ -1283,7 +1283,7 @@ public partial class Lunar {
     /// </summary>
     public List<string> Festivals {
         get {
-            var l = new List<string>();
+            List<string> l = new List<string>();
             try {
                 l.Add( LunarUtil.FESTIVAL[ $"{Month}-{Day}" ] );
             } catch {
@@ -1302,21 +1302,21 @@ public partial class Lunar {
     /// </summary>
     public List<string> OtherFestivals {
         get {
-            var l = new List<string>();
+            List<string> l = new List<string>();
             try {
                 l.AddRange( LunarUtil.OTHER_FESTIVAL[ $"{Month}-{Day}" ] );
             } catch {
                 // ignored
             }
 
-            var solarYmd = _solar.Ymd;
-            var jq = JieQiTable[ "清明" ];
+            string solarYmd = _solar.Ymd;
+            Solar jq = JieQiTable[ "清明" ];
             if( solarYmd.Equals( jq.Next( -1 ).Ymd ) ) {
                 l.Add( "寒食节" );
             }
 
             jq = JieQiTable[ "立春" ];
-            var offset = 4 - jq.ToLunar()._dayGanIndex;
+            int offset = 4 - jq.ToLunar()._dayGanIndex;
             if( offset < 0 ) {
                 offset += 10;
             }
@@ -1350,15 +1350,15 @@ public partial class Lunar {
     /// </summary>
     public string WuHou {
         get {
-            var jieQi = GetPrevJieQi( true );
-            var offset = 0;
+            JieQi jieQi = GetPrevJieQi( true );
+            int offset = 0;
             for( int i = 0, j = LunarUtil.JIE_QI.Length ; i < j ; i++ ) {
                 if( jieQi.Name.Equals( LunarUtil.JIE_QI[ i ] ) ) {
                     offset = i;
                     break;
                 }
             }
-            var index = _solar.Subtract( jieQi.Solar ) / 5;
+            int index = _solar.Subtract( jieQi.Solar ) / 5;
             if( index > 2 ) {
                 index = 2;
             }
@@ -1371,9 +1371,9 @@ public partial class Lunar {
     /// </summary>
     public string Hou {
         get {
-            var jieQi = GetPrevJieQi( true );
-            var max = LunarUtil.HOU.Length - 1;
-            var offset = _solar.Subtract( jieQi.Solar ) / 5;
+            JieQi jieQi = GetPrevJieQi( true );
+            int max = LunarUtil.HOU.Length - 1;
+            int offset = _solar.Subtract( jieQi.Solar ) / 5;
             if( offset > max ) {
                 offset = max;
             }
@@ -1386,7 +1386,7 @@ public partial class Lunar {
     /// </summary>
     public string DayLu {
         get {
-            var gan = LunarUtil.LU[ DayGan ];
+            string gan = LunarUtil.LU[ DayGan ];
             string zhi = null;
             try {
                 zhi = LunarUtil.LU[ DayZhi ];
@@ -1394,7 +1394,7 @@ public partial class Lunar {
                 // ignored
             }
 
-            var lu = $"{gan}命互禄";
+            string lu = $"{gan}命互禄";
             if( null != zhi ) {
                 lu = $"{lu} {zhi}命进禄";
             }

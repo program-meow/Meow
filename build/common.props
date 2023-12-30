@@ -59,6 +59,13 @@
 		<SystemLinqDynamicCoreVersion>1.3.5</SystemLinqDynamicCoreVersion>
 		<SystemDataSqlClientVersion>4.8.5</SystemDataSqlClientVersion>
 
+		<PollyVersion>8.1.0</PollyVersion>
+		<DaprAspNetCoreVersion>1.12.0</DaprAspNetCoreVersion>
+		<DaprExtensionsConfigurationVersion>1.12.0</DaprExtensionsConfigurationVersion>
+
+		<AspNetCoreHealthChecksUIClientVersion>7.1.0</AspNetCoreHealthChecksUIClientVersion>
+		<AspNetCoreHealthChecksUrisVersion>7.0.0</AspNetCoreHealthChecksUrisVersion>
+		<MicrosoftExtensionsDiagnosticsHealthChecksVersion>7.0.13</MicrosoftExtensionsDiagnosticsHealthChecksVersion>
 
 		<!-- 3rd party packages -->
 	</PropertyGroup>

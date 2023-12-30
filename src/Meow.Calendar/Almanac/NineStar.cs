@@ -116,7 +116,7 @@ public class NineStar {
     /// </summary>
     public string FullString {
         get {
-            var s = new StringBuilder();
+            StringBuilder s = new StringBuilder();
             s.Append( Number );
             s.Append( Color );
             s.Append( WuXing );

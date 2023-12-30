@@ -9,12 +9,12 @@ public static class ResultExtensions {
     /// 转换为结果状态码
     /// </summary>
     /// <param name="httpStatusCode">HTTP状态码</param>
-    public static ResultStatusCodeEnum ToResultStatusCode( this HttpStatusCode httpStatusCode ) {
+    public static ResultStatusEnum ToResultStatusCode( this HttpStatusCode httpStatusCode ) {
         return httpStatusCode switch {
-            HttpStatusCode.OK => ResultStatusCodeEnum.Success,
-            HttpStatusCode.InternalServerError => ResultStatusCodeEnum.Error,
-            HttpStatusCode.Unauthorized => ResultStatusCodeEnum.Unauthorized,
-            _ => ResultStatusCodeEnum.Error
+            HttpStatusCode.OK => ResultStatusEnum.Success,
+            HttpStatusCode.InternalServerError => ResultStatusEnum.Error,
+            HttpStatusCode.Unauthorized => ResultStatusEnum.Unauthorized,
+            _ => ResultStatusEnum.Error
         };
     }
 
@@ -22,8 +22,8 @@ public static class ResultExtensions {
     /// 是否成功
     /// </summary>
     /// <param name="resultStatusCode">结果状态码</param>
-    public static bool IsSuccess( this ResultStatusCodeEnum resultStatusCode ) {
-        return resultStatusCode == ResultStatusCodeEnum.Success;
+    public static bool IsSuccess( this ResultStatusEnum resultStatusCode ) {
+        return resultStatusCode == ResultStatusEnum.Success;
     }
 
     /// <summary>
