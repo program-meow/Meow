@@ -1,10 +1,6 @@
-using System.Threading.Tasks;
-using Meow.Application.Controller;
-using Meow.Application.Model;
 using Meow.Sample.Application.Dtos;
 using Meow.Sample.Application.Services.Abstractions;
 using Meow.Sample.Domain.Queries;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Meow.Sample.Api.Controllers;
 
@@ -17,13 +13,13 @@ public class SampleController : CrudControllerBase<SampleDto , SampleQuery> {
     /// </summary>
     /// <param name="service">样本服务</param>
     public SampleController( ISampleService service ) : base( service ) {
-        ClaimService = service;
+        Service = service;
     }
 
     /// <summary>
     /// 样本服务
     /// </summary>
-    public ISampleService ClaimService { get; }
+    public ISampleService Service { get; }
 
     /// <summary>
     /// 获取单个实体
@@ -105,6 +101,32 @@ public class SampleController : CrudControllerBase<SampleDto , SampleQuery> {
     [HttpPost( "save" )]
     public new async Task<IActionResult> SaveAsync( SaveModel request ) {
         return await base.SaveAsync( request );
+    }
+
+    /// <summary>
+    /// 测试添加
+    /// </summary>
+    [HttpPost( "testAdd" )]
+    public async Task<IActionResult> TestAddAsync() {
+        try {
+            await Service.TestAddAsync();
+        } catch( System.Exception e ) {
+            Console.WriteLine( e );
+        }
+        return Success();
+    }
+
+    /// <summary>
+    /// 测试修改
+    /// </summary>
+    [HttpPost( "testUpdate" )]
+    public async Task<IActionResult> TestUpdateAsync() {
+        try {
+            await Service.TestUpdateAsync();
+        } catch( System.Exception e ) {
+            Console.WriteLine( e );
+        }
+        return Success();
     }
 
 }

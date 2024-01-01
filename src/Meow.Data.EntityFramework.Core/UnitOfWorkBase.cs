@@ -519,7 +519,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     protected virtual void UpdateBefore( EntityEntry entry ) {
         SetModificationAudited( entry.Entity );
         SetVersion( entry.Entity );
-        AddEntityUpdatedEvent( entry.Entity );
+        AddEntityUpdatedEvent( entry );
     }
 
     #endregion
@@ -612,9 +612,11 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 创建实体事件
     /// </summary>
-    protected IEvent CreateEntityEvent( SystemType eventType , object entity ) {
+    protected IEvent CreateEntityEvent( SystemType eventType , object entity , object parameter = null ) {
         SystemType eventGenericType = eventType.MakeGenericType( entity.GetType() );
-        return Meow.Helper.Reflection.CreateInstance<IEvent>( eventGenericType , entity );
+        if( parameter == null )
+            return Meow.Helper.Reflection.CreateInstance<IEvent>( eventGenericType , entity );
+        return Meow.Helper.Reflection.CreateInstance<IEvent>( eventGenericType , entity , parameter );
     }
 
     #endregion
@@ -624,14 +626,84 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 添加实体修改事件
     /// </summary>
-    protected virtual void AddEntityUpdatedEvent( object entity ) {
+    protected virtual void AddEntityUpdatedEvent( EntityEntry entry ) {
+        object entity = entry.Entity;
         if( entity is IDelete { IsDeleted: true } ) {
             AddEntityDeletedEvent( entity );
             return;
         }
-        IEvent @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ) , entity );
+        ChangeValueCollection changeValues = GetChangeValues( entry );
+        IEvent @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ) , entity , changeValues );
         SaveAfterEvents.Add( @event );
         AddEntityChangedEvent( entity , EntityChangeTypeEnum.Updated );
+    }
+
+    #endregion
+
+    #region GetChangeValues  [获取变更值集合]
+
+    /// <summary>
+    /// 获取变更值集合
+    /// </summary>
+    protected virtual ChangeValueCollection GetChangeValues( EntityEntry entry ) {
+        ChangeValueCollection result = new ChangeValueCollection();
+        IEnumerable<IProperty> properties = entry.Metadata.GetProperties();
+        foreach( IProperty property in properties ) {
+            PropertyEntry propertyEntry = entry.Property( property.Name );
+            if( property.Name == "ExtraProperties" ) {
+                List<ChangeValue> changeValues = GetExtraPropertiesChangeValues( property , propertyEntry );
+                changeValues.ForEach( value => {
+                    if( value != null )
+                        result.Add( value );
+                } );
+                continue;
+            }
+            ChangeValue changeValue = GetPropertyChangeValue( property , propertyEntry );
+            if( changeValue == null )
+                continue;
+            result.Add( changeValue );
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 获取扩展属性变更值集合
+    /// </summary>
+    protected virtual List<ChangeValue> GetExtraPropertiesChangeValues( IProperty property , PropertyEntry propertyEntry ) {
+        List<ChangeValue> result = new List<ChangeValue>();
+        if( propertyEntry.CurrentValue is not ExtraPropertyDictionary currentExtraValue )
+            return result;
+        if( propertyEntry.OriginalValue is not ExtraPropertyDictionary originalExtraValue )
+            return result;
+        foreach( string key in currentExtraValue.Keys ) {
+            currentExtraValue.TryGetValue( key , out object current );
+            originalExtraValue.TryGetValue( key , out object original );
+            string currentValue = Meow.Helper.Json.ToJson( current );
+            string originalValue = Meow.Helper.Json.ToJson( original );
+            result.Add( ToChangeValue( key , property.Name , originalValue , currentValue ) );
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 转换为变更值
+    /// </summary>
+    protected virtual ChangeValue ToChangeValue( string name , string description , string originalValue , string currentValue ) {
+        if( originalValue == "[]" )
+            originalValue = string.Empty;
+        if( currentValue == "[]" )
+            currentValue = string.Empty;
+        if( originalValue == currentValue )
+            return null;
+        return new ChangeValue( name , description , originalValue , currentValue );
+    }
+
+    /// <summary>
+    /// 获取属性变更值
+    /// </summary>
+    protected virtual ChangeValue GetPropertyChangeValue( IProperty property , PropertyEntry propertyEntry ) {
+        string description = Meow.Helper.Reflection.GetDisplayNameOrDescription( property.PropertyInfo );
+        return ToChangeValue( property.Name , description , propertyEntry.OriginalValue.SafeString() , propertyEntry.CurrentValue.SafeString() );
     }
 
     #endregion

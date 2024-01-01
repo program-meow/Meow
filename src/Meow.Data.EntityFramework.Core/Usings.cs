@@ -48,6 +48,7 @@ global using Meow.Domain.Entity;
 global using Meow.Domain.Repository;
 global using Meow.Domain.Auditing;
 global using Meow.Domain.Event;
+global using Meow.Domain.Compare;
 global using Meow.Date;
 global using Meow.Data.Filter;
 global using Meow.Data.Query;

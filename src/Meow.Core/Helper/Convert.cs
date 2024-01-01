@@ -275,26 +275,38 @@ public static class Convert {
         string time = value.SafeString().Replace( "-" , "" ).Replace( "/" , "" ).Replace( " " , "" ).Replace( ":" , "" ).Replace( "T" , "" );
         if( time.Length < 8 )
             return null;
-        int year = ToIntOrNull( time.Substring( 0 , 4 ) ) ?? 0;
-        if( year < 1 )
+        int? year = ToIntOrNull( time.Substring( 0 , 4 ) );
+        if( year.IsNull() || year < 1 )
             return null;
-        int month = ToIntOrNull( time.Substring( 4 , 2 ) ) ?? 0;
-        if( month < 1 )
+        int? month = ToIntOrNull( time.Substring( 4 , 2 ) );
+        if( month.IsNull() || month < 1 )
             return null;
-        int day = ToIntOrNull( time.Substring( 6 , 2 ) ) ?? 0;
-        if( day < 1 )
+        int? day = ToIntOrNull( time.Substring( 6 , 2 ) );
+        if( day.IsNull() || day < 1 )
             return null;
-        int monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year , month );
+        int monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year.SafeValue() , month.SafeValue() );
         if( monthMaxDay < day )
             return null;
         switch( time.Length ) {
             case 8:
-                return new DateTime( year , month , day );
+                return new DateTime( year.SafeValue() , month.SafeValue() , day.SafeValue() );
             case 14:
-                return new DateTime( year , month , day
-                    , int.Parse( time.Substring( 8 , 2 ) )
-                    , int.Parse( time.Substring( 10 , 2 ) )
-                    , int.Parse( time.Substring( 12 , 2 ) ) );
+                int? hour = ToIntOrNull( time.Substring( 8 , 2 ) );
+                if( hour.IsNull() || hour < 0 )
+                    return null;
+                int? minute = ToIntOrNull( time.Substring( 10 , 2 ) );
+                if( minute.IsNull() || minute < 0 )
+                    return null;
+                int? second = ToIntOrNull( time.Substring( 12 , 2 ) );
+                if( second.IsNull() || second < 0 )
+                    return null;
+                return new DateTime(
+                    year.SafeValue()
+                    , month.SafeValue()
+                    , day.SafeValue()
+                    , hour.SafeValue()
+                    , minute.SafeValue()
+                    , second.SafeValue() );
             default:
                 return null;
         }
