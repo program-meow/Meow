@@ -4,6 +4,7 @@
 /// EasyCaching缓存操作扩展
 /// </summary>
 public static class AppBuilderExtensions {
+
     #region 字段
 
     /// <summary>
@@ -199,4 +200,5 @@ public static class AppBuilderExtensions {
     }
 
     #endregion
+
 }

@@ -53,6 +53,32 @@ public static class Web {
 
     #endregion
 
+    #region Body  [请求正文]
+
+    /// <summary>
+    /// 请求正文
+    /// </summary>
+    public static byte[] Body {
+        get {
+            Request.EnableBuffering();
+            return File.ReadToBytes( Request.Body );
+        }
+    }
+
+    #endregion
+
+    #region GetBodyAsync  [获取请求正文]
+
+    /// <summary>
+    /// 获取请求正文
+    /// </summary>
+    public static async Task<byte[]> GetBodyAsync() {
+        Request.EnableBuffering();
+        return await File.ReadToBytesAsync( Request.Body );
+    }
+
+    #endregion
+
     #region Environment  [主机环境]
 
     /// <summary>
@@ -62,7 +88,7 @@ public static class Web {
 
     #endregion
 
-    #region HttpClient(Http客户端)
+    #region HttpClient  [Http客户端]
 
     /// <summary>
     /// Http客户端
@@ -150,81 +176,6 @@ public static class Web {
 
     #endregion
 
-    #region UrlEncode  [Url编码]
-
-    /// <summary>
-    /// Url编码
-    /// </summary>
-    /// <param name="url">url</param>
-    /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
-    public static string UrlEncode( string url , bool isUpper = false ) {
-        return UrlEncode( url , Encoding.UTF8 , isUpper );
-    }
-
-    /// <summary>
-    /// Url编码
-    /// </summary>
-    /// <param name="url">url</param>
-    /// <param name="encoding">字符编码</param>
-    /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
-    public static string UrlEncode( string url , string encoding , bool isUpper = false ) {
-        encoding = string.IsNullOrWhiteSpace( encoding ) ? "UTF-8" : encoding;
-        return UrlEncode( url , Encoding.GetEncoding( encoding ) , isUpper );
-    }
-
-    /// <summary>
-    /// Url编码
-    /// </summary>
-    /// <param name="url">url</param>
-    /// <param name="encoding">字符编码</param>
-    /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
-    public static string UrlEncode( string url , Encoding encoding , bool isUpper = false ) {
-        string result = HttpUtility.UrlEncode( url , encoding );
-        if( isUpper == false )
-            return result;
-        return GetUpperEncode( result );
-    }
-
-    /// <summary>
-    /// 获取大写编码字符串
-    /// </summary>
-    private static string GetUpperEncode( string encode ) {
-        StringBuilder result = new StringBuilder();
-        int index = int.MinValue;
-        for( int i = 0 ; i < encode.Length ; i++ ) {
-            string character = encode[ i ].ToString();
-            if( character == "%" )
-                index = i;
-            if( i - index == 1 || i - index == 2 )
-                character = character.ToUpper();
-            result.Append( character );
-        }
-        return result.ToString();
-    }
-
-    #endregion
-
-    #region UrlDecode  [Url解码]
-
-    /// <summary>
-    /// Url解码
-    /// </summary>
-    /// <param name="url">url</param>
-    public static string UrlDecode( string url ) {
-        return HttpUtility.UrlDecode( url );
-    }
-
-    /// <summary>
-    /// Url解码
-    /// </summary>
-    /// <param name="url">url</param>
-    /// <param name="encoding">字符编码</param>
-    public static string UrlDecode( string url , Encoding encoding ) {
-        return HttpUtility.UrlDecode( url , encoding );
-    }
-
-    #endregion
-
     #region DownloadAsync  [下载]
 
     /// <summary>
@@ -286,7 +237,7 @@ public static class Web {
         if( bytes == null || bytes.Length == 0 )
             return;
         fileName = fileName.Replace( " " , "" );
-        fileName = UrlEncode( fileName , encoding );
+        fileName = Meow.Helper.Url.Encode( fileName , encoding );
         Response.ContentType = "application/octet-stream";
         Response.Headers.Add( "Content-Disposition" , $"attachment; filename={fileName}" );
         Response.Headers.Add( "Content-Length" , bytes.Length.ToString() );
@@ -349,4 +300,5 @@ public static class Web {
     }
 
     #endregion
+
 }

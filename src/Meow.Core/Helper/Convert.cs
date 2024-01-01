@@ -275,9 +275,15 @@ public static class Convert {
         string time = value.SafeString().Replace( "-" , "" ).Replace( "/" , "" ).Replace( " " , "" ).Replace( ":" , "" ).Replace( "T" , "" );
         if( time.Length < 8 )
             return null;
-        int year = int.Parse( time.Substring( 0 , 4 ) );
-        int month = int.Parse( time.Substring( 4 , 2 ) );
-        int day = int.Parse( time.Substring( 6 , 2 ) );
+        int year = ToIntOrNull( time.Substring( 0 , 4 ) ) ?? 0;
+        if( year < 1 )
+            return null;
+        int month = ToIntOrNull( time.Substring( 4 , 2 ) ) ?? 0;
+        if( month < 1 )
+            return null;
+        int day = ToIntOrNull( time.Substring( 6 , 2 ) ) ?? 0;
+        if( day < 1 )
+            return null;
         int monthMaxDay = Meow.Helper.Time.GetDaysOfMonth( year , month );
         if( monthMaxDay < day )
             return null;

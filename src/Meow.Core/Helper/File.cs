@@ -196,6 +196,24 @@ public static class File {
         return reader.ReadBytes( ( int ) fileInfo.Length );
     }
 
+    /// <summary>
+    /// 读取流转换成字节数组
+    /// </summary>
+    /// <param name="stream">流</param>
+    public static byte[] ReadToBytes( SystemStream stream ) {
+        if( stream == null )
+            return null;
+        if( stream.CanRead == false )
+            return null;
+        if( stream.CanSeek )
+            stream.Seek( 0 , SeekOrigin.Begin );
+        byte[] buffer = new byte[ stream.Length ];
+        stream.Read( buffer , 0 , buffer.Length );
+        if( stream.CanSeek )
+            stream.Seek( 0 , SeekOrigin.Begin );
+        return buffer;
+    }
+
     #endregion
 
     #region ReadToBytesAsync  [读取流转换成字节数组]
